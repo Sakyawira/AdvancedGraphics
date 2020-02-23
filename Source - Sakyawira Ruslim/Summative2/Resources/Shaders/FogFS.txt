@@ -13,6 +13,12 @@ uniform samplerCube skybox;
 
 void main()
 {
+	vec3 norm = normalize(fragNormal);
+    vec3 viewDir = normalize(fragPos- camPos);
+    vec3 reflectDir = reflect(viewDir, norm);
+
+    color = vec4(texture(skybox, reflectDir).rgb , 1.0f);
+
 	float d = distance(mWorldPos.xyz, camPos); 
 
 	float lerp = (d - 5.0f)/10.f; 
