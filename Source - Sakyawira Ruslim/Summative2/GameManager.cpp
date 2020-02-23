@@ -28,7 +28,7 @@ GameManager::GameManager()
 	m_sh_phong_specular = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongSpecular.fs");
 	m_sh_phong_rim = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongRim.fs");
 	m_sh_cube_map = new Shader("Resources/Shaders/CubeMapVS.txt", "Resources/Shaders/CubeMapFS.txt");
-	m_sh_reflective = new Shader("Resources/Shaders/Reflection.vs", "Resources/Shaders/Reflection.fs");
+	m_sh_reflective = new Shader("Resources/Shaders/FogVS.txt", "Resources/Shaders/FogFS.txt");
 
 	// Create Mesh
 	m_mesh_static = new Mesh(animation_indices, static_vertices);

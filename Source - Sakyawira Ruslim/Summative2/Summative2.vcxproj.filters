@@ -149,6 +149,12 @@
     <Text Include="Resources\Shaders\PhongRim.fs">
       <Filter>Shaders</Filter>
     </Text>
+    <Text Include="Resources\Shaders\FogFS.txt">
+      <Filter>Shaders</Filter>
+    </Text>
+    <Text Include="Resources\Shaders\FogVS.txt">
+      <Filter>Shaders</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">
