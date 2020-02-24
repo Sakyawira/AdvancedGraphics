@@ -40,7 +40,7 @@ public:
 		//Invert y axis
 		y *= -1;
 
-		//glutWarpPointer((int)400, (int)400);
+		//glutWarpPointer((int)800, (int)800);
 		std::cout << "Passive x: " << x << " | y: " << y << std::endl;
 		currentMX = x;
 		currentMY = y;

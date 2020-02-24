@@ -70,7 +70,7 @@ private:
 	float m_angle_around_player = 0.0f;
 
 	// Pitch
-	float pitch = -35.0f;
+	float pitch = 0.0f;
 
 	// Yaw
 	float yaw = - 90.0f;
