@@ -2,6 +2,7 @@
 #include <iostream>
 #include "GameManager.h"
 #include <freeglut.h>
+#include <math.h>
 #include "clock.h"
 #include "Audio.h"
 
@@ -15,6 +16,7 @@ public:
 
 	void MouseClick(int button, int state, int x, int y)
 	{
+		
 		if (button >= 3)
 		{
 			return;
@@ -26,6 +28,19 @@ public:
 
 	void MousePassiveMove(int x, int y)
 	{
+		//Convert current screen width and height mouse co-ords to 
+			//Move co-ords from (0, 0) at top left, to (0, 0) at middle of screen
+			//(remaps screen size mouse coords to opengl pixel coords)
+		//x = (int)(Math::remap(x, -800, 800, -800, 800) - 800);
+		//y = (int)(Math::remap(y, -800, 800, -800, 800) - 800);
+
+		x -= 800;
+		y -= 800;
+
+		//Invert y axis
+		y *= -1;
+
+		//glutWarpPointer((int)400, (int)400);
 		std::cout << "Passive x: " << x << " | y: " << y << std::endl;
 		currentMX = x;
 		currentMY = y;
