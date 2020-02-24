@@ -21,120 +21,44 @@
 
 class Camera
 {
-	//Square 1
 public:
 	Camera() = default;
 	~Camera() = default;
+	void something();
 
+	void UseCamera(GLuint program/*, glm::mat4 view, glm::mat4 proj*/);
 
-	void UseCamera(GLuint program/*, glm::mat4 view, glm::mat4 proj*/)
-	{
-	//	view = glm::mat4(glm::mat3(view));
-		// Put view matrix into '*program'
-		GLuint viewLoc = glGetUniformLocation(program, "view");
-		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+	glm::mat4 GetVP();
 
-		// Put the Projection (Orthographic/Perspective) Matrix into '*program'
-		GLuint projLoc = glGetUniformLocation(program, "proj");
-		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
+	glm::vec3 GetPosition();
 
-		GLuint camLoc = glGetUniformLocation(program, "camPos");
-		glUniform3fv(camLoc, 1, glm::value_ptr(camPos));
-	}
+	void CameraUpdate(bool isGameStarted, float deltaTime, glm::vec3 _center);
 
-	glm::mat4 GetVP()
-	{
-		return proj * view;
-	}
+	void MovePosX(float i_magnitude);
 
-	glm::vec3 GetPosition()
-	{
-		return camPos;
-	}
+	void MovePosY(float i_magnitude);
 
-	void CameraUpdate(bool isGameStarted, float deltaTime, glm::vec3 _center)
-	{
-		if (isGameStarted)
-		{
-			Move(_center);
-			//center should be player position
-			view = glm::lookAt(camPos, _center, camUpDir);
-		}
-		else
-		{
-			timeElapsed += deltaTime;
-			GLfloat radius = 26.0f;
+	void MovePosZ(float i_magnitude);
 
-			camPos.x = sin(timeElapsed) * radius;
-			camPos.y = 1.5f;
-			camPos.z = cos(timeElapsed) * radius;
-			// View
-			view = glm::lookAt(camPos, glm::vec3(0.0f, 0.0f, 0.0f), camUpDir);
-		}
-	}
+	void SetPosX(float i_magnitude);
 
-	void MovePosX(float i_magnitude)
-	{
-		camPos.x += (1.0f * i_magnitude);
-	}
-	void MovePosY(float i_magnitude)
-	{
-		camPos.y += (1.0f * i_magnitude);
-	}
-	void MovePosZ(float i_magnitude)
-	{
-		camPos.z += (1.0f * i_magnitude);
-	}
+	void SetPosY(float i_magnitude);
 
-	void SetPosX(float i_magnitude)
-	{
-		camPos.x = i_magnitude;
-	}
+	void calculateZoom();
 
-	void SetPosY(float i_magnitude)
-	{
-		camPos.y = i_magnitude;
-	}
+	void calculatePitch();
 
-	void calculateZoom()
-	{
-		// float zoomLevel
-	}
+	void calculateAngleAroundPlayer();
 
-	void calculatePitch()
-	{
-		//
-	}
+	void updateLookDir(float currentX, float currentY);
 
-	void calculateAngleAroundPlayer()
-	{
-		//
-	}
+	float calculateHorizontalDistance();
 
-	float calculateHorizontalDistance()
-	{
-		return static_cast<float>(m_distance_to_player * glm::cos(glm::radians(pitch)));	
-	}
+	float calculateVerticalDistance();
 
-	float calculateVerticalDistance()
-	{
-		return static_cast<float>(m_distance_to_player * glm::sin(glm::radians(pitch)));
-	}
-	void Move(glm::vec3 _center)
-	{
-		float h_distance = calculateHorizontalDistance();
-		float v_distance = calculateVerticalDistance();
-		calculateCameraPosition(h_distance, v_distance, _center);
-	}
-	void calculateCameraPosition(float h_distance, float v_distance,  glm::vec3 _center)
-	{
-		float theta = /*player.getRotY() +*/ m_angle_around_player;
-		float offsetX = h_distance * glm::sin(glm::radians(theta));
-		float offsetZ = h_distance * glm::cos(glm::radians(theta));
-		camPos.x = _center.x - offsetX;
-		camPos.z = _center.z - offsetZ;
-		camPos.y = _center.y + v_distance;
-	}
+	void Move(glm::vec3 _center);
+	
+	void calculateCameraPosition(float h_distance, float v_distance, glm::vec3 _center);
 
 
 private:
@@ -148,8 +72,14 @@ private:
 	// Pitch
 	float pitch = -35.0f;
 
+	// Yaw
+	float yaw = - 90.0f;
+
 	// Time Elapse
 	float timeElapsed = 0.0f;
+
+	float lastX = 400;
+	float lastY = 400;
 	
 	// Camera
 	 glm::vec3 camPos = glm::vec3(0.0f, 0.0f, 6.0f);

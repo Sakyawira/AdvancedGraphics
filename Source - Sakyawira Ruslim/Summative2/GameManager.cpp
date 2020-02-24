@@ -352,7 +352,7 @@ void GameManager::ProcessGame(Audio& audio)
 			// Check if collide with enemy every frame
 			Coin_Collision_Check();
 			Bullet_Collision_Check();
-			Enemy_Collision_Check();
+		//	Enemy_Collision_Check();
 
 			// Update Texts
 			m_string_score = "Score = " + std::to_string(m_i_score) + " / " + std::to_string(m_i_level_threshold);

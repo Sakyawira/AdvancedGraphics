@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="clock.cpp" />
     <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="Enemy.cpp" />

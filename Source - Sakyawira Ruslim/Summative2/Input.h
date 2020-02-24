@@ -27,6 +27,8 @@ public:
 	void MousePassiveMove(int x, int y)
 	{
 		std::cout << "Passive x: " << x << " | y: " << y << std::endl;
+		currentMX = x;
+		currentMY = y;
 	}
 
 	void MouseMove(int x, int y)
@@ -77,6 +79,9 @@ private:
 	InputState SpecialKeyState[255];
 
 	InputState MouseState[3];
+
+	int currentMX = 0;
+	int currentMY = 0;
 
 };
 

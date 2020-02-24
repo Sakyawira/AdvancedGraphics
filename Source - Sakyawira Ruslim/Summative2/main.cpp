@@ -37,6 +37,21 @@ void SpecialKeyDown(int key, int x, int y)
 	input.SpecialKeyboardDown(key, x, y);
 }
 
+void MouseClick(int button, int state, int x, int y)
+{
+	input.MouseClick(button, state, x, y);
+}
+
+void MousePassiveMove(int x, int y)
+{
+	input.MousePassiveMove(x, y);
+}
+
+void MouseMove(int x, int y)
+{
+	input.MouseMove(x, y);
+}
+
 int main(int argc, char **argv)
 {
 	//assert(AudioInit() == true);
@@ -90,9 +105,9 @@ int main(int argc, char **argv)
 	glutSpecialFunc(SpecialKeyDown);
 	glutSpecialUpFunc(SpecialKeyUp);
 
-	//glutMouseFunc(MouseClick);
-	//glutMotionFunc(MouseMove);
-	//glutPassiveMotionFunc(MousePassiveMove);
+	glutMouseFunc(MouseClick);
+	glutMotionFunc(MouseMove);
+	glutPassiveMotionFunc(MousePassiveMove);
 
 	//glutCloseFunc(ShutDown);
 	glutMainLoop(); //Ensure this is the last glut line called

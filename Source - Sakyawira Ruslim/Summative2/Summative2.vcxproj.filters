@@ -46,6 +46,7 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">

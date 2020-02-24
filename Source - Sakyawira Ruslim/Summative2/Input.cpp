@@ -150,5 +150,5 @@ void Input::ProcessInput(GameManager* Game, Audio& audio)
 	//	Game->camera.MovePosX(0.1f * Game->GetClock()->GetDeltaTick() * 120.0f);
 	//}
 
-	
+	Game->camera.updateLookDir(currentMX, currentMY);
 }
