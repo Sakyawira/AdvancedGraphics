@@ -26,7 +26,7 @@ public:
 		std::cout << "Clicked Once x: " << x << " | y: " << y << std::endl;
 	}
 
-	void MousePassiveMove(int x, int y)
+	void MousePassiveMove(int x, int y, GameManager* Game)
 	{
 		//Convert current screen width and height mouse co-ords to 
 			//Move co-ords from (0, 0) at top left, to (0, 0) at middle of screen
@@ -34,16 +34,21 @@ public:
 		//x = (int)(Math::remap(x, -800, 800, -800, 800) - 800);
 		//y = (int)(Math::remap(y, -800, 800, -800, 800) - 800);
 
-		x -= 800;
-		y -= 800;
+		x -= 400;
+		y -= 400;
 
 		//Invert y axis
 		y *= -1;
 
-		//glutWarpPointer((int)800, (int)800);
+	
 		std::cout << "Passive x: " << x << " | y: " << y << std::endl;
-		currentMX = x;
-		currentMY = y;
+		//currentMX = x;
+		//currentMY = y;
+
+
+		Game->camera.updateLookDir(x, y);
+
+		
 	}
 
 	void MouseMove(int x, int y)
@@ -95,8 +100,8 @@ private:
 
 	InputState MouseState[3];
 
-	int currentMX = 0;
-	int currentMY = 0;
+	float currentMX = 0;
+	float currentMY = 0;
 
 };
 

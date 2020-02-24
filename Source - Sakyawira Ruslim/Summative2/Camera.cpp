@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include <freeglut.h>
 
 void Camera::something()
 {
@@ -40,7 +41,7 @@ void Camera::CameraUpdate(bool isGameStarted, float deltaTime, glm::vec3 _center
 
 	if (isGameStarted)
 	{
-		Move(_center);
+		//Move(_center);
 		//center should be player position
 		view = glm::lookAt(camPos, camPos + camLookDir, camUpDir);
 	}
@@ -82,10 +83,16 @@ void Camera::SetPosY(float i_magnitude)
 	camPos.y = i_magnitude;
 }
 
-void Camera::updateLookDir(float currentX, float currentY)
+void Camera::updateLookDir(int currentX, int currentY)
 {
 	float offsetX = currentX - lastX;
 	float offsetY = currentY - lastY;
+
+	lastX = 0;
+	lastY = 0;
+
+	//currentX = 400;
+	//currentY = 400;
 
 	const float sensitivity = 0.05f;
 
@@ -102,10 +109,8 @@ void Camera::updateLookDir(float currentX, float currentY)
 	if (pitch < -89.0f)
 	{
 		pitch = -89.0f;
-	}
-
-	lastX = currentX;
-	lastY = currentY;
+	}	
+	glutWarpPointer((int)400, (int)400);
 }
 
 float Camera::calculateHorizontalDistance()

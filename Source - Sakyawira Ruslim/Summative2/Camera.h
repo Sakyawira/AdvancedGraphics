@@ -50,7 +50,7 @@ public:
 
 	void calculateAngleAroundPlayer();
 
-	void updateLookDir(float currentX, float currentY);
+	void updateLookDir(int currentX, int currentY);
 
 	float calculateHorizontalDistance();
 

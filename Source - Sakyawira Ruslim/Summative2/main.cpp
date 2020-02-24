@@ -44,7 +44,7 @@ void MouseClick(int button, int state, int x, int y)
 
 void MousePassiveMove(int x, int y)
 {
-	input.MousePassiveMove(x, y);
+	input.MousePassiveMove(x, y, Game);
 }
 
 void MouseMove(int x, int y)
