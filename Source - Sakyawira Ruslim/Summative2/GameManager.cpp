@@ -484,6 +484,9 @@ void GameManager::Render()
 		//}
 
 		// Drawing all obstacles
+		glEnable(GL_SCISSOR_TEST);
+		glScissor(200, 200, 400, 200);
+
 		for (auto& coinObjects : m_vector_enemies)
 		{
 			coinObjects->draw_with_model(m_clock->GetDeltaTick());
@@ -528,7 +531,7 @@ void GameManager::Render()
 			m_text_level->Render();
 			m_text_instruction->Render();
 		}
-		
+		glDisable(GL_SCISSOR_TEST);
 	}
 	else
 	{
