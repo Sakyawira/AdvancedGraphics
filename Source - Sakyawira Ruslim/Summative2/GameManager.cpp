@@ -74,6 +74,12 @@ GameManager::GameManager()
 	std::vector<Texture*> bg_texture = { m_tr_background, m_tr_background };
 	std::vector<Texture*> v_cubeMap = { m_tr_cube_map };
 
+	// Stencil Cube
+	stencilCube = new GameObject(m_sh_phong_diffuse, m_mesh_cube, v_texture, 0.0f, 0.0f, 0.0f);
+	stencilCube->Scale(5.0f);
+	stencilCube2 = new GameObject(m_sh_phong_diffuse, m_mesh_cube, bg_texture, 0.0f, 0.0f, 0.0f);
+	stencilCube2->Scale(6.0f);
+
 	// Sky-box / Cube-Map
 	sky_box = new GameObject(m_sh_cube_map, m_mesh_cube_map, v_cubeMap, 0.0f, 0.0f, 0.0f);
 	sky_box->Scale(2000.0f);
@@ -271,6 +277,12 @@ GameManager::~GameManager()
 
 	delete m_clock;
 	m_clock = nullptr;
+
+	delete stencilCube;
+	stencilCube = nullptr;
+
+	delete stencilCube2;
+	stencilCube2 = nullptr;
 }
 
 void GameManager::Initialize()
@@ -482,56 +494,84 @@ void GameManager::Render()
 		//{
 		//	playerObjects->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 		//}
+		
 
 		// Drawing all obstacles
-		glEnable(GL_SCISSOR_TEST);
-		glScissor(200, 200, 400, 200);
+		//glEnable(GL_SCISSOR_TEST);
+		//glScissor(200, 200, 400, 200);
 
-		for (auto& coinObjects : m_vector_enemies)
-		{
-			coinObjects->draw_with_model(m_clock->GetDeltaTick());
-		}
+		//for (auto& coinObjects : m_vector_enemies)
+		//{
+		//	coinObjects->draw_with_model(m_clock->GetDeltaTick());
+		//}
 
-		// Drawing all obstacles
-		for (auto& coinObjects2 : m_vector_coins)
-		{
-			coinObjects2->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
-		}
+		//// Drawing all obstacles
+		//for (auto& coinObjects2 : m_vector_coins)
+		//{
+		//	coinObjects2->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
+		//}
 
-		// Draw all walls
-		/*	for (auto& obstacleObjects : m_vector_obstacle_walls)
-		{
-			obstacleObjects->Draw(camera, "currentTime", currentTime, m_clock->GetDeltaTick());
-		}*/
+		//// Draw all walls
+		///*	for (auto& obstacleObjects : m_vector_obstacle_walls)
+		//{
+		//	obstacleObjects->Draw(camera, "currentTime", currentTime, m_clock->GetDeltaTick());
+		//}*/
 
-		// pyramid->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
-		//sky_box->Draw(camera);
-		m_tr_cube_map->Render(m_sh_cube_map, m_mesh_cube_map, camera);
+		//// pyramid->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
+		////sky_box->Draw(camera);
+		//m_tr_cube_map->Render(m_sh_cube_map, m_mesh_cube_map, camera);
+		//
+		////tank->draw_with_model(m_clock->GetDeltaTick());
+
+		//m_bullet->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
+		//
+		//frameCounts += 1.0f * m_clock->GetDeltaTick() * 120.0f;
+
+		//if (m_i_lives <= 0 || m_b_start == 0)
+		//{
+		//	//Menu->Draw(camera, "currentTime", currentTime, m_clock->GetDeltaTick());
+		//	// player->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
+		//	cube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
+		//	sphere->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_tr_cube_map, m_clock->GetDeltaTick());
+		//	m_text_menu->Render();
+		//	//	m_text_bg->Render();
+		//}
+
+		//if (m_text_score != nullptr)
+		//{
+		//	m_text_score->Render();
+		//	m_text_lives->Render();
+		//	m_text_level->Render();
+		//	m_text_instruction->Render();
+		//}
+
+		//enable stencil and set stencil operation 
+		glEnable(GL_STENCIL_TEST);
+		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE); //stPass, dpFail, bothPass 
+
+		//** 1st pass ** //set current stencil value 
+		glStencilFunc(GL_ALWAYS, // test function 
+						1,// current value to set 
+						0xFF);//mask value, 
+		glStencilMask(0xFF);//enable writing to stencil buffer
+		//--> render regular sized cube // fills stencil buffer 
 		
-		tank->draw_with_model(m_clock->GetDeltaTick());
+		stencilCube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 
-		m_bullet->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
+		// ** 2nd pass ** 
+		glStencilFunc(GL_NOTEQUAL, 1, 0xFF); 
+		glStencilMask(0x00); //disable writing to stencil buffer
+		//--> render scaled up cube 
+		stencilCube2->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
+		// write to areas where value is not equal to 1
+		// disable writing to stencil mask 
+		glStencilMask(0x00); 
+		glDisable(GL_STENCIL_TEST);
+
+		glStencilMask(0xFF);//enable writing to stencil buffer
+
 		
-		frameCounts += 1.0f * m_clock->GetDeltaTick() * 120.0f;
-
-		if (m_i_lives <= 0 || m_b_start == 0)
-		{
-			//Menu->Draw(camera, "currentTime", currentTime, m_clock->GetDeltaTick());
-			// player->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
-			cube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
-			sphere->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_tr_cube_map, m_clock->GetDeltaTick());
-			m_text_menu->Render();
-			//	m_text_bg->Render();
-		}
-
-		if (m_text_score != nullptr)
-		{
-			m_text_score->Render();
-			m_text_lives->Render();
-			m_text_level->Render();
-			m_text_instruction->Render();
-		}
-		glDisable(GL_SCISSOR_TEST);
+	//	glDisable(GL_SCISSOR_TEST);
 	}
 	else
 	{
