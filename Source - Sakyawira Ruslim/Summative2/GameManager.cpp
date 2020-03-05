@@ -31,15 +31,15 @@ GameManager::GameManager()
 	m_sh_reflective = new Shader("Resources/Shaders/FogVS.txt", "Resources/Shaders/FogFS.txt", m_v_sh);
 
 	// Create Mesh
-	m_mesh_static = new Mesh(animation_indices, static_vertices);
-	m_mesh_animate = new Mesh(animation_indices, animation_vertices);
-	m_mesh_animate2 = new Mesh(animation_indices, enemy2_vertices);
-	m_mesh_scroll = new Mesh(animation_indices, animation_vertices);
-	m_mesh_player = new Mesh(animation_indices, player_animation_vertices);
-	m_mesh_pyramid = new Mesh(pyramid_indices, pyramid_vertices);
-	m_mesh_cube = new Mesh(cube_indices, cube_vertices);
+	m_mesh_static = new Mesh(animation_indices, static_vertices, m_v_mesh);
+	m_mesh_animate = new Mesh(animation_indices, animation_vertices, m_v_mesh);
+	m_mesh_animate2 = new Mesh(animation_indices, enemy2_vertices, m_v_mesh);
+	m_mesh_scroll = new Mesh(animation_indices, animation_vertices, m_v_mesh);
+	m_mesh_player = new Mesh(animation_indices, player_animation_vertices, m_v_mesh);
+	m_mesh_pyramid = new Mesh(pyramid_indices, pyramid_vertices, m_v_mesh);
+	m_mesh_cube = new Mesh(cube_indices, cube_vertices, m_v_mesh);
 	m_mesh_sphere = new Sphere();
-	m_mesh_cube_map = new Mesh(cube_map_indices, cube_map_vertices);
+	m_mesh_cube_map = new Mesh(cube_map_indices, cube_map_vertices, m_v_mesh);
 
 	// Model
 	m_mdl_tank = new Model("Resources/Models/Tank/Tank.obj", &camera);
@@ -176,32 +176,12 @@ GameManager::~GameManager()
 	
 	delete m_tr_cube_map;
 	m_tr_cube_map = nullptr;
-
-	
-	delete m_mesh_sphere;
-
-	delete m_mesh_pyramid;
-
-	delete m_mesh_cube;
 	
 	delete m_text_instruction;
 	m_text_instruction = nullptr;
 	
 	delete m_text_menu;
 	m_text_menu = nullptr;
-	
-	delete m_mesh_static;
-	m_mesh_static = nullptr;
-	delete m_mesh_animate;
-	m_mesh_animate = nullptr;
-	delete m_mesh_animate2;
-	m_mesh_animate2 = nullptr;
-	delete m_mesh_scroll;
-	m_mesh_scroll = nullptr;
-	delete m_mesh_player;
-	m_mesh_player = nullptr;
-	delete m_mesh_cube_map;
-	m_mesh_cube_map = nullptr;
 
 	delete m_tr_stars;
 	m_tr_stars = nullptr;
@@ -262,6 +242,12 @@ GameManager::~GameManager()
 	{
 		delete shader;
 		shader = nullptr;
+	}
+
+	for (auto& mesh : m_v_mesh)
+	{
+		delete mesh;
+		mesh = nullptr;
 	}
 
 }

@@ -21,7 +21,7 @@ class Mesh
 	//Square 1
 public:
 	Mesh() = default;
-	Mesh(const std::vector<GLuint>& indices, const std::vector<GLfloat>& vertices);
+	Mesh(const std::vector<GLuint>& indices, const std::vector<GLfloat>& vertices, std::vector<Mesh*>& meshVector);
 	~Mesh() = default;
 
 	void Bind();

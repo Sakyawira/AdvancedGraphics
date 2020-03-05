@@ -179,6 +179,8 @@ private:
 
 	std::vector<Shader*> m_v_sh;
 
+	std::vector<Mesh*> m_v_mesh;
+
 	std::vector<GLfloat> static_vertices =
 	{
 		// Position				// Color			// Texture Coords

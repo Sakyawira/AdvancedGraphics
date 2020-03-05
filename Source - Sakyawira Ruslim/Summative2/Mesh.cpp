@@ -13,7 +13,7 @@
 ********************/
 #include "Mesh.h"
 
-Mesh::Mesh(const std::vector<GLuint>& indices, const std::vector<GLfloat>& vertices)
+Mesh::Mesh(const std::vector<GLuint>& indices, const std::vector<GLfloat>& vertices, std::vector<Mesh*>& meshVector)
 {
 	m_indicesSize = indices.size();
 
@@ -66,6 +66,8 @@ Mesh::Mesh(const std::vector<GLuint>& indices, const std::vector<GLfloat>& verti
 	glEnableVertexAttribArray(2);
 
 	glBindVertexArray(0);
+
+	meshVector.push_back(this);
 }
 
 void Mesh::Bind()
