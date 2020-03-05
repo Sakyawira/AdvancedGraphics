@@ -61,7 +61,7 @@ int main(int argc, char **argv)
 		
 	// Setup and create at glut controlled window
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
+	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GLUT_MULTISAMPLE);
 	glutInitWindowPosition(50, 50);
 	glutInitWindowSize(WINDOW_WIDHT, WINDOW_HEIGHT);
 	glutCreateWindow("OpenGL First Window");
@@ -79,6 +79,9 @@ int main(int argc, char **argv)
 	glClearColor(0.0, 0.0, 0.0, 1.0); // Red
 
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
+
+	glutSetOption(GLUT_MULTISAMPLE, 8);
+	glEnable(GL_MULTISAMPLE);
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
@@ -119,7 +122,7 @@ int main(int argc, char **argv)
 
 void Render()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT );
 	
 	if (Game != nullptr)
 	{
