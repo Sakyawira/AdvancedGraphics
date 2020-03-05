@@ -23,7 +23,7 @@ class Shader
 {
 	//Square 1
 public:
-	Shader(const char* VertexShaderFilename, const char* FragmentShaderFilename);
+	Shader(const char* VertexShaderFilename, const char* FragmentShaderFilename, std::vector<Shader*>& shaderVector);
 	~Shader() = default;
 	void Transform(glm::mat4 translationMatrix, glm::mat4 rotationZ, glm::mat4 scaleMatrix, glm::mat4 modelMatrix, Camera& camera);
 	// void PassTexture(Texture* v_texture);

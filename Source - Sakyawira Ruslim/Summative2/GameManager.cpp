@@ -21,14 +21,14 @@ GameManager::GameManager()
 	// Create Clock
 	m_clock = new CClock();
 	// Create Shader
-	m_sh_alternating = new Shader("Resources/Shaders/AlternatingVertex.txt", "Resources/Shaders/AlternatingFragment.txt");
-	m_sh_animate = new Shader("Resources/Shaders/AnimationVertex.txt", "Resources/Shaders/AnimationFragment.txt");
-	m_sh_scroll = new Shader("Resources/Shaders/ScrollingVertex.txt", "Resources/Shaders/AnimationFragment.txt");
-	m_sh_phong_diffuse = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongDiffuse.fs");
-	m_sh_phong_specular = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongSpecular.fs");
-	m_sh_phong_rim = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongRim.fs");
-	m_sh_cube_map = new Shader("Resources/Shaders/CubeMapVS.txt", "Resources/Shaders/CubeMapFS.txt");
-	m_sh_reflective = new Shader("Resources/Shaders/FogVS.txt", "Resources/Shaders/FogFS.txt");
+	m_sh_alternating = new Shader("Resources/Shaders/AlternatingVertex.txt", "Resources/Shaders/AlternatingFragment.txt", m_v_sh);
+	m_sh_animate = new Shader("Resources/Shaders/AnimationVertex.txt", "Resources/Shaders/AnimationFragment.txt", m_v_sh);
+	m_sh_scroll = new Shader("Resources/Shaders/ScrollingVertex.txt", "Resources/Shaders/AnimationFragment.txt", m_v_sh);
+	m_sh_phong_diffuse = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongDiffuse.fs", m_v_sh);
+	m_sh_phong_specular = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongSpecular.fs", m_v_sh);
+	m_sh_phong_rim = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongRim.fs", m_v_sh);
+	m_sh_cube_map = new Shader("Resources/Shaders/CubeMapVS.txt", "Resources/Shaders/CubeMapFS.txt", m_v_sh);
+	m_sh_reflective = new Shader("Resources/Shaders/FogVS.txt", "Resources/Shaders/FogFS.txt", m_v_sh);
 
 	// Create Mesh
 	m_mesh_static = new Mesh(animation_indices, static_vertices);
@@ -159,9 +159,6 @@ GameManager::~GameManager()
 	delete m_text_bg;
 	m_text_bg = nullptr;
 	
-	delete m_sh_reflective;
-	m_sh_reflective = nullptr;
-	
 	delete m_bullet;
 	m_bullet = nullptr;
 	
@@ -176,16 +173,10 @@ GameManager::~GameManager()
 	
 	delete m_mdl_tank;
 	m_mdl_tank = nullptr;
-
-	delete sky_box;
-	sky_box = nullptr;
 	
 	delete m_tr_cube_map;
 	m_tr_cube_map = nullptr;
-	
-	delete m_sh_phong_rim;
-	delete m_sh_phong_specular;
-	delete m_sh_phong_diffuse;
+
 	
 	delete m_mesh_sphere;
 
@@ -211,18 +202,6 @@ GameManager::~GameManager()
 	m_mesh_player = nullptr;
 	delete m_mesh_cube_map;
 	m_mesh_cube_map = nullptr;
-
-	delete m_sh_alternating;
-	m_sh_alternating = nullptr;
-	delete m_sh_animate;
-	m_sh_animate = nullptr;
-	delete m_sh_scroll;
-	m_sh_scroll = nullptr;
-	delete m_sh_cube_map;
-	m_sh_cube_map = nullptr;
-	
-	//delete m_sh_phong_diffuse;
-	//m_sh_phong_diffuse = nullptr;
 
 	delete m_tr_stars;
 	m_tr_stars = nullptr;
@@ -277,6 +256,12 @@ GameManager::~GameManager()
 	{
 		delete geometry;
 		geometry = nullptr;
+	}
+
+	for (auto& shader : m_v_sh)
+	{
+		delete shader;
+		shader = nullptr;
 	}
 
 }

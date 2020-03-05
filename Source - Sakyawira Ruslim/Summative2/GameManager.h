@@ -177,6 +177,8 @@ private:
 	std::vector<GameObject*> m_vector_playerObjects;
 	std::vector<GameObject*> m_v_geometry;
 
+	std::vector<Shader*> m_v_sh;
+
 	std::vector<GLfloat> static_vertices =
 	{
 		// Position				// Color			// Texture Coords

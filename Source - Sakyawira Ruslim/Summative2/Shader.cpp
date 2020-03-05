@@ -14,9 +14,10 @@
 #include "Shader.h"
 
 
-Shader::Shader(const char * VertexShaderFilename, const char * FragmentShaderFilename)
+Shader::Shader(const char * VertexShaderFilename, const char * FragmentShaderFilename, std::vector<Shader*>& shaderVector)
 {
 	m_program = ShaderLoader::CreateProgram(VertexShaderFilename, FragmentShaderFilename);
+	shaderVector.push_back(this);
 }
 
 void Shader::Transform(glm::mat4 translationMatrix, glm::mat4 rotationZ, glm::mat4 scaleMatrix, glm::mat4 modelMatrix, Camera& camera )
