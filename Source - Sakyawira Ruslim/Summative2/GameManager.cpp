@@ -61,7 +61,7 @@ GameManager::GameManager()
 	m_tr_stars = new Texture("Resources/Textures/stars.png");
 	m_tr_background = new Texture("Resources/Textures/bullet.png");
 	m_tr_slimes = new Texture("Resources/Textures/Slimes.png");
-	m_tr_water = new Texture("Resources/Textures/water.png");
+	m_tr_water = new Texture("Resources/Textures/green.png");
 	//m_tr_menu = new Texture("Resources/Textures/Menu.png");
 	std::vector<const char*> textureDirs = {"right.jpg", "left.jpg", "top.jpg", "bottom.jpg", "back.jpg", "front.jpg"};
 	m_tr_cube_map = new CubeMap(textureDirs);
@@ -79,6 +79,8 @@ GameManager::GameManager()
 	stencilCube->Scale(5.0f);
 	stencilCube2 = new GameObject(m_sh_phong_diffuse, m_mesh_cube, bg_texture, 0.0f, 0.0f, 0.0f);
 	stencilCube2->Scale(6.0f);
+	transparentCube = new GameObject(m_sh_phong_diffuse, m_mesh_cube, v_water_texture, 0.0f, 0.0f, 0.0f);
+	transparentCube->Scale(8.0f);
 
 	// Sky-box / Cube-Map
 	sky_box = new GameObject(m_sh_cube_map, m_mesh_cube_map, v_cubeMap, 0.0f, 0.0f, 0.0f);
@@ -283,6 +285,9 @@ GameManager::~GameManager()
 
 	delete stencilCube2;
 	stencilCube2 = nullptr;
+
+	delete transparentCube;
+	transparentCube = nullptr;
 }
 
 void GameManager::Initialize()
@@ -570,6 +575,11 @@ void GameManager::Render()
 
 		glStencilMask(0xFF);//enable writing to stencil buffer
 
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		transparentCube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
+
+		glDisable(GL_BLEND);
 		
 	//	glDisable(GL_SCISSOR_TEST);
 	}

@@ -166,6 +166,8 @@ private:
 
 	GameObject* stencilCube;
 	GameObject* stencilCube2;
+
+	GameObject* transparentCube;
 	
 	// Vectors
 	std::vector<Enemy*> m_vector_enemies;
