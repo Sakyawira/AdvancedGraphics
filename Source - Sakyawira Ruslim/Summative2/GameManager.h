@@ -181,6 +181,8 @@ private:
 
 	std::vector<Mesh*> m_v_mesh;
 
+	std::vector<TextLabel*> m_v_text;
+
 	std::vector<GLfloat> static_vertices =
 	{
 		// Position				// Color			// Texture Coords

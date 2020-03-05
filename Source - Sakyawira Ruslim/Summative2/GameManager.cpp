@@ -49,13 +49,13 @@ GameManager::GameManager()
 	std::string m_string_menu = "Sakyawira's Burnt Out";
 	std::string m_string_instruction = "Press 'R' to start the game...";
 	
-	m_text_score = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_score, "Resources/Fonts/arial.ttf", glm::vec2(-390.0f, 350.0f));
-	m_text_lives = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_lives, "Resources/Fonts/arial.ttf", glm::vec2(-390.0f, 300.0f));
-	m_text_level = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_level, "Resources/Fonts/arial.ttf", glm::vec2( 290.0f, 350.0f));
-	m_text_menu = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_menu, "Resources/Fonts/arial.ttf", glm::vec2(-108, 250.0f));
-	m_text_instruction = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_instruction, "Resources/Fonts/arial.ttf", glm::vec2(-108, -250.0f));
+	m_text_score = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_score, "Resources/Fonts/arial.ttf", glm::vec2(-390.0f, 350.0f), m_v_text);
+	m_text_lives = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_lives, "Resources/Fonts/arial.ttf", glm::vec2(-390.0f, 300.0f), m_v_text);
+	m_text_level = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_level, "Resources/Fonts/arial.ttf", glm::vec2( 290.0f, 350.0f), m_v_text);
+	m_text_menu = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_menu, "Resources/Fonts/arial.ttf", glm::vec2(-108, 250.0f), m_v_text);
+	m_text_instruction = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_instruction, "Resources/Fonts/arial.ttf", glm::vec2(-108, -250.0f), m_v_text);
 	m_string_bg = "L" + std::to_string(m_c_bg);
-	m_text_bg = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_bg, "Resources/Fonts/waltographUI.ttf", glm::vec2(-1300.0f, -260.0f));
+	m_text_bg = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_bg, "Resources/Fonts/waltographUI.ttf", glm::vec2(-1300.0f, -260.0f), m_v_text);
 
 	// Texture
 	m_tr_stars = new Texture("Resources/Textures/stars.png");
@@ -156,9 +156,6 @@ GameManager::GameManager()
 
 GameManager::~GameManager()
 {
-	delete m_text_bg;
-	m_text_bg = nullptr;
-	
 	delete m_bullet;
 	m_bullet = nullptr;
 	
@@ -168,20 +165,11 @@ GameManager::~GameManager()
 	delete tank;
 	tank = nullptr;
 	
-	delete m_text_level;
-	m_text_level = nullptr;
-	
 	delete m_mdl_tank;
 	m_mdl_tank = nullptr;
 	
 	delete m_tr_cube_map;
 	m_tr_cube_map = nullptr;
-	
-	delete m_text_instruction;
-	m_text_instruction = nullptr;
-	
-	delete m_text_menu;
-	m_text_menu = nullptr;
 
 	delete m_tr_stars;
 	m_tr_stars = nullptr;
@@ -192,20 +180,15 @@ GameManager::~GameManager()
 	delete m_tr_water;
 	m_tr_water = nullptr;
 
-	delete m_text_score;
-	m_text_score = nullptr;
-
-	delete m_text_lives;
-	m_text_lives = nullptr;
 
 	delete player;
 	player = nullptr;
-	//delete m_coin;
 
-	/*delete Menu;
-	Menu = nullptr;
-	delete m_tr_menu;
-	m_tr_menu = nullptr;*/
+	for (auto& text : m_v_text)
+	{
+		delete text;
+		text = nullptr;
+	}
 
 	for (auto& backgroundObjects : m_vector_backgroundObjects)
 	{
@@ -249,7 +232,6 @@ GameManager::~GameManager()
 		delete mesh;
 		mesh = nullptr;
 	}
-
 }
 
 void GameManager::Initialize()

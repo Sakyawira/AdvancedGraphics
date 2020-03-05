@@ -13,7 +13,7 @@
 ********************/
 #include "TextLabel.h"
 
-TextLabel::TextLabel(int _WINDOW_WIDTH, int _WINDOW_HEIGHT, std::string text, std::string font, glm::vec2 pos, glm::vec3 color, float scale)
+TextLabel::TextLabel(int _WINDOW_WIDTH, int _WINDOW_HEIGHT, std::string text, std::string font, glm::vec2 pos, std::vector<TextLabel*>& textVector, glm::vec3 color, float scale)
 {
 	SetText(text);
 	SetColor(color);
@@ -87,6 +87,8 @@ TextLabel::TextLabel(int _WINDOW_WIDTH, int _WINDOW_HEIGHT, std::string text, st
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+
+	textVector.push_back(this);
 }
 
 void TextLabel::Render()

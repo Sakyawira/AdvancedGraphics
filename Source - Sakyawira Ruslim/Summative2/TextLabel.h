@@ -51,6 +51,7 @@ class TextLabel
 			std::string newText,
 			std::string newFont,
 			glm::vec2 newPos,
+			std::vector<TextLabel*>& textVector,
 			glm::vec3 newColor = glm::vec3(1.0f, 1.0f, 1.0f),
 			float scale = 1.0f
 		);
