@@ -175,6 +175,7 @@ private:
 	std::vector<GameObject*> m_vector_obstacle_walls;
 	std::vector<GameObject*> m_vector_backgroundObjects;
 	std::vector<GameObject*> m_vector_playerObjects;
+	std::vector<GameObject*> m_v_geometry;
 
 	std::vector<GLfloat> static_vertices =
 	{

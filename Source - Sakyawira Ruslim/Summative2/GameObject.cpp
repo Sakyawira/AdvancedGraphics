@@ -16,7 +16,7 @@
 
 #include "GameObject.h"
 
-GameObject::GameObject(Shader* _shader, Mesh* _mesh, std::vector<Texture*>& _textures, float _initial_x, float _initial_y, float _initial_z)
+GameObject::GameObject(Shader* _shader, Mesh* _mesh, std::vector<Texture*>& _textures, float _initial_x, float _initial_y, float _initial_z, std::vector<GameObject*>& objectVector)
 {
 	m_shader = _shader;
 	m_mesh = _mesh;
@@ -30,6 +30,8 @@ GameObject::GameObject(Shader* _shader, Mesh* _mesh, std::vector<Texture*>& _tex
 	m_objPosition = glm::vec3(m_xPos, m_yPos, m_zPos);
 	m_translationMatrix = glm::translate(glm::mat4(), m_objPosition);
 	m_modelMatrix = m_translationMatrix * m_rotationZ * m_scaleMatrix;
+
+	objectVector.push_back(this);
 }
 
 GameObject::GameObject(Model * _model, float _initial_x, float _initial_y, float _initial_z)

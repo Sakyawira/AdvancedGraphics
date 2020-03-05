@@ -75,26 +75,26 @@ GameManager::GameManager()
 	std::vector<Texture*> v_cubeMap = { m_tr_cube_map };
 
 	// Stencil Cube
-	stencilCube = new GameObject(m_sh_phong_diffuse, m_mesh_cube, v_texture, 0.0f, 0.0f, 0.0f);
+	stencilCube = new GameObject(m_sh_phong_diffuse, m_mesh_cube, v_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	stencilCube->Scale(5.0f);
-	stencilCube2 = new GameObject(m_sh_phong_diffuse, m_mesh_cube, bg_texture, 0.0f, 0.0f, 0.0f);
+	stencilCube2 = new GameObject(m_sh_phong_diffuse, m_mesh_cube, bg_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	stencilCube2->Scale(6.0f);
-	transparentCube = new GameObject(m_sh_phong_diffuse, m_mesh_cube, v_water_texture, 0.0f, 0.0f, 0.0f);
+	transparentCube = new GameObject(m_sh_phong_diffuse, m_mesh_cube, v_water_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	transparentCube->Scale(8.0f);
 
 	// Sky-box / Cube-Map
-	sky_box = new GameObject(m_sh_cube_map, m_mesh_cube_map, v_cubeMap, 0.0f, 0.0f, 0.0f);
+	sky_box = new GameObject(m_sh_cube_map, m_mesh_cube_map, v_cubeMap, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	sky_box->Scale(2000.0f);
 
 	// Pyramid
-	pyramid = new GameObject(m_sh_alternating, m_mesh_pyramid, bg_texture, 0.0f, 0.0f, 0.0f);
+	pyramid = new GameObject(m_sh_alternating, m_mesh_pyramid, bg_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 
 	// Cube
-	cube = new GameObject(m_sh_phong_specular, m_mesh_sphere, bg_texture, 0.0f, -10.0f, 0.0f);
+	cube = new GameObject(m_sh_phong_specular, m_mesh_sphere, bg_texture, 0.0f, -10.0f, 0.0f, m_v_geometry);
 	cube->Scale(5.0f);
 
 	// Sphere
-	sphere = new GameObject(m_sh_reflective, m_mesh_sphere, bg_texture, 10.0f, 0.0f, 0.0f);
+	sphere = new GameObject(m_sh_reflective, m_mesh_sphere, bg_texture, 10.0f, 0.0f, 0.0f, m_v_geometry);
 	sphere->Scale(5.0f);
 
 	// Create Menu Object
@@ -104,8 +104,7 @@ GameManager::GameManager()
 	tank = new GameObject(m_mdl_tank, 0.0f, 0.0f, 0.0f);
 
 	// Create Player
-	player = new GameObject(m_sh_animate, m_mesh_player, v_texture2, 0.0f, 0.0f, 0.0f);
-	m_vector_playerObjects.push_back(player);
+	player = new GameObject(m_sh_animate, m_mesh_player, v_texture2, 0.0f, 0.0f, 0.0f, m_vector_playerObjects);
 
 	// Create bullet
 	m_bullet = new Bullet(m_sh_phong_rim, m_mesh_sphere, bg_texture, -10.0f, 0.0f, 0.0f);
@@ -123,9 +122,8 @@ GameManager::GameManager()
 	{
 		for (int i = -WINDOW_WIDHT; i < WINDOW_WIDHT;)
 		{
-			wall = new GameObject(m_sh_scroll, m_mesh_scroll, v_water_texture, static_cast<float>(i), static_cast<float>(j), 0.0f);
+			wall = new GameObject(m_sh_scroll, m_mesh_scroll, v_water_texture, static_cast<float>(i), static_cast<float>(j), 0.0f, m_vector_obstacle_walls);
 			wall->Scale(50.0f);
-			m_vector_obstacle_walls.push_back(wall);
 			i += 50;
 		}
 		j += WINDOW_HEIGHT * 2;
@@ -134,9 +132,8 @@ GameManager::GameManager()
 	{
 		for (int i = -WINDOW_WIDHT; i < WINDOW_WIDHT;)
 		{
-			wall = new GameObject(m_sh_scroll, m_mesh_scroll, v_water_texture, static_cast<float>(j), static_cast<float>(i), 0.0f);
+			wall = new GameObject(m_sh_scroll, m_mesh_scroll, v_water_texture, static_cast<float>(j), static_cast<float>(i), 0.0f, m_vector_obstacle_walls);
 			wall->Scale(50.0f);
-			m_vector_obstacle_walls.push_back(wall);
 			i += 50;
 		}
 		j += WINDOW_WIDHT * 2;
@@ -147,9 +144,8 @@ GameManager::GameManager()
 	{
 		for (int i = -WINDOW_WIDHT; i < WINDOW_WIDHT * 2;)
 		{
-			background = new GameObject(m_sh_alternating, m_mesh_static, bg_texture, static_cast<float>(i), static_cast<float>(j), 0.0f);
+			background = new GameObject(m_sh_alternating, m_mesh_static, bg_texture, static_cast<float>(i), static_cast<float>(j), 0.0f, m_vector_backgroundObjects);
 			background->Scale(800.0f);
-			m_vector_backgroundObjects.push_back(background);
 			i += WINDOW_WIDHT;
 		}
 		j += WINDOW_HEIGHT;
@@ -191,13 +187,10 @@ GameManager::~GameManager()
 	delete m_sh_phong_specular;
 	delete m_sh_phong_diffuse;
 	
-	delete sphere;
 	delete m_mesh_sphere;
 
-	delete pyramid;
 	delete m_mesh_pyramid;
 
-	delete cube;
 	delete m_mesh_cube;
 	
 	delete m_text_instruction;
@@ -280,14 +273,12 @@ GameManager::~GameManager()
 	delete m_clock;
 	m_clock = nullptr;
 
-	delete stencilCube;
-	stencilCube = nullptr;
+	for (auto& geometry : m_v_geometry)
+	{
+		delete geometry;
+		geometry = nullptr;
+	}
 
-	delete stencilCube2;
-	stencilCube2 = nullptr;
-
-	delete transparentCube;
-	transparentCube = nullptr;
 }
 
 void GameManager::Initialize()
