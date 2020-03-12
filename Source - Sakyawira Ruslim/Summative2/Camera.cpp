@@ -44,6 +44,7 @@ void Camera::CameraUpdate(bool isGameStarted, float deltaTime, glm::vec3 _center
 		//Move(_center);
 		//center should be player position
 		view = glm::lookAt(camPos, camPos + camLookDir, camUpDir);
+		cameraRight = glm::normalize(glm::cross(camUpDir, camLookDir));
 	}
 	else
 	{
@@ -60,18 +61,23 @@ void Camera::CameraUpdate(bool isGameStarted, float deltaTime, glm::vec3 _center
 
 void Camera::MovePosX(float i_magnitude)
 {
-	camPos.x += (1.0f * i_magnitude);
+	//camPos.x += (1.0f * i_magnitude);
+	camPos += i_magnitude * cameraRight;
 }
 
 void Camera::MovePosY(float i_magnitude)
 {
-	camPos.y += (1.0f * i_magnitude);
+	//camPos.y += (1.0f * i_magnitude);
+	camPos -= i_magnitude * cameraRight;
 }
 
 void Camera::MovePosZ(float i_magnitude)
 {
-	camPos.z += (1.0f * i_magnitude);
+	//camPos.z += (1.0f * i_magnitude);
+	camPos += i_magnitude * camLookDir;
 }
+
+
 
 void Camera::SetPosX(float i_magnitude)
 {
