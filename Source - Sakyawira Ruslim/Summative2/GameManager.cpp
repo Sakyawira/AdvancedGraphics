@@ -446,8 +446,8 @@ void GameManager::Render()
 		
 
 		// Drawing all obstacles
-		//glEnable(GL_SCISSOR_TEST);
-		//glScissor(200, 200, 400, 200);
+		glEnable(GL_SCISSOR_TEST);
+		glScissor(0, 200, 800, 400);
 
 		//for (auto& coinObjects : m_vector_enemies)
 		//{
