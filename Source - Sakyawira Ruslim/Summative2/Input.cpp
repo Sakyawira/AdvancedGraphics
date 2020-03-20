@@ -99,3 +99,28 @@ void Input::ProcessInput(GameManager* Game, Audio& audio)
 	//	Game->camera.MovePosX(0.1f * Game->GetClock()->GetDeltaTick() * 120.0f);
 	//}
 }
+
+void Input::MouseClick(int button, int state, int x, int y)
+{
+	if (button >= 3)
+	{
+		return;
+	}
+
+	MouseState[button] = (state == GLUT_DOWN) ? INPUT_DOWN : INPUT_UP;
+	std::cout << "Clicked Once x: " << x << " | y: " << y << std::endl;
+}
+
+void Input::MousePassiveMove(int x, int y, GameManager * Game)
+{
+	//Convert current screen width and height mouse co-ords to 
+	x -= 400;
+	y -= 400;
+
+	//Invert y axis
+	y *= -1;
+
+	std::cout << "Passive x: " << x << " | y: " << y << std::endl;
+
+	Game->camera.updateLookDir(x, y);
+}

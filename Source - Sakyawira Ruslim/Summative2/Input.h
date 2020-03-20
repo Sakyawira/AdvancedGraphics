@@ -14,42 +14,9 @@ public:
 
 	void ProcessInput(GameManager* Game, Audio& audio);
 
-	void MouseClick(int button, int state, int x, int y)
-	{
-		
-		if (button >= 3)
-		{
-			return;
-		}
+	void MouseClick(int button, int state, int x, int y);
 
-		MouseState[button] = (state == GLUT_DOWN) ? INPUT_DOWN : INPUT_UP;
-		std::cout << "Clicked Once x: " << x << " | y: " << y << std::endl;
-	}
-
-	void MousePassiveMove(int x, int y, GameManager* Game)
-	{
-		//Convert current screen width and height mouse co-ords to 
-			//Move co-ords from (0, 0) at top left, to (0, 0) at middle of screen
-			//(remaps screen size mouse coords to opengl pixel coords)
-		//x = (int)(Math::remap(x, -800, 800, -800, 800) - 800);
-		//y = (int)(Math::remap(y, -800, 800, -800, 800) - 800);
-
-		x -= 400;
-		y -= 400;
-
-		//Invert y axis
-		y *= -1;
-
-	
-		std::cout << "Passive x: " << x << " | y: " << y << std::endl;
-		//currentMX = x;
-		//currentMY = y;
-
-
-		Game->camera.updateLookDir(x, y);
-
-		
-	}
+	void MousePassiveMove(int x, int y, GameManager* Game);
 
 	void MouseMove(int x, int y)
 	{
