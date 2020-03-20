@@ -124,3 +124,31 @@ void Input::MousePassiveMove(int x, int y, GameManager * Game)
 
 	Game->camera.updateLookDir(x, y);
 }
+
+void Input::MouseMove(int x, int y)
+{
+	std::cout << "Clicked x: " << x << " | y: " << y << std::endl;
+}
+
+void Input::KeyboardDown(unsigned char key, int x, int y)
+{
+	if (KeyState[key] != INPUT_DOWN || KeyState[key] != INPUT_DOWN_FIRST)
+	{
+		KeyState[key] = INPUT_DOWN_FIRST;
+	}
+}
+
+void Input::KeyboardUp(unsigned char key, int x, int y)
+{
+	KeyState[key] = INPUT_UP;
+}
+
+void Input::SpecialKeyboardDown(int key, int x, int y)
+{
+	SpecialKeyState[key] = INPUT_DOWN_FIRST;
+}
+
+void Input::SpecialKeyboardUP(int key, int x, int y)
+{
+	SpecialKeyState[key] = INPUT_UP;
+}
