@@ -112,8 +112,6 @@ GameManager::GameManager()
 
 	srand(static_cast<unsigned>(std::random_device()()));
 	int border = 350 - static_cast<int>(player->GetScale()) * 2;
-	
-	CreateEnemies(3, border);
 
 	CreateCoins(10, border - 100);
 	
@@ -276,9 +274,6 @@ void GameManager::ProcessGame(Audio& audio)
 				enemy->seek(tank->GetLocation());
 			}
 			
-			// Check if collide with enemy every frame
-			Coin_Collision_Check();
-			Bullet_Collision_Check();
 		//	Enemy_Collision_Check();
 
 			// Update Texts
@@ -302,17 +297,6 @@ void GameManager::ProcessGame(Audio& audio)
 
 			currentTime = static_cast<float>(glutGet(GLUT_ELAPSED_TIME)); // Get current time.
 			currentTime = currentTime * 0.001f;
-
-			if (m_i_score >= m_i_level_threshold)
-			{
-				m_i_level_threshold += (static_cast<int>(m_i_level_threshold / 2));
-
-				m_i_level += 1;
-
-				ResetEnemies(300);
-				
-				CreateEnemies(1, 300);
-			}
 			
 			if (m_i_lives <= 0)
 			{
@@ -342,56 +326,6 @@ void GameManager::ProcessGame(Audio& audio)
 	}
 	
 	m_clock->Process();
-}
-
-void GameManager::Enemy_Collision_Check()
-{
-	// Check whether or not a position is occupied by a m_enemy
-	for (auto& player : m_vector_playerObjects)
-	{
-		for (auto& enemy : m_vector_enemies)
-		{
-			if (tank->sphere_collision_check(tank, enemy))
-			{
-				std::cout << "enemies collided!" << std::endl;
-
-				m_i_lives -= 1;
-				
-				enemy->Disable();
-			}
-		}
-	}
-}
-
-void GameManager::Coin_Collision_Check()
-{
-	// Check whether or not a position is occupied by a m_enemy
-	for (auto& player : m_vector_playerObjects)
-	{
-		for (auto& coin : m_vector_coins)
-		{
-			if (tank->sphere_collision_check(tank, coin))
-			{
-				std::cout << "m_enemy found!" << std::endl;
-				m_i_score += 50;
-
-				coin->Disable();
-			}
-		}
-	}
-}
-
-void GameManager::Bullet_Collision_Check()
-{
-	for (auto& enemy : m_vector_enemies)
-	{
-		if (m_bullet->sphere_collision_check(m_bullet, enemy))
-		{
-			std::cout << "bullet collided!" << std::endl;
-			m_i_score += 100;
-			enemy->Disable();
-		}
-	}
 }
 
 void GameManager::Render()
@@ -519,24 +453,6 @@ CClock* GameManager::GetClock()
 	return m_clock;
 }
 
-void GameManager::CreateEnemies(int _number_enemies, int _border)
-{
-	// Creating enemies
-	for (int i = 0; i < _number_enemies; ++i)
-	{
-		int negate = rand() % 2;
-		negate = (negate == 0 ? -1 : 1);
-		const float random_x = static_cast<float>((rand() % _border) * negate);
-		negate = rand() % 2;
-		negate = (negate == 0 ? -1 : 1);
-
-		const float random_z = static_cast<float>((rand() % _border) * negate);
-		m_enemy = new Enemy(m_mdl_cat, random_x, 0.0f, random_z);
-		m_enemy->Scale(5.0f);
-		m_vector_enemies.push_back(m_enemy);
-	}
-}
-
 void GameManager::CreateCoins(int _number_coins, int _border)
 {
 	std::vector<Texture*> v_texture2 = { m_tr_slimes, m_tr_slimes };
@@ -554,23 +470,5 @@ void GameManager::CreateCoins(int _number_coins, int _border)
 		m_coin->Scale(5.0f);
 		m_coin->RandomOn();
 		m_vector_coins.push_back(m_coin);
-	}
-}
-
-void GameManager::ResetEnemies(int _border)
-{
-	for (auto& enemy : m_vector_enemies)
-	{
-		int negate = rand() % 2;
-		negate = (negate == 0 ? -1 : 1);
-		const float random_x = static_cast<float>((rand() % _border) * negate);
-		negate = rand() % 2;
-		negate = (negate == 0 ? -1 : 1);
-
-		const float random_z = static_cast<float>((rand() % _border) * negate);
-		
-		enemy->SetPos(glm::vec3(random_x, 0.0f, random_z));
-
-		enemy->Enable();
 	}
 }
