@@ -118,7 +118,6 @@ private:
 	Texture* m_tr_background;
 	Texture* m_tr_slimes;
 	Texture* m_tr_water;
-	//Texture* m_tr_menu;
 	CubeMap* m_tr_cube_map;
 
 	Mesh* m_mesh_animate;
@@ -138,7 +137,6 @@ private:
 	Enemy* m_enemy;
 
 	GameObject* wall;
-	//GameObject *Menu;
 	GameObject* background;
 	GameObject* pyramid;
 	GameObject* cube;
@@ -153,11 +151,8 @@ private:
 	// Vectors
 	std::vector<Enemy*> m_vector_coins;
 	std::vector<GameObject*> m_v_geometry;
-
 	std::vector<Shader*> m_v_sh;
-
 	std::vector<Mesh*> m_v_mesh;
-
 	std::vector<TextLabel*> m_v_text;
 
 	std::vector<GLfloat> static_vertices =

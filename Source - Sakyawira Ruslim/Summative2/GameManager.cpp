@@ -20,6 +20,7 @@ GameManager::GameManager()
 
 	// Create Clock
 	m_clock = new CClock();
+	
 	// Create Shader
 	m_sh_alternating = new Shader("Resources/Shaders/AlternatingVertex.txt", "Resources/Shaders/AlternatingFragment.txt", m_v_sh);
 	m_sh_animate = new Shader("Resources/Shaders/AnimationVertex.txt", "Resources/Shaders/AnimationFragment.txt", m_v_sh);
@@ -62,13 +63,11 @@ GameManager::GameManager()
 	m_tr_background = new Texture("Resources/Textures/bullet.png");
 	m_tr_slimes = new Texture("Resources/Textures/Slimes.png");
 	m_tr_water = new Texture("Resources/Textures/green.png");
-	//m_tr_menu = new Texture("Resources/Textures/Menu.png");
 	std::vector<const char*> textureDirs = {"right.jpg", "left.jpg", "top.jpg", "bottom.jpg", "back.jpg", "front.jpg"};
 	m_tr_cube_map = new CubeMap(textureDirs);
 	
 	// Texture Vectors to be passed in
 	std::vector<Texture*> v_water_texture = { m_tr_water, m_tr_water };
-	//std::vector<Texture*> v_menu_texture = { m_tr_menu, m_tr_menu };
 	std::vector<Texture*> v_texture2 = { m_tr_slimes, m_tr_slimes };
 	std::vector<Texture*> v_texture = { m_tr_stars, m_tr_background };
 	std::vector<Texture*> bg_texture = { m_tr_background, m_tr_background };
@@ -96,9 +95,6 @@ GameManager::GameManager()
 	// Sphere
 	sphere = new GameObject(m_sh_reflective, m_mesh_sphere, bg_texture, 10.0f, 0.0f, 0.0f, m_v_geometry);
 	sphere->Scale(5.0f);
-
-	// Create Menu Object
-	/*Menu = new GameObject(m_sh_alternating, m_mesh_static, v_menu_texture, 0.0f, 0.0f, 0.0f);*/
 
 	// Tank
 	tank = new GameObject(m_mdl_tank, 0.0f, 0.0f, 0.0f);
