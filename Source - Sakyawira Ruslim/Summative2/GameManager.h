@@ -71,7 +71,6 @@ public:
 
 	CClock* GetClock();
 
-	GameObject* player;
 	Camera camera;
 
 	GameObject* tank;

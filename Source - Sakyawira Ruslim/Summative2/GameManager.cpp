@@ -103,100 +103,18 @@ GameManager::GameManager()
 	// Tank
 	tank = new GameObject(m_mdl_tank, 0.0f, 0.0f, 0.0f);
 
-	// Create Player
-	player = new GameObject(m_sh_animate, m_mesh_player, v_texture2, 0.0f, 0.0f, 0.0f, m_vector_playerObjects);
-
 	// Create bullet
 	m_bullet = new Bullet(m_sh_phong_rim, m_mesh_sphere, bg_texture, -10.0f, 0.0f, 0.0f);
 	m_bullet->Scale(3.0f);
 
 	srand(static_cast<unsigned>(std::random_device()()));
-	int border = 350 - static_cast<int>(player->GetScale()) * 2;
+	int border = 350 - static_cast<int>(tank->GetScale()) * 2;
 
 	CreateCoins(10, border - 100);
 	
 	this->Initialize();
 }
 
-GameManager::~GameManager()
-{
-	delete m_bullet;
-	m_bullet = nullptr;
-	
-	delete m_mdl_cat;
-	m_mdl_cat = nullptr;
-	
-	delete tank;
-	tank = nullptr;
-	
-	delete m_mdl_tank;
-	m_mdl_tank = nullptr;
-	
-	delete m_tr_cube_map;
-	m_tr_cube_map = nullptr;
-
-	delete m_tr_stars;
-	m_tr_stars = nullptr;
-	delete m_tr_background;
-	m_tr_background = nullptr;
-	delete m_tr_slimes;
-	m_tr_slimes = nullptr;
-	delete m_tr_water;
-	m_tr_water = nullptr;
-
-
-	delete player;
-	player = nullptr;
-
-	for (auto& text : m_v_text)
-	{
-		delete text;
-		text = nullptr;
-	}
-
-	for (auto& backgroundObjects : m_vector_backgroundObjects)
-	{
-		delete backgroundObjects;
-		backgroundObjects = nullptr;
-	}
-
-	for (auto& coinObjects : m_vector_enemies)
-	{
-		delete coinObjects;
-		coinObjects = nullptr;
-	}
-	for (auto& coinObjects2 : m_vector_coins)
-	{
-		delete coinObjects2;
-		coinObjects2 = nullptr;
-	}
-	for (auto& obstacleObjects : m_vector_obstacle_walls)
-	{
-		delete obstacleObjects;
-		obstacleObjects = nullptr;
-	}
-
-	delete m_clock;
-	m_clock = nullptr;
-
-	for (auto& geometry : m_v_geometry)
-	{
-		delete geometry;
-		geometry = nullptr;
-	}
-
-	for (auto& shader : m_v_sh)
-	{
-		delete shader;
-		shader = nullptr;
-	}
-
-	for (auto& mesh : m_v_mesh)
-	{
-		delete mesh;
-		mesh = nullptr;
-	}
-}
 
 void GameManager::Initialize()
 {
@@ -222,10 +140,6 @@ void GameManager::Initialize()
 	m_text_bg->SetColor(glm::vec3(0.0f, 0.0f, 0.0f));
 	
 	//Menu->Scale(800.0f);
-
-	// Reset Player's variable
-	player->SetPos(glm::vec3(0.0f, 0.0f, 0.0f));
-	player->Scale(78.0f);
 
 	// Reset Camera's Position
 	camera.SetPosX(0.0f);
@@ -260,11 +174,6 @@ void GameManager::ProcessGame(Audio& audio)
 
 		if (m_b_start)
 		{
-			if (player->m_currently_moved)
-			{
-				audio.Play(SOUND_CONSUME);
-			}
-
 			m_bullet->process(tank->GetLocation());
 
 			m_bullet->arrive(f_deltaT);
@@ -292,8 +201,6 @@ void GameManager::ProcessGame(Audio& audio)
 			m_text_instruction->SetText("Press 'Space' to shoot...");
 
 			tank->sphere_collision_check(tank, cube);
-
-			player->m_currently_moved = false;
 
 			currentTime = static_cast<float>(glutGet(GLUT_ELAPSED_TIME)); // Get current time.
 			currentTime = currentTime * 0.001f;
@@ -470,5 +377,82 @@ void GameManager::CreateCoins(int _number_coins, int _border)
 		m_coin->Scale(5.0f);
 		m_coin->RandomOn();
 		m_vector_coins.push_back(m_coin);
+	}
+}
+
+
+GameManager::~GameManager()
+{
+	delete m_bullet;
+	m_bullet = nullptr;
+
+	delete m_mdl_cat;
+	m_mdl_cat = nullptr;
+
+	delete tank;
+	tank = nullptr;
+
+	delete m_mdl_tank;
+	m_mdl_tank = nullptr;
+
+	delete m_tr_cube_map;
+	m_tr_cube_map = nullptr;
+
+	delete m_tr_stars;
+	m_tr_stars = nullptr;
+	delete m_tr_background;
+	m_tr_background = nullptr;
+	delete m_tr_slimes;
+	m_tr_slimes = nullptr;
+	delete m_tr_water;
+	m_tr_water = nullptr;
+
+	for (auto& text : m_v_text)
+	{
+		delete text;
+		text = nullptr;
+	}
+
+	for (auto& backgroundObjects : m_vector_backgroundObjects)
+	{
+		delete backgroundObjects;
+		backgroundObjects = nullptr;
+	}
+
+	for (auto& coinObjects : m_vector_enemies)
+	{
+		delete coinObjects;
+		coinObjects = nullptr;
+	}
+	for (auto& coinObjects2 : m_vector_coins)
+	{
+		delete coinObjects2;
+		coinObjects2 = nullptr;
+	}
+	for (auto& obstacleObjects : m_vector_obstacle_walls)
+	{
+		delete obstacleObjects;
+		obstacleObjects = nullptr;
+	}
+
+	delete m_clock;
+	m_clock = nullptr;
+
+	for (auto& geometry : m_v_geometry)
+	{
+		delete geometry;
+		geometry = nullptr;
+	}
+
+	for (auto& shader : m_v_sh)
+	{
+		delete shader;
+		shader = nullptr;
+	}
+
+	for (auto& mesh : m_v_mesh)
+	{
+		delete mesh;
+		mesh = nullptr;
 	}
 }
