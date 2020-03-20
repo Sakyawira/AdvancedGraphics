@@ -212,19 +212,6 @@ void GameManager::Render()
 {
 	if (m_b_initialized == 1)
 	{
-		//// Drawing background
-		//for (auto& backgroundObjects : m_vector_backgroundObjects)
-		//{
-		//	backgroundObjects->Draw(camera, "currentTime", currentTime, m_clock->GetDeltaTick());
-		//}
-
-		//// Drawing all players
-		//for (auto& playerObjects : m_vector_playerObjects)
-		//{
-		//	playerObjects->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
-		//}
-		
-
 		// Drawing all obstacles
 		glEnable(GL_SCISSOR_TEST);
 		glScissor(0, 200, 800, 400);
@@ -236,7 +223,7 @@ void GameManager::Render()
 		//}
 
 		//// pyramid->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
-		//sky_box->Draw(camera);
+		//	sky_box->Draw(camera);
 		m_tr_cube_map->Render(m_sh_cube_map, m_mesh_cube_map, camera);
 		//
 		////tank->draw_with_model(m_clock->GetDeltaTick());
