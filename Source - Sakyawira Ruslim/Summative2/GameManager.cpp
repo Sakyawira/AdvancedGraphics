@@ -229,22 +229,11 @@ void GameManager::Render()
 		glEnable(GL_SCISSOR_TEST);
 		glScissor(0, 200, 800, 400);
 
-		//for (auto& coinObjects : m_vector_enemies)
-		//{
-		//	coinObjects->draw_with_model(m_clock->GetDeltaTick());
-		//}
-
 		//// Drawing all obstacles
 		//for (auto& coinObjects2 : m_vector_coins)
 		//{
 		//	coinObjects2->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 		//}
-
-		//// Draw all walls
-		///*	for (auto& obstacleObjects : m_vector_obstacle_walls)
-		//{
-		//	obstacleObjects->Draw(camera, "currentTime", currentTime, m_clock->GetDeltaTick());
-		//}*/
 
 		//// pyramid->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 		//sky_box->Draw(camera);
@@ -252,8 +241,6 @@ void GameManager::Render()
 		//
 		////tank->draw_with_model(m_clock->GetDeltaTick());
 
-		//m_bullet->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
-		//
 		//frameCounts += 1.0f * m_clock->GetDeltaTick() * 120.0f;
 
 		//if (m_i_lives <= 0 || m_b_start == 0)
@@ -383,21 +370,10 @@ GameManager::~GameManager()
 		text = nullptr;
 	}
 
-	for (auto& backgroundObjects : m_vector_backgroundObjects)
-	{
-		delete backgroundObjects;
-		backgroundObjects = nullptr;
-	}
-
 	for (auto& coinObjects2 : m_vector_coins)
 	{
 		delete coinObjects2;
 		coinObjects2 = nullptr;
-	}
-	for (auto& obstacleObjects : m_vector_obstacle_walls)
-	{
-		delete obstacleObjects;
-		obstacleObjects = nullptr;
 	}
 
 	delete m_clock;
