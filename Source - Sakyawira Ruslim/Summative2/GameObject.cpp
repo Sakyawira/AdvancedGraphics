@@ -47,20 +47,6 @@ GameObject::GameObject(Model * _model, float _initial_x, float _initial_y, float
 	m_modelMatrix = m_translationMatrix * m_rotationZ * m_scaleMatrix;
 }
 
-//GameObject::~GameObject()
-//{
-//	if (m_mesh != nullptr)
-//	{
-//		delete m_mesh;
-//		m_mesh = nullptr;
-//	}
-//	if (m_mesh != nullptr)
-//	{
-//		delete m_shader;
-//		m_shader = nullptr;
-//	}
-//}
-
 void GameObject::Draw(Camera& _camera, const GLchar* s_currentTime, GLfloat f_currentTime, float deltaTime)
 {
 	if (m_bool_enable)
@@ -74,9 +60,6 @@ void GameObject::Draw(Camera& _camera, const GLchar* s_currentTime, GLfloat f_cu
 
 		// Transform the objects controlled by 'program'
 		m_shader->Transform(m_translationMatrix, m_rotationZ, m_scaleMatrix, m_modelMatrix, _camera);
-
-		// So it uses the reference and not a copy
-		//_camera.CameraUpdate(deltaTime);
 
 		// Using camera on the program
 		_camera.UseCamera(m_shader->GetProgram());
@@ -104,9 +87,6 @@ void GameObject::Draw(Camera & _camera, const GLchar * s_currentTime, GLfloat f_
 		// Transform the objects controlled by 'program'
 		m_shader->Transform(m_translationMatrix, m_rotationZ, m_scaleMatrix, m_modelMatrix, _camera);
 
-		// So it uses the reference and not a copy
-		//_camera.CameraUpdate(deltaTime);
-
 		// Using camera on the program
 		_camera.UseCamera(m_shader->GetProgram());
 
@@ -119,8 +99,6 @@ void GameObject::Draw(Camera & _camera, const GLchar * s_currentTime, GLfloat f_
 
 void GameObject::Draw(Camera& _camera, float deltaTime)
 {
-
-	
 	m_shader->Activate();
 	glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 
@@ -131,20 +109,16 @@ void GameObject::Draw(Camera& _camera, float deltaTime)
 	m_shader->Transform(m_translationMatrix, m_rotationZ, m_scaleMatrix, m_modelMatrix, _camera);
 
 	// So it uses the reference and not a copy
-	// _camera.CameraUpdate(deltaTime);
 	// Using camera on the program
 	_camera.UseCamera(m_shader->GetProgram());
 	
 	m_mesh->Bind();
 	glDrawElements(GL_TRIANGLES, m_mesh->GetSize(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
-
-
 }
 
 void GameObject::Draw(Camera & _camera, const GLchar * s_currentTime, GLfloat f_currentTime, const GLchar * s_frameTime, GLint i_frameTime, CubeMap * cube_map, float deltaTime)
 {
-	//glCullFace(GL_BACK);
 	glFrontFace(GL_CW);
 	m_shader->Activate();
 	glActiveTexture(GL_TEXTURE1);
@@ -154,14 +128,12 @@ void GameObject::Draw(Camera & _camera, const GLchar * s_currentTime, GLfloat f_
 	m_shader->Transform(m_translationMatrix, m_rotationZ, m_scaleMatrix, m_modelMatrix, _camera);
 
 	// So it uses the reference and not a copy
-	//_camera.CameraUpdate(deltaTime);
 	// Using camera on the program
 	_camera.UseCamera(m_shader->GetProgram());
 
 	m_mesh->Bind();
 	glDrawElements(GL_TRIANGLES, m_mesh->GetSize(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
-	//glCullFace(GL_FRONT);
 	glFrontFace(GL_CCW);
 }
 
@@ -196,16 +168,6 @@ bool GameObject::sphere_collision_check(GameObject* a, GameObject* b)
 	}
 		return false;
 }
-
-//void GameObject::SetPosition(float _x_pos, float _y_pos)
-//{
-//	m_xPos = _x_pos;
-//	m_yPos = _y_pos;
-//
-//	m_objPosition = glm::vec3(m_xPos, m_yPos, 0.0f);
-//	m_translationMatrix = glm::translate(glm::mat4(), m_objPosition);
-//	m_modelMatrix = m_translationMatrix * m_rotationZ * m_scaleMatrix;
-//}
 
 float GameObject::GetPosition(int COORDINATE_ID)
 {
