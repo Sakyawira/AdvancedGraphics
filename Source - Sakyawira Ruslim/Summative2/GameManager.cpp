@@ -116,40 +116,6 @@ GameManager::GameManager()
 	CreateEnemies(3, border);
 
 	CreateCoins(10, border - 100);
-
-	// Creating walls around the playable space
-	for (int j = -WINDOW_HEIGHT; j <= WINDOW_HEIGHT;)
-	{
-		for (int i = -WINDOW_WIDHT; i < WINDOW_WIDHT;)
-		{
-			wall = new GameObject(m_sh_scroll, m_mesh_scroll, v_water_texture, static_cast<float>(i), static_cast<float>(j), 0.0f, m_vector_obstacle_walls);
-			wall->Scale(50.0f);
-			i += 50;
-		}
-		j += WINDOW_HEIGHT * 2;
-	}
-	for (int j = -WINDOW_HEIGHT; j <= WINDOW_HEIGHT;)
-	{
-		for (int i = -WINDOW_WIDHT; i < WINDOW_WIDHT;)
-		{
-			wall = new GameObject(m_sh_scroll, m_mesh_scroll, v_water_texture, static_cast<float>(j), static_cast<float>(i), 0.0f, m_vector_obstacle_walls);
-			wall->Scale(50.0f);
-			i += 50;
-		}
-		j += WINDOW_WIDHT * 2;
-	}
-
-	// Creates Background
-	for (int j = -WINDOW_HEIGHT; j <= WINDOW_HEIGHT;)
-	{
-		for (int i = -WINDOW_WIDHT; i < WINDOW_WIDHT * 2;)
-		{
-			background = new GameObject(m_sh_alternating, m_mesh_static, bg_texture, static_cast<float>(i), static_cast<float>(j), 0.0f, m_vector_backgroundObjects);
-			background->Scale(800.0f);
-			i += WINDOW_WIDHT;
-		}
-		j += WINDOW_HEIGHT;
-	}
 	
 	this->Initialize();
 }
