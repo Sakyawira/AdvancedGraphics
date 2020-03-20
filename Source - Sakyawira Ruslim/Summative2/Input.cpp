@@ -70,7 +70,7 @@ void Input::ProcessInput(GameManager* Game, Audio& audio)
 			Game->tank->Move(MOVE_FRONT, 0.5f * Game->GetClock()->GetDeltaTick() * 120.0f);
 			//Game->camera.MovePosY(0.1f * Game->GetClock()->GetDeltaTick() * 120.0f);
 			Game->tank->m_currently_moved = true;
-			Game->camera.MovePosZ(20.0f);
+			Game->camera.MovePosZ(15.0f, Game->GetClock()->GetDeltaTick());
 		//}
 	}
 	if (KeyState['s'] == INPUT_DOWN)
@@ -82,7 +82,7 @@ void Input::ProcessInput(GameManager* Game, Audio& audio)
 			Game->tank->Move(MOVE_BACK, 0.5f * Game->GetClock()->GetDeltaTick() * 120.0f);
 			//Game->camera.MovePosY(-0.1f * Game->GetClock()->GetDeltaTick() * 120.0f);
 			Game->tank->m_currently_moved = true;
-			Game->camera.MovePosZ(-20.0f);
+			Game->camera.MovePosZ(-15.0f, Game->GetClock()->GetDeltaTick());
 		//}
 	}
 	if (KeyState['d'] == INPUT_DOWN)
@@ -95,7 +95,7 @@ void Input::ProcessInput(GameManager* Game, Audio& audio)
 			//Game->tank->
 			//Game->camera.MovePosX(2.0f * Game->GetClock()->GetDeltaTick() * 120.0f);
 			Game->tank->m_currently_moved = true;
-			Game->camera.MovePosX(-20.0f);
+			Game->camera.MovePosX(-15.0f, Game->GetClock()->GetDeltaTick());
 		//}
 	}
 	if (KeyState['a'] == INPUT_DOWN)
@@ -107,7 +107,7 @@ void Input::ProcessInput(GameManager* Game, Audio& audio)
 			Game->tank->Move(MOVE_LEFT, 0.5f * Game->GetClock()->GetDeltaTick() * 120.0f);
 			//Game->camera.MovePosX(-2.0f * Game->GetClock()->GetDeltaTick() * 120.0f);
 			Game->tank->m_currently_moved = true;
-			Game->camera.MovePosX(20.0f);
+			Game->camera.MovePosX(15.0f, Game->GetClock()->GetDeltaTick());
 		//}
 	}
 	if (KeyState['r'] == INPUT_DOWN_FIRST)
@@ -126,12 +126,12 @@ void Input::ProcessInput(GameManager* Game, Audio& audio)
 
 	if (KeyState['e'] == INPUT_DOWN)
 	{
-		Game->camera.MovePosY(-0.1f * Game->GetClock()->GetDeltaTick() * 120.0f);
+		//Game->camera.MovePosY(-0.1f * Game->GetClock()->GetDeltaTick() * 120.0f);
 	}
 
 	if (KeyState['q'] == INPUT_DOWN)
 	{
-		Game->camera.MovePosY(0.1f * Game->GetClock()->GetDeltaTick() * 120.0f);
+	//	Game->camera.MovePosY(0.1f * Game->GetClock()->GetDeltaTick() * 120.0f);
 	}
 
 	//if (SpecialKeyState[GLUT_KEY_UP] == INPUT_DOWN || KeyState['w'] == INPUT_DOWN)

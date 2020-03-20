@@ -59,22 +59,22 @@ void Camera::CameraUpdate(bool isGameStarted, float deltaTime, glm::vec3 _center
 	}
 }
 
-void Camera::MovePosX(float i_magnitude)
+void Camera::MovePosX(float i_magnitude, float deltaTime)
 {
 	//camPos.x += (1.0f * i_magnitude);
-	camPos += i_magnitude * cameraRight;
+	camPos += i_magnitude * cameraRight * deltaTime;
 }
 
-void Camera::MovePosY(float i_magnitude)
+void Camera::MovePosY(float i_magnitude, float deltaTime)
 {
 	//camPos.y += (1.0f * i_magnitude);
-	camPos -= i_magnitude * cameraRight;
+	camPos -= i_magnitude * cameraRight * deltaTime;
 }
 
-void Camera::MovePosZ(float i_magnitude)
+void Camera::MovePosZ(float i_magnitude, float deltaTime)
 {
 	//camPos.z += (1.0f * i_magnitude);
-	camPos += i_magnitude * camLookDir;
+	camPos += i_magnitude * camLookDir * deltaTime;
 }
 
 

@@ -34,11 +34,11 @@ public:
 
 	void CameraUpdate(bool isGameStarted, float deltaTime, glm::vec3 _center);
 
-	void MovePosX(float i_magnitude);
+	void MovePosX(float i_magnitude, float deltaTime);
 
-	void MovePosY(float i_magnitude);
+	void MovePosY(float i_magnitude, float deltaTime);
 
-	void MovePosZ(float i_magnitude);
+	void MovePosZ(float i_magnitude, float deltaTime);
 
 	void SetPosX(float i_magnitude);
 
