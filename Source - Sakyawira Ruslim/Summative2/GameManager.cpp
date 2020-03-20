@@ -141,12 +141,6 @@ void GameManager::Initialize()
 	camera.SetPosX(0.0f);
 	camera.SetPosY(0.0f);
 
-	// Reset score
-	m_i_level = 1;
-	m_i_level_threshold = 150;
-	m_i_score = 0;
-	m_i_lives = 3;
-
 	for (auto& coin : m_vector_coins)
 	{
 		coin->Enable();
@@ -166,13 +160,13 @@ void GameManager::ProcessGame(Audio& audio)
 		if (m_b_start)
 		{
 			// Update Texts
-			m_string_score = "Score = " + std::to_string(m_i_score) + " / " + std::to_string(m_i_level_threshold);
+			m_string_score = "Score = ";
 			m_text_score->SetText(m_string_score);
 
-			m_string_lives = "Lives = " + std::to_string(m_i_lives);
+			m_string_lives = "Lives = ";
 			m_text_lives->SetText(m_string_lives);
 
-			m_string_level = "Level = " + std::to_string(m_i_level);
+			m_string_level = "Level = ";
 			m_text_level->SetText(m_string_level);
 
 			m_string_bg = "L"+ std::to_string(m_c_bg);
@@ -185,7 +179,7 @@ void GameManager::ProcessGame(Audio& audio)
 			currentTime = static_cast<float>(glutGet(GLUT_ELAPSED_TIME)); // Get current time.
 			currentTime = currentTime * 0.001f;
 			
-			if (m_i_lives <= 0)
+			if (false)
 			{
 				m_string_menu = "You're Burnt Out!";
 				m_string_instruction = "Press 'R' to play again...";

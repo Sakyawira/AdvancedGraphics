@@ -81,10 +81,6 @@ private:
 	bool m_b_ended = false;
 	
 	// Declaring Strings
-	int m_i_score = 0;
-	int m_i_lives = 3;
-	int m_i_level = 1;
-	int m_i_level_threshold = 150;
 	std::string m_string_score;
 	TextLabel* m_text_score;
 	std::string m_string_lives;
