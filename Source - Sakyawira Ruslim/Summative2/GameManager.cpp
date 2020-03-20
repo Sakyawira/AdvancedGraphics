@@ -151,11 +151,6 @@ void GameManager::Initialize()
 	m_i_score = 0;
 	m_i_lives = 3;
 
-	for (auto& enemy : m_vector_enemies)
-	{
-		enemy->Enable();
-	}
-
 	for (auto& coin : m_vector_coins)
 	{
 		coin->Enable();
@@ -177,13 +172,6 @@ void GameManager::ProcessGame(Audio& audio)
 			m_bullet->process(tank->GetLocation());
 
 			m_bullet->arrive(f_deltaT);
-
-			for (auto& enemy : m_vector_enemies)
-			{
-				enemy->seek(tank->GetLocation());
-			}
-			
-		//	Enemy_Collision_Check();
 
 			// Update Texts
 			m_string_score = "Score = " + std::to_string(m_i_score) + " / " + std::to_string(m_i_level_threshold);
@@ -207,13 +195,6 @@ void GameManager::ProcessGame(Audio& audio)
 			
 			if (m_i_lives <= 0)
 			{
-				while (m_vector_enemies.size() > 3)
-				{
-					Enemy* tempEnemy = m_vector_enemies.back();
-					delete tempEnemy;
-					tempEnemy = nullptr;
-					m_vector_enemies.pop_back();
-				}
 				m_string_menu = "You're Burnt Out!";
 				m_string_instruction = "Press 'R' to play again...";
 				m_text_menu->SetText(m_string_menu);
@@ -419,11 +400,6 @@ GameManager::~GameManager()
 		backgroundObjects = nullptr;
 	}
 
-	for (auto& coinObjects : m_vector_enemies)
-	{
-		delete coinObjects;
-		coinObjects = nullptr;
-	}
 	for (auto& coinObjects2 : m_vector_coins)
 	{
 		delete coinObjects2;

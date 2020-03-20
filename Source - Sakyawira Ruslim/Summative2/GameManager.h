@@ -169,7 +169,6 @@ private:
 	GameObject* transparentCube;
 	
 	// Vectors
-	std::vector<Enemy*> m_vector_enemies;
 	std::vector<Enemy*> m_vector_coins;
 	std::vector<GameObject*> m_vector_obstacle_walls;
 	std::vector<GameObject*> m_vector_backgroundObjects;
