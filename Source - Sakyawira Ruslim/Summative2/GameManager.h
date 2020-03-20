@@ -51,16 +51,6 @@ public:
 	
 	void ProcessGame(Audio& audio);
 
-	float g_player_size = 1;
-
-	bool collision_check(float _top, float _bottom, float _left, float _right);
-
-	void Enemy_Collision_Check();
-
-	void Coin_Collision_Check();
-
-	void Bullet_Collision_Check();
-
 	void Render();
 
 	bool IsStarted();
@@ -78,9 +68,7 @@ public:
 private:
 
 	// Utility functions
-	void CreateEnemies(int _number_enemies, int _border);
 	void CreateCoins(int _number_coins, int _border);
-	void ResetEnemies(int _border);
 	
 	// Clock
 	CClock* m_clock;
