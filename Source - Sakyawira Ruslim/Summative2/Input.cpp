@@ -33,52 +33,27 @@ void Input::ProcessInput(GameManager* Game, Audio& audio)
 
 	if (KeyState['w'] == INPUT_DOWN)
 	{
-		// use g_player_size
-		// to check the collision from further away depends on the player size
-		/*if (!Game->collision_check(Game->g_player_size + 1, 0, 0, 0) && Game->IsStarted())
-		{*/
-			Game->tank->Move(MOVE_FRONT, 0.5f * Game->GetClock()->GetDeltaTick() * 120.0f);
-			//Game->camera.MovePosY(0.1f * Game->GetClock()->GetDeltaTick() * 120.0f);
-			Game->tank->m_currently_moved = true;
-			Game->camera.MovePosZ(15.0f, Game->GetClock()->GetDeltaTick());
-		//}
+		Game->tank->Move(MOVE_FRONT, 0.5f * Game->GetClock()->GetDeltaTick() * 120.0f);
+		Game->tank->m_currently_moved = true;
+		Game->camera.MovePosZ(15.0f, Game->GetClock()->GetDeltaTick());
 	}
 	if (KeyState['s'] == INPUT_DOWN)
 	{
-		// use g_player_size
-		// to check the collision from further away depends on the player size
-	/*	if (!Game->collision_check(0, Game->g_player_size + 1, 0, 0) && Game->IsStarted())
-		{*/
-			Game->tank->Move(MOVE_BACK, 0.5f * Game->GetClock()->GetDeltaTick() * 120.0f);
-			//Game->camera.MovePosY(-0.1f * Game->GetClock()->GetDeltaTick() * 120.0f);
-			Game->tank->m_currently_moved = true;
-			Game->camera.MovePosZ(-15.0f, Game->GetClock()->GetDeltaTick());
-		//}
+		Game->tank->Move(MOVE_BACK, 0.5f * Game->GetClock()->GetDeltaTick() * 120.0f);
+		Game->tank->m_currently_moved = true;
+		Game->camera.MovePosZ(-15.0f, Game->GetClock()->GetDeltaTick());
 	}
 	if (KeyState['d'] == INPUT_DOWN)
 	{
-		// use g_player_size
-		// to check the collision from further away depends on the player size
-		/*if (!Game->collision_check(0, 0, 0, Game->g_player_size + 1) && Game->IsStarted())
-		{*/
-			Game->tank->Move(MOVE_RIGHT, 0.5f * Game->GetClock()->GetDeltaTick() * 120.0f);
-			//Game->tank->
-			//Game->camera.MovePosX(2.0f * Game->GetClock()->GetDeltaTick() * 120.0f);
-			Game->tank->m_currently_moved = true;
-			Game->camera.MovePosX(-15.0f, Game->GetClock()->GetDeltaTick());
-		//}
+		Game->tank->Move(MOVE_RIGHT, 0.5f * Game->GetClock()->GetDeltaTick() * 120.0f);
+		Game->tank->m_currently_moved = true;
+		Game->camera.MovePosX(-15.0f, Game->GetClock()->GetDeltaTick());
 	}
 	if (KeyState['a'] == INPUT_DOWN)
 	{
-		// use g_player_size
-		// to check the collision from further away depends on the player size
-		/*if (!Game->collision_check(0, 0, Game->g_player_size + 1, 0) && Game->IsStarted())
-		{*/
-			Game->tank->Move(MOVE_LEFT, 0.5f * Game->GetClock()->GetDeltaTick() * 120.0f);
-			//Game->camera.MovePosX(-2.0f * Game->GetClock()->GetDeltaTick() * 120.0f);
-			Game->tank->m_currently_moved = true;
-			Game->camera.MovePosX(15.0f, Game->GetClock()->GetDeltaTick());
-		//}
+		Game->tank->Move(MOVE_LEFT, 0.5f * Game->GetClock()->GetDeltaTick() * 120.0f);
+		Game->tank->m_currently_moved = true;
+		Game->camera.MovePosX(15.0f, Game->GetClock()->GetDeltaTick());
 	}
 	if (KeyState['r'] == INPUT_DOWN_FIRST)
 	{
@@ -123,6 +98,4 @@ void Input::ProcessInput(GameManager* Game, Audio& audio)
 	//{
 	//	Game->camera.MovePosX(0.1f * Game->GetClock()->GetDeltaTick() * 120.0f);
 	//}
-
-	
 }
