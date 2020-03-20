@@ -87,16 +87,9 @@ int main(int argc, char **argv)
 	glDepthFunc(GL_LESS);
 
 	glEnable(GL_CULL_FACE);
-	//glCullFace(GL_FRONT);
 	glFrontFace(GL_CCW);
-	//// Swap culling
-	//glEnable(GL_CULL_FACE);
-	//glCullFace(GL_FRONT);
-	//glCullFace(GL_BACK);
-	//glFrontFace(GL_CCW);
 
 	Game = new GameManager();
-	//	Game->Initialize();
 	
 	//Register callbacks
 	glutDisplayFunc(Render);
@@ -112,7 +105,9 @@ int main(int argc, char **argv)
 	glutMotionFunc(MouseMove);
 	glutPassiveMotionFunc(MousePassiveMove);
 
+	// Not used so we can delete singletons
 	//glutCloseFunc(ShutDown);
+	
 	glutMainLoop(); //Ensure this is the last glut line called
 
 	ShutDown();
