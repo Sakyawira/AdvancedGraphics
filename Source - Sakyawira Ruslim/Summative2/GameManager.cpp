@@ -103,10 +103,6 @@ GameManager::GameManager()
 	// Tank
 	tank = new GameObject(m_mdl_tank, 0.0f, 0.0f, 0.0f);
 
-	// Create bullet
-	m_bullet = new Bullet(m_sh_phong_rim, m_mesh_sphere, bg_texture, -10.0f, 0.0f, 0.0f);
-	m_bullet->Scale(3.0f);
-
 	srand(static_cast<unsigned>(std::random_device()()));
 	int border = 350 - static_cast<int>(tank->GetScale()) * 2;
 
@@ -169,10 +165,6 @@ void GameManager::ProcessGame(Audio& audio)
 
 		if (m_b_start)
 		{
-			m_bullet->process(tank->GetLocation());
-
-			m_bullet->arrive(f_deltaT);
-
 			// Update Texts
 			m_string_score = "Score = " + std::to_string(m_i_score) + " / " + std::to_string(m_i_level_threshold);
 			m_text_score->SetText(m_string_score);
@@ -364,9 +356,6 @@ void GameManager::CreateCoins(int _number_coins, int _border)
 
 GameManager::~GameManager()
 {
-	delete m_bullet;
-	m_bullet = nullptr;
-
 	delete m_mdl_cat;
 	m_mdl_cat = nullptr;
 

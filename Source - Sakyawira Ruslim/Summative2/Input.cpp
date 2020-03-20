@@ -29,36 +29,6 @@ void Input::ProcessInput(GameManager* Game, Audio& audio)
 	if (KeyState[32] == INPUT_DOWN_FIRST)
 	{
 		glm::vec3 _target = Game->tank->GetLocation();
-
-		if (Game->m_bullet->GetLocation() == Game->tank->GetLocation())
-		{
-			audio.Play(SOUND_GAMEOVER);
-
-			if (Game->tank->GetRotate() == 0.0f)
-			{
-				_target.z -= 150.0f;
-				Game->m_bullet->SetTarget(_target);
-				Game->m_bullet->Enable();
-			}
-			else if (Game->tank->GetRotate() == 180.0f)
-			{
-				_target.z += 150.0f;
-				Game->m_bullet->SetTarget(_target);
-				Game->m_bullet->Enable();
-			}
-			else if (Game->tank->GetRotate() == 90.f)
-			{
-				_target.x -= 150.0f;
-				Game->m_bullet->SetTarget(_target);
-				Game->m_bullet->Enable();
-			}
-			else if (Game->tank->GetRotate() == -90.f)
-			{
-				_target.x += 150.0f;
-				Game->m_bullet->SetTarget(_target);
-				Game->m_bullet->Enable();
-			}
-		}
 	}
 
 	if (KeyState['w'] == INPUT_DOWN)

@@ -74,8 +74,6 @@ public:
 	Camera camera;
 
 	GameObject* tank;
-
-	Bullet* m_bullet;
 	
 private:
 
