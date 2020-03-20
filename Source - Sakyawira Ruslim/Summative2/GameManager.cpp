@@ -218,17 +218,17 @@ void GameManager::Render()
 		//
 		////tank->draw_with_model(m_clock->GetDeltaTick());
 
-		//frameCounts += 1.0f * m_clock->GetDeltaTick() * 120.0f;
+		frameCounts += 1.0f * m_clock->GetDeltaTick() * 120.0f;
 
-		//if (m_i_lives <= 0 || m_b_start == 0)
-		//{
+		//if (m_b_start == 0)
+		{
 		//	//Menu->Draw(camera, "currentTime", currentTime, m_clock->GetDeltaTick());
 		//	// player->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 		//	cube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
-		//	sphere->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_tr_cube_map, m_clock->GetDeltaTick());
+		sphere->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_tr_cube_map, m_clock->GetDeltaTick());
 		//	m_text_menu->Render();
 		//	//	m_text_bg->Render();
-		//}
+		}
 
 		//if (m_text_score != nullptr)
 		//{

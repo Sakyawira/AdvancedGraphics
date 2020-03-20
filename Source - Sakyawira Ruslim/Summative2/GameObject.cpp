@@ -119,8 +119,7 @@ void GameObject::Draw(Camera & _camera, const GLchar * s_currentTime, GLfloat f_
 
 void GameObject::Draw(Camera& _camera, float deltaTime)
 {
-	//glCullFace(GL_BACK);
-	//glFrontFace(GL_CW);
+
 	
 	m_shader->Activate();
 	glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
@@ -140,12 +139,13 @@ void GameObject::Draw(Camera& _camera, float deltaTime)
 	glDrawElements(GL_TRIANGLES, m_mesh->GetSize(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 
-	//glCullFace(GL_FRONT);
-	//glFrontFace(GL_CCW);
+
 }
 
 void GameObject::Draw(Camera & _camera, const GLchar * s_currentTime, GLfloat f_currentTime, const GLchar * s_frameTime, GLint i_frameTime, CubeMap * cube_map, float deltaTime)
 {
+	//glCullFace(GL_BACK);
+	glFrontFace(GL_CW);
 	m_shader->Activate();
 	glActiveTexture(GL_TEXTURE1);
 	glUniform1i(glGetUniformLocation(m_shader->GetProgram(), "skybox"), 1);
@@ -161,6 +161,8 @@ void GameObject::Draw(Camera & _camera, const GLchar * s_currentTime, GLfloat f_
 	m_mesh->Bind();
 	glDrawElements(GL_TRIANGLES, m_mesh->GetSize(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
+	//glCullFace(GL_FRONT);
+	glFrontFace(GL_CCW);
 }
 
 void GameObject::draw_with_model(float deltaTime)
