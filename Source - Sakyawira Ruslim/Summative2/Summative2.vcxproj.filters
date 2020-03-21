@@ -125,9 +125,6 @@
     <Text Include="Resources\Shaders\AnimationFragment.txt">
       <Filter>Shaders</Filter>
     </Text>
-    <Text Include="Resources\Shaders\ScrollingVertex.txt">
-      <Filter>Shaders</Filter>
-    </Text>
     <Text Include="Resources\Shaders\AlternatingVertex.txt">
       <Filter>Shaders</Filter>
     </Text>
@@ -156,6 +153,12 @@
       <Filter>Shaders</Filter>
     </Text>
     <Text Include="Resources\Shaders\FogReflectionVS.txt">
+      <Filter>Shaders</Filter>
+    </Text>
+    <Text Include="Resources\Shaders\FogPhongVS.txt">
+      <Filter>Shaders</Filter>
+    </Text>
+    <Text Include="FogPhongDiffuseFS.txt">
       <Filter>Shaders</Filter>
     </Text>
   </ItemGroup>

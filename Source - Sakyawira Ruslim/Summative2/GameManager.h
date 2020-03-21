@@ -115,7 +115,7 @@ private:
 
 	Shader* m_sh_alternating;
 	Shader* m_sh_animate;
-	Shader* m_sh_scroll;
+	Shader* m_sh_fog;
 	Shader* m_sh_phong_diffuse;
 	Shader* m_sh_phong_specular;
 	Shader* m_sh_phong_rim;
