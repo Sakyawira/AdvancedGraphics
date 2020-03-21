@@ -60,7 +60,8 @@ public:
 	
 	void calculateCameraPosition(float h_distance, float v_distance, glm::vec3 _center);
 
-
+	glm::mat4 get_projection();
+	
 private:
 
 	// Distance from player

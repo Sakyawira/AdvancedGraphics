@@ -61,12 +61,20 @@ public:
 
 	CClock* GetClock();
 
+	bool updateMousePicking();
+
 	Camera camera;
 
 	GameObject* tank;
+
+	void set_mouse_pos(glm::vec2 mousePos_);
 	
 private:
 
+	// Ray direction
+	glm::vec3 m_rayDirection;
+	glm::vec2 m_mousePos;
+	
 	// Utility functions
 	void CreateCoins(int _number_coins, int _border);
 	

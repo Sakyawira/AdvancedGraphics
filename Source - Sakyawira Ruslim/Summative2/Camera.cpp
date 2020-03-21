@@ -143,4 +143,9 @@ void Camera::calculateCameraPosition(float h_distance, float v_distance, glm::ve
 	camPos.y = _center.y + v_distance;
 }
 
+glm::mat4 Camera::get_projection()
+{
+	return proj;
+}
+
 

@@ -297,6 +297,22 @@ CClock* GameManager::GetClock()
 	return m_clock;
 }
 
+bool GameManager::updateMousePicking()
+{
+	//screen pos
+	glm::vec2 normalizedScreenPos = m_mousePos;
+	//screenpos to Proj Space
+	glm::vec4 clipCoords = glm::vec4(normalizedScreenPos.x, normalizedScreenPos.y, -1.0f, 1.0f);
+	//Proj Space to eye space
+	glm::mat4 invProjMat = glm::inverse(camera.get_projection());
+	glm::vec4 eyeCoords = invProjMat * clipCoords; eyeCoords = glm::vec4(eyeCoords.x, eyeCoords.y, -1.0f, 0.0f);
+}
+
+void GameManager::set_mouse_pos(glm::vec2 mousePos_)
+{
+	m_mousePos = mousePos_;
+}
+
 void GameManager::CreateCoins(int _number_coins, int _border)
 {
 	std::vector<Texture*> v_texture2 = { m_tr_slimes, m_tr_slimes };

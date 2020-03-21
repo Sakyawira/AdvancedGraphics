@@ -45,10 +45,6 @@ private:
 	InputState SpecialKeyState[255];
 
 	InputState MouseState[3];
-
-	float currentMX = 0;
-	float currentMY = 0;
-
 };
 
 

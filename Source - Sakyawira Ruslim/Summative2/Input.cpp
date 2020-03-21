@@ -113,6 +113,13 @@ void Input::MouseClick(int button, int state, int x, int y)
 
 void Input::MousePassiveMove(int x, int y, GameManager * Game)
 {
+	/*For Mouse Picking*/
+	const float currentMX = (2.0f * x) / static_cast<float>(800) - 1.0f;
+	const float currentMY = 1.0f - (2.0f * y) / static_cast<float>(800);
+	Game->set_mouse_pos(glm::vec2(currentMX, currentMY));
+	
+
+	/*For Free Moving Camera*/
 	//Convert current screen width and height mouse co-ords to 
 	x -= 400;
 	y -= 400;
