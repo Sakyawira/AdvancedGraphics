@@ -311,9 +311,27 @@ bool GameManager::updateMousePicking()
 	glm::mat4 invViewMat = glm::inverse(camera.get_view());
 	glm::vec4 rayWorld = invViewMat * eyeCoords;
 	m_rayDirection = glm::normalize(glm::vec3(rayWorld));
-	//add code to check
-	// intersection with other objects
+	
+	//	add code to check
+	//	intersection with other objects
 
+	float radius = 1.0f;
+	glm::vec3 v = sphere->GetLocation() - camera.GetPosition();
+	float a = glm::dot(m_rayDirection, m_rayDirection);
+	float b = 2 * glm::dot(v, m_rayDirection);
+	float c = glm::dot(v, v) - radius * radius;
+	float d = b * b - 4 * a* c;
+	if (d > 0) 
+	{
+		float x1 = (-b - sqrt(d)) / 2;
+		float x2 = (-b + sqrt(d)) / 2;
+		if (x1 >= 0 && x2 >= 0) return true; // intersects
+		if (x1 < 0 && x2 >= 0) return true; // intersects
+	}
+	else if (d <= 0) 
+	{
+		return false;// no intersection
+	}
 }
 
 void GameManager::set_mouse_pos(glm::vec2 mousePos_)
