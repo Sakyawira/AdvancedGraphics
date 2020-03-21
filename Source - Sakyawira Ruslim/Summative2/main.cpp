@@ -4,7 +4,7 @@
 
 void Update()
 {
-	//FMOD_RESULT System::update();
+	// FMOD_RESULT System::update();
 	audio.Update();
 
 	// Process Game
@@ -54,10 +54,8 @@ void MouseMove(int x, int y)
 
 int main(int argc, char **argv)
 {
-	//assert(AudioInit() == true);
-	audio.Load();
-	audio.Play(SOUND_BGM1); 
-	//audio.Play(SOUND_VICTORY);
+	// audio.Load();
+	// audio.Play(SOUND_BGM1); 
 		
 	// Setup and create at glut controlled window
 	glutInit(&argc, argv);
