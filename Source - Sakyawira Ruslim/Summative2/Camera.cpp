@@ -148,4 +148,9 @@ glm::mat4 Camera::get_projection()
 	return proj;
 }
 
+glm::mat4 Camera::get_view()
+{
+	return view;
+}
+
 

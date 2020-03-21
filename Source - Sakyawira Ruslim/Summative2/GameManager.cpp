@@ -306,6 +306,14 @@ bool GameManager::updateMousePicking()
 	//Proj Space to eye space
 	glm::mat4 invProjMat = glm::inverse(camera.get_projection());
 	glm::vec4 eyeCoords = invProjMat * clipCoords; eyeCoords = glm::vec4(eyeCoords.x, eyeCoords.y, -1.0f, 0.0f);
+
+	//eyespace to world space
+	glm::mat4 invViewMat = glm::inverse(camera.get_view());
+	glm::vec4 rayWorld = invViewMat * eyeCoords;
+	m_rayDirection = glm::normalize(glm::vec3(rayWorld));
+	//add code to check
+	// intersection with other objects
+
 }
 
 void GameManager::set_mouse_pos(glm::vec2 mousePos_)
