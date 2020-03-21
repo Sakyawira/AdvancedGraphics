@@ -97,9 +97,6 @@ void Camera::updateLookDir(int currentX, int currentY)
 	lastX = 0;
 	lastY = 0;
 
-	//currentX = 400;
-	//currentY = 400;
-
 	const float sensitivity = 0.05f;
 
 	offsetX *= sensitivity;
