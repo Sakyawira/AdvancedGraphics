@@ -122,7 +122,10 @@ void Input::MousePassiveMove(int x, int y, GameManager * Game)
 
 	std::cout << "Passive x: " << x << " | y: " << y << std::endl;
 
-	Game->camera.updateLookDir(x, y);
+	if (Game->IsStarted())
+	{
+		Game->camera.updateLookDir(x, y);
+	}
 }
 
 void Input::MouseMove(int x, int y)
