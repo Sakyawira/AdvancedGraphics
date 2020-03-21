@@ -183,8 +183,8 @@
     <Text Include="Resources\Shaders\AnimationFragment.txt" />
     <Text Include="Resources\Shaders\CubeMapFS.txt" />
     <Text Include="Resources\Shaders\CubeMapVS.txt" />
-    <Text Include="Resources\Shaders\FogFS.txt" />
-    <Text Include="Resources\Shaders\FogVS.txt" />
+    <Text Include="Resources\Shaders\FogReflectionFS.txt" />
+    <Text Include="Resources\Shaders\FogReflectionVS.txt" />
     <Text Include="Resources\Shaders\PhongRim.fs" />
     <Text Include="Resources\Shaders\PhongVS.txt" />
     <Text Include="Resources\Shaders\PhongDiffuse.fs" />

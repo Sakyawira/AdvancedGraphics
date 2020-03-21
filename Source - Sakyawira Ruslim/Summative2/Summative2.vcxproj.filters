@@ -152,10 +152,10 @@
     <Text Include="Resources\Shaders\PhongRim.fs">
       <Filter>Shaders</Filter>
     </Text>
-    <Text Include="Resources\Shaders\FogFS.txt">
+    <Text Include="Resources\Shaders\FogReflectionFS.txt">
       <Filter>Shaders</Filter>
     </Text>
-    <Text Include="Resources\Shaders\FogVS.txt">
+    <Text Include="Resources\Shaders\FogReflectionVS.txt">
       <Filter>Shaders</Filter>
     </Text>
   </ItemGroup>
