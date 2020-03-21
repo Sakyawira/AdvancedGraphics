@@ -153,6 +153,15 @@ void GameManager::ProcessGame(Audio& audio)
 		float f_deltaT = m_clock->GetDeltaTick() * 120.0f;
 		camera.CameraUpdate(m_b_start, m_clock->GetDeltaTick() * 1.0f, tank->GetLocation());
 
+		if (updateMousePicking())
+		{
+			m_text_instruction->SetText("Collided!");
+		}
+		else
+		{
+			m_text_instruction->SetText("Not Collided!");
+		}
+
 		if (m_b_start)
 		{
 			// Update Texts
@@ -168,7 +177,7 @@ void GameManager::ProcessGame(Audio& audio)
 			m_string_bg = "L"+ std::to_string(m_c_bg);
 			m_text_bg->SetText(m_string_bg);
 
-			m_text_instruction->SetText("Press 'Space' to shoot...");
+			// m_text_instruction->SetText("Press 'Space' to shoot...");
 
 			tank->sphere_collision_check(tank, cube);
 
@@ -202,6 +211,7 @@ void GameManager::Render()
 {
 	if (m_b_initialized == 1)
 	{
+	
 		// Drawing all obstacles
 		glEnable(GL_SCISSOR_TEST);
 		glScissor(0, 200, 800, 400);
@@ -226,7 +236,7 @@ void GameManager::Render()
 		//	// player->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 		//	cube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 		sphere->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_tr_cube_map, m_clock->GetDeltaTick());
-		//	m_text_menu->Render();
+		// m_text_menu->Render();
 		//	//	m_text_bg->Render();
 		}
 
@@ -235,7 +245,7 @@ void GameManager::Render()
 		//	m_text_score->Render();
 		//	m_text_lives->Render();
 		//	m_text_level->Render();
-		//	m_text_instruction->Render();
+		
 		//}
 
 		//enable stencil and set stencil operation 
@@ -269,7 +279,9 @@ void GameManager::Render()
 
 		glDisable(GL_BLEND);
 		
-	//	glDisable(GL_SCISSOR_TEST);
+		glDisable(GL_SCISSOR_TEST);
+		
+		m_text_instruction->Render();
 	}
 	else
 	{
@@ -315,7 +327,7 @@ bool GameManager::updateMousePicking()
 	//	add code to check
 	//	intersection with other objects
 
-	float radius = 1.0f;
+	float radius = 5.0f;
 	glm::vec3 v = sphere->GetLocation() - camera.GetPosition();
 	float a = glm::dot(m_rayDirection, m_rayDirection);
 	float b = 2 * glm::dot(v, m_rayDirection);
