@@ -259,7 +259,7 @@ void GameManager::Render()
 		glStencilMask(0xFF);//enable writing to stencil buffer
 		//--> render regular sized cube // fills stencil buffer 
 		
-		stencilCube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_tr_cube_map, m_clock->GetDeltaTick());
+		stencilCube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 
 		// ** 2nd pass ** 
 		glStencilFunc(GL_NOTEQUAL, 1, 0xFF); 

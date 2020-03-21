@@ -11,13 +11,30 @@ uniform vec3 camPos;
 uniform sampler2D tex;
 uniform samplerCube skybox;
 
+uniform float currentTime;
+//uniform sampler2D tex;
+//uniform sampler2D tex1;
+
+uniform float ambientStr = 0.05f;
+uniform vec3 ambientColor = vec3(1.0f, 1.0f, 1.0f);
+
+uniform vec3 lightColor = vec3(1.0f, 1.0f, 1.0f);
+uniform vec3 lightPos = vec3(-2.0f, 6.0f, 3.0f);
+
 void main()
 {
-	vec3 norm = normalize(fragNormal);
-    vec3 viewDir = normalize(fragPos- camPos);
-    vec3 reflectDir = reflect(viewDir, norm);
+	// Ambient
+	vec3 ambient = ambientStr * ambientColor;
 
-    color = vec4(texture(skybox, reflectDir).rgb , 1.0f);
+	// Light Direction
+	vec3 norm = normalize(fragNormal);
+	vec3 lightDir = normalize(fragPos - lightPos);
+
+	// Diffuse Coloring
+	float diffuseStr = max(dot(norm, -lightDir), 0.0f);
+	vec3 diffuse = diffuseStr * lightColor;
+
+	color = vec4(ambient + diffuse, 1.0f) * (texture(tex, fragTexCoord));
 
 	float d = distance(mWorldPos.xyz, camPos); 
 
