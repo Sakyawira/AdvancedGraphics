@@ -179,11 +179,12 @@
     <ClInclude Include="Vertices.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="FogPhongDiffuseFS.txt" />
     <Text Include="Resources\Shaders\AlternatingFragment.txt" />
     <Text Include="Resources\Shaders\AnimationFragment.txt" />
     <Text Include="Resources\Shaders\CubeMapFS.txt" />
     <Text Include="Resources\Shaders\CubeMapVS.txt" />
+    <Text Include="Resources\Shaders\FogPhongDiffuseFS.txt" />
+    <Text Include="Resources\Shaders\FogPhongVS.txt" />
     <Text Include="Resources\Shaders\FogReflectionFS.txt" />
     <Text Include="Resources\Shaders\FogReflectionVS.txt" />
     <Text Include="Resources\Shaders\PhongRim.fs" />
@@ -194,7 +195,6 @@
     <Text Include="Resources\Shaders\TextVS.txt" />
     <Text Include="Resources\Shaders\AlternatingVertex.txt" />
     <Text Include="Resources\Shaders\AnimationVertex.txt" />
-    <Text Include="Resources\Shaders\FogPhongVS.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Model.fs" />

@@ -155,10 +155,10 @@
     <Text Include="Resources\Shaders\FogReflectionVS.txt">
       <Filter>Shaders</Filter>
     </Text>
-    <Text Include="Resources\Shaders\FogPhongVS.txt">
+    <Text Include="Resources\Shaders\FogPhongDiffuseFS.txt">
       <Filter>Shaders</Filter>
     </Text>
-    <Text Include="FogPhongDiffuseFS.txt">
+    <Text Include="Resources\Shaders\FogPhongVS.txt">
       <Filter>Shaders</Filter>
     </Text>
   </ItemGroup>

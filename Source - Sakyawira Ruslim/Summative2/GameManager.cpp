@@ -24,7 +24,7 @@ GameManager::GameManager()
 	// Create Shader
 	m_sh_alternating = new Shader("Resources/Shaders/AlternatingVertex.txt", "Resources/Shaders/AlternatingFragment.txt", m_v_sh);
 	m_sh_animate = new Shader("Resources/Shaders/AnimationVertex.txt", "Resources/Shaders/AnimationFragment.txt", m_v_sh);
-	m_sh_fog = new Shader("Resources/Shaders/FogPhongVS.txt", "Resources/Shaders/AnimationFragment.txt", m_v_sh);
+	m_sh_fog = new Shader("Resources/Shaders/FogPhongVS.txt", "Resources/Shaders/FogPhongDiffuseFS.txt", m_v_sh);
 	m_sh_phong_diffuse = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongDiffuse.fs", m_v_sh);
 	m_sh_phong_specular = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongSpecular.fs", m_v_sh);
 	m_sh_phong_rim = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongRim.fs", m_v_sh);
@@ -74,7 +74,7 @@ GameManager::GameManager()
 	std::vector<Texture*> v_cubeMap = { m_tr_cube_map };
 
 	// Stencil Cube
-	stencilCube = new GameObject(m_sh_phong_diffuse, m_mesh_cube, v_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
+	stencilCube = new GameObject(m_sh_fog, m_mesh_cube, v_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	stencilCube->Scale(5.0f);
 	stencilCube2 = new GameObject(m_sh_phong_diffuse, m_mesh_cube, bg_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	stencilCube2->Scale(6.0f);
@@ -259,7 +259,7 @@ void GameManager::Render()
 		glStencilMask(0xFF);//enable writing to stencil buffer
 		//--> render regular sized cube // fills stencil buffer 
 		
-		stencilCube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
+		stencilCube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_tr_cube_map, m_clock->GetDeltaTick());
 
 		// ** 2nd pass ** 
 		glStencilFunc(GL_NOTEQUAL, 1, 0xFF); 
