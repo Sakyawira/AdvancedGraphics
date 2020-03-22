@@ -22,7 +22,7 @@ GameManager::GameManager()
 	m_clock = new CClock();
 	
 	// Create Shader
-	m_sh_alternating = new Shader("Resources/Shaders/AlternatingVertex.txt", "Resources/Shaders/AlternatingFragment.txt", m_v_sh);
+	m_sh_fogBox = new Shader("Resources/Shaders/FogCubeMapVS.txt", "Resources/Shaders/FogCubeMapFS.txt", m_v_sh);
 	m_sh_animate = new Shader("Resources/Shaders/AnimationVertex.txt", "Resources/Shaders/AnimationFragment.txt", m_v_sh);
 	m_sh_fog = new Shader("Resources/Shaders/FogPhongVS.txt", "Resources/Shaders/FogPhongDiffuseFS.txt", m_v_sh);
 	m_sh_phong_diffuse = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongDiffuse.fs", m_v_sh);
@@ -86,7 +86,7 @@ GameManager::GameManager()
 	sky_box->Scale(2000.0f);
 
 	// Pyramid
-	pyramid = new GameObject(m_sh_alternating, m_mesh_pyramid, bg_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
+	pyramid = new GameObject(m_sh_fogBox, m_mesh_pyramid, bg_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 
 	// Cube
 	cube = new GameObject(m_sh_phong_specular, m_mesh_sphere, bg_texture, 0.0f, -10.0f, 0.0f, m_v_geometry);
@@ -228,7 +228,7 @@ void GameManager::Render()
 
 		//// pyramid->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 		//	sky_box->Draw(camera);
-		m_tr_cube_map->Render(m_sh_cube_map, m_mesh_cube_map, camera);
+		m_tr_cube_map->Render(m_sh_fogBox, m_mesh_cube_map, camera);
 		//
 		////tank->draw_with_model(m_clock->GetDeltaTick());
 

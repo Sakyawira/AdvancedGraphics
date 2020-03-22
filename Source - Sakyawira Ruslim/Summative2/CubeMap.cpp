@@ -117,10 +117,10 @@ void CubeMap::Render(Shader* shader, Mesh* mesh, Camera& camera)
 
 
 	//// Put model uniform into '*program'
-	//GLuint modelLoc = glGetUniformLocation(shader->GetProgram(), "model");
-	//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(m_modelMatrix));
-	////glUniformMatrix4fv(glGetUniformLocation(shader->GetProgram(), "MVP"), 1, GL_FALSE, glm::value_ptr(camera.GetVP() * m_modelMatrix));
-	//camera.UseCamera(shader->GetProgram());
+	GLuint modelLoc = glGetUniformLocation(shader->GetProgram(), "model");
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(m_modelMatrix));
+	//glUniformMatrix4fv(glGetUniformLocation(shader->GetProgram(), "MVP"), 1, GL_FALSE, glm::value_ptr(camera.GetVP() * m_modelMatrix));
+	camera.UseCamera(shader->GetProgram());
 
 	// Put model uniform into '*program'
 	GLuint MVPLoc = glGetUniformLocation(shader->GetProgram(), "MVP");

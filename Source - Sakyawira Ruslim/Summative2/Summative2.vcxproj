@@ -179,7 +179,7 @@
     <ClInclude Include="Vertices.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Resources\Shaders\AlternatingFragment.txt" />
+    <Text Include="Resources\Shaders\FogCubeMapFS.txt" />
     <Text Include="Resources\Shaders\AnimationFragment.txt" />
     <Text Include="Resources\Shaders\CubeMapFS.txt" />
     <Text Include="Resources\Shaders\CubeMapVS.txt" />
@@ -193,7 +193,7 @@
     <Text Include="Resources\Shaders\PhongSpecular.fs" />
     <Text Include="Resources\Shaders\TextFS.txt" />
     <Text Include="Resources\Shaders\TextVS.txt" />
-    <Text Include="Resources\Shaders\AlternatingVertex.txt" />
+    <Text Include="Resources\Shaders\FogCubeMapVS.txt" />
     <Text Include="Resources\Shaders\AnimationVertex.txt" />
   </ItemGroup>
   <ItemGroup>

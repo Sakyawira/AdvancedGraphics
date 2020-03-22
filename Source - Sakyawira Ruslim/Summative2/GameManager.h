@@ -113,7 +113,7 @@ private:
 	GLfloat currentTime;
 	float frameCounts = 0;
 
-	Shader* m_sh_alternating;
+	Shader* m_sh_fogBox;
 	Shader* m_sh_animate;
 	Shader* m_sh_fog;
 	Shader* m_sh_phong_diffuse;
