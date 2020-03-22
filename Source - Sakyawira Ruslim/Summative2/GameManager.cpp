@@ -76,9 +76,9 @@ GameManager::GameManager()
 	// Stencil Cube
 	stencilCube = new GameObject(m_sh_fog, m_mesh_cube, v_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	stencilCube->Scale(5.0f);
-	stencilCube2 = new GameObject(m_sh_phong_diffuse, m_mesh_cube, bg_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
+	stencilCube2 = new GameObject(m_sh_fog, m_mesh_cube, bg_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	stencilCube2->Scale(6.0f);
-	transparentCube = new GameObject(m_sh_phong_diffuse, m_mesh_cube, v_water_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
+	transparentCube = new GameObject(m_sh_fog, m_mesh_cube, v_water_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	transparentCube->Scale(8.0f);
 
 	// Sky-box / Cube-Map
