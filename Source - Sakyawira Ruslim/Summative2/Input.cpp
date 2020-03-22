@@ -65,7 +65,7 @@ void Input::ProcessInput(GameManager* Game, Audio& audio)
 		{
 			// Start working on initializing the game on restart instead of making a new one
 			Game->StartGame(false);
-			//Game->Initialize();
+			Game->Initialize();
 		}
 		KeyState['r'] = INPUT_DOWN;
 	}
