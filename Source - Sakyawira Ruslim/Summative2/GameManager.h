@@ -57,7 +57,7 @@ public:
 
 	bool IsEnded();
 
-	void StartGame();
+	void StartGame(bool _isStart);
 
 	CClock* GetClock();
 
@@ -86,7 +86,7 @@ private:
 	
 	// Control whether the game has been started
 	bool m_b_start = false;
-	bool m_b_ended = false;
+	// bool m_b_ended = false;
 	
 	// Declaring Strings
 	std::string m_string_score;

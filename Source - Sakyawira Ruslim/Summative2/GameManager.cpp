@@ -143,7 +143,6 @@ void GameManager::Initialize()
 	}
 	
 	m_b_initialized = true;
-	m_b_ended = false;
 }
 
 void GameManager::ProcessGame(Audio& audio)
@@ -194,7 +193,6 @@ void GameManager::ProcessGame(Audio& audio)
 				camera.SetPosX(0.0f);
 				camera.SetPosY(0.0f);
 				m_b_start = false;
-				m_b_ended = true;
 			}
 		}
 	}
@@ -245,7 +243,6 @@ void GameManager::Render()
 		//	m_text_score->Render();
 		//	m_text_lives->Render();
 		//	m_text_level->Render();
-		
 		//}
 
 		//enable stencil and set stencil operation 
@@ -294,14 +291,9 @@ bool GameManager::IsStarted()
 	return m_b_start;
 }
 
-bool GameManager::IsEnded()
+void GameManager::StartGame(bool _isStart)
 {
-	return m_b_ended;
-}
-
-void GameManager::StartGame()
-{
-	m_b_start = true;
+	m_b_start = _isStart;
 }
 
 CClock* GameManager::GetClock()

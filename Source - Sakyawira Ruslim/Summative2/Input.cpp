@@ -57,16 +57,17 @@ void Input::ProcessInput(GameManager* Game, Audio& audio)
 	}
 	if (KeyState['r'] == INPUT_DOWN_FIRST)
 	{
-		if (Game->IsEnded())
+		if (!Game->IsStarted() /*&& !Game->IsEnded()*/)
+		{
+			Game->StartGame(true);
+		}
+		else
 		{
 			// Start working on initializing the game on restart instead of making a new one
-			Game->Initialize();
+			Game->StartGame(false);
+			//Game->Initialize();
 		}
-
-		else if (!Game->IsStarted() && !Game->IsEnded())
-		{
-			Game->StartGame();
-		}
+		KeyState['r'] = INPUT_DOWN;
 	}
 
 	if (KeyState['e'] == INPUT_DOWN)
