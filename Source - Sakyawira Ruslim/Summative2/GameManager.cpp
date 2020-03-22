@@ -164,8 +164,9 @@ void GameManager::ProcessGame(Audio& audio)
 		if (m_b_start)
 		{
 			// Update Texts
-			m_string_score = "Press 'R' to use free moving camera!";
+			m_string_score = "Press 'R' to reset";
 			m_text_score->SetText(m_string_score);
+
 
 			m_string_lives = "Lives = ";
 			m_text_lives->SetText(m_string_lives);
@@ -197,7 +198,7 @@ void GameManager::ProcessGame(Audio& audio)
 		}
 		else
 		{
-			m_string_score = "Press 'R' to reset";
+			m_string_score = "Press 'R' to use free moving camera!";
 			m_text_score->SetText(m_string_score);
 		}
 	}
@@ -299,6 +300,9 @@ bool GameManager::IsStarted()
 
 void GameManager::StartGame(bool _isStart)
 {
+	camera.SetPosX(0.0f);
+	camera.SetPosY(0.0f);
+	camera.SetPosZ(26.0f);
 	m_b_start = _isStart;
 }
 

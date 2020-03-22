@@ -89,6 +89,11 @@ void Camera::SetPosY(float i_magnitude)
 	camPos.y = i_magnitude;
 }
 
+void Camera::SetPosZ(float i_magnitude)
+{
+	camPos.z = i_magnitude;
+}
+
 void Camera::updateLookDir(int currentX, int currentY)
 {
 	float offsetX = currentX - lastX;

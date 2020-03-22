@@ -44,6 +44,8 @@ public:
 
 	void SetPosY(float i_magnitude);
 
+	void SetPosZ(float i_magnitude);
+
 	void calculateZoom();
 
 	void calculatePitch();
