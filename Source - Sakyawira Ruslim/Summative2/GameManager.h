@@ -123,7 +123,7 @@ private:
 	Shader* m_sh_reflective;
 
 	Texture* m_tr_stars;
-	Texture* m_tr_background;
+	Texture* m_tr_plain;
 	Texture* m_tr_slimes;
 	Texture* m_tr_water;
 	CubeMap* m_tr_cube_map;

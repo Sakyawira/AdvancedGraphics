@@ -60,7 +60,7 @@ GameManager::GameManager()
 
 	// Texture
 	m_tr_stars = new Texture("Resources/Textures/stars.png");
-	m_tr_background = new Texture("Resources/Textures/bullet.png");
+	m_tr_plain = new Texture("Resources/Textures/bullet.png");
 	m_tr_slimes = new Texture("Resources/Textures/Slimes.png");
 	m_tr_water = new Texture("Resources/Textures/green.png");
 	std::vector<const char*> textureDirs = {"right.jpg", "left.jpg", "top.jpg", "bottom.jpg", "back.jpg", "front.jpg"};
@@ -69,14 +69,14 @@ GameManager::GameManager()
 	// Texture Vectors to be passed in
 	std::vector<Texture*> v_water_texture = { m_tr_water, m_tr_water };
 	std::vector<Texture*> v_texture2 = { m_tr_slimes, m_tr_slimes };
-	std::vector<Texture*> v_texture = { m_tr_stars, m_tr_background };
-	std::vector<Texture*> bg_texture = { m_tr_background, m_tr_background };
+	std::vector<Texture*> v_texture = { m_tr_stars, m_tr_plain };
+	std::vector<Texture*> plain_texture = { m_tr_plain, m_tr_plain };
 	std::vector<Texture*> v_cubeMap = { m_tr_cube_map };
 
 	// Stencil Cube
 	stencilCube = new GameObject(m_sh_fog, m_mesh_cube, v_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	stencilCube->Scale(5.0f);
-	stencilCube2 = new GameObject(m_sh_fog, m_mesh_cube, bg_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
+	stencilCube2 = new GameObject(m_sh_fog, m_mesh_cube, plain_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	stencilCube2->Scale(6.0f);
 	transparentCube = new GameObject(m_sh_fog, m_mesh_cube, v_water_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	transparentCube->Scale(8.0f);
@@ -86,23 +86,23 @@ GameManager::GameManager()
 	sky_box->Scale(2000.0f);
 
 	// Pyramid
-	pyramid = new GameObject(m_sh_fogBox, m_mesh_pyramid, bg_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
+	pyramid = new GameObject(m_sh_fogBox, m_mesh_pyramid, plain_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 
 	// Cube
-	cube = new GameObject(m_sh_phong_specular, m_mesh_sphere, bg_texture, 0.0f, -10.0f, 0.0f, m_v_geometry);
+	cube = new GameObject(m_sh_phong_specular, m_mesh_sphere, plain_texture, 0.0f, -10.0f, 0.0f, m_v_geometry);
 	cube->Scale(5.0f);
 
 	// Sphere
-	sphere = new GameObject(m_sh_reflective, m_mesh_sphere, bg_texture, 10.0f, 0.0f, 0.0f, m_v_geometry);
+	sphere = new GameObject(m_sh_reflective, m_mesh_sphere, plain_texture, 10.0f, 0.0f, 0.0f, m_v_geometry);
 	sphere->Scale(5.0f);
 
 	// Tank
 	tank = new GameObject(m_mdl_tank, 0.0f, 0.0f, 0.0f);
 
 	srand(static_cast<unsigned>(std::random_device()()));
-	int border = 350 - static_cast<int>(tank->GetScale()) * 2;
+	int border = 350;
 
-	CreateCoins(10, border - 100);
+	CreateCoins(10, border - 300);
 	
 	this->Initialize();
 }
@@ -220,11 +220,7 @@ void GameManager::Render()
 		glEnable(GL_SCISSOR_TEST);
 		glScissor(0, 200, 800, 400);
 
-		//// Drawing all obstacles
-		//for (auto& coinObjects2 : m_vector_coins)
-		//{
-		//	coinObjects2->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
-		//}
+	
 
 		//// pyramid->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 		m_tr_cube_map->Render(m_sh_fogBox, m_mesh_cube_map, camera);
@@ -236,6 +232,12 @@ void GameManager::Render()
 		//	cube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 		sphere->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_tr_cube_map, m_clock->GetDeltaTick());
 		}
+
+		//// Drawing all obstacles
+	for (auto& coinObjects2 : m_vector_coins)
+	{
+		coinObjects2->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
+	}
 
 		//tank->draw_with_model(m_clock->GetDeltaTick());
 		
@@ -343,7 +345,7 @@ void GameManager::set_mouse_pos(glm::vec2 mousePos_)
 
 void GameManager::CreateCoins(int _number_coins, int _border)
 {
-	std::vector<Texture*> v_texture2 = { m_tr_slimes, m_tr_slimes };
+	std::vector<Texture*> plain_texture = { m_tr_plain, m_tr_plain };
 	// Creates coin
 	for (int i = 0; i < _number_coins; ++i)
 	{
@@ -354,7 +356,7 @@ void GameManager::CreateCoins(int _number_coins, int _border)
 		negate = (negate == 0 ? -1 : 1);
 
 		const float random_z = static_cast<float>((rand() % _border) * negate);
-		m_coin = new Enemy(m_sh_reflective, m_mesh_sphere, v_texture2, random_x, 0.0f, random_z);
+		m_coin = new Enemy(m_sh_fog, m_mesh_sphere, plain_texture, random_x, 0.0f, random_z);
 		m_coin->Scale(5.0f);
 		m_coin->RandomOn();
 		m_vector_coins.push_back(m_coin);
@@ -378,8 +380,8 @@ GameManager::~GameManager()
 
 	delete m_tr_stars;
 	m_tr_stars = nullptr;
-	delete m_tr_background;
-	m_tr_background = nullptr;
+	delete m_tr_plain;
+	m_tr_plain = nullptr;
 	delete m_tr_slimes;
 	m_tr_slimes = nullptr;
 	delete m_tr_water;
