@@ -215,7 +215,7 @@ void GameManager::Render()
 {
 	if (m_b_initialized == 1)
 	{
-	
+		glEnable(GL_BLEND);
 		// Drawing all obstacles
 		glEnable(GL_SCISSOR_TEST);
 		glScissor(0, 200, 800, 400);
@@ -227,30 +227,18 @@ void GameManager::Render()
 		//}
 
 		//// pyramid->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
-		//	sky_box->Draw(camera);
 		m_tr_cube_map->Render(m_sh_fogBox, m_mesh_cube_map, camera);
-		//
-		////tank->draw_with_model(m_clock->GetDeltaTick());
 
 		frameCounts += 1.0f * m_clock->GetDeltaTick() * 120.0f;
 
 		//if (m_b_start == 0)
 		{
-		//	//Menu->Draw(camera, "currentTime", currentTime, m_clock->GetDeltaTick());
-		//	// player->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 		//	cube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 		sphere->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_tr_cube_map, m_clock->GetDeltaTick());
-		// m_text_menu->Render();
-		//	//	m_text_bg->Render();
 		}
 
-		//if (m_text_score != nullptr)
-		//{
+		//tank->draw_with_model(m_clock->GetDeltaTick());
 		
-		//	m_text_lives->Render();
-		//	m_text_level->Render();
-		//}
-
 		//enable stencil and set stencil operation 
 		glEnable(GL_STENCIL_TEST);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE); //stPass, dpFail, bothPass 
@@ -276,7 +264,7 @@ void GameManager::Render()
 
 		glStencilMask(0xFF);//enable writing to stencil buffer
 
-		glEnable(GL_BLEND);
+		
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		transparentCube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 
