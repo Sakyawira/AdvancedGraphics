@@ -126,6 +126,7 @@ void CubeMap::Render(Shader* shader, Mesh* mesh, Camera& camera)
 	GLuint MVPLoc = glGetUniformLocation(shader->GetProgram(), "VP");
 	glUniformMatrix4fv(MVPLoc, 1, GL_FALSE, glm::value_ptr((camera.GetVP() /** m_modelMatrix*/)));
 
+
 	//mesh->Bind();
 	glBindVertexArray(m_VAO);
 	glDrawArrays(GL_TRIANGLES, 0, 36);

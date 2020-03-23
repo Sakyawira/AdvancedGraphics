@@ -109,7 +109,7 @@ void Input::MouseClick(int button, int state, int x, int y)
 	}
 
 	MouseState[button] = (state == GLUT_DOWN) ? INPUT_DOWN : INPUT_UP;
-	std::cout << "Clicked Once x: " << x << " | y: " << y << std::endl;
+	//std::cout << "Clicked Once x: " << x << " | y: " << y << std::endl;
 }
 
 void Input::MousePassiveMove(int x, int y, GameManager * Game)
@@ -128,7 +128,7 @@ void Input::MousePassiveMove(int x, int y, GameManager * Game)
 	//Invert y axis
 	y *= -1;
 
-	std::cout << "Passive x: " << x << " | y: " << y << std::endl;
+	//std::cout << "Passive x: " << x << " | y: " << y << std::endl;
 
 	if (Game->IsStarted())
 	{
@@ -138,7 +138,7 @@ void Input::MousePassiveMove(int x, int y, GameManager * Game)
 
 void Input::MouseMove(int x, int y)
 {
-	std::cout << "Clicked x: " << x << " | y: " << y << std::endl;
+	//std::cout << "Clicked x: " << x << " | y: " << y << std::endl;
 }
 
 void Input::KeyboardDown(unsigned char key, int x, int y)

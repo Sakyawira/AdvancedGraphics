@@ -12,8 +12,6 @@ uniform sampler2D tex;
 uniform samplerCube skybox;
 
 uniform float currentTime;
-//uniform sampler2D tex;
-//uniform sampler2D tex1;
 
 uniform float ambientStr = 0.05f;
 uniform vec3 ambientColor = vec3(1.0f, 1.0f, 1.0f);
