@@ -74,7 +74,7 @@ int main(int argc, char **argv)
 	}
 
 	// Set the clear color when calling glClear()
-	glClearColor(0.0, 0.0, 0.0, 1.0); // Red
+	glClearColor(0.5, 0.5, 0.5, 1.0); // Red
 
 	glutSetOption(GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_CONTINUE_EXECUTION);
 

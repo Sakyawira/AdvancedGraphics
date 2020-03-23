@@ -4,6 +4,7 @@ layout (location = 0) in vec3 position;
 
 out vec3 fragTexCoord;
 
+
 uniform mat4 MVP;
 
 uniform mat4 model;
