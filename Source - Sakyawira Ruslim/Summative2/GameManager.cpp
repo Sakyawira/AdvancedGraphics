@@ -228,7 +228,7 @@ void GameManager::Render()
 
 		//// pyramid->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 		//	sky_box->Draw(camera);
-		m_tr_cube_map->Render(m_sh_fogBox, m_mesh_cube_map, camera);
+		m_tr_cube_map->Render(m_sh_cube_map, m_mesh_cube_map, camera);
 		//
 		////tank->draw_with_model(m_clock->GetDeltaTick());
 
