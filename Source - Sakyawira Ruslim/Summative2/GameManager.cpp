@@ -349,13 +349,19 @@ void GameManager::CreateCoins(int _number_coins, int _border)
 	// Creates coin
 	for (int i = 0; i < _number_coins; ++i)
 	{
-		int negate = rand() % 2;
-		negate = (negate == 0 ? -1 : 1);
-		const float random_x = static_cast<float>((rand() % _border) * negate);
-		negate = rand() % 2;
-		negate = (negate == 0 ? -1 : 1);
-
-		const float random_z = static_cast<float>((rand() % _border) * negate);
+		float random_x;
+		float random_z;
+		do
+		{
+			int negate = rand() % 2;
+			negate = (negate == 0 ? -1 : 1);
+			random_x = static_cast<float>((rand() % _border) * negate);
+			negate = rand() % 2;
+			negate = (negate == 0 ? -1 : 1);
+			random_z = static_cast<float>((rand() % _border) * negate);
+		} while (glm::vec3(random_x, 0.0f, random_z) == stencilCube->GetLocation() || glm::distance(glm::vec3(random_x, 0.0f, random_z), camera.GetPosition()) < 15.0f);
+		
+		
 		m_coin = new Enemy(m_sh_fog, m_mesh_sphere, plain_texture, random_x, 0.0f, random_z);
 		m_coin->Scale(5.0f);
 		m_coin->RandomOn();
