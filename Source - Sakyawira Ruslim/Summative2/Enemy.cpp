@@ -52,7 +52,7 @@ void Enemy::Process(int WINDOW_WIDTH, int WINDOW_HEIGHT, int player_size, float 
 
 	if (m_bool_vertical)
 	{
-		if (static_cast<int>(m_yPos) == WINDOW_HEIGHT - (static_cast<int>(m_scale) + 150) || static_cast<int>(m_yPos) == - WINDOW_HEIGHT + (static_cast<int>(m_scale) + 150))
+		if (static_cast<int>(m_yPos) == WINDOW_HEIGHT - (static_cast<int>(m_scale.z) + 150) || static_cast<int>(m_yPos) == - WINDOW_HEIGHT + (static_cast<int>(m_scale.z) + 150))
 		{
 			m_bool_dir = !m_bool_dir;
 		}
@@ -67,7 +67,7 @@ void Enemy::Process(int WINDOW_WIDTH, int WINDOW_HEIGHT, int player_size, float 
 	}
 	else
 	{
-		if (static_cast<int>(m_xPos) == WINDOW_WIDTH - (static_cast<int>(m_scale) + 150) || static_cast<int>(m_xPos) == -WINDOW_WIDTH + (static_cast<int>(m_scale) + 150))
+		if (static_cast<int>(m_xPos) == WINDOW_WIDTH - (static_cast<int>(m_scale.z) + 150) || static_cast<int>(m_xPos) == -WINDOW_WIDTH + (static_cast<int>(m_scale.z) + 150))
 		{
 			m_bool_dir = !m_bool_dir;
 		}

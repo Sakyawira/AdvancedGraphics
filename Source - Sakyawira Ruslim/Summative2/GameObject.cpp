@@ -158,7 +158,7 @@ bool GameObject::sphere_collision_check(GameObject* a, GameObject* b)
 		const float length = glm::length(distance);
 
 		// Sum of the radiuses
-		const float radius_sum = a->GetScale() + b->GetScale();
+		const float radius_sum = a->GetScale().x + b->GetScale().x;
 
 		if (length <= radius_sum)
 		{
@@ -174,20 +174,20 @@ float GameObject::GetPosition(int COORDINATE_ID)
 	// float fi;
 	if (COORDINATE_ID == TOP)
 	{
-		return (m_yPos + m_scale/2);
+		return (m_yPos + m_scale.y/2);
 		//fi = m_mesh->GetVertices().at(1);
 	}
 	else if (COORDINATE_ID == BOTTOM)
 	{
-		return (m_yPos - m_scale / 2);
+		return (m_yPos - m_scale.y / 2);
 	}
 	else if (COORDINATE_ID == LEFT)
 	{
-		return (m_xPos - m_scale /2);
+		return (m_xPos - m_scale.x /2);
 	}
 	else if (COORDINATE_ID == RIGHT)
 	{
-		return (m_xPos + m_scale / 2);
+		return (m_xPos + m_scale.x / 2);
 	}
 	else
 	{
@@ -233,15 +233,23 @@ void GameObject::Move(int MOVE_ID, float SPEED)
 	m_modelMatrix = m_translationMatrix * m_rotationZ * m_scaleMatrix;
 }
 
-float GameObject::GetScale()
+glm::vec3 GameObject::GetScale()
 {
 	return m_scale;
 }
 
+void GameObject::Scale(float _scaleX, float _scaleY, float _scaleZ)
+{
+	m_scale = glm::vec3(_scaleX, _scaleY, _scaleZ);
+	m_objScale = glm::vec3(1.0f * m_scale.x, 1.0f * m_scale.y, 1.0f * m_scale.z);
+	m_scaleMatrix = glm::scale(glm::mat4(), m_objScale);
+	m_modelMatrix = m_translationMatrix * m_rotationZ * m_scaleMatrix;
+}
+
 void GameObject::Scale(float _scale)
 {
-	m_scale = _scale;
-	m_objScale = glm::vec3(1.0f * m_scale, 1.0f * m_scale, 1.0f * m_scale);
+	m_scale = glm::vec3(_scale, _scale, _scale);
+	m_objScale = glm::vec3(1.0f * m_scale.x, 1.0f * m_scale.y, 1.0f * m_scale.z);
 	m_scaleMatrix = glm::scale(glm::mat4(), m_objScale);
 	m_modelMatrix = m_translationMatrix * m_rotationZ * m_scaleMatrix;
 }

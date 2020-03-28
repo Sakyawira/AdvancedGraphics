@@ -83,9 +83,10 @@ class GameObject
 	
 		void Move(int MOVE_ID, float SPEED);
 
-		float GetScale();
+		glm::vec3 GetScale();
 
 		void Scale(float _scale);
+		void Scale(float _scaleX, float _scaleY, float _scaleZ);
 	
 		void Enable();
 	
@@ -122,7 +123,7 @@ class GameObject
 		float m_zPos = 0.0f;
 	
 		// Scale
-		float m_scale = 1.0f;
+		glm::vec3 m_scale = glm::vec3(1.0f, 1.0f, 1.0f);
 		
 		// Translation Matrix
 		glm::vec3 m_objPosition = glm::vec3(m_xPos, m_yPos, m_zPos);
@@ -134,7 +135,7 @@ class GameObject
 		glm::mat4 m_rotationZ = glm::rotate(glm::mat4(), glm::radians(m_rotationAngle), m_rotationAxisZ);
 	
 		// Scaling 
-		glm::vec3 m_objScale = glm::vec3(1.0f * m_scale, 1.0f * m_scale, 1.0f * m_scale);
+		glm::vec3 m_objScale = glm::vec3(1.0f * m_scale.x, 1.0f * m_scale.y, 1.0f * m_scale.z);
 		glm::mat4 m_scaleMatrix = glm::scale(glm::mat4(), m_objScale);
 	
 		// Model matrix
