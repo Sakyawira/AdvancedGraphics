@@ -77,7 +77,7 @@ GameManager::GameManager()
 	stencilCube = new GameObject(m_sh_fog, m_mesh_cube, v_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	stencilCube->Scale(5.0f);
 	stencilCube2 = new GameObject(m_sh_fog, m_mesh_cube, plain_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
-	stencilCube2->Scale(6.0f);
+	stencilCube2->Scale(5.5f);
 	transparentCube = new GameObject(m_sh_fog, m_mesh_cube, v_water_texture, 0.0f, -6.0f, 0.0f, m_v_geometry);
 	transparentCube->Scale(800.0f, 8.0f, 800.0f);
 
@@ -93,16 +93,16 @@ GameManager::GameManager()
 	cube->Scale(5.0f);
 
 	// Sphere
-	sphere = new GameObject(m_sh_fog, m_mesh_sphere, plain_texture, 33.0f, 0.0f, 0.0f, m_v_geometry);
+	sphere = new GameObject(m_sh_fog, m_mesh_sphere, plain_texture, 32.0f, 0.0f, 0.0f, m_v_geometry);
 	sphere->Scale(5.0f);
 
 	// Tank
 	tank = new GameObject(m_mdl_tank, 0.0f, 0.0f, 0.0f);
 
 	srand(static_cast<unsigned>(std::random_device()()));
-	int border = 350;
+	int border = 75;
 
-	CreateCoins(10, border - 300);
+	CreateCoins(10, border);
 	
 	this->Initialize();
 }
