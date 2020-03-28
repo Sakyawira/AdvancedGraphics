@@ -93,7 +93,7 @@ GameManager::GameManager()
 	cube->Scale(5.0f);
 
 	// Sphere
-	sphere = new GameObject(m_sh_reflective, m_mesh_sphere, plain_texture, 10.0f, 0.0f, 0.0f, m_v_geometry);
+	sphere = new GameObject(m_sh_fog, m_mesh_sphere, plain_texture, 33.0f, 0.0f, 0.0f, m_v_geometry);
 	sphere->Scale(5.0f);
 
 	// Tank
@@ -230,7 +230,7 @@ void GameManager::Render()
 		//if (m_b_start == 0)
 		{
 		//	cube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
-		sphere->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_tr_cube_map, m_clock->GetDeltaTick());
+		sphere->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 		}
 
 		//// Drawing all obstacles
@@ -355,11 +355,11 @@ void GameManager::CreateCoins(int _number_coins, int _border)
 		{
 			int negate = rand() % 2;
 			negate = (negate == 0 ? -1 : 1);
-			random_x = static_cast<float>((rand() % _border) * negate);
+			random_x = (static_cast<float>((rand() % _border)+ 10.0f) * negate);
 			negate = rand() % 2;
 			negate = (negate == 0 ? -1 : 1);
-			random_z = static_cast<float>((rand() % _border) * negate);
-		} while (glm::vec3(random_x, 0.0f, random_z) == stencilCube->GetLocation() || glm::distance(glm::vec3(random_x, 0.0f, random_z), camera.GetPosition()) < 15.0f);
+			random_z = (static_cast<float>((rand() % _border) + 10.0f) * negate);
+		} while (glm::vec3(random_x, 0.0f, random_z) == stencilCube->GetLocation() || glm::distance(glm::vec3(random_x, 0.0f, random_z), camera.GetPosition()) < 25.0f);
 		
 		
 		m_coin = new Enemy(m_sh_fog, m_mesh_sphere, plain_texture, random_x, 0.0f, random_z);
