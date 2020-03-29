@@ -319,7 +319,7 @@ bool GameManager::updateMousePicking()
 	//	add code to check
 	//	intersection with other objects
 
-	float radius = 5.0f;
+	float radius = 115.0f;
 
 	// Resize bounds
 	//bounds.size = boundsSize;
@@ -346,7 +346,7 @@ bool GameManager::updateMousePicking()
 	glm::vec3 min = cube->GetMin();
 	glm::vec3 max = cube->GetMax();
 
-	glm::vec3 dir = m_rayDirection;// endP - startP;
+	glm::vec3 dir = endP - startP;
 	glm::vec3 oneOverDir = glm::vec3(1.0f / dir.x, 1.0f / dir.y, 1.0f / dir.z);
 
 	// Slabs
