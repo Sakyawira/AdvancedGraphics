@@ -47,21 +47,19 @@ public:
 	GameManager();
 	~GameManager();
 
-	void Initialize();
+	void initialize();
 	
-	void ProcessGame(Audio& audio);
+	void process_game(Audio& audio);
 
-	void Render();
+	void render();
 
-	bool IsStarted();
+	bool is_started();
 
-	bool IsEnded();
+	void start_game(bool _isStart);
 
-	void StartGame(bool _isStart);
+	CClock* get_clock();
 
-	CClock* GetClock();
-
-	bool updateMousePicking(GameObject* _cube);
+	bool update_mouse_picking(GameObject* _cube);
 
 	Camera camera;
 
@@ -74,58 +72,58 @@ public:
 private:
 
 	// Is click
-	bool m_isClicked = false;
+	bool m_is_clicked_ = false;
 	
 	// Ray direction
-	glm::vec3 m_rayDirection;
-	glm::vec2 m_mousePos;
+	glm::vec3 m_ray_direction_;
+	glm::vec2 m_mouse_pos_;
 	
 	// Utility functions
 	void create_spheres(int _number_coins, int _border);
 	
 	// Clock
-	CClock* m_clock;
+	CClock* m_clock_;
 
 	// Check whether or not m_program has been initialized
-	bool m_b_initialized = false;
+	bool m_b_initialized_ = false;
 	
 	// Control whether the game has been started
-	bool m_b_start = false;
+	bool m_b_start_ = false;
 	// bool m_b_ended = false;
 	
 	// Declaring Strings
-	std::string m_string_score;
-	TextLabel* m_text_score;
-	std::string m_string_lives;
-	TextLabel* m_text_lives;
-	std::string m_string_level;
-	TextLabel* m_text_level;
+	std::string m_string_score_;
+	TextLabel* m_text_score_;
+	std::string m_string_lives_;
+	TextLabel* m_text_lives_;
+	std::string m_string_level_;
+	TextLabel* m_text_level_;
 
 	// Menu text
-	char m_c_bg = 65;
-	std::string m_string_bg;
-	TextLabel* m_text_bg;
+	char m_c_bg_ = 65;
+	std::string m_string_bg_;
+	TextLabel* m_text_bg_;
 
 	// Menu Text
-	std::string m_string_menu = "Collect All Crystal Balls to Win: The Game";
-	TextLabel* m_text_menu;
+	std::string m_string_menu_ = "Collect All Crystal Balls to Win: The Game";
+	TextLabel* m_text_menu_;
 
 	// Instruction Text
-	std::string m_string_instruction = "Press 'R' to start the game...";
-	TextLabel* m_text_instruction;
+	std::string m_string_instruction_ = "Press 'R' to start the game...";
+	TextLabel* m_text_instruction_;
 
 	// Uniforms
-	GLfloat currentTime;
-	float frameCounts = 0;
+	GLfloat current_time_;
+	float frame_counts_ = 0;
 
 	Shader* m_sh_fogBox;
-	Shader* m_sh_animate;
-	Shader* m_sh_fog;
-	Shader* m_sh_phong_diffuse;
-	Shader* m_sh_phong_specular;
-	Shader* m_sh_phong_rim;
-	Shader* m_sh_cube_map;
-	Shader* m_sh_reflective;
+	Shader* m_sh_animate_;
+	Shader* m_sh_fog_;
+	Shader* m_sh_phong_diffuse_;
+	Shader* m_sh_phong_specular_;
+	Shader* m_sh_phong_rim_;
+	Shader* m_sh_cube_map_;
+	Shader* m_sh_reflective_;
 
 	Texture* m_tr_down;
 	Texture* m_tr_plain;
