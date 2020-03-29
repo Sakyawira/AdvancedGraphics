@@ -137,7 +137,8 @@ void GameManager::Initialize()
 
 	// Reset Camera's Position
 	camera.SetPosX(0.0f);
-	camera.SetPosY(0.0f);
+	camera.SetPosY(1.5f);
+	camera.SetPosZ(26.0f);
 
 	for (auto& coin : m_vector_coins)
 	{
@@ -297,7 +298,7 @@ bool GameManager::IsStarted()
 void GameManager::StartGame(bool _isStart)
 {
 	camera.SetPosX(0.0f);
-	camera.SetPosY(0.0f);
+	camera.SetPosY(1.5f);
 	camera.SetPosZ(26.0f);
 	m_b_start = _isStart;
 }

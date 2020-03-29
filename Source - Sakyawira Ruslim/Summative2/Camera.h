@@ -87,7 +87,7 @@ private:
 	float lastY = 400;
 	
 	// Camera
-	 glm::vec3 camPos = glm::vec3(0.0f, 0.0f, 6.0f);
+	 glm::vec3 camPos = glm::vec3(0.0f, 1.5f, 26.0f);
 	 glm::vec3 camLookDir = glm::vec3(0.0f, 0.0f, -1.0f);
 	 glm::vec3 camUpDir = glm::vec3(0.0f, 1.0f, 0.0f);
 	 glm::vec3 cameraRight = glm::normalize(glm::cross(camUpDir, camLookDir));

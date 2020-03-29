@@ -48,15 +48,24 @@ void Camera::CameraUpdate(bool isGameStarted, float deltaTime, glm::vec3 _center
 	}
 	else
 	{
-		timeElapsed += deltaTime;
-		GLfloat radius = 26.0f;
-
-		camPos.x = sin(timeElapsed) * radius;
+		camPos.x = 0.0f;
 		camPos.y = 1.5f;
-		camPos.z = cos(timeElapsed) * radius;
+		camPos.z = 26.0f;
 		// View
 		view = glm::lookAt(camPos, glm::vec3(0.0f, 0.0f, 0.0f), camUpDir);
 	}
+	// Rotate around a center point
+	//else
+	//{
+	//	timeElapsed += deltaTime;
+	//	GLfloat radius = 26.0f;
+
+	//	camPos.x = sin(timeElapsed) * radius;
+	//	camPos.y = 1.5f;
+	//	camPos.z = cos(timeElapsed) * radius;
+	//	// View
+	//	view = glm::lookAt(camPos, glm::vec3(0.0f, 0.0f, 0.0f), camUpDir);
+	//}
 }
 
 void Camera::MovePosX(float i_magnitude, float deltaTime)
