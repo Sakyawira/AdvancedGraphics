@@ -89,8 +89,8 @@ GameManager::GameManager()
 	pyramid = new GameObject(m_sh_fogBox, m_mesh_pyramid, plain_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 
 	// Cube
-	cube = new GameObject(m_sh_phong_specular, m_mesh_sphere, plain_texture, 0.0f, -10.0f, 0.0f, m_v_geometry);
-	cube->Scale(5.0f);
+	cube = new GameObject(m_sh_fog, m_mesh_cube, plain_texture, 10.0f, 0.0f, 0.0f, m_v_geometry);
+	cube->Scale(3.0f);
 
 	// Sphere
 	sphere = new GameObject(m_sh_fog, m_mesh_sphere, plain_texture, 32.0f, 0.0f, 0.0f, m_v_geometry);
@@ -229,7 +229,7 @@ void GameManager::Render()
 
 		//if (m_b_start == 0)
 		{
-		//	cube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
+		cube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 		sphere->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 		}
 
