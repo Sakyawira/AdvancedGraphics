@@ -157,17 +157,23 @@ void GameManager::process_game(Audio& audio)
 		float f_deltaT = m_clock_->GetDeltaTick();
 		camera.update(m_b_start_, m_clock_->GetDeltaTick() * 1.0f, tank->GetLocation());
 
-		if (update_mouse_picking(button_up) && m_is_clicked_)
+		if (update_mouse_picking(button_up))
 		{
 			m_text_instruction_->SetText("Collided!");
-			stencilCube->Move(MOVE_FRONT, 10.0f * f_deltaT);
-			stencilCube2->Move(MOVE_FRONT, 10.0f * f_deltaT);
+			if (m_is_clicked_)
+			{
+				stencilCube->Move(MOVE_FRONT, 10.0f * f_deltaT);
+				stencilCube2->Move(MOVE_FRONT, 10.0f * f_deltaT);
+			}
 		}
-		else if(update_mouse_picking(button_down) && m_is_clicked_)
+		else if(update_mouse_picking(button_down))
 		{
 			m_text_instruction_->SetText("Collided!");
-			stencilCube->Move(MOVE_BACK, 10.0f * f_deltaT);
-			stencilCube2->Move(MOVE_BACK, 10.0f * f_deltaT);
+			if (m_is_clicked_)
+			{
+				stencilCube->Move(MOVE_BACK, 10.0f * f_deltaT);
+				stencilCube2->Move(MOVE_BACK, 10.0f * f_deltaT);
+			}
 		}
 		else
 		{
