@@ -59,24 +59,25 @@ GameManager::GameManager()
 	m_text_bg = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_bg, "Resources/Fonts/waltographUI.ttf", glm::vec2(-1300.0f, -260.0f), m_v_text);
 
 	// Texture
-	m_tr_stars = new Texture("Resources/Textures/stars.png");
+	m_tr_down = new Texture("Resources/Textures/down.png");
 	m_tr_plain = new Texture("Resources/Textures/bullet.png");
-	m_tr_slimes = new Texture("Resources/Textures/Slimes.png");
+	m_tr_up = new Texture("Resources/Textures/up.png");
 	m_tr_water = new Texture("Resources/Textures/green.png");
 	std::vector<const char*> textureDirs = {"right.jpg", "left.jpg", "top.jpg", "bottom.jpg", "back.jpg", "front.jpg"};
 	m_tr_cube_map = new CubeMap(textureDirs);
 	
 	// Texture Vectors to be passed in
 	std::vector<Texture*> v_water_texture = { m_tr_water, m_tr_water };
-	std::vector<Texture*> v_texture2 = { m_tr_slimes, m_tr_slimes };
-	std::vector<Texture*> v_texture = { m_tr_stars, m_tr_plain };
+	std::vector<Texture*> v_texture2 = { m_tr_up, m_tr_up };
+	std::vector<Texture*> v_down = { m_tr_down };
 	std::vector<Texture*> plain_texture = { m_tr_plain, m_tr_plain };
 	std::vector<Texture*> v_cubeMap = { m_tr_cube_map };
+	std::vector<Texture*> v_up = {m_tr_up};
 
 	// Stencil Cube
-	stencilCube = new GameObject(m_sh_fog, m_mesh_cube, v_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
+	stencilCube = new GameObject(m_sh_fog, m_mesh_cube, plain_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	stencilCube->Scale(5.0f);
-	stencilCube2 = new GameObject(m_sh_fog, m_mesh_cube, plain_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
+	stencilCube2 = new GameObject(m_sh_fog, m_mesh_cube, v_up, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	stencilCube2->Scale(5.5f);
 	transparentCube = new GameObject(m_sh_fog, m_mesh_cube, v_water_texture, 0.0f, -6.0f, 0.0f, m_v_geometry);
 	transparentCube->Scale(800.0f, 8.0f, 800.0f);
@@ -86,11 +87,11 @@ GameManager::GameManager()
 	sky_box->Scale(2000.0f);
 
 	// Pyramid
-	button_down = new GameObject(m_sh_fog, m_mesh_cube, plain_texture, -10.0f, 0.0f, 0.0f, m_v_geometry);
+	button_down = new GameObject(m_sh_fog, m_mesh_cube, v_down, -10.0f, 0.0f, 0.0f, m_v_geometry);
 	button_down->Scale(3.0f);
 
 	// Cube
-	button_up = new GameObject(m_sh_fog, m_mesh_cube, plain_texture, 10.0f, 0.0f, 0.0f, m_v_geometry);
+	button_up = new GameObject(m_sh_fog, m_mesh_cube, v_up, 10.0f, 0.0f, 0.0f, m_v_geometry);
 	button_up->Scale(3.0f);
 
 	// Sphere
@@ -452,12 +453,12 @@ GameManager::~GameManager()
 	delete m_tr_cube_map;
 	m_tr_cube_map = nullptr;
 
-	delete m_tr_stars;
-	m_tr_stars = nullptr;
+	delete m_tr_down;
+	m_tr_down = nullptr;
 	delete m_tr_plain;
 	m_tr_plain = nullptr;
-	delete m_tr_slimes;
-	m_tr_slimes = nullptr;
+	delete m_tr_up;
+	m_tr_up = nullptr;
 	delete m_tr_water;
 	m_tr_water = nullptr;
 
