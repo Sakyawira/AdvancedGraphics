@@ -197,18 +197,6 @@ void GameManager::ProcessGame(Audio& audio)
 
 			currentTime = static_cast<float>(glutGet(GLUT_ELAPSED_TIME)); // Get current time.
 			currentTime = currentTime * 0.001f;
-			
-			if (false)
-			{
-				m_string_menu = "You're Burnt Out!";
-				m_string_instruction = "Press 'R' to play again...";
-				m_text_menu->SetText(m_string_menu);
-				m_text_instruction->SetText(m_string_instruction);
-				tank->SetPos(glm::vec3(0.0f, 0.0f, 0.0f));
-				camera.SetPosX(0.0f);
-				camera.SetPosY(0.0f);
-				m_b_start = false;
-			}
 		}
 		else
 		{
@@ -420,8 +408,8 @@ void GameManager::set_click(bool newState)
 
 void GameManager::create_spheres(int _number_coins, int _border)
 {
-	std::vector<Texture*> plain_texture = { m_tr_plain, m_tr_plain };
-	// Creates coin
+	std::vector<Texture*> plain_texture = { m_tr_plain};
+
 	for (int i = 0; i < _number_coins; ++i)
 	{
 		float random_x;
@@ -436,11 +424,8 @@ void GameManager::create_spheres(int _number_coins, int _border)
 			random_z = (static_cast<float>((rand() % _border) + 10.0f) * negate);
 		} while (glm::vec3(random_x, 0.0f, random_z) == stencilCube->GetLocation() || glm::distance(glm::vec3(random_x, 0.0f, random_z), camera.GetPosition()) < 25.0f);
 		
-		
 		m_coin = new GameObject(m_sh_fog, m_mesh_sphere, plain_texture, random_x, 0.0f, random_z, m_v_geometry);
 		m_coin->Scale(5.0f);
-		//m_coin->RandomOn();
-		//m_vector_coins.push_back(m_coin);
 	}
 }
 
