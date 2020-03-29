@@ -106,7 +106,7 @@ GameManager::GameManager()
 	srand(static_cast<unsigned>(std::random_device()()));
 	int border = 75;
 
-	CreateCoins(10, border);
+	create_spheres(10, border);
 	
 	this->Initialize();
 }
@@ -418,7 +418,7 @@ void GameManager::set_click(bool newState)
 	m_isClicked = newState;
 }
 
-void GameManager::CreateCoins(int _number_coins, int _border)
+void GameManager::create_spheres(int _number_coins, int _border)
 {
 	std::vector<Texture*> plain_texture = { m_tr_plain, m_tr_plain };
 	// Creates coin
@@ -437,10 +437,10 @@ void GameManager::CreateCoins(int _number_coins, int _border)
 		} while (glm::vec3(random_x, 0.0f, random_z) == stencilCube->GetLocation() || glm::distance(glm::vec3(random_x, 0.0f, random_z), camera.GetPosition()) < 25.0f);
 		
 		
-		m_coin = new Enemy(m_sh_fog, m_mesh_sphere, plain_texture, random_x, 0.0f, random_z);
+		m_coin = new GameObject(m_sh_fog, m_mesh_sphere, plain_texture, random_x, 0.0f, random_z, m_v_geometry);
 		m_coin->Scale(5.0f);
-		m_coin->RandomOn();
-		m_vector_coins.push_back(m_coin);
+		//m_coin->RandomOn();
+		//m_vector_coins.push_back(m_coin);
 	}
 }
 
@@ -500,4 +500,7 @@ GameManager::~GameManager()
 		delete mesh;
 		mesh = nullptr;
 	}
+
+	delete m_mesh_sphere;
+	m_mesh_sphere = nullptr;
 }

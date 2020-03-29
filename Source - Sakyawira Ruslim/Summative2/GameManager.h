@@ -81,7 +81,7 @@ private:
 	glm::vec2 m_mousePos;
 	
 	// Utility functions
-	void CreateCoins(int _number_coins, int _border);
+	void create_spheres(int _number_coins, int _border);
 	
 	// Clock
 	CClock* m_clock;
@@ -146,7 +146,7 @@ private:
 	Model* m_mdl_tank;
 	Model* m_mdl_cat;
 
-	Enemy* m_coin;
+	GameObject* m_coin;
 	Enemy* m_enemy;
 
 	GameObject* wall;
