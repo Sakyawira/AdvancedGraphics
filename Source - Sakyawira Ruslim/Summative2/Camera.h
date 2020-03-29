@@ -46,6 +46,8 @@ public:
 
 	void set_pos_z(float i_magnitude);
 
+	void set_look_dir(glm::vec3 new_look_dir);
+
 	void calculate_zoom();
 
 	void calculate_pitch();

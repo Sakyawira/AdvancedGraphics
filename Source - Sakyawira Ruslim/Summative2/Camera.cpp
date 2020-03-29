@@ -103,6 +103,15 @@ void Camera::set_pos_z(float i_magnitude)
 	camPos.z = i_magnitude;
 }
 
+void Camera::set_look_dir(glm::vec3 new_look_dir)
+{
+	pitch_ = 0.0f;
+	yaw_ = -90.0f;
+	camLookDir = new_look_dir;
+	view = glm::lookAt(camPos, camPos + camLookDir, camUpDir);
+	cameraRight = glm::normalize(glm::cross(camUpDir, camLookDir));
+}
+
 void Camera::update_look_dir(int currentX, int currentY)
 {
 	float offsetX = currentX - last_x_;
