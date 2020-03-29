@@ -11,7 +11,7 @@ void Update()
 	Game->process_game(audio);
 	
 	// Process Input
-	input.ProcessInput(Game, audio);
+	input.process_input(Game, audio);
 	
 	// Update game information
 	glutPostRedisplay();
@@ -19,37 +19,37 @@ void Update()
 
 void KeyboardUP(unsigned char key, int x, int y)
 {
-	input.KeyboardUp(key, x, y);
+	input.keyboard_up(key, x, y);
 }
 
 void KeyboardDOWN(unsigned char key, int x, int y)
 {
-	input.KeyboardDown(key, x, y);
+	input.keyboard_down(key, x, y);
 }
 
 void SpecialKeyUp(int key, int x, int y)
 {
-	input.SpecialKeyboardUP(key, x, y);
+	input.special_keyboard_up(key, x, y);
 }
 
 void SpecialKeyDown(int key, int x, int y)
 {
-	input.SpecialKeyboardDown(key, x, y);
+	input.special_keyboard_down(key, x, y);
 }
 
 void MouseClick(int button, int state, int x, int y)
 {
-	input.MouseClick(button, state, x, y);
+	input.mouse_click(button, state, x, y);
 }
 
 void MousePassiveMove(int x, int y)
 {
-	input.MousePassiveMove(x, y, Game);
+	input.mouse_passive_move(x, y, Game);
 }
 
 void MouseMove(int x, int y)
 {
-	input.MouseMove(x, y, Game);
+	input.mouse_move(x, y, Game);
 }
 
 int main(int argc, char **argv)

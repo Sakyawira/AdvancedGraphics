@@ -75,7 +75,7 @@ public:
 		GLuint modelLoc = glGetUniformLocation(program, "model");
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(_model));
 
-		glm::mat4 mvp = camera->GetVP() * _model;
+		glm::mat4 mvp = camera->get_vp() * _model;
 		GLint mvpLoc = glGetUniformLocation(program, "MVP");
 		glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(mvp));
 		// EDIT END

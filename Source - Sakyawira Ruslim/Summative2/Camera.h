@@ -26,41 +26,41 @@ public:
 	~Camera() = default;
 	void something();
 
-	void UseCamera(GLuint program/*, glm::mat4 view, glm::mat4 proj*/);
+	void use_camera(GLuint program/*, glm::mat4 view, glm::mat4 proj*/);
 
-	glm::mat4 GetVP();
+	glm::mat4 get_vp();
 
-	glm::vec3 GetPosition();
+	glm::vec3 get_position();
 
-	void CameraUpdate(bool isGameStarted, float deltaTime, glm::vec3 _center);
+	void update(bool isGameStarted, float deltaTime, glm::vec3 _center);
 
-	void MovePosX(float i_magnitude, float deltaTime);
+	void move_pos_x(float i_magnitude, float deltaTime);
 
-	void MovePosY(float i_magnitude, float deltaTime);
+	void move_pos_y(float i_magnitude, float deltaTime);
 
-	void MovePosZ(float i_magnitude, float deltaTime);
+	void move_pos_z(float i_magnitude, float deltaTime);
 
-	void SetPosX(float i_magnitude);
+	void set_pos_x(float i_magnitude);
 
-	void SetPosY(float i_magnitude);
+	void set_pos_y(float i_magnitude);
 
-	void SetPosZ(float i_magnitude);
+	void set_pos_z(float i_magnitude);
 
-	void calculateZoom();
+	void calculate_zoom();
 
-	void calculatePitch();
+	void calculate_pitch();
 
-	void calculateAngleAroundPlayer();
+	void calculate_angle_around_player();
 
-	void updateLookDir(int currentX, int currentY);
+	void update_look_dir(int currentX, int currentY);
 
-	float calculateHorizontalDistance();
+	float calculate_horizontal_distance();
 
-	float calculateVerticalDistance();
+	float calculate_vertical_distance();
 
-	void Move(glm::vec3 _center);
+	void move(glm::vec3 _center);
 	
-	void calculateCameraPosition(float h_distance, float v_distance, glm::vec3 _center);
+	void calculate_camera_position(float h_distance, float v_distance, glm::vec3 _center);
 
 	glm::mat4 get_projection();
 
@@ -75,16 +75,16 @@ private:
 	float m_angle_around_player = 0.0f;
 
 	// Pitch
-	float pitch = 0.0f;
+	float pitch_ = 0.0f;
 
 	// Yaw
-	float yaw = - 90.0f;
+	float yaw_ = - 90.0f;
 
 	// Time Elapse
-	float timeElapsed = 0.0f;
+	float time_elapsed_ = 0.0f;
 
-	float lastX = 400;
-	float lastY = 400;
+	float last_x_ = 400;
+	float last_y_ = 400;
 	
 	// Camera
 	 glm::vec3 camPos = glm::vec3(0.0f, 1.5f, 26.0f);

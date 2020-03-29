@@ -62,7 +62,7 @@ void GameObject::Draw(Camera& _camera, const GLchar* s_currentTime, GLfloat f_cu
 		m_shader->Transform(m_translationMatrix, m_rotationZ, m_scaleMatrix, m_modelMatrix, _camera);
 
 		// Using camera on the program
-		_camera.UseCamera(m_shader->GetProgram());
+		_camera.use_camera(m_shader->GetProgram());
 
 		// Hexagon 1
 		m_mesh->Bind();
@@ -88,7 +88,7 @@ void GameObject::Draw(Camera & _camera, const GLchar * s_currentTime, GLfloat f_
 		m_shader->Transform(m_translationMatrix, m_rotationZ, m_scaleMatrix, m_modelMatrix, _camera);
 
 		// Using camera on the program
-		_camera.UseCamera(m_shader->GetProgram());
+		_camera.use_camera(m_shader->GetProgram());
 
 		// Hexagon 1
 		m_mesh->Bind();
@@ -110,7 +110,7 @@ void GameObject::Draw(Camera& _camera, float deltaTime)
 
 	// So it uses the reference and not a copy
 	// Using camera on the program
-	_camera.UseCamera(m_shader->GetProgram());
+	_camera.use_camera(m_shader->GetProgram());
 	
 	m_mesh->Bind();
 	glDrawElements(GL_TRIANGLES, m_mesh->GetSize(), GL_UNSIGNED_INT, 0);
@@ -129,7 +129,7 @@ void GameObject::Draw(Camera & _camera, const GLchar * s_currentTime, GLfloat f_
 
 	// So it uses the reference and not a copy
 	// Using camera on the program
-	_camera.UseCamera(m_shader->GetProgram());
+	_camera.use_camera(m_shader->GetProgram());
 
 	m_mesh->Bind();
 	glDrawElements(GL_TRIANGLES, m_mesh->GetSize(), GL_UNSIGNED_INT, 0);

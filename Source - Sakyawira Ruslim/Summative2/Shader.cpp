@@ -39,10 +39,10 @@ void Shader::Transform(glm::mat4 translationMatrix, glm::mat4 rotationZ, glm::ma
 
 	// Put model uniform into '*program'
 	GLuint MVPLoc = glGetUniformLocation(m_program, "MVP");
-	glUniformMatrix4fv(MVPLoc, 1, GL_FALSE, glm::value_ptr((camera.GetVP() * modelMatrix)));
+	glUniformMatrix4fv(MVPLoc, 1, GL_FALSE, glm::value_ptr((camera.get_vp() * modelMatrix)));
 
 	GLuint camLoc = glGetUniformLocation(m_program, "camPos");
-	glUniform3fv(camLoc, 1, glm::value_ptr(camera.GetPosition()));
+	glUniform3fv(camLoc, 1, glm::value_ptr(camera.get_position()));
 }
 
 void Shader::PassTexture(std::vector<Texture*> v_texture)

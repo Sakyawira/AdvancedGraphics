@@ -12,21 +12,21 @@ public:
 	Input() = default;
 	~Input() = default;
 
-	void ProcessInput(GameManager* Game, Audio& audio);
+	void process_input(GameManager* Game, Audio& audio);
 
-	void MouseClick(int button, int state, int x, int y);
+	void mouse_click(int button, int state, int x, int y);
 
-	void MousePassiveMove(int x, int y, GameManager* Game);
+	void mouse_passive_move(int x, int y, GameManager* Game);
 
-	void MouseMove(int x, int y, GameManager * Game);
+	void mouse_move(int x, int y, GameManager * Game);
 
-	void KeyboardDown(unsigned char key, int x, int y);
+	void keyboard_down(unsigned char key, int x, int y);
 
-	void KeyboardUp(unsigned char key, int x, int y);
+	void keyboard_up(unsigned char key, int x, int y);
 
-	void SpecialKeyboardDown(int key, int x, int y);
+	void special_keyboard_down(int key, int x, int y);
 
-	void SpecialKeyboardUP(int key, int x, int y);
+	void special_keyboard_up(int key, int x, int y);
 
 private:
 
@@ -40,11 +40,11 @@ private:
 	};
 
 	// Input Container
-	InputState KeyState[255];
+	InputState key_state_[255];
 
-	InputState SpecialKeyState[255];
+	InputState special_key_state_[255];
 
-	InputState MouseState[3];
+	InputState mouse_state_[3];
 };
 
 

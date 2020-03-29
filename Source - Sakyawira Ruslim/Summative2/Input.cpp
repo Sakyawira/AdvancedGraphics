@@ -1,48 +1,48 @@
 #include "Input.h"
 
-void Input::ProcessInput(GameManager* Game, Audio& audio)
+void Input::process_input(GameManager* Game, Audio& audio)
 {
-	if (KeyState['w'] == INPUT_DOWN_FIRST)
+	if (key_state_['w'] == INPUT_DOWN_FIRST)
 	{
-		KeyState['w'] = INPUT_DOWN;
+		key_state_['w'] = INPUT_DOWN;
 	}
 
-	if (KeyState['s'] == INPUT_DOWN_FIRST)
+	if (key_state_['s'] == INPUT_DOWN_FIRST)
 	{
-		KeyState['s'] = INPUT_DOWN;
+		key_state_['s'] = INPUT_DOWN;
 	}
 
-	if (KeyState['a'] == INPUT_DOWN_FIRST)
+	if (key_state_['a'] == INPUT_DOWN_FIRST)
 	{
-		KeyState['a'] = INPUT_DOWN;
+		key_state_['a'] = INPUT_DOWN;
 	}
 
-	if (KeyState['d'] == INPUT_DOWN_FIRST)
+	if (key_state_['d'] == INPUT_DOWN_FIRST)
 	{
-		KeyState['d'] = INPUT_DOWN;
+		key_state_['d'] = INPUT_DOWN;
 	}
 
-	if (KeyState[32] == INPUT_DOWN_FIRST)
+	if (key_state_[32] == INPUT_DOWN_FIRST)
 	{
 	}
 
-	if (KeyState['w'] == INPUT_DOWN)
+	if (key_state_['w'] == INPUT_DOWN)
 	{
-		Game->camera.MovePosZ(15.0f, Game->get_clock()->GetDeltaTick());
+		Game->camera.move_pos_z(15.0f, Game->get_clock()->GetDeltaTick());
 	}
-	if (KeyState['s'] == INPUT_DOWN)
+	if (key_state_['s'] == INPUT_DOWN)
 	{
-		Game->camera.MovePosZ(-15.0f, Game->get_clock()->GetDeltaTick());
+		Game->camera.move_pos_z(-15.0f, Game->get_clock()->GetDeltaTick());
 	}
-	if (KeyState['d'] == INPUT_DOWN)
+	if (key_state_['d'] == INPUT_DOWN)
 	{
-		Game->camera.MovePosX(-15.0f, Game->get_clock()->GetDeltaTick());
+		Game->camera.move_pos_x(-15.0f, Game->get_clock()->GetDeltaTick());
 	}
-	if (KeyState['a'] == INPUT_DOWN)
+	if (key_state_['a'] == INPUT_DOWN)
 	{
-		Game->camera.MovePosX(15.0f, Game->get_clock()->GetDeltaTick());
+		Game->camera.move_pos_x(15.0f, Game->get_clock()->GetDeltaTick());
 	}
-	if (KeyState['r'] == INPUT_DOWN_FIRST)
+	if (key_state_['r'] == INPUT_DOWN_FIRST)
 	{
 		if (!Game->is_started() /*&& !Game->IsEnded()*/)
 		{
@@ -54,15 +54,15 @@ void Input::ProcessInput(GameManager* Game, Audio& audio)
 			Game->start_game(false);
 			Game->initialize();
 		}
-		KeyState['r'] = INPUT_DOWN;
+		key_state_['r'] = INPUT_DOWN;
 	}
 
-	if (KeyState['e'] == INPUT_DOWN)
+	if (key_state_['e'] == INPUT_DOWN)
 	{
 		//Game->camera.MovePosY(-0.1f * Game->GetClock()->GetDeltaTick() * 120.0f);
 	}
 
-	if (KeyState['q'] == INPUT_DOWN)
+	if (key_state_['q'] == INPUT_DOWN)
 	{
 	//	Game->camera.MovePosY(0.1f * Game->GetClock()->GetDeltaTick() * 120.0f);
 	}
@@ -86,7 +86,7 @@ void Input::ProcessInput(GameManager* Game, Audio& audio)
 	//{
 	//	Game->camera.MovePosX(0.1f * Game->GetClock()->GetDeltaTick() * 120.0f);
 	//}
-	if (MouseState[0] == INPUT_DOWN)
+	if (mouse_state_[0] == INPUT_DOWN)
 	{
 		Game->set_click(true);
 	}
@@ -97,18 +97,18 @@ void Input::ProcessInput(GameManager* Game, Audio& audio)
 	
 }
 
-void Input::MouseClick(int button, int state, int x, int y)
+void Input::mouse_click(int button, int state, int x, int y)
 {
 	if (button >= 3)
 	{
 		return;
 	}
 
-	MouseState[button] = (state == GLUT_DOWN) ? INPUT_DOWN : INPUT_UP;
+	mouse_state_[button] = (state == GLUT_DOWN) ? INPUT_DOWN : INPUT_UP;
 	//std::cout << "Clicked Once x: " << x << " | y: " << y << std::endl;
 }
 
-void Input::MousePassiveMove(int x, int y, GameManager * Game)
+void Input::mouse_passive_move(int x, int y, GameManager * Game)
 {
 	/*For Mouse Picking*/
 	const float currentMX = (2.0f * x) / static_cast<float>(800) - 1.0f;
@@ -125,11 +125,11 @@ void Input::MousePassiveMove(int x, int y, GameManager * Game)
 
 	if (Game->is_started())
 	{
-		Game->camera.updateLookDir(x, y);
+		Game->camera.update_look_dir(x, y);
 	}
 }
 
-void Input::MouseMove(int x, int y, GameManager * Game)
+void Input::mouse_move(int x, int y, GameManager * Game)
 {
 	/*For Mouse Picking*/
 	const float currentMX = (2.0f * x) / static_cast<float>(800) - 1.0f;
@@ -146,30 +146,30 @@ void Input::MouseMove(int x, int y, GameManager * Game)
 
 	if (Game->is_started())
 	{
-		Game->camera.updateLookDir(x, y);
+		Game->camera.update_look_dir(x, y);
 	}
 	//std::cout << "Clicked x: " << x << " | y: " << y << std::endl;
 }
 
-void Input::KeyboardDown(unsigned char key, int x, int y)
+void Input::keyboard_down(unsigned char key, int x, int y)
 {
-	if (KeyState[key] != INPUT_DOWN || KeyState[key] != INPUT_DOWN_FIRST)
+	if (key_state_[key] != INPUT_DOWN || key_state_[key] != INPUT_DOWN_FIRST)
 	{
-		KeyState[key] = INPUT_DOWN_FIRST;
+		key_state_[key] = INPUT_DOWN_FIRST;
 	}
 }
 
-void Input::KeyboardUp(unsigned char key, int x, int y)
+void Input::keyboard_up(unsigned char key, int x, int y)
 {
-	KeyState[key] = INPUT_UP;
+	key_state_[key] = INPUT_UP;
 }
 
-void Input::SpecialKeyboardDown(int key, int x, int y)
+void Input::special_keyboard_down(int key, int x, int y)
 {
-	SpecialKeyState[key] = INPUT_DOWN_FIRST;
+	special_key_state_[key] = INPUT_DOWN_FIRST;
 }
 
-void Input::SpecialKeyboardUP(int key, int x, int y)
+void Input::special_keyboard_up(int key, int x, int y)
 {
-	SpecialKeyState[key] = INPUT_UP;
+	special_key_state_[key] = INPUT_UP;
 }

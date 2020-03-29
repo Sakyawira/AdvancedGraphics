@@ -138,9 +138,9 @@ void GameManager::initialize()
 	//Menu->Scale(800.0f);
 
 	// Reset Camera's Position
-	camera.SetPosX(0.0f);
-	camera.SetPosY(1.5f);
-	camera.SetPosZ(26.0f);
+	camera.set_pos_x(0.0f);
+	camera.set_pos_y(1.5f);
+	camera.set_pos_z(26.0f);
 
 	for (auto& coin : m_vector_coins)
 	{
@@ -155,7 +155,7 @@ void GameManager::process_game(Audio& audio)
 	if (m_b_initialized_ == 1)
 	{
 		float f_deltaT = m_clock_->GetDeltaTick();
-		camera.CameraUpdate(m_b_start_, m_clock_->GetDeltaTick() * 1.0f, tank->GetLocation());
+		camera.update(m_b_start_, m_clock_->GetDeltaTick() * 1.0f, tank->GetLocation());
 
 		if (update_mouse_picking(button_up) && m_is_clicked_)
 		{
@@ -288,9 +288,9 @@ bool GameManager::is_started()
 
 void GameManager::start_game(bool _isStart)
 {
-	camera.SetPosX(0.0f);
-	camera.SetPosY(1.5f);
-	camera.SetPosZ(26.0f);
+	camera.set_pos_x(0.0f);
+	camera.set_pos_y(1.5f);
+	camera.set_pos_z(26.0f);
 	stencilCube->SetPos(glm::vec3(0.0f, 0.0f, 0.0f));
 	stencilCube2->SetPos(glm::vec3(0.0f, 0.0f, 0.0f));
 	m_b_start_ = _isStart;
@@ -326,8 +326,8 @@ bool GameManager::update_mouse_picking(GameObject* _cube)
 
 	// Transform line segment from world space to local space
 	// Matrix4x4 w2l = transform.worldToLocalMatrix;
-	glm::vec3 startP = camera.GetPosition();//w2l.MultiplyPoint(startT.position);
-	glm::vec3 endP = camera.GetPosition() + m_ray_direction_ * radius;//w2l.MultiplyPoint(endT.position);
+	glm::vec3 startP = camera.get_position();//w2l.MultiplyPoint(startT.position);
+	glm::vec3 endP = camera.get_position() + m_ray_direction_ * radius;//w2l.MultiplyPoint(endT.position);
 
 	// Draw bounds
 	//Gizmos.color = Color.yellow;
@@ -422,7 +422,7 @@ void GameManager::create_spheres(int _number_coins, int _border)
 			negate = rand() % 2;
 			negate = (negate == 0 ? -1 : 1);
 			random_z = (static_cast<float>((rand() % _border) + 10.0f) * negate);
-		} while (glm::vec3(random_x, 0.0f, random_z) == stencilCube->GetLocation() || glm::distance(glm::vec3(random_x, 0.0f, random_z), camera.GetPosition()) < 25.0f);
+		} while (glm::vec3(random_x, 0.0f, random_z) == stencilCube->GetLocation() || glm::distance(glm::vec3(random_x, 0.0f, random_z), camera.get_position()) < 25.0f);
 		
 		m_coin = new GameObject(m_sh_fog_, m_mesh_sphere, plain_texture, random_x, 0.0f, random_z, m_v_geometry);
 		m_coin->Scale(5.0f);
