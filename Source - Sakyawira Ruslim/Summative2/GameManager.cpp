@@ -152,15 +152,15 @@ void GameManager::ProcessGame(Audio& audio)
 		float f_deltaT = m_clock->GetDeltaTick();
 		camera.CameraUpdate(m_b_start, m_clock->GetDeltaTick() * 1.0f, tank->GetLocation());
 
-		if (updateMousePicking())
+		m_text_instruction->SetText("Not Collided!");
+		if (m_isClicked)
 		{
-			m_text_instruction->SetText("Collided!");
-			stencilCube->Move(MOVE_UP, 1.0f * f_deltaT);
-			stencilCube2->Move(MOVE_UP, 1.0f * f_deltaT);
-		}
-		else
-		{
-			m_text_instruction->SetText("Not Collided!");
+			if (updateMousePicking())
+			{
+				m_text_instruction->SetText("Collided!");
+				stencilCube->Move(MOVE_UP, 1.0f * f_deltaT);
+				stencilCube2->Move(MOVE_UP, 1.0f * f_deltaT);
+			}
 		}
 
 		if (m_b_start)
@@ -401,6 +401,11 @@ bool GameManager::updateMousePicking()
 void GameManager::set_mouse_pos(glm::vec2 mousePos_)
 {
 	m_mousePos = mousePos_;
+}
+
+void GameManager::set_click(bool newState)
+{
+	m_isClicked = newState;
 }
 
 void GameManager::CreateCoins(int _number_coins, int _border)

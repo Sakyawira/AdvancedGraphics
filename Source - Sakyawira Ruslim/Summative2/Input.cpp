@@ -99,6 +99,15 @@ void Input::ProcessInput(GameManager* Game, Audio& audio)
 	//{
 	//	Game->camera.MovePosX(0.1f * Game->GetClock()->GetDeltaTick() * 120.0f);
 	//}
+	if (MouseState[0] == INPUT_DOWN)
+	{
+		Game->set_click(true);
+	}
+	else
+	{
+		Game->set_click(false);
+	}
+	
 }
 
 void Input::MouseClick(int button, int state, int x, int y)

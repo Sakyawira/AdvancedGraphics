@@ -68,9 +68,14 @@ public:
 	GameObject* tank;
 
 	void set_mouse_pos(glm::vec2 mousePos_);
+
+	void set_click(bool newState);
 	
 private:
 
+	// Is click
+	bool m_isClicked = false;
+	
 	// Ray direction
 	glm::vec3 m_rayDirection;
 	glm::vec2 m_mousePos;
