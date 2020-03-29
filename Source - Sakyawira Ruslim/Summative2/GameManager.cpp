@@ -86,11 +86,12 @@ GameManager::GameManager()
 	sky_box->Scale(2000.0f);
 
 	// Pyramid
-	pyramid = new GameObject(m_sh_fogBox, m_mesh_pyramid, plain_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
+	button_down = new GameObject(m_sh_fog, m_mesh_cube, plain_texture, -10.0f, 0.0f, 0.0f, m_v_geometry);
+	button_down->Scale(3.0f);
 
 	// Cube
-	cube = new GameObject(m_sh_fog, m_mesh_cube, plain_texture, 10.0f, 0.0f, 0.0f, m_v_geometry);
-	cube->Scale(3.0f);
+	button_up = new GameObject(m_sh_fog, m_mesh_cube, plain_texture, 10.0f, 0.0f, 0.0f, m_v_geometry);
+	button_up->Scale(3.0f);
 
 	// Sphere
 	sphere = new GameObject(m_sh_fog, m_mesh_sphere, plain_texture, 32.0f, 0.0f, 0.0f, m_v_geometry);
@@ -155,11 +156,17 @@ void GameManager::ProcessGame(Audio& audio)
 		m_text_instruction->SetText("Not Collided!");
 		if (m_isClicked)
 		{
-			if (updateMousePicking())
+			if (updateMousePicking(button_up))
 			{
 				m_text_instruction->SetText("Collided!");
 				stencilCube->Move(MOVE_UP, 1.0f * f_deltaT);
 				stencilCube2->Move(MOVE_UP, 1.0f * f_deltaT);
+			}
+			else if(updateMousePicking(button_down))
+			{
+				m_text_instruction->SetText("Collided!");
+				stencilCube->Move(MOVE_DOWN, 1.0f * f_deltaT);
+				stencilCube2->Move(MOVE_DOWN, 1.0f * f_deltaT);
 			}
 		}
 
@@ -181,7 +188,7 @@ void GameManager::ProcessGame(Audio& audio)
 
 			// m_text_instruction->SetText("Press 'Space' to shoot...");
 
-			tank->sphere_collision_check(tank, cube);
+			tank->sphere_collision_check(tank, button_up);
 
 			currentTime = static_cast<float>(glutGet(GLUT_ELAPSED_TIME)); // Get current time.
 			currentTime = currentTime * 0.001f;
@@ -222,18 +229,14 @@ void GameManager::Render()
 		glEnable(GL_SCISSOR_TEST);
 		glScissor(0, 200, 800, 400);
 
-	
-
-		//// pyramid->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
+		//
 		m_tr_cube_map->Render(m_sh_fogBox, m_mesh_cube_map, camera);
 
 		frameCounts += 1.0f * m_clock->GetDeltaTick() * 120.0f;
 
-		//if (m_b_start == 0)
-		{
-		cube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
+		button_up->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
+		button_down->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 		sphere->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
-		}
 
 		//// Drawing all obstacles
 	for (auto& coinObjects2 : m_vector_coins)
@@ -252,14 +255,14 @@ void GameManager::Render()
 						1,// current value to set 
 						0xFF);//mask value, 
 		glStencilMask(0xFF);//enable writing to stencil buffer
-		//--> render regular sized cube // fills stencil buffer 
+		//--> render regular sized button_up // fills stencil buffer 
 		
 		stencilCube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 
 		// ** 2nd pass ** 
 		glStencilFunc(GL_NOTEQUAL, 1, 0xFF); 
 		glStencilMask(0x00); //disable writing to stencil buffer
-		//--> render scaled up cube 
+		//--> render scaled up button_up 
 		stencilCube2->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
 		// write to areas where value is not equal to 1
 		// disable writing to stencil mask 
@@ -303,7 +306,7 @@ CClock* GameManager::GetClock()
 	return m_clock;
 }
 
-bool GameManager::updateMousePicking()
+bool GameManager::updateMousePicking(GameObject* _cube)
 {
 	//screen pos
 	glm::vec2 normalizedScreenPos = m_mousePos;
@@ -345,8 +348,8 @@ bool GameManager::updateMousePicking()
 	// Lowest point in center vector
 	// center - extents
 	// extents = size * 0.5f
-	glm::vec3 min = cube->GetMin();
-	glm::vec3 max = cube->GetMax();
+	glm::vec3 min = _cube->GetMin();
+	glm::vec3 max = _cube->GetMax();
 
 	glm::vec3 dir = endP - startP;
 	glm::vec3 oneOverDir = glm::vec3(1.0f / dir.x, 1.0f / dir.y, 1.0f / dir.z);

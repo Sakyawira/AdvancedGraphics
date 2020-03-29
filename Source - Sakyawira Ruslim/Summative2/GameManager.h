@@ -61,7 +61,7 @@ public:
 
 	CClock* GetClock();
 
-	bool updateMousePicking();
+	bool updateMousePicking(GameObject* _cube);
 
 	Camera camera;
 
@@ -151,8 +151,8 @@ private:
 
 	GameObject* wall;
 	GameObject* background;
-	GameObject* pyramid;
-	GameObject* cube;
+	GameObject* button_down;
+	GameObject* button_up;
 	GameObject* sphere;
 	GameObject* sky_box;
 
@@ -325,7 +325,7 @@ private:
 		// 1.0f, -1.0f,  1.0f,		// 23
 	};
 
-	// For a cube
+	// For a button_up
 	std::vector <GLuint> cube_indices =
 	{
 		0, 1, 2,
