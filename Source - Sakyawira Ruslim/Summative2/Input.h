@@ -18,7 +18,7 @@ public:
 
 	void MousePassiveMove(int x, int y, GameManager* Game);
 
-	void MouseMove(int x, int y);
+	void MouseMove(int x, int y, GameManager * Game);
 
 	void KeyboardDown(unsigned char key, int x, int y);
 

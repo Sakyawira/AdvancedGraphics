@@ -49,7 +49,7 @@ void MousePassiveMove(int x, int y)
 
 void MouseMove(int x, int y)
 {
-	input.MouseMove(x, y);
+	input.MouseMove(x, y, Game);
 }
 
 int main(int argc, char **argv)

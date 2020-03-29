@@ -127,7 +127,6 @@ void Input::MousePassiveMove(int x, int y, GameManager * Game)
 	const float currentMX = (2.0f * x) / static_cast<float>(800) - 1.0f;
 	const float currentMY = 1.0f - (2.0f * y) / static_cast<float>(800);
 	Game->set_mouse_pos(glm::vec2(currentMX, currentMY));
-	
 
 	/*For Free Moving Camera*/
 	//Convert current screen width and height mouse co-ords to 
@@ -137,16 +136,31 @@ void Input::MousePassiveMove(int x, int y, GameManager * Game)
 	//Invert y axis
 	y *= -1;
 
-	//std::cout << "Passive x: " << x << " | y: " << y << std::endl;
-
 	if (Game->IsStarted())
 	{
 		Game->camera.updateLookDir(x, y);
 	}
 }
 
-void Input::MouseMove(int x, int y)
+void Input::MouseMove(int x, int y, GameManager * Game)
 {
+	/*For Mouse Picking*/
+	const float currentMX = (2.0f * x) / static_cast<float>(800) - 1.0f;
+	const float currentMY = 1.0f - (2.0f * y) / static_cast<float>(800);
+	Game->set_mouse_pos(glm::vec2(currentMX, currentMY));
+
+	/*For Free Moving Camera*/
+	//Convert current screen width and height mouse co-ords to 
+	x -= 400;
+	y -= 400;
+
+	//Invert y axis
+	y *= -1;
+
+	if (Game->IsStarted())
+	{
+		Game->camera.updateLookDir(x, y);
+	}
 	//std::cout << "Clicked x: " << x << " | y: " << y << std::endl;
 }
 

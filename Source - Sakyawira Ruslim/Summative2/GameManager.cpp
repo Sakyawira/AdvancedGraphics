@@ -155,22 +155,23 @@ void GameManager::ProcessGame(Audio& audio)
 		float f_deltaT = m_clock->GetDeltaTick();
 		camera.CameraUpdate(m_b_start, m_clock->GetDeltaTick() * 1.0f, tank->GetLocation());
 
-		m_text_instruction->SetText("Not Collided!");
-		if (m_isClicked)
+		if (updateMousePicking(button_up) && m_isClicked)
 		{
-			if (updateMousePicking(button_up))
-			{
-				m_text_instruction->SetText("Collided!");
-				stencilCube->Move(MOVE_UP, 1.0f * f_deltaT);
-				stencilCube2->Move(MOVE_UP, 1.0f * f_deltaT);
-			}
-			else if(updateMousePicking(button_down))
-			{
-				m_text_instruction->SetText("Collided!");
-				stencilCube->Move(MOVE_DOWN, 1.0f * f_deltaT);
-				stencilCube2->Move(MOVE_DOWN, 1.0f * f_deltaT);
-			}
+			m_text_instruction->SetText("Collided!");
+			stencilCube->Move(MOVE_UP, 1.0f * f_deltaT);
+			stencilCube2->Move(MOVE_UP, 1.0f * f_deltaT);
 		}
+		else if(updateMousePicking(button_down) && m_isClicked)
+		{
+			m_text_instruction->SetText("Collided!");
+			stencilCube->Move(MOVE_DOWN, 1.0f * f_deltaT);
+			stencilCube2->Move(MOVE_DOWN, 1.0f * f_deltaT);
+		}
+		else
+		{
+			m_text_instruction->SetText("Not Collided!");
+		}
+		
 
 		if (m_b_start)
 		{
