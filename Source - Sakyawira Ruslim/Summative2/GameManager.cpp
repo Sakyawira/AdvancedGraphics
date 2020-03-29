@@ -77,8 +77,10 @@ GameManager::GameManager()
 	// Stencil Cube
 	stencilCube = new GameObject(m_sh_fog, m_mesh_cube, plain_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	stencilCube->Scale(5.0f);
+	stencilCube->Rotate(30.0f);
 	stencilCube2 = new GameObject(m_sh_fog, m_mesh_cube, v_up, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	stencilCube2->Scale(5.5f);
+	stencilCube2->Rotate(30.0f);
 	transparentCube = new GameObject(m_sh_fog, m_mesh_cube, v_water_texture, 0.0f, -6.0f, 0.0f, m_v_geometry);
 	transparentCube->Scale(800.0f, 8.0f, 800.0f);
 
