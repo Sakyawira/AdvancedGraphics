@@ -320,22 +320,80 @@ bool GameManager::updateMousePicking()
 	//	intersection with other objects
 
 	float radius = 5.0f;
-	glm::vec3 v = sphere->GetLocation() - camera.GetPosition();
-	float a = glm::dot(m_rayDirection, m_rayDirection);
-	float b = 2 * glm::dot(v, m_rayDirection);
-	float c = glm::dot(v, v) - radius * radius;
-	float d = b * b - 4 * a* c;
-	if (d > 0) 
-	{
-		float x1 = (-b - sqrt(d)) / 2;
-		float x2 = (-b + sqrt(d)) / 2;
-		if (x1 >= 0 && x2 >= 0) return true; // intersects
-		if (x1 < 0 && x2 >= 0) return true; // intersects
-	}
-	else if (d <= 0) 
-	{
-		return false;// no intersection
-	}
+
+	// Resize bounds
+	//bounds.size = boundsSize;
+
+	// Transform line segment from world space to local space
+	// Matrix4x4 w2l = transform.worldToLocalMatrix;
+	glm::vec3 startP = camera.GetPosition();//w2l.MultiplyPoint(startT.position);
+	glm::vec3 endP = camera.GetPosition() + m_rayDirection * radius;//w2l.MultiplyPoint(endT.position);
+
+	// Draw bounds
+	//Gizmos.color = Color.yellow;
+	//Gizmos.matrix = transform.localToWorldMatrix;
+	//Gizmos.DrawWireCube(bounds.center, bounds.size);
+
+	// Draw line segment
+	//Gizmos.color = Color.cyan;
+	///Gizmos.DrawCube(startP, Vector3.one * 0.3f);
+	//Gizmos.DrawCube(endP, Vector3.one * 0.3f);
+	//Gizmos.DrawLine(startP, endP);
+
+	// Lowest point in center vector
+	// center - extents
+	// extents = size * 0.5f
+	glm::vec3 min = cube->GetMin();
+	glm::vec3 max = cube->GetMax();
+
+	glm::vec3 dir = m_rayDirection;// endP - startP;
+	glm::vec3 oneOverDir = glm::vec3(1.0f / dir.x, 1.0f / dir.y, 1.0f / dir.z);
+
+	// Slabs
+	float _minSlabX = (min.x - startP.x) * oneOverDir.x;
+	float _minSlabY = (min.y - startP.y) * oneOverDir.y;
+	float _minSlabZ = (min.z - startP.z) * oneOverDir.z;
+
+	float _maxSlabX = (max.x - startP.x) * oneOverDir.x;
+	float _maxSlabY = (max.y - startP.y) * oneOverDir.y;
+	float _maxSlabZ = (max.z - startP.z) * oneOverDir.z;
+
+	// Min/Max Slabs
+	float minSlabX = glm::min(_minSlabX, _maxSlabX);
+	float minSlabY = glm::min(_minSlabY, _maxSlabY);
+	float minSlabZ = glm::min(_minSlabZ, _maxSlabZ);
+
+	float maxSlabX = glm::max(_minSlabX, _maxSlabX);
+	float maxSlabY = glm::max(_minSlabY, _maxSlabY);
+	float maxSlabZ = glm::max(_minSlabZ, _maxSlabZ);
+
+	float minSlab = glm::max(minSlabX, minSlabY);
+	minSlab = glm::max(minSlab, minSlabZ);
+	float maxSlab = glm::min(maxSlabX, maxSlabY);
+	maxSlab = glm::min(maxSlab, maxSlabZ);
+
+	// Check hit
+	// bool bHit =
+	return maxSlab >= 0.0f && maxSlab >= minSlab && minSlab <= 1.0f;
+
+	// Sphere Collision
+	//glm::vec3 v = sphere->GetLocation() - camera.GetPosition();
+	//float a = glm::dot(m_rayDirection, m_rayDirection);
+	//float b = 2 * glm::dot(v, m_rayDirection);
+	//float c = glm::dot(v, v) - radius * radius;
+	//float d = b * b - 4 * a* c;
+
+	//if (d > 0) 
+	//{
+	//	float x1 = (-b - sqrt(d)) / 2;
+	//	float x2 = (-b + sqrt(d)) / 2;
+	//	if (x1 >= 0 && x2 >= 0) return true; // intersects
+	//	if (x1 < 0 && x2 >= 0) return true; // intersects
+	//}
+	//else if (d <= 0) 
+	//{
+	//	return false;// no intersection
+	//}
 }
 
 void GameManager::set_mouse_pos(glm::vec2 mousePos_)
