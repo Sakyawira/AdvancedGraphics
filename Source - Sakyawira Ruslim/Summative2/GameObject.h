@@ -99,6 +99,12 @@ class GameObject
 		float GetRotate();
 
 		void SetPos(glm::vec3 _newPos);
+
+		glm::vec3 GetExtents();
+
+		glm::vec3 GetMin();
+
+		glm::vec3 GetMax();
 	
 	protected:
 

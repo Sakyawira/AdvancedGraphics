@@ -286,3 +286,18 @@ void GameObject::SetPos(glm::vec3 _newPos)
 	m_modelMatrix = m_translationMatrix * m_rotationZ * m_scaleMatrix;
 }
 
+glm::vec3 GameObject::GetExtents()
+{
+	return m_scale * 0.5f;
+}
+
+glm::vec3 GameObject::GetMin()
+{
+	return m_objPosition - GetExtents();
+}
+
+glm::vec3 GameObject::GetMax()
+{
+	return m_objPosition + GetExtents();
+}
+
