@@ -16,20 +16,20 @@
 
 GameManager::GameManager()
 {
-	m_b_initialized = false;
+	m_b_initialized_ = false;
 
 	// Create Clock
-	m_clock = new CClock();
+	m_clock_ = new CClock();
 	
 	// Create Shader
 	m_sh_fogBox = new Shader("Resources/Shaders/FogCubeMapVS.txt", "Resources/Shaders/FogCubeMapFS.txt", m_v_sh);
-	m_sh_animate = new Shader("Resources/Shaders/AnimationVertex.txt", "Resources/Shaders/AnimationFragment.txt", m_v_sh);
-	m_sh_fog = new Shader("Resources/Shaders/FogPhongVS.txt", "Resources/Shaders/FogPhongDiffuseFS.txt", m_v_sh);
-	m_sh_phong_diffuse = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongDiffuse.fs", m_v_sh);
-	m_sh_phong_specular = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongSpecular.fs", m_v_sh);
-	m_sh_phong_rim = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongRim.fs", m_v_sh);
-	m_sh_cube_map = new Shader("Resources/Shaders/CubeMapVS.txt", "Resources/Shaders/CubeMapFS.txt", m_v_sh);
-	m_sh_reflective = new Shader("Resources/Shaders/FogReflectionVS.txt", "Resources/Shaders/FogReflectionFS.txt", m_v_sh);
+	m_sh_animate_ = new Shader("Resources/Shaders/AnimationVertex.txt", "Resources/Shaders/AnimationFragment.txt", m_v_sh);
+	m_sh_fog_ = new Shader("Resources/Shaders/FogPhongVS.txt", "Resources/Shaders/FogPhongDiffuseFS.txt", m_v_sh);
+	m_sh_phong_diffuse_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongDiffuse.fs", m_v_sh);
+	m_sh_phong_specular_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongSpecular.fs", m_v_sh);
+	m_sh_phong_rim_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongRim.fs", m_v_sh);
+	m_sh_cube_map_ = new Shader("Resources/Shaders/CubeMapVS.txt", "Resources/Shaders/CubeMapFS.txt", m_v_sh);
+	m_sh_reflective_ = new Shader("Resources/Shaders/FogReflectionVS.txt", "Resources/Shaders/FogReflectionFS.txt", m_v_sh);
 
 	// Create Mesh
 	m_mesh_static = new Mesh(animation_indices, static_vertices, m_v_mesh);
@@ -50,13 +50,13 @@ GameManager::GameManager()
 	std::string m_string_menu = "Sakyawira's Burnt Out";
 	std::string m_string_instruction = "Press 'R' to start the game...";
 	
-	m_text_score = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_score, "Resources/Fonts/arial.ttf", glm::vec2(-390.0f, 350.0f), m_v_text);
-	m_text_lives = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_lives, "Resources/Fonts/arial.ttf", glm::vec2(-390.0f, 300.0f), m_v_text);
-	m_text_level = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_level, "Resources/Fonts/arial.ttf", glm::vec2( 290.0f, 350.0f), m_v_text);
-	m_text_menu = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_menu, "Resources/Fonts/arial.ttf", glm::vec2(-108, 250.0f), m_v_text);
-	m_text_instruction = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_instruction, "Resources/Fonts/arial.ttf", glm::vec2(-108, -250.0f), m_v_text);
-	m_string_bg = "L" + std::to_string(m_c_bg);
-	m_text_bg = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_bg, "Resources/Fonts/waltographUI.ttf", glm::vec2(-1300.0f, -260.0f), m_v_text);
+	m_text_score_ = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_score_, "Resources/Fonts/arial.ttf", glm::vec2(-390.0f, 350.0f), m_v_text);
+	m_text_lives_ = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_lives_, "Resources/Fonts/arial.ttf", glm::vec2(-390.0f, 300.0f), m_v_text);
+	m_text_level_ = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_level_, "Resources/Fonts/arial.ttf", glm::vec2( 290.0f, 350.0f), m_v_text);
+	m_text_menu_ = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_menu, "Resources/Fonts/arial.ttf", glm::vec2(-108, 250.0f), m_v_text);
+	m_text_instruction_ = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_instruction, "Resources/Fonts/arial.ttf", glm::vec2(-108, -250.0f), m_v_text);
+	m_string_bg_ = "L" + std::to_string(m_c_bg_);
+	m_text_bg_ = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_bg_, "Resources/Fonts/waltographUI.ttf", glm::vec2(-1300.0f, -260.0f), m_v_text);
 
 	// Texture
 	m_tr_down = new Texture("Resources/Textures/down.png");
@@ -75,29 +75,29 @@ GameManager::GameManager()
 	std::vector<Texture*> v_up = {m_tr_up};
 
 	// Stencil Cube
-	stencilCube = new GameObject(m_sh_fog, m_mesh_cube, plain_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
+	stencilCube = new GameObject(m_sh_fog_, m_mesh_cube, plain_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	stencilCube->Scale(5.0f);
 	stencilCube->Rotate(30.0f);
-	stencilCube2 = new GameObject(m_sh_fog, m_mesh_cube, v_up, 0.0f, 0.0f, 0.0f, m_v_geometry);
+	stencilCube2 = new GameObject(m_sh_fog_, m_mesh_cube, v_up, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	stencilCube2->Scale(5.5f);
 	stencilCube2->Rotate(30.0f);
-	transparentCube = new GameObject(m_sh_fog, m_mesh_cube, v_water_texture, 0.0f, -6.0f, 0.0f, m_v_geometry);
+	transparentCube = new GameObject(m_sh_fog_, m_mesh_cube, v_water_texture, 0.0f, -6.0f, 0.0f, m_v_geometry);
 	transparentCube->Scale(800.0f, 8.0f, 800.0f);
 
 	// Sky-box / Cube-Map
-	sky_box = new GameObject(m_sh_cube_map, m_mesh_cube_map, v_cubeMap, 0.0f, 0.0f, 0.0f, m_v_geometry);
+	sky_box = new GameObject(m_sh_cube_map_, m_mesh_cube_map, v_cubeMap, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	sky_box->Scale(2000.0f);
 
 	// Pyramid
-	button_down = new GameObject(m_sh_fog, m_mesh_cube, v_down, -10.0f, 0.0f, 0.0f, m_v_geometry);
+	button_down = new GameObject(m_sh_fog_, m_mesh_cube, v_down, -10.0f, 0.0f, 0.0f, m_v_geometry);
 	button_down->Scale(3.0f);
 
 	// Cube
-	button_up = new GameObject(m_sh_fog, m_mesh_cube, v_up, 10.0f, 0.0f, 0.0f, m_v_geometry);
+	button_up = new GameObject(m_sh_fog_, m_mesh_cube, v_up, 10.0f, 0.0f, 0.0f, m_v_geometry);
 	button_up->Scale(3.0f);
 
 	// Sphere
-	sphere = new GameObject(m_sh_fog, m_mesh_sphere, plain_texture, 32.0f, 0.0f, 0.0f, m_v_geometry);
+	sphere = new GameObject(m_sh_fog_, m_mesh_sphere, plain_texture, 32.0f, 0.0f, 0.0f, m_v_geometry);
 	sphere->Scale(5.0f);
 
 	// Tank
@@ -108,32 +108,32 @@ GameManager::GameManager()
 
 	create_spheres(10, border);
 	
-	this->Initialize();
+	this->initialize();
 }
 
 
-void GameManager::Initialize()
+void GameManager::initialize()
 {
-	m_clock->Initialise();
-	m_clock->Process();
+	m_clock_->Initialise();
+	m_clock_->Process();
 	
-	m_text_menu->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
-	m_text_menu->SetScale(0.5f);
+	m_text_menu_->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	m_text_menu_->SetScale(0.5f);
 	
-	m_text_instruction->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
-	m_text_instruction->SetScale(0.39f);
+	m_text_instruction_->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	m_text_instruction_->SetScale(0.39f);
 
-	m_text_score->SetScale(0.5f);
-	m_text_score->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	m_text_score_->SetScale(0.5f);
+	m_text_score_->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 
-	m_text_level->SetScale(0.5f);
-	m_text_level->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	m_text_level_->SetScale(0.5f);
+	m_text_level_->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 
-	m_text_lives->SetScale(0.5f);
-	m_text_lives->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	m_text_lives_->SetScale(0.5f);
+	m_text_lives_->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 
-	m_text_bg->SetScale(130.0f);
-	m_text_bg->SetColor(glm::vec3(0.0f, 0.0f, 0.0f));
+	m_text_bg_->SetScale(130.0f);
+	m_text_bg_->SetColor(glm::vec3(0.0f, 0.0f, 0.0f));
 	
 	//Menu->Scale(800.0f);
 
@@ -147,75 +147,75 @@ void GameManager::Initialize()
 		coin->Enable();
 	}
 	
-	m_b_initialized = true;
+	m_b_initialized_ = true;
 }
 
-void GameManager::ProcessGame(Audio& audio)
+void GameManager::process_game(Audio& audio)
 {
-	if (m_b_initialized == 1)
+	if (m_b_initialized_ == 1)
 	{
-		float f_deltaT = m_clock->GetDeltaTick();
-		camera.CameraUpdate(m_b_start, m_clock->GetDeltaTick() * 1.0f, tank->GetLocation());
+		float f_deltaT = m_clock_->GetDeltaTick();
+		camera.CameraUpdate(m_b_start_, m_clock_->GetDeltaTick() * 1.0f, tank->GetLocation());
 
-		if (updateMousePicking(button_up) && m_isClicked)
+		if (update_mouse_picking(button_up) && m_is_clicked_)
 		{
-			m_text_instruction->SetText("Collided!");
+			m_text_instruction_->SetText("Collided!");
 			stencilCube->Move(MOVE_FRONT, 10.0f * f_deltaT);
 			stencilCube2->Move(MOVE_FRONT, 10.0f * f_deltaT);
 		}
-		else if(updateMousePicking(button_down) && m_isClicked)
+		else if(update_mouse_picking(button_down) && m_is_clicked_)
 		{
-			m_text_instruction->SetText("Collided!");
+			m_text_instruction_->SetText("Collided!");
 			stencilCube->Move(MOVE_BACK, 10.0f * f_deltaT);
 			stencilCube2->Move(MOVE_BACK, 10.0f * f_deltaT);
 		}
 		else
 		{
-			m_text_instruction->SetText("Not Collided!");
+			m_text_instruction_->SetText("Not Collided!");
 		}
 		
 
-		if (m_b_start)
+		if (m_b_start_)
 		{
 			// Update Texts
-			m_string_score = "Press 'R' to reset";
-			m_text_score->SetText(m_string_score);
+			m_string_score_ = "Press 'R' to reset";
+			m_text_score_->SetText(m_string_score_);
 
 
-			m_string_lives = "Lives = ";
-			m_text_lives->SetText(m_string_lives);
+			m_string_lives_ = "Lives = ";
+			m_text_lives_->SetText(m_string_lives_);
 
-			m_string_level = "Level = ";
-			m_text_level->SetText(m_string_level);
+			m_string_level_ = "Level = ";
+			m_text_level_->SetText(m_string_level_);
 
-			m_string_bg = "L"+ std::to_string(m_c_bg);
-			m_text_bg->SetText(m_string_bg);
+			m_string_bg_ = "L"+ std::to_string(m_c_bg_);
+			m_text_bg_->SetText(m_string_bg_);
 
 			// m_text_instruction->SetText("Press 'Space' to shoot...");
 
 			tank->sphere_collision_check(tank, button_up);
 
-			currentTime = static_cast<float>(glutGet(GLUT_ELAPSED_TIME)); // Get current time.
-			currentTime = currentTime * 0.001f;
+			current_time_ = static_cast<float>(glutGet(GLUT_ELAPSED_TIME)); // Get current time.
+			current_time_ = current_time_ * 0.001f;
 		}
 		else
 		{
-			m_string_score = "Press 'R' to use free moving camera!";
-			m_text_score->SetText(m_string_score);
+			m_string_score_ = "Press 'R' to use free moving camera!";
+			m_text_score_->SetText(m_string_score_);
 		}
 	}
 	
 	else
 	{
-		this->Initialize();
+		this->initialize();
 	}
 	
-	m_clock->Process();
+	m_clock_->Process();
 }
 
-void GameManager::Render()
+void GameManager::render()
 {
-	if (m_b_initialized == 1)
+	if (m_b_initialized_ == 1)
 	{
 		glEnable(GL_BLEND);
 		// Drawing all obstacles
@@ -225,16 +225,16 @@ void GameManager::Render()
 		//
 		m_tr_cube_map->Render(m_sh_fogBox, m_mesh_cube_map, camera);
 
-		frameCounts += 1.0f * m_clock->GetDeltaTick() * 120.0f;
+		frame_counts_ += 1.0f * m_clock_->GetDeltaTick() * 120.0f;
 
-		button_up->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
-		button_down->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
-		sphere->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
+		button_up->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
+		button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
+		sphere->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 
 		//// Drawing all obstacles
 	for (auto& coinObjects2 : m_vector_coins)
 	{
-		coinObjects2->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
+		coinObjects2->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 	}
 
 		//tank->draw_with_model(m_clock->GetDeltaTick());
@@ -250,13 +250,13 @@ void GameManager::Render()
 		glStencilMask(0xFF);//enable writing to stencil buffer
 		//--> render regular sized button_up // fills stencil buffer 
 		
-		stencilCube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
+		stencilCube->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 
 		// ** 2nd pass ** 
 		glStencilFunc(GL_NOTEQUAL, 1, 0xFF); 
 		glStencilMask(0x00); //disable writing to stencil buffer
 		//--> render scaled up button_up 
-		stencilCube2->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
+		stencilCube2->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		// write to areas where value is not equal to 1
 		// disable writing to stencil mask 
 		glStencilMask(0x00); 
@@ -266,45 +266,45 @@ void GameManager::Render()
 
 		
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		transparentCube->Draw(camera, "currentTime", currentTime, "frameCounts", static_cast<int>(frameCounts), m_clock->GetDeltaTick());
+		transparentCube->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 
 		glDisable(GL_BLEND);
 		
 		glDisable(GL_SCISSOR_TEST);
 		
-		m_text_instruction->Render();
-		m_text_score->Render();
+		m_text_instruction_->Render();
+		m_text_score_->Render();
 	}
 	else
 	{
-		this->Initialize();
+		this->initialize();
 	}
 }
 
-bool GameManager::IsStarted()
+bool GameManager::is_started()
 {
-	return m_b_start;
+	return m_b_start_;
 }
 
-void GameManager::StartGame(bool _isStart)
+void GameManager::start_game(bool _isStart)
 {
 	camera.SetPosX(0.0f);
 	camera.SetPosY(1.5f);
 	camera.SetPosZ(26.0f);
 	stencilCube->SetPos(glm::vec3(0.0f, 0.0f, 0.0f));
 	stencilCube2->SetPos(glm::vec3(0.0f, 0.0f, 0.0f));
-	m_b_start = _isStart;
+	m_b_start_ = _isStart;
 }
 
-CClock* GameManager::GetClock()
+CClock* GameManager::get_clock()
 {
-	return m_clock;
+	return m_clock_;
 }
 
-bool GameManager::updateMousePicking(GameObject* _cube)
+bool GameManager::update_mouse_picking(GameObject* _cube)
 {
 	//screen pos
-	glm::vec2 normalizedScreenPos = m_mousePos;
+	glm::vec2 normalizedScreenPos = m_mouse_pos_;
 	//screenpos to Proj Space
 	glm::vec4 clipCoords = glm::vec4(normalizedScreenPos.x, normalizedScreenPos.y, -1.0f, 1.0f);
 	//Proj Space to eye space
@@ -314,7 +314,7 @@ bool GameManager::updateMousePicking(GameObject* _cube)
 	//eyespace to world space
 	glm::mat4 invViewMat = glm::inverse(camera.get_view());
 	glm::vec4 rayWorld = invViewMat * eyeCoords;
-	m_rayDirection = glm::normalize(glm::vec3(rayWorld));
+	m_ray_direction_ = glm::normalize(glm::vec3(rayWorld));
 	
 	//	add code to check
 	//	intersection with other objects
@@ -327,7 +327,7 @@ bool GameManager::updateMousePicking(GameObject* _cube)
 	// Transform line segment from world space to local space
 	// Matrix4x4 w2l = transform.worldToLocalMatrix;
 	glm::vec3 startP = camera.GetPosition();//w2l.MultiplyPoint(startT.position);
-	glm::vec3 endP = camera.GetPosition() + m_rayDirection * radius;//w2l.MultiplyPoint(endT.position);
+	glm::vec3 endP = camera.GetPosition() + m_ray_direction_ * radius;//w2l.MultiplyPoint(endT.position);
 
 	// Draw bounds
 	//Gizmos.color = Color.yellow;
@@ -398,12 +398,12 @@ bool GameManager::updateMousePicking(GameObject* _cube)
 
 void GameManager::set_mouse_pos(glm::vec2 mousePos_)
 {
-	m_mousePos = mousePos_;
+	m_mouse_pos_ = mousePos_;
 }
 
 void GameManager::set_click(bool newState)
 {
-	m_isClicked = newState;
+	m_is_clicked_ = newState;
 }
 
 void GameManager::create_spheres(int _number_coins, int _border)
@@ -424,7 +424,7 @@ void GameManager::create_spheres(int _number_coins, int _border)
 			random_z = (static_cast<float>((rand() % _border) + 10.0f) * negate);
 		} while (glm::vec3(random_x, 0.0f, random_z) == stencilCube->GetLocation() || glm::distance(glm::vec3(random_x, 0.0f, random_z), camera.GetPosition()) < 25.0f);
 		
-		m_coin = new GameObject(m_sh_fog, m_mesh_sphere, plain_texture, random_x, 0.0f, random_z, m_v_geometry);
+		m_coin = new GameObject(m_sh_fog_, m_mesh_sphere, plain_texture, random_x, 0.0f, random_z, m_v_geometry);
 		m_coin->Scale(5.0f);
 	}
 }
@@ -465,8 +465,8 @@ GameManager::~GameManager()
 		coinObjects2 = nullptr;
 	}
 
-	delete m_clock;
-	m_clock = nullptr;
+	delete m_clock_;
+	m_clock_ = nullptr;
 
 	for (auto& geometry : m_v_geometry)
 	{

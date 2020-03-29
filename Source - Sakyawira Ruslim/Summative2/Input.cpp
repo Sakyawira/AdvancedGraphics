@@ -4,68 +4,55 @@ void Input::ProcessInput(GameManager* Game, Audio& audio)
 {
 	if (KeyState['w'] == INPUT_DOWN_FIRST)
 	{
-		Game->tank->Rotate(0.0f);
 		KeyState['w'] = INPUT_DOWN;
 	}
 
 	if (KeyState['s'] == INPUT_DOWN_FIRST)
 	{
-		Game->tank->Rotate(180.0f);
 		KeyState['s'] = INPUT_DOWN;
 	}
 
 	if (KeyState['a'] == INPUT_DOWN_FIRST)
 	{
-		Game->tank->Rotate(90.f);
 		KeyState['a'] = INPUT_DOWN;
 	}
 
 	if (KeyState['d'] == INPUT_DOWN_FIRST)
 	{
-		Game->tank->Rotate(-90.f);
 		KeyState['d'] = INPUT_DOWN;
 	}
 
 	if (KeyState[32] == INPUT_DOWN_FIRST)
 	{
-		glm::vec3 _target = Game->tank->GetLocation();
 	}
 
 	if (KeyState['w'] == INPUT_DOWN)
 	{
-		Game->tank->Move(MOVE_FRONT, 0.5f * Game->GetClock()->GetDeltaTick() * 120.0f);
-		Game->tank->m_currently_moved = true;
-		Game->camera.MovePosZ(15.0f, Game->GetClock()->GetDeltaTick());
+		Game->camera.MovePosZ(15.0f, Game->get_clock()->GetDeltaTick());
 	}
 	if (KeyState['s'] == INPUT_DOWN)
 	{
-		Game->tank->Move(MOVE_BACK, 0.5f * Game->GetClock()->GetDeltaTick() * 120.0f);
-		Game->tank->m_currently_moved = true;
-		Game->camera.MovePosZ(-15.0f, Game->GetClock()->GetDeltaTick());
+		Game->camera.MovePosZ(-15.0f, Game->get_clock()->GetDeltaTick());
 	}
 	if (KeyState['d'] == INPUT_DOWN)
 	{
-		Game->tank->Move(MOVE_RIGHT, 0.5f * Game->GetClock()->GetDeltaTick() * 120.0f);
-		Game->tank->m_currently_moved = true;
-		Game->camera.MovePosX(-15.0f, Game->GetClock()->GetDeltaTick());
+		Game->camera.MovePosX(-15.0f, Game->get_clock()->GetDeltaTick());
 	}
 	if (KeyState['a'] == INPUT_DOWN)
 	{
-		Game->tank->Move(MOVE_LEFT, 0.5f * Game->GetClock()->GetDeltaTick() * 120.0f);
-		Game->tank->m_currently_moved = true;
-		Game->camera.MovePosX(15.0f, Game->GetClock()->GetDeltaTick());
+		Game->camera.MovePosX(15.0f, Game->get_clock()->GetDeltaTick());
 	}
 	if (KeyState['r'] == INPUT_DOWN_FIRST)
 	{
-		if (!Game->IsStarted() /*&& !Game->IsEnded()*/)
+		if (!Game->is_started() /*&& !Game->IsEnded()*/)
 		{
-			Game->StartGame(true);
+			Game->start_game(true);
 		}
 		else
 		{
 			// Start working on initializing the game on restart instead of making a new one
-			Game->StartGame(false);
-			Game->Initialize();
+			Game->start_game(false);
+			Game->initialize();
 		}
 		KeyState['r'] = INPUT_DOWN;
 	}
@@ -136,7 +123,7 @@ void Input::MousePassiveMove(int x, int y, GameManager * Game)
 	//Invert y axis
 	y *= -1;
 
-	if (Game->IsStarted())
+	if (Game->is_started())
 	{
 		Game->camera.updateLookDir(x, y);
 	}
@@ -157,7 +144,7 @@ void Input::MouseMove(int x, int y, GameManager * Game)
 	//Invert y axis
 	y *= -1;
 
-	if (Game->IsStarted())
+	if (Game->is_started())
 	{
 		Game->camera.updateLookDir(x, y);
 	}

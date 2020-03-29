@@ -63,7 +63,7 @@ public:
 
 	Camera camera;
 
-	GameObject* tank;
+	
 
 	void set_mouse_pos(glm::vec2 mousePos_);
 
@@ -143,6 +143,8 @@ private:
 
 	Model* m_mdl_tank;
 	Model* m_mdl_cat;
+
+	GameObject* tank;
 
 	GameObject* m_coin;
 	Enemy* m_enemy;
