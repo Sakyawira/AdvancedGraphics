@@ -158,14 +158,14 @@ void GameManager::ProcessGame(Audio& audio)
 		if (updateMousePicking(button_up) && m_isClicked)
 		{
 			m_text_instruction->SetText("Collided!");
-			stencilCube->Move(MOVE_UP, 1.0f * f_deltaT);
-			stencilCube2->Move(MOVE_UP, 1.0f * f_deltaT);
+			stencilCube->Move(MOVE_FRONT, 10.0f * f_deltaT);
+			stencilCube2->Move(MOVE_FRONT, 10.0f * f_deltaT);
 		}
 		else if(updateMousePicking(button_down) && m_isClicked)
 		{
 			m_text_instruction->SetText("Collided!");
-			stencilCube->Move(MOVE_DOWN, 1.0f * f_deltaT);
-			stencilCube2->Move(MOVE_DOWN, 1.0f * f_deltaT);
+			stencilCube->Move(MOVE_BACK, 10.0f * f_deltaT);
+			stencilCube2->Move(MOVE_BACK, 10.0f * f_deltaT);
 		}
 		else
 		{
@@ -301,6 +301,8 @@ void GameManager::StartGame(bool _isStart)
 	camera.SetPosX(0.0f);
 	camera.SetPosY(1.5f);
 	camera.SetPosZ(26.0f);
+	stencilCube->SetPos(glm::vec3(0.0f, 0.0f, 0.0f));
+	stencilCube2->SetPos(glm::vec3(0.0f, 0.0f, 0.0f));
 	m_b_start = _isStart;
 }
 
