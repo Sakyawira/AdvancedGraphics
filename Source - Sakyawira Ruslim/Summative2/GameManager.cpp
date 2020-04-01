@@ -333,8 +333,8 @@ bool GameManager::update_mouse_picking(GameObject* _cube)
 
 	// Transform line segment from world space to local space
 	// Matrix4x4 w2l = transform.worldToLocalMatrix;
-	glm::vec3 startP = camera.get_position();//w2l.MultiplyPoint(startT.position);
-	glm::vec3 endP = camera.get_position() + m_ray_direction_ * radius;//w2l.MultiplyPoint(endT.position);
+	glm::vec3 start_p = camera.get_position();//w2l.MultiplyPoint(startT.position);
+	glm::vec3 end_p = camera.get_position() + m_ray_direction_ * radius;//w2l.MultiplyPoint(endT.position);
 
 	// Draw bounds
 	//Gizmos.color = Color.yellow;
@@ -353,26 +353,21 @@ bool GameManager::update_mouse_picking(GameObject* _cube)
 	glm::vec3 min = _cube->GetMin();
 	glm::vec3 max = _cube->GetMax();
 
-	glm::vec3 dir = endP - startP;
-	glm::vec3 oneOverDir = glm::vec3(1.0f / dir.x, 1.0f / dir.y, 1.0f / dir.z);
+	glm::vec3 dir = end_p - start_p;
+	glm::vec3 one_over_dir = glm::vec3(1.0f / dir.x, 1.0f / dir.y, 1.0f / dir.z);
 
 	// Slabs
-	float _minSlabX = (min.x - startP.x) * oneOverDir.x;
-	float _minSlabY = (min.y - startP.y) * oneOverDir.y;
-	float _minSlabZ = (min.z - startP.z) * oneOverDir.z;
-
-	float _maxSlabX = (max.x - startP.x) * oneOverDir.x;
-	float _maxSlabY = (max.y - startP.y) * oneOverDir.y;
-	float _maxSlabZ = (max.z - startP.z) * oneOverDir.z;
+	glm::vec3 min_slab = glm::vec3((min.x - start_p.x) * one_over_dir.x, (min.y - start_p.y) * one_over_dir.y, (min.z - start_p.z) * one_over_dir.z);
+	glm::vec3 max_slab = glm::vec3((max.x - start_p.x) * one_over_dir.x, (max.y - start_p.y) * one_over_dir.y, (max.z - start_p.z) * one_over_dir.z);
 
 	// Min/Max Slabs
-	float minSlabX = glm::min(_minSlabX, _maxSlabX);
-	float minSlabY = glm::min(_minSlabY, _maxSlabY);
-	float minSlabZ = glm::min(_minSlabZ, _maxSlabZ);
+	float minSlabX = glm::min(min_slab.x, max_slab.x);
+	float minSlabY = glm::min(min_slab.y, max_slab.y);
+	float minSlabZ = glm::min(min_slab.z, max_slab.z);
 
-	float maxSlabX = glm::max(_minSlabX, _maxSlabX);
-	float maxSlabY = glm::max(_minSlabY, _maxSlabY);
-	float maxSlabZ = glm::max(_minSlabZ, _maxSlabZ);
+	float maxSlabX = glm::max(min_slab.x, max_slab.x);
+	float maxSlabY = glm::max(min_slab.y, max_slab.y);
+	float maxSlabZ = glm::max(min_slab.z, max_slab.z);
 
 	float minSlab = glm::max(minSlabX, minSlabY);
 	minSlab = glm::max(minSlab, minSlabZ);
