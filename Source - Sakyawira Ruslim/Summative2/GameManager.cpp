@@ -326,26 +326,10 @@ bool GameManager::update_mouse_picking(GameObject* _cube)
 	//	add code to check
 	//	intersection with other objects
 
-	float radius = 115.0f;
+	const float radius = 115.0f;
 
-	// Resize bounds
-	//bounds.size = boundsSize;
-
-	// Transform line segment from world space to local space
-	// Matrix4x4 w2l = transform.worldToLocalMatrix;
-	glm::vec3 start_p = camera.get_position();//w2l.MultiplyPoint(startT.position);
-	glm::vec3 end_p = camera.get_position() + m_ray_direction_ * radius;//w2l.MultiplyPoint(endT.position);
-
-	// Draw bounds
-	//Gizmos.color = Color.yellow;
-	//Gizmos.matrix = transform.localToWorldMatrix;
-	//Gizmos.DrawWireCube(bounds.center, bounds.size);
-
-	// Draw line segment
-	//Gizmos.color = Color.cyan;
-	///Gizmos.DrawCube(startP, Vector3.one * 0.3f);
-	//Gizmos.DrawCube(endP, Vector3.one * 0.3f);
-	//Gizmos.DrawLine(startP, endP);
+	glm::vec3 start_p = camera.get_position();
+	glm::vec3 end_p = camera.get_position() + m_ray_direction_ * radius;
 
 	// Lowest point in center vector
 	// center - extents
