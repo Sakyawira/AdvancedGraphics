@@ -159,7 +159,7 @@ void GameManager::process_game(Audio& audio)
 
 		if (update_mouse_picking(button_up))
 		{
-			m_text_instruction_->SetText("Collided!");
+			m_text_instruction_->SetText("Collided with Red!");
 			if (m_is_clicked_)
 			{
 				stencilCube->Move(MOVE_FRONT, 10.0f * f_deltaT);
@@ -168,7 +168,7 @@ void GameManager::process_game(Audio& audio)
 		}
 		else if(update_mouse_picking(button_down))
 		{
-			m_text_instruction_->SetText("Collided!");
+			m_text_instruction_->SetText("Collided with Blue!");
 			if (m_is_clicked_)
 			{
 				stencilCube->Move(MOVE_BACK, 10.0f * f_deltaT);
