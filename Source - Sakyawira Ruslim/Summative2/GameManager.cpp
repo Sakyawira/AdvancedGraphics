@@ -194,20 +194,6 @@ void GameManager::process_game(Audio& audio)
 			m_string_score_ = "Press 'R' to reset";
 			m_text_score_->SetText(m_string_score_);
 
-
-			m_string_lives_ = "Lives = ";
-			m_text_lives_->SetText(m_string_lives_);
-
-			m_string_level_ = "Level = ";
-			m_text_level_->SetText(m_string_level_);
-
-			m_string_bg_ = "L"+ std::to_string(m_c_bg_);
-			m_text_bg_->SetText(m_string_bg_);
-
-			// m_text_instruction->SetText("Press 'Space' to shoot...");
-
-			tank->sphere_sphere_col(tank, button_up);
-
 			current_time_ = static_cast<float>(glutGet(GLUT_ELAPSED_TIME)); // Get current time.
 			current_time_ = current_time_ * 0.001f;
 		}
