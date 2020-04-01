@@ -169,6 +169,46 @@ bool GameObject::sphere_collision_check(GameObject* a, GameObject* b)
 		return false;
 }
 
+bool GameObject::ray_box_col(glm::vec3 ray_origin, glm::vec3 ray_end)
+{
+	glm::vec3 dir = ray_end - ray_origin;
+	glm::vec3 inverse_dir = glm::vec3(1.0f / dir.x, 1.0f / dir.y, 1.0f / dir.z);
+
+	glm::vec3 min = GetMin();
+	glm::vec3 max = GetMax();
+
+	std::vector<glm::vec3> bounds{ min , max };
+	std::vector<int> sign{ (inverse_dir.x < 0), (inverse_dir.y < 0), (inverse_dir.z < 0), };
+
+	// Intersections with projection of line to the axis
+	glm::vec3 min_t = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::vec3 max_t = glm::vec3(0.0f, 0.0f, 0.0f);
+
+	min_t.x = (bounds[sign[0]].x - ray_origin.x) * inverse_dir.x;
+	max_t.x = (bounds[1 - sign[0]].x - ray_origin.x) * inverse_dir.x;
+	min_t.y = (bounds[sign[1]].y - ray_origin.y) * inverse_dir.y;
+	max_t.y = (bounds[1 - sign[1]].y - ray_origin.y) * inverse_dir.y;
+	min_t.z = (bounds[sign[2]].z - ray_origin.z) * inverse_dir.z;
+	max_t.z = (bounds[1 - sign[2]].z - ray_origin.z) * inverse_dir.z;
+
+	if ((min_t.x > max_t.y) || (min_t.y > max_t.x))
+	{
+		return false;
+	}
+	min_t.x = glm::max(min_t.y, min_t.x);
+	max_t.x = glm::min(max_t.y, max_t.x);
+
+	if ((min_t.x > max_t.z) || (min_t.z > max_t.x))
+	{
+		return false;
+	}
+	min_t.x = glm::max(min_t.z, min_t.x);
+	max_t.x = glm::min(max_t.z, max_t.x);
+
+	return true;
+
+}
+
 float GameObject::GetPosition(int COORDINATE_ID)
 {
 	// float fi;
@@ -285,12 +325,14 @@ void GameObject::SetPos(glm::vec3 _newPos)
 	m_translationMatrix = glm::translate(glm::mat4(), m_objPosition);
 	m_modelMatrix = m_translationMatrix * m_rotationZ * m_scaleMatrix;
 }
-
+// extents = size * 0.5f
 glm::vec3 GameObject::GetExtents()
 {
 	return m_scale * 0.5f;
 }
 
+// Lowest point in center vector
+// center - extents
 glm::vec3 GameObject::GetMin()
 {
 	return m_objPosition - GetExtents();

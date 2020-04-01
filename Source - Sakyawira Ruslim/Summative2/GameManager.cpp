@@ -331,47 +331,8 @@ bool GameManager::update_mouse_picking(GameObject* _cube)
 	glm::vec3 start_p = camera.get_position();
 	glm::vec3 end_p = camera.get_position() + m_ray_direction_ * radius;
 
-	glm::vec3 dir = end_p - start_p;
-	glm::vec3 inverse_dir = glm::vec3(1.0f / dir.x, 1.0f / dir.y, 1.0f / dir.z);
-
-	// Lowest point in center vector
-	// center - extents
-	// extents = size * 0.5f
-	glm::vec3 min = _cube->GetMin();
-	glm::vec3 max = _cube->GetMax();
-
-	std::vector<glm::vec3> bounds { min , max };
-	std::vector<int> sign{(inverse_dir.x < 0), (inverse_dir.y < 0), (inverse_dir.z < 0), };
+	return _cube->ray_box_col(start_p, end_p);
 	
-	// Intersections with projection of line to the axis
-	glm::vec3 min_t = glm::vec3(0.0f, 0.0f, 0.0f);
-	glm::vec3 max_t = glm::vec3(0.0f, 0.0f, 0.0f);
-
-	min_t.x = (bounds[sign[0]].x - start_p.x) * inverse_dir.x;
-	max_t.x = (bounds[1 - sign[0]].x - start_p.x) * inverse_dir.x;
-	min_t.y = (bounds[sign[1]].y - start_p.y) * inverse_dir.y;
-	max_t.y = (bounds[1 - sign[1]].y - start_p.y) * inverse_dir.y;
-	min_t.z = (bounds[sign[2]].z - start_p.z) * inverse_dir.z;
-	max_t.z = (bounds[1 - sign[2]].z - start_p.z) * inverse_dir.z;
-
-	if ((min_t.x > max_t.y) || (min_t.y > max_t.x))
-	{
-		return false;
-	}
-	min_t.x = glm::max(min_t.y, min_t.x);
-	max_t.x = glm::min(max_t.y, max_t.x);
-
-	if ((min_t.x > max_t.z) || (min_t.z > max_t.x))
-	{
-		return false;
-	}
-	min_t.x = glm::max(min_t.z, min_t.x);
-	max_t.x = glm::min(max_t.z, max_t.x);
-
-	return true;
-
-	// return final_max_slab >= 0.0f && final_max_slab >= final_min_slab && final_min_slab <= 1.0f;
-
 	// Sphere Collision
 	//glm::vec3 v = sphere->GetLocation() - camera.GetPosition();
 	//float a = glm::dot(m_rayDirection, m_rayDirection);
