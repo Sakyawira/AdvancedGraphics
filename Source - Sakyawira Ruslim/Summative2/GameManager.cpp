@@ -361,22 +361,15 @@ bool GameManager::update_mouse_picking(GameObject* _cube)
 	glm::vec3 max_slab = glm::vec3((max.x - start_p.x) * one_over_dir.x, (max.y - start_p.y) * one_over_dir.y, (max.z - start_p.z) * one_over_dir.z);
 
 	// Min/Max Slabs
-	float minSlabX = glm::min(min_slab.x, max_slab.x);
-	float minSlabY = glm::min(min_slab.y, max_slab.y);
-	float minSlabZ = glm::min(min_slab.z, max_slab.z);
+	glm::vec3 i_min_slab = glm::vec3(glm::min(min_slab.x, max_slab.x), glm::min(min_slab.y, max_slab.y), glm::min(min_slab.z, max_slab.z));
+	glm::vec3 i_max_slab = glm::vec3(glm::max(min_slab.x, max_slab.x), glm::max(min_slab.y, max_slab.y), glm::max(min_slab.z, max_slab.z));
 
-	float maxSlabX = glm::max(min_slab.x, max_slab.x);
-	float maxSlabY = glm::max(min_slab.y, max_slab.y);
-	float maxSlabZ = glm::max(min_slab.z, max_slab.z);
+	float final_min_slab = glm::max(i_min_slab.x, i_min_slab.y);
+	final_min_slab = glm::max(final_min_slab, i_min_slab.z);
+	float final_max_slab = glm::min(i_max_slab.x, i_max_slab.y);
+	final_max_slab = glm::min(final_max_slab, i_max_slab.z);
 
-	float minSlab = glm::max(minSlabX, minSlabY);
-	minSlab = glm::max(minSlab, minSlabZ);
-	float maxSlab = glm::min(maxSlabX, maxSlabY);
-	maxSlab = glm::min(maxSlab, maxSlabZ);
-
-	// Check hit
-	// bool bHit =
-	return maxSlab >= 0.0f && maxSlab >= minSlab && minSlab <= 1.0f;
+	return final_max_slab >= 0.0f && final_max_slab >= final_min_slab && final_min_slab <= 1.0f;
 
 	// Sphere Collision
 	//glm::vec3 v = sphere->GetLocation() - camera.GetPosition();
