@@ -342,48 +342,37 @@ bool GameManager::update_mouse_picking(GameObject* _cube)
 
 	std::vector<glm::vec3> bounds { min , max };
 	std::vector<int> sign{(inverse_dir.x < 0), (inverse_dir.y < 0), (inverse_dir.z < 0), };
-
-	float tmin, tmax, tymin, tymax, tzmin, tzmax;
-
-	tmin = (bounds[sign[0]].x - start_p.x) * inverse_dir.x;
-	tmax = (bounds[1 - sign[0]].x - start_p.x) * inverse_dir.x;
-	tymin = (bounds[sign[1]].y - start_p.y) * inverse_dir.y;
-	tymax = (bounds[1 - sign[1]].y - start_p.y) * inverse_dir.y;
 	
 	// Slabs
-	glm::vec3 min_slab = glm::vec3((bounds[sign[0]].x - start_p.x) * inverse_dir.x, (bounds[sign[1]].y - start_p.y) * inverse_dir.y, (bounds[sign[2]].z - start_p.z) * inverse_dir.z);
-	glm::vec3 max_slab = glm::vec3((bounds[1 - sign[0]].x - start_p.x) * inverse_dir.x, (1 - bounds[sign[1]].y - start_p.y) * inverse_dir.y, (bounds[1 - sign[2]].z - start_p.z) * inverse_dir.z);
+	glm::vec3 min_t = glm::vec3(0.0f, 0.0f, 0.0f);
+	glm::vec3 max_t = glm::vec3(0.0f, 0.0f, 0.0f);
 
-	// Min/Max Slabs
-	//glm::vec3 i_min_slab = glm::vec3(glm::min(min_slab.x, max_slab.x), glm::min(min_slab.y, max_slab.y), glm::min(min_slab.z, max_slab.z));
-	//glm::vec3 i_max_slab = glm::vec3(glm::max(min_slab.x, max_slab.x), glm::max(min_slab.y, max_slab.y), glm::max(min_slab.z, max_slab.z));
+	min_t.x = (bounds[sign[0]].x - start_p.x) * inverse_dir.x;
+	max_t.x = (bounds[1 - sign[0]].x - start_p.x) * inverse_dir.x;
+	min_t.y = (bounds[sign[1]].y - start_p.y) * inverse_dir.y;
+	max_t.y = (bounds[1 - sign[1]].y - start_p.y) * inverse_dir.y;
+	min_t.z = (bounds[sign[2]].z - start_p.z) * inverse_dir.z;
+	max_t.z = (bounds[1 - sign[2]].z - start_p.z) * inverse_dir.z;
 
-	/*float final_min_slab = glm::max(min_slab.x, min_slab.y);
-	final_min_slab = glm::max(final_min_slab, min_slab.z);
-	float final_max_slab = glm::min(max_slab.x, max_slab.y);
-	final_max_slab = glm::min(final_max_slab, max_slab.z);*/
-	if ((tmin > tymax) || (tymin > tmax))
+	if ((min_t.x > max_t.y) || (min_t.y > max_t.x))
 		return false;
-	if (tymin > tmin)
-		tmin = tymin;
-	if (tymax < tmax)
-		tmax = tymax;
+	if (min_t.y > min_t.x)
+		min_t.x = min_t.y;
+	if (max_t.y < max_t.x)
+		max_t.x = max_t.y;
 
-	tzmin = (bounds[sign[2]].z - start_p.z) * inverse_dir.z;
-	tzmax = (bounds[1 - sign[2]].z - start_p.z) * inverse_dir.z;
-
-	if ((tmin > tzmax) || (tzmin > tmax))
+	if ((min_t.x > max_t.z) || (min_t.z > max_t.x))
 		return false;
-	if (tzmin > tmin)
-		tmin = tzmin;
-	if (tzmax < tmax)
-		tmax = tzmax;
+	if (min_t.z > min_t.x)
+		min_t.x = min_t.z;
+	if (max_t.z < max_t.x)
+		max_t.x = max_t.z;
 
 	return true;
-	/*if (tzmin > tmin)
-		tmin = tzmin;
-	if (tzmax < tmax)
-		tmax = tzmax;*/
+	/*if (min_t.z > min_t.x)
+		min_t.x = min_t.z;
+	if (max_t.z < max_t.x)
+		max_t.x = max_t.z;*/
 
 	// return final_max_slab >= 0.0f && final_max_slab >= final_min_slab && final_min_slab <= 1.0f;
 
