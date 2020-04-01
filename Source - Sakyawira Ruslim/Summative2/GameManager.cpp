@@ -50,11 +50,11 @@ GameManager::GameManager()
 	std::string m_string_menu = "Sakyawira's Burnt Out";
 	std::string m_string_instruction = "Press 'R' to start the game...";
 	
-	m_text_score_ = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_score_, "Resources/Fonts/arial.ttf", glm::vec2(-390.0f, 350.0f), m_v_text);
+	m_text_instruction_ = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_score_, "Resources/Fonts/arial.ttf", glm::vec2(-390.0f, 350.0f), m_v_text);
 	m_text_lives_ = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_lives_, "Resources/Fonts/arial.ttf", glm::vec2(-390.0f, 300.0f), m_v_text);
 	m_text_level_ = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_level_, "Resources/Fonts/arial.ttf", glm::vec2( 290.0f, 350.0f), m_v_text);
 	m_text_menu_ = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_menu, "Resources/Fonts/arial.ttf", glm::vec2(-108, 250.0f), m_v_text);
-	m_text_instruction_ = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_instruction, "Resources/Fonts/arial.ttf", glm::vec2(-108, -250.0f), m_v_text);
+	m_text_collision_ = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_instruction, "Resources/Fonts/arial.ttf", glm::vec2(-108, -250.0f), m_v_text);
 	m_string_bg_ = "L" + std::to_string(m_c_bg_);
 	m_text_bg_ = new TextLabel(WINDOW_WIDHT, WINDOW_HEIGHT, m_string_bg_, "Resources/Fonts/waltographUI.ttf", glm::vec2(-1300.0f, -260.0f), m_v_text);
 
@@ -120,22 +120,11 @@ void GameManager::initialize()
 	m_text_menu_->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	m_text_menu_->SetScale(0.5f);
 	
+	m_text_collision_->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	m_text_collision_->SetScale(0.39f);
+
+	m_text_instruction_->SetScale(0.5f);
 	m_text_instruction_->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
-	m_text_instruction_->SetScale(0.39f);
-
-	m_text_score_->SetScale(0.5f);
-	m_text_score_->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
-
-	m_text_level_->SetScale(0.5f);
-	m_text_level_->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
-
-	m_text_lives_->SetScale(0.5f);
-	m_text_lives_->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
-
-	m_text_bg_->SetScale(130.0f);
-	m_text_bg_->SetColor(glm::vec3(0.0f, 0.0f, 0.0f));
-	
-	//Menu->Scale(800.0f);
 
 	// Reset Camera's Position
 	camera.set_pos_x(0.0f);
@@ -158,7 +147,7 @@ void GameManager::process_game(Audio& audio)
 		camera.update(m_b_start_, m_clock_->GetDeltaTick() * 1.0f, tank->GetLocation());
 
 		float mouse_pick_distance = INT_MAX;
-		m_text_instruction_->SetText("Not Collided!");
+		m_text_collision_->SetText("Not Collided!");
 		
 		if (update_mouse_picking(button_up))
 		{
@@ -166,7 +155,7 @@ void GameManager::process_game(Audio& audio)
 			if (new_distance < mouse_pick_distance)
 			{
 				mouse_pick_distance = new_distance;
-				m_text_instruction_->SetText("Collided with Red!");
+				m_text_collision_->SetText("Collided with Red!");
 				if (m_is_clicked_)
 				{
 					stencilCube->Move(MOVE_FRONT, 10.0f * delta_t);
@@ -179,7 +168,7 @@ void GameManager::process_game(Audio& audio)
 			const float new_distance = glm::length(button_down->GetLocation() - camera.get_position());
 			if (new_distance < mouse_pick_distance)
 			{
-				m_text_instruction_->SetText("Collided with Blue!");
+				m_text_collision_->SetText("Collided with Blue!");
 				if (m_is_clicked_)
 				{
 					stencilCube->Move(MOVE_BACK, 10.0f * delta_t);
@@ -192,7 +181,7 @@ void GameManager::process_game(Audio& audio)
 		{
 			// Update Texts
 			m_string_score_ = "Press 'R' to reset";
-			m_text_score_->SetText(m_string_score_);
+			m_text_instruction_->SetText(m_string_score_);
 
 			current_time_ = static_cast<float>(glutGet(GLUT_ELAPSED_TIME)); // Get current time.
 			current_time_ = current_time_ * 0.001f;
@@ -200,7 +189,7 @@ void GameManager::process_game(Audio& audio)
 		else
 		{
 			m_string_score_ = "Press 'R' to use free moving camera!";
-			m_text_score_->SetText(m_string_score_);
+			m_text_instruction_->SetText(m_string_score_);
 		}
 	}
 	
@@ -271,8 +260,8 @@ void GameManager::render()
 		
 		glDisable(GL_SCISSOR_TEST);
 		
+		m_text_collision_->Render();
 		m_text_instruction_->Render();
-		m_text_score_->Render();
 	}
 	else
 	{
@@ -280,7 +269,7 @@ void GameManager::render()
 	}
 }
 
-bool GameManager::is_started()
+bool GameManager::is_started() const
 {
 	return m_b_start_;
 }
@@ -296,7 +285,7 @@ void GameManager::start_game(bool _isStart)
 	m_b_start_ = _isStart;
 }
 
-CClock* GameManager::get_clock()
+CClock* GameManager::get_clock() const
 {
 	return m_clock_;
 }

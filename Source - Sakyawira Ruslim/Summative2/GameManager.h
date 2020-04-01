@@ -53,11 +53,11 @@ public:
 
 	void render();
 
-	bool is_started();
+	bool is_started() const;
 
 	void start_game(bool _isStart);
 
-	CClock* get_clock();
+	CClock* get_clock() const;
 
 	bool update_mouse_picking(GameObject* _cube);
 
@@ -93,7 +93,7 @@ private:
 	
 	// Declaring Strings
 	std::string m_string_score_;
-	TextLabel* m_text_score_;
+	TextLabel* m_text_instruction_;
 	std::string m_string_lives_;
 	TextLabel* m_text_lives_;
 	std::string m_string_level_;
@@ -110,7 +110,7 @@ private:
 
 	// Instruction Text
 	std::string m_string_instruction_ = "Press 'R' to start the game...";
-	TextLabel* m_text_instruction_;
+	TextLabel* m_text_collision_;
 
 	// Uniforms
 	GLfloat current_time_;
