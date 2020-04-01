@@ -331,29 +331,61 @@ bool GameManager::update_mouse_picking(GameObject* _cube)
 	glm::vec3 start_p = camera.get_position();
 	glm::vec3 end_p = camera.get_position() + m_ray_direction_ * radius;
 
+	glm::vec3 dir = end_p - start_p;
+	glm::vec3 inverse_dir = glm::vec3(1.0f / dir.x, 1.0f / dir.y, 1.0f / dir.z);
+
 	// Lowest point in center vector
 	// center - extents
 	// extents = size * 0.5f
 	glm::vec3 min = _cube->GetMin();
 	glm::vec3 max = _cube->GetMax();
 
-	glm::vec3 dir = end_p - start_p;
-	glm::vec3 one_over_dir = glm::vec3(1.0f / dir.x, 1.0f / dir.y, 1.0f / dir.z);
+	std::vector<glm::vec3> bounds { min , max };
+	std::vector<int> sign{(inverse_dir.x < 0), (inverse_dir.y < 0), (inverse_dir.z < 0), };
 
+	float tmin, tmax, tymin, tymax, tzmin, tzmax;
+
+	tmin = (bounds[sign[0]].x - start_p.x) * inverse_dir.x;
+	tmax = (bounds[1 - sign[0]].x - start_p.x) * inverse_dir.x;
+	tymin = (bounds[sign[1]].y - start_p.y) * inverse_dir.y;
+	tymax = (bounds[1 - sign[1]].y - start_p.y) * inverse_dir.y;
+	
 	// Slabs
-	glm::vec3 min_slab = glm::vec3((min.x - start_p.x) * one_over_dir.x, (min.y - start_p.y) * one_over_dir.y, (min.z - start_p.z) * one_over_dir.z);
-	glm::vec3 max_slab = glm::vec3((max.x - start_p.x) * one_over_dir.x, (max.y - start_p.y) * one_over_dir.y, (max.z - start_p.z) * one_over_dir.z);
+	glm::vec3 min_slab = glm::vec3((bounds[sign[0]].x - start_p.x) * inverse_dir.x, (bounds[sign[1]].y - start_p.y) * inverse_dir.y, (bounds[sign[2]].z - start_p.z) * inverse_dir.z);
+	glm::vec3 max_slab = glm::vec3((bounds[1 - sign[0]].x - start_p.x) * inverse_dir.x, (1 - bounds[sign[1]].y - start_p.y) * inverse_dir.y, (bounds[1 - sign[2]].z - start_p.z) * inverse_dir.z);
 
 	// Min/Max Slabs
-	glm::vec3 i_min_slab = glm::vec3(glm::min(min_slab.x, max_slab.x), glm::min(min_slab.y, max_slab.y), glm::min(min_slab.z, max_slab.z));
-	glm::vec3 i_max_slab = glm::vec3(glm::max(min_slab.x, max_slab.x), glm::max(min_slab.y, max_slab.y), glm::max(min_slab.z, max_slab.z));
+	//glm::vec3 i_min_slab = glm::vec3(glm::min(min_slab.x, max_slab.x), glm::min(min_slab.y, max_slab.y), glm::min(min_slab.z, max_slab.z));
+	//glm::vec3 i_max_slab = glm::vec3(glm::max(min_slab.x, max_slab.x), glm::max(min_slab.y, max_slab.y), glm::max(min_slab.z, max_slab.z));
 
-	float final_min_slab = glm::max(i_min_slab.x, i_min_slab.y);
-	final_min_slab = glm::max(final_min_slab, i_min_slab.z);
-	float final_max_slab = glm::min(i_max_slab.x, i_max_slab.y);
-	final_max_slab = glm::min(final_max_slab, i_max_slab.z);
+	/*float final_min_slab = glm::max(min_slab.x, min_slab.y);
+	final_min_slab = glm::max(final_min_slab, min_slab.z);
+	float final_max_slab = glm::min(max_slab.x, max_slab.y);
+	final_max_slab = glm::min(final_max_slab, max_slab.z);*/
+	if ((tmin > tymax) || (tymin > tmax))
+		return false;
+	if (tymin > tmin)
+		tmin = tymin;
+	if (tymax < tmax)
+		tmax = tymax;
 
-	return final_max_slab >= 0.0f && final_max_slab >= final_min_slab && final_min_slab <= 1.0f;
+	tzmin = (bounds[sign[2]].z - start_p.z) * inverse_dir.z;
+	tzmax = (bounds[1 - sign[2]].z - start_p.z) * inverse_dir.z;
+
+	if ((tmin > tzmax) || (tzmin > tmax))
+		return false;
+	if (tzmin > tmin)
+		tmin = tzmin;
+	if (tzmax < tmax)
+		tmax = tzmax;
+
+	return true;
+	/*if (tzmin > tmin)
+		tmin = tzmin;
+	if (tzmax < tmax)
+		tmax = tzmax;*/
+
+	// return final_max_slab >= 0.0f && final_max_slab >= final_min_slab && final_min_slab <= 1.0f;
 
 	// Sphere Collision
 	//glm::vec3 v = sphere->GetLocation() - camera.GetPosition();
