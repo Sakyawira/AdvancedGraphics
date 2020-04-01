@@ -145,7 +145,7 @@ void GameObject::draw_with_model(float deltaTime)
 	}
 }
 
-bool GameObject::sphere_collision_check(GameObject* a, GameObject* b)
+bool GameObject::sphere_sphere_col(GameObject* a, GameObject* b)
 {
 		// We take the sum of the radius (scale) and compares
 		// it to the distance between the spheres (object a location - object b location).
@@ -207,6 +207,28 @@ bool GameObject::ray_box_col(glm::vec3 ray_origin, glm::vec3 ray_end)
 
 	return true;
 
+}
+
+bool GameObject::ray_sphere_col(glm::vec3 ray_origin, glm::vec3 ray_direction, float ray_length)
+{
+	// Sphere Collision
+	glm::vec3 v = GetLocation() - ray_origin;
+	float a = glm::dot(ray_direction, ray_direction);
+	float b = 2 * glm::dot(v, ray_direction);
+	float c = glm::dot(v, v) - (ray_length * ray_length);
+	float d = b * b - 4 * a* c;
+
+	if (d > 0) 
+	{
+		float x1 = (-b - sqrt(d)) / 2;
+		float x2 = (-b + sqrt(d)) / 2;
+		if (x1 >= 0 && x2 >= 0) return true; // intersects
+		if (x1 < 0 && x2 >= 0) return true; // intersects
+	}
+	else if (d <= 0) 
+	{
+		return false;// no intersection
+	}
 }
 
 float GameObject::GetPosition(int COORDINATE_ID)

@@ -199,7 +199,7 @@ void GameManager::process_game(Audio& audio)
 
 			// m_text_instruction->SetText("Press 'Space' to shoot...");
 
-			tank->sphere_collision_check(tank, button_up);
+			tank->sphere_sphere_col(tank, button_up);
 
 			current_time_ = static_cast<float>(glutGet(GLUT_ELAPSED_TIME)); // Get current time.
 			current_time_ = current_time_ * 0.001f;
@@ -333,24 +333,7 @@ bool GameManager::update_mouse_picking(GameObject* _cube)
 
 	return _cube->ray_box_col(start_p, end_p);
 	
-	// Sphere Collision
-	//glm::vec3 v = sphere->GetLocation() - camera.GetPosition();
-	//float a = glm::dot(m_rayDirection, m_rayDirection);
-	//float b = 2 * glm::dot(v, m_rayDirection);
-	//float c = glm::dot(v, v) - radius * radius;
-	//float d = b * b - 4 * a* c;
 
-	//if (d > 0) 
-	//{
-	//	float x1 = (-b - sqrt(d)) / 2;
-	//	float x2 = (-b + sqrt(d)) / 2;
-	//	if (x1 >= 0 && x2 >= 0) return true; // intersects
-	//	if (x1 < 0 && x2 >= 0) return true; // intersects
-	//}
-	//else if (d <= 0) 
-	//{
-	//	return false;// no intersection
-	//}
 }
 
 void GameManager::set_mouse_pos(glm::vec2 mousePos_)

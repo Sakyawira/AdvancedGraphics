@@ -73,9 +73,11 @@ class GameObject
 
 		void draw_with_model(float deltaTime);
 
-		bool sphere_collision_check(GameObject* a, GameObject* b);
+		bool sphere_sphere_col(GameObject* a, GameObject* b);
 
 		bool ray_box_col(glm::vec3 ray_origin, glm::vec3 ray_end);
+
+		bool ray_sphere_col(glm::vec3 ray_origin, glm::vec3 ray_direction, float ray_length);
 	
 	/*	void SetPosition(float _x_pos, float _y_pos);*/
 	
