@@ -154,32 +154,39 @@ void GameManager::process_game(Audio& audio)
 {
 	if (m_b_initialized_ == 1)
 	{
-		float f_deltaT = m_clock_->GetDeltaTick();
+		const float delta_t = m_clock_->GetDeltaTick();
 		camera.update(m_b_start_, m_clock_->GetDeltaTick() * 1.0f, tank->GetLocation());
 
+		float mouse_pick_distance = INT_MAX;
+		m_text_instruction_->SetText("Not Collided!");
+		
 		if (update_mouse_picking(button_up))
 		{
-			m_text_instruction_->SetText("Collided with Red!");
-			if (m_is_clicked_)
+			const float new_distance = glm::length(button_up->GetLocation() - camera.get_position());
+			if (new_distance < mouse_pick_distance)
 			{
-				stencilCube->Move(MOVE_FRONT, 10.0f * f_deltaT);
-				stencilCube2->Move(MOVE_FRONT, 10.0f * f_deltaT);
+				mouse_pick_distance = new_distance;
+				m_text_instruction_->SetText("Collided with Red!");
+				if (m_is_clicked_)
+				{
+					stencilCube->Move(MOVE_FRONT, 10.0f * delta_t);
+					stencilCube2->Move(MOVE_FRONT, 10.0f * delta_t);
+				}
 			}
 		}
-		else if(update_mouse_picking(button_down))
+		if(update_mouse_picking(button_down))
 		{
-			m_text_instruction_->SetText("Collided with Blue!");
-			if (m_is_clicked_)
+			const float new_distance = glm::length(button_down->GetLocation() - camera.get_position());
+			if (new_distance < mouse_pick_distance)
 			{
-				stencilCube->Move(MOVE_BACK, 10.0f * f_deltaT);
-				stencilCube2->Move(MOVE_BACK, 10.0f * f_deltaT);
+				m_text_instruction_->SetText("Collided with Blue!");
+				if (m_is_clicked_)
+				{
+					stencilCube->Move(MOVE_BACK, 10.0f * delta_t);
+					stencilCube2->Move(MOVE_BACK, 10.0f * delta_t);
+				}
 			}
-		}
-		else
-		{
-			m_text_instruction_->SetText("Not Collided!");
-		}
-		
+		}		
 
 		if (m_b_start_)
 		{
@@ -332,8 +339,6 @@ bool GameManager::update_mouse_picking(GameObject* _cube)
 	glm::vec3 end_p = camera.get_position() + m_ray_direction_ * radius;
 
 	return _cube->ray_box_col(start_p, end_p);
-	
-
 }
 
 void GameManager::set_mouse_pos(glm::vec2 mousePos_)
