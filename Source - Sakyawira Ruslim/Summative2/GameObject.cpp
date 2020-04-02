@@ -102,6 +102,7 @@ void GameObject::Draw(Camera & _camera, const GLchar * s_currentTime, GLfloat f_
 void GameObject::Draw(Camera& _camera, float deltaTime)
 {
 	glEnable(GL_CULL_FACE);
+	glFrontFace(GL_CCW);
 	m_shader->Activate();
 	glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 
@@ -117,6 +118,7 @@ void GameObject::Draw(Camera& _camera, float deltaTime)
 	
 	m_mesh->Bind();
 	glDrawElements(GL_TRIANGLES, m_mesh->GetSize(), GL_UNSIGNED_INT, 0);
+	glFrontFace(GL_CW);
 	glBindVertexArray(0);
 	glDisable(GL_CULL_FACE);
 }
