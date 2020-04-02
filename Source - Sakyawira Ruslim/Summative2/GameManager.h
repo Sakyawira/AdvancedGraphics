@@ -59,7 +59,7 @@ public:
 
 	CClock* get_clock() const;
 
-	bool update_mouse_picking(GameObject* _cube);
+	GameObject* update_mouse_picking();
 
 	Camera camera;
 
@@ -149,8 +149,6 @@ private:
 	GameObject* m_coin;
 	Enemy* m_enemy;
 
-	GameObject* wall;
-	GameObject* background;
 	GameObject* button_down;
 	GameObject* button_up;
 	GameObject* sphere;
@@ -164,6 +162,7 @@ private:
 	// Vectors
 	std::vector<Enemy*> m_vector_coins;
 	std::vector<GameObject*> m_v_geometry;
+	std::vector<GameObject*> m_v_cubes;
 	std::vector<Shader*> m_v_sh;
 	std::vector<Mesh*> m_v_mesh;
 	std::vector<TextLabel*> m_v_text;

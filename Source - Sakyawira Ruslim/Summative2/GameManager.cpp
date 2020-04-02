@@ -75,10 +75,10 @@ GameManager::GameManager()
 	std::vector<Texture*> v_up = {m_tr_up};
 
 	// Stencil Cube
-	stencilCube = new GameObject(m_sh_fog_, m_mesh_cube, plain_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
+	stencilCube = new GameObject(m_sh_fog_, m_mesh_cube, plain_texture, 0.0f, 0.0f, 0.0f, m_v_cubes);
 	stencilCube->Scale(5.0f);
 	stencilCube->Rotate(30.0f);
-	stencilCube2 = new GameObject(m_sh_fog_, m_mesh_cube, v_up, 0.0f, 0.0f, 0.0f, m_v_geometry);
+	stencilCube2 = new GameObject(m_sh_fog_, m_mesh_cube, v_up, 0.0f, 0.0f, 0.0f, m_v_cubes);
 	stencilCube2->Scale(5.5f);
 	stencilCube2->Rotate(30.0f);
 	transparentCube = new GameObject(m_sh_fog_, m_mesh_cube, v_water_texture, 0.0f, -6.0f, 0.0f, m_v_geometry);
@@ -89,11 +89,11 @@ GameManager::GameManager()
 	sky_box->Scale(2000.0f);
 
 	// Pyramid
-	button_down = new GameObject(m_sh_fog_, m_mesh_cube, v_down, -10.0f, 0.0f, 0.0f, m_v_geometry);
+	button_down = new GameObject(m_sh_fog_, m_mesh_cube, v_down, -10.0f, 0.0f, 0.0f, m_v_cubes);
 	button_down->Scale(3.0f);
 
 	// Cube
-	button_up = new GameObject(m_sh_fog_, m_mesh_cube, v_up, 10.0f, 0.0f, 0.0f, m_v_geometry);
+	button_up = new GameObject(m_sh_fog_, m_mesh_cube, v_up, 10.0f, 0.0f, 0.0f, m_v_cubes);
 	button_up->Scale(3.0f);
 
 	// Sphere
@@ -148,34 +148,30 @@ void GameManager::process_game(Audio& audio)
 
 		float mouse_pick_distance = INT_MAX;
 		m_text_collision_->SetText("Not Collided!");
-		
-		if (update_mouse_picking(button_up))
+
+		GameObject* picked_object = update_mouse_picking();
+		if (picked_object == button_up)
 		{
-			const float new_distance = glm::length(button_up->GetLocation() - camera.get_position());
-			if (new_distance < mouse_pick_distance)
+			m_text_collision_->SetText("Collided with Red!");
+			if (m_is_clicked_)
 			{
-				mouse_pick_distance = new_distance;
-				m_text_collision_->SetText("Collided with Red!");
-				if (m_is_clicked_)
-				{
-					stencilCube->Move(MOVE_FRONT, 10.0f * delta_t);
-					stencilCube2->Move(MOVE_FRONT, 10.0f * delta_t);
-				}
+				stencilCube->Move(MOVE_FRONT, 10.0f * delta_t);
+				stencilCube2->Move(MOVE_FRONT, 10.0f * delta_t);
 			}
 		}
-		if(update_mouse_picking(button_down))
+		else if(picked_object == button_down)
 		{
-			const float new_distance = glm::length(button_down->GetLocation() - camera.get_position());
-			if (new_distance < mouse_pick_distance)
+			m_text_collision_->SetText("Collided with Blue!");
+			if (m_is_clicked_)
 			{
-				m_text_collision_->SetText("Collided with Blue!");
-				if (m_is_clicked_)
-				{
-					stencilCube->Move(MOVE_BACK, 10.0f * delta_t);
-					stencilCube2->Move(MOVE_BACK, 10.0f * delta_t);
-				}
+				stencilCube->Move(MOVE_BACK, 10.0f * delta_t);
+				stencilCube2->Move(MOVE_BACK, 10.0f * delta_t);
 			}
-		}		
+		}
+		else if (picked_object == stencilCube || picked_object == stencilCube2)
+		{
+			m_text_collision_->SetText("Collided with a stenciled cube!");
+		}
 
 		if (m_b_start_)
 		{
@@ -290,7 +286,7 @@ CClock* GameManager::get_clock() const
 	return m_clock_;
 }
 
-bool GameManager::update_mouse_picking(GameObject* _cube)
+GameObject* GameManager::update_mouse_picking()
 {
 	//screen pos
 	glm::vec2 normalizedScreenPos = m_mouse_pos_;
@@ -307,13 +303,28 @@ bool GameManager::update_mouse_picking(GameObject* _cube)
 	
 	//	add code to check
 	//	intersection with other objects
-
 	const float radius = 115.0f;
-
 	glm::vec3 start_p = camera.get_position();
 	glm::vec3 end_p = camera.get_position() + m_ray_direction_ * radius;
 
-	return _cube->ray_box_col(start_p, end_p);
+
+	float mouse_pick_distance = INT_MAX;
+	GameObject* return_object = nullptr;
+	
+	for (auto& object : m_v_cubes)
+	{
+		if(object->ray_box_col(start_p, end_p))
+		{
+			const float new_distance = glm::length(object->GetLocation() - camera.get_position());
+			if (new_distance < mouse_pick_distance)
+			{
+				mouse_pick_distance = new_distance;
+				return_object = object;
+			}
+		}
+	}
+
+	return return_object;
 }
 
 void GameManager::set_mouse_pos(glm::vec2 mousePos_)
@@ -389,6 +400,12 @@ GameManager::~GameManager()
 	m_clock_ = nullptr;
 
 	for (auto& geometry : m_v_geometry)
+	{
+		delete geometry;
+		geometry = nullptr;
+	}
+
+	for (auto& geometry : m_v_cubes)
 	{
 		delete geometry;
 		geometry = nullptr;
