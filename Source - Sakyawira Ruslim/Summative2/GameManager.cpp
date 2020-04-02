@@ -337,15 +337,15 @@ GameObject* GameManager::update_mouse_picking()
 	
 	//for (auto& object : m_v_sphere)
 	//{
-		if (sphere->ray_sphere_col(camera.get_position(), m_ray_direction_, 10.0f))
-		{
-			const float new_distance = glm::length(sphere->GetLocation() - camera.get_position());
-			if (new_distance < mouse_pick_distance)
-			{
-				mouse_pick_distance = new_distance;
-				return_object = sphere;
-			}
-		}
+		//if (sphere->ray_sphere_col(camera.get_position(), m_ray_direction_, 10.0f))
+		//{
+		//	const float new_distance = glm::length(sphere->GetLocation() - camera.get_position());
+		//	if (new_distance < mouse_pick_distance)
+		//	{
+		//		mouse_pick_distance = new_distance;
+		//		return_object = sphere;
+		//	}
+		//}
 	//}
 	return return_object;
 }
