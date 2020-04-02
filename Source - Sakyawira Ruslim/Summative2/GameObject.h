@@ -75,7 +75,7 @@ class GameObject
 
 		bool sphere_sphere_col(GameObject* a, GameObject* b);
 
-		bool ray_box_col(glm::vec3 ray_origin, glm::vec3 ray_end);
+		bool ray_box_col(glm::vec3 ray_origin, glm::vec3 ray_direction, float ray_length);
 
 		bool ray_sphere_col(glm::vec3 ray_origin, glm::vec3 ray_direction, float ray_length);
 	
