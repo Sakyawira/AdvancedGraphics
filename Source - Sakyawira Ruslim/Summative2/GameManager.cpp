@@ -210,6 +210,7 @@ void GameManager::process_game(Audio& audio)
 
 void GameManager::render()
 {
+	//glPolygonMode(GL_FRONT, GL_LINE);
 	if (m_b_initialized_ == 1)
 	{
 		glEnable(GL_BLEND);
