@@ -75,12 +75,13 @@ GameManager::GameManager()
 	std::vector<Texture*> v_up = {m_tr_up};
 
 	// Stencil Cube
-	stencilCube = new GameObject(m_sh_fog_, m_mesh_cube, plain_texture, 0.0f, 0.0f, 0.0f, m_v_cubes);
-	stencilCube->Scale(5.0f);
-	stencilCube->Rotate(30.0f);
 	stencilCube2 = new GameObject(m_sh_fog_, m_mesh_cube, v_up, 0.0f, 0.0f, 0.0f, m_v_cubes);
 	stencilCube2->Scale(5.5f);
 	stencilCube2->Rotate(30.0f);
+	stencilCube = new GameObject(m_sh_fog_, m_mesh_cube, plain_texture, 0.0f, 0.0f, 0.0f, m_v_cubes);
+	stencilCube->Scale(5.0f);
+	stencilCube->Rotate(30.0f);
+
 	transparentCube = new GameObject(m_sh_fog_, m_mesh_cube, v_water_texture, 0.0f, -6.0f, 0.0f, m_v_geometry);
 	transparentCube->Scale(800.0f, 8.0f, 800.0f);
 
@@ -169,10 +170,15 @@ void GameManager::process_game(Audio& audio)
 				stencilCube2->Move(MOVE_BACK, 10.0f * delta_t);
 			}
 		}
-		else if (picked_object == stencilCube || picked_object == stencilCube2)
+		else if (picked_object == stencilCube2)
 		{
 			m_text_collision_->SetText("Collided with a stenciled cube!");
 		}
+		else if (picked_object == stencilCube)
+		{
+			m_text_collision_->SetText("Collided with a stenciled cube!");
+		}
+	
 		//else if (picked_object == sphere)
 		//{
 		//	m_text_collision_->SetText("Collided with a sphere!");
