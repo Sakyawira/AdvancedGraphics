@@ -324,7 +324,7 @@ GameObject* GameManager::update_mouse_picking()
 	
 	for (auto& object : m_v_cubes)
 	{
-		if(object->ray_box_col(camera.get_position(), m_ray_direction_, 1.0f))
+		if(object->ray_box_col(camera.get_position(), m_ray_direction_, 130.0f))
 		{
 			const float new_distance = glm::length(object->GetLocation() - camera.get_position());
 			if (new_distance < mouse_pick_distance)

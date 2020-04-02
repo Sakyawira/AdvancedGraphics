@@ -171,7 +171,8 @@ bool GameObject::sphere_sphere_col(GameObject* a, GameObject* b)
 
 bool GameObject::ray_box_col(glm::vec3 ray_origin, glm::vec3 ray_direction, float ray_length)
 {
-	glm::vec3 inverse_dir = glm::vec3(1.0f / ray_direction.x, 1.0f / ray_direction.y, 1.0f / ray_direction.z);
+	glm::vec3 dir = ray_direction * ray_length;
+	glm::vec3 inverse_dir = glm::vec3(1.0f / dir.x, 1.0f / dir.y, 1.0f / dir.z);
 
 	glm::vec3 min = GetMin();
 	glm::vec3 max = GetMax();
@@ -192,19 +193,19 @@ bool GameObject::ray_box_col(glm::vec3 ray_origin, glm::vec3 ray_direction, floa
 
 	if ((min_t.x > max_t.y) || (min_t.y > max_t.x))
 	{
-		return false;
+		//return false;
 	}
 	min_t.x = glm::max(min_t.y, min_t.x);
 	max_t.x = glm::min(max_t.y, max_t.x);
 
 	if ((min_t.x > max_t.z) || (min_t.z > max_t.x))
 	{
-		return false;
+	//	return false;
 	}
 	min_t.x = glm::max(min_t.z, min_t.x);
 	max_t.x = glm::min(max_t.z, max_t.x);
 
-	return true;
+	return max_t.x >= 0.0f && max_t.x >= min_t.x && min_t.x <= 1.0f;
 
 }
 
