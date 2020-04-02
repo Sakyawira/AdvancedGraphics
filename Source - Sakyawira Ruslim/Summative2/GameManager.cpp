@@ -150,6 +150,7 @@ void GameManager::process_game(Audio& audio)
 		m_text_collision_->SetText("Not Collided!");
 
 		GameObject* picked_object = update_mouse_picking();
+	//	auto it = std::find(m_v_sphere.begin(), m_v_sphere.end(), picked_object);
 		if (picked_object == button_up)
 		{
 			m_text_collision_->SetText("Collided with Red!");
@@ -172,6 +173,10 @@ void GameManager::process_game(Audio& audio)
 		{
 			m_text_collision_->SetText("Collided with a stenciled cube!");
 		}
+		//else if (picked_object == sphere)
+		//{
+		//	m_text_collision_->SetText("Collided with a sphere!");
+		//}
 
 		if (m_b_start_)
 		{
@@ -216,7 +221,7 @@ void GameManager::render()
 		sphere->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 
 		//// Drawing all obstacles
-	for (auto& coinObjects2 : m_vector_coins)
+	for (auto& coinObjects2 : m_v_sphere)
 	{
 		coinObjects2->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 	}
@@ -303,7 +308,7 @@ GameObject* GameManager::update_mouse_picking()
 	
 	//	add code to check
 	//	intersection with other objects
-	const float radius = 115.0f;
+	const float radius = 130.0f;
 	glm::vec3 start_p = camera.get_position();
 	glm::vec3 end_p = camera.get_position() + m_ray_direction_ * radius;
 
@@ -324,7 +329,18 @@ GameObject* GameManager::update_mouse_picking()
 		}
 	}
 	
-
+	//for (auto& object : m_v_sphere)
+	//{
+		if (sphere->ray_sphere_col(camera.get_position(), m_ray_direction_, 10.0f))
+		{
+			const float new_distance = glm::length(sphere->GetLocation() - camera.get_position());
+			if (new_distance < mouse_pick_distance)
+			{
+				mouse_pick_distance = new_distance;
+				return_object = sphere;
+			}
+		}
+	//}
 	return return_object;
 }
 
