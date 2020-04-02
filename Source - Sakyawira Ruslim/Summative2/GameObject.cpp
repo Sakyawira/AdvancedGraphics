@@ -225,7 +225,7 @@ bool GameObject::ray_sphere_col(glm::vec3 ray_origin, glm::vec3 ray_direction, f
 		if (x1 >= 0 && x2 >= 0) return true; // intersects
 		if (x1 < 0 && x2 >= 0) return true; // intersects
 	}
-	else if (d <= 0) 
+	//else if (d <= 0) 
 	{
 		return false;// no intersection
 	}

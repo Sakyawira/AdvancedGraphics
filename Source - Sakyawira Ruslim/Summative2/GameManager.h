@@ -63,8 +63,6 @@ public:
 
 	Camera camera;
 
-	
-
 	void set_mouse_pos(glm::vec2 mousePos_);
 
 	void set_click(bool newState);
@@ -163,6 +161,7 @@ private:
 	std::vector<Enemy*> m_vector_coins;
 	std::vector<GameObject*> m_v_geometry;
 	std::vector<GameObject*> m_v_cubes;
+	std::vector<GameObject*> m_v_sphere;
 	std::vector<Shader*> m_v_sh;
 	std::vector<Mesh*> m_v_mesh;
 	std::vector<TextLabel*> m_v_text;

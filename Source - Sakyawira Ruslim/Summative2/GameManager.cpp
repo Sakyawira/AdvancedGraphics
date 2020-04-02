@@ -97,7 +97,7 @@ GameManager::GameManager()
 	button_up->Scale(3.0f);
 
 	// Sphere
-	sphere = new GameObject(m_sh_fog_, m_mesh_sphere, plain_texture, 32.0f, 0.0f, 0.0f, m_v_geometry);
+	sphere = new GameObject(m_sh_fog_, m_mesh_sphere, plain_texture, 32.0f, 0.0f, 0.0f, m_v_sphere);
 	sphere->Scale(5.0f);
 
 	// Tank
@@ -323,6 +323,7 @@ GameObject* GameManager::update_mouse_picking()
 			}
 		}
 	}
+	
 
 	return return_object;
 }
@@ -355,7 +356,7 @@ void GameManager::create_spheres(int _number_coins, int _border)
 			random_z = (static_cast<float>((rand() % _border) + 10.0f) * negate);
 		} while (glm::vec3(random_x, 0.0f, random_z) == stencilCube->GetLocation() || glm::distance(glm::vec3(random_x, 0.0f, random_z), camera.get_position()) < 25.0f);
 		
-		m_coin = new GameObject(m_sh_fog_, m_mesh_sphere, plain_texture, random_x, 0.0f, random_z, m_v_geometry);
+		m_coin = new GameObject(m_sh_fog_, m_mesh_sphere, plain_texture, random_x, 0.0f, random_z, m_v_sphere);
 		m_coin->Scale(5.0f);
 	}
 }
@@ -406,6 +407,12 @@ GameManager::~GameManager()
 	}
 
 	for (auto& geometry : m_v_cubes)
+	{
+		delete geometry;
+		geometry = nullptr;
+	}
+
+	for (auto& geometry : m_v_sphere)
 	{
 		delete geometry;
 		geometry = nullptr;
