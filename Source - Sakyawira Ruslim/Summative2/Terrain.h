@@ -8,7 +8,14 @@
 #include <string>
 #include <vector>
 #include "Mesh.h"
-
+namespace
+{
+	struct TerrainVertex
+	{
+		glm::vec3 pos;
+		glm::vec3 normal;
+	};
+}
 class Terrain : public Mesh
 {
 public:
@@ -47,7 +54,7 @@ private:
 	void smooth();
 	bool inBounds(UINT i, UINT j);
 	float average(UINT i, UINT j);
-	std::vector<GLfloat> buildVB();
+	std::vector<TerrainVertex> buildVB();
 	std::vector<GLuint> buildIB();
 
 private:

@@ -19,16 +19,16 @@ Terrain::Terrain(const InitInfo& initInfo, std::vector<Mesh*>& meshVector)
 
 	mInfo = initInfo;
 
-	mNumVertices = mInfo.NumRows * mInfo.NumCols * 7;
+	mNumVertices = mInfo.NumRows * mInfo.NumCols;
 	mNumFaces = (mInfo.NumRows - 1) * (mInfo.NumCols - 1) * 2;
 
 	loadHeightmap();
 	smooth();
 
-	std::vector<GLfloat> vertices = buildVB();
+	std::vector<TerrainVertex> vertices = buildVB();
 	std::vector<GLuint> indices =  buildIB();
 	m_indicesSize = indices.size();
-	m_vertices = vertices;
+	//m_vertices = vertices;
 
 	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);
@@ -223,9 +223,9 @@ float Terrain::average(UINT i, UINT j)
 	return avg / num;
 }
 
-std::vector<GLfloat> Terrain::buildVB()
+std::vector<TerrainVertex> Terrain::buildVB()
 {
-	std::vector<GLfloat> vertices(mNumVertices);
+	std::vector<TerrainVertex> vertices(mNumVertices);
 
 	float halfWidth = (mInfo.NumCols - 1) * mInfo.CellSpacing * 0.5f;
 	float halfDepth = (mInfo.NumRows - 1) * mInfo.CellSpacing * 0.5f;
@@ -240,20 +240,12 @@ std::vector<GLfloat> Terrain::buildVB()
 			float x = -halfWidth + j * mInfo.CellSpacing;
 
 			float y = mHeightmap[i * mInfo.NumCols + j];
-			
-			// Position
-			vertices[i * mInfo.NumCols + j + 0] = x;
-			vertices[i * mInfo.NumCols + j + 1] = y;
-			vertices[i * mInfo.NumCols + j + 2] = z;
+			vertices[i * mInfo.NumCols + j].pos = glm::vec3(x, y, z);
+			vertices[i * mInfo.NumCols + j].normal = glm::vec3(0.0f, 1.0f, 0.0f);
 
-			// Normal
-			vertices[i * mInfo.NumCols + j + 3] = 0.0f;
-			vertices[i * mInfo.NumCols + j + 4] = 1.0f;
-			vertices[i * mInfo.NumCols + j + 5] = 0.0f;
-
-			// Stretch texture over grid.
-			vertices[i * mInfo.NumCols + j + 6] = j * du;
-			vertices[i * mInfo.NumCols + j + 7] = i * dv;
+			//// Stretch texture over grid.
+			//vertices[i*mInfo.NumCols + j].texC.x = j*du;
+			//vertices[i*mInfo.NumCols + j].texC.y = i*dv;
 		}
 	}
 
@@ -275,14 +267,9 @@ std::vector<GLfloat> Terrain::buildVB()
 			glm::vec3 N = glm::cross(tanZ, tanX);
 			N = glm::normalize(N);
 
-			// Normal
-			vertices[i * mInfo.NumCols + j + 3] = N.x;
-			vertices[i * mInfo.NumCols + j + 4] = N.y;
-			vertices[i * mInfo.NumCols + j + 5] = N.z;
-			//vertices[i * mInfo.NumCols + j].normal = N;
+			vertices[i * mInfo.NumCols + j].normal = N;
 		}
 	}
-
 	return vertices;
 
 	//D3D10_BUFFER_DESC vbd;
@@ -317,6 +304,22 @@ std::vector<GLuint> Terrain::buildIB()
 			k += 6; // next quad
 		}
 	}
+	/*int VERTEX_COUNT = mInfo.NumRows;
+	int pointer = 0;
+	for (int gz = 0; gz < VERTEX_COUNT - 1; gz++) {
+		for (int gx = 0; gx < VERTEX_COUNT - 1; gx++) {
+			int topLeft = (gz * VERTEX_COUNT) + gx;
+			int topRight = topLeft + 1;
+			int bottomLeft = ((gz + 1) * VERTEX_COUNT) + gx;
+			int bottomRight = bottomLeft + 1;
+			indices[pointer++] = topLeft;
+			indices[pointer++] = bottomLeft;
+			indices[pointer++] = topRight;
+			indices[pointer++] = topRight;
+			indices[pointer++] = bottomLeft;
+			indices[pointer++] = bottomRight;
+		}
+	}*/
 
 	return indices;
 	//D3D10_BUFFER_DESC ibd;
