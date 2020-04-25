@@ -232,11 +232,11 @@ void GameManager::render()
 	{
 		glEnable(GL_BLEND);
 		// Drawing all obstacles
-		glEnable(GL_SCISSOR_TEST);
-		glScissor(0, 200, 800, 400);
+		//glEnable(GL_SCISSOR_TEST);
+		//glScissor(0, 200, 800, 400);
 
 		//
-		m_tr_cube_map->Render(m_sh_fogBox, m_mesh_cube_map, camera);
+		m_tr_cube_map->Render(m_sh_cube_map_, m_mesh_cube_map, camera);
 
 		frame_counts_ += 1.0f * m_clock_->GetDeltaTick() * 120.0f;
 
@@ -284,7 +284,7 @@ void GameManager::render()
 
 		glDisable(GL_BLEND);
 		
-		glDisable(GL_SCISSOR_TEST);
+		//glDisable(GL_SCISSOR_TEST);
 		
 		m_text_collision_->Render();
 		m_text_instruction_->Render();

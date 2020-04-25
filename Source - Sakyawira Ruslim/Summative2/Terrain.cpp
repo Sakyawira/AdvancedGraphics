@@ -19,7 +19,7 @@ Terrain::Terrain(const InitInfo& initInfo, std::vector<Mesh*>& meshVector)
 
 	mInfo = initInfo;
 
-	mNumVertices = mInfo.NumRows * mInfo.NumCols;
+	mNumVertices = mInfo.NumRows * mInfo.NumCols * 7;
 	mNumFaces = (mInfo.NumRows - 1) * (mInfo.NumCols - 1) * 2;
 
 	loadHeightmap();
@@ -85,6 +85,10 @@ Terrain::Terrain(const InitInfo& initInfo, std::vector<Mesh*>& meshVector)
 	//mLayer3 = GetTextureMgr().createTex(initInfo.LayerMapFilename3);
 	//mLayer4 = GetTextureMgr().createTex(initInfo.LayerMapFilename4);
 	//mBlendMap = GetTextureMgr().createTex(initInfo.BlendMapFilename);
+}
+
+Terrain::~Terrain()
+{
 }
 
 float Terrain::width() const
