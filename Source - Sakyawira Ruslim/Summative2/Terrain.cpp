@@ -95,12 +95,20 @@ void Terrain::buildVB()
 			float x = -halfWidth + j * mInfo.CellSpacing;
 
 			float y = mHeightmap[i * mInfo.NumCols + j];
-			vertices[i * mInfo.NumCols + j].pos = glm::vec3(x, y, z);
-			vertices[i * mInfo.NumCols + j].normal = glm::vec3(0.0f, 1.0f, 0.0f);
+			
+			// Position
+			vertices[i * mInfo.NumCols + j + 0] = x;
+			vertices[i * mInfo.NumCols + j + 1] = y;
+			vertices[i * mInfo.NumCols + j + 2] = z;
+
+			// Normal
+			vertices[i * mInfo.NumCols + j + 3] = 0.0f;
+			vertices[i * mInfo.NumCols + j + 4] = 1.0f;
+			vertices[i * mInfo.NumCols + j + 5] = 0.0f;
 
 			// Stretch texture over grid.
-			vertices[i * mInfo.NumCols + j].texC.x = j * du;
-			vertices[i * mInfo.NumCols + j].texC.y = i * dv;
+			vertices[i * mInfo.NumCols + j + 6] = j * du;
+			vertices[i * mInfo.NumCols + j + 7] = i * dv;
 		}
 	}
 
@@ -122,7 +130,11 @@ void Terrain::buildVB()
 			glm::vec3 N = glm::cross(tanZ, tanX);
 			N = glm::normalize(N);
 
-			vertices[i * mInfo.NumCols + j].normal = N;
+			// Normal
+			vertices[i * mInfo.NumCols + j + 3] = N.x;
+			vertices[i * mInfo.NumCols + j + 4] = N.y;
+			vertices[i * mInfo.NumCols + j + 5] = N.z;
+			//vertices[i * mInfo.NumCols + j].normal = N;
 		}
 	}
 
