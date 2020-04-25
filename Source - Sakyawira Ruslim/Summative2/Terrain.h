@@ -29,7 +29,7 @@ public:
 	};
 
 public:
-	Terrain();
+	Terrain(std::vector<Mesh*>& meshVector);
 	~Terrain();
 
 	float width()const;
@@ -47,8 +47,8 @@ private:
 	void smooth();
 	bool inBounds(UINT i, UINT j);
 	float average(UINT i, UINT j);
-	void buildVB();
-	void buildIB();
+	std::vector<GLfloat> buildVB();
+	std::vector<GLuint> buildIB();
 
 private:
 	InitInfo mInfo;

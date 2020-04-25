@@ -2,7 +2,7 @@
 #include <sstream>
 #include "Terrain.h"
 
-Terrain::Terrain()
+Terrain::Terrain(std::vector<Mesh*>& meshVector)
 {
 	//md3dDevice = device;
 
@@ -25,9 +25,59 @@ Terrain::Terrain()
 	loadHeightmap();
 	smooth();
 
-	buildVB();
-	buildIB();
+	std::vector<GLfloat> vertices = buildVB();
+	std::vector<GLuint> indices =  buildIB();
+	m_indicesSize = indices.size();
 
+	glGenVertexArrays(1, &m_VAO);
+	glBindVertexArray(m_VAO);
+
+	glGenBuffers(1, &m_EBO);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+	// 3 is the size of each vertex
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices.front(), GL_STATIC_DRAW);
+
+	glGenBuffers(1, &m_VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+	// 3 is the size of each vertex
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), &vertices.front(), GL_STATIC_DRAW);
+
+	/// Position
+	glVertexAttribPointer(
+		0,
+		3,
+		GL_FLOAT,
+		GL_FALSE,
+		8 * sizeof(GLfloat),				// Stride of the single vertex (pos)
+		(GLvoid*)0);						// Offset from beginning of Vertex
+
+	glEnableVertexAttribArray(0);
+
+	/// Color
+	glVertexAttribPointer(
+		1,
+		3,
+		GL_FLOAT,
+		GL_FALSE,
+		8 * sizeof(GLfloat),				// Stride of the single vertex (pos)
+		(GLvoid*)(3 * sizeof(GLfloat)));	// Offset from beginning of Vertex
+
+	glEnableVertexAttribArray(1);
+
+
+	/// Texture
+	glVertexAttribPointer(
+		2,
+		2,									// 2 float components for coordinates 
+		GL_FLOAT,
+		GL_FALSE,
+		8 * sizeof(GLfloat),				// Stride the single vertex (pos + color + tex)
+		(GLvoid*)(6 * sizeof(GLfloat)));	// offset from beginning of Vertex
+	glEnableVertexAttribArray(2);
+
+	glBindVertexArray(0);
+
+	meshVector.push_back(this);
 	//mLayer0 = GetTextureMgr().createTex(initInfo.LayerMapFilename0);
 	//mLayer1 = GetTextureMgr().createTex(initInfo.LayerMapFilename1);
 	//mLayer2 = GetTextureMgr().createTex(initInfo.LayerMapFilename2);
@@ -78,7 +128,7 @@ void Terrain::smooth()
 	mHeightmap = dest;
 }
 
-void Terrain::buildVB()
+std::vector<GLfloat> Terrain::buildVB()
 {
 	std::vector<GLfloat> vertices(mNumVertices);
 
@@ -138,6 +188,8 @@ void Terrain::buildVB()
 		}
 	}
 
+	return vertices;
+
 	//D3D10_BUFFER_DESC vbd;
 	//vbd.Usage = D3D10_USAGE_IMMUTABLE;
 	//vbd.ByteWidth = sizeof(TerrainVertex) * mNumVertices;
@@ -147,4 +199,38 @@ void Terrain::buildVB()
 	//D3D10_SUBRESOURCE_DATA vinitData;
 	//vinitData.pSysMem = &vertices[0];
 	//HR(md3dDevice->CreateBuffer(&vbd, &vinitData, &mVB));
+}
+
+std::vector<GLuint> Terrain::buildIB()
+{
+	std::vector<GLuint> indices(mNumFaces * 3); // 3 indices per face
+
+	// Iterate over each quad and compute indices.
+	int k = 0;
+	for (UINT i = 0; i < mInfo.NumRows - 1; ++i)
+	{
+		for (UINT j = 0; j < mInfo.NumCols - 1; ++j)
+		{
+			indices[k] = i * mInfo.NumCols + j;
+			indices[k + 1] = i * mInfo.NumCols + j + 1;
+			indices[k + 2] = (i + 1) * mInfo.NumCols + j;
+
+			indices[k + 3] = (i + 1) * mInfo.NumCols + j;
+			indices[k + 4] = i * mInfo.NumCols + j + 1;
+			indices[k + 5] = (i + 1) * mInfo.NumCols + j + 1;
+
+			k += 6; // next quad
+		}
+	}
+
+	return indices;
+	//D3D10_BUFFER_DESC ibd;
+	//ibd.Usage = D3D10_USAGE_IMMUTABLE;
+	//ibd.ByteWidth = sizeof(DWORD) * mNumFaces * 3;
+	//ibd.BindFlags = D3D10_BIND_INDEX_BUFFER;
+	//ibd.CPUAccessFlags = 0;
+	//ibd.MiscFlags = 0;
+	//D3D10_SUBRESOURCE_DATA iinitData;
+	//iinitData.pSysMem = &indices[0];
+	//HR(md3dDevice->CreateBuffer(&ibd, &iinitData, &mIB));
 }
