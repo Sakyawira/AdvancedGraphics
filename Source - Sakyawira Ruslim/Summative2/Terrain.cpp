@@ -1,125 +1,87 @@
+#pragma once
+/****************************************************
+* Bachelor of Software Engineering
+* Media Design School
+* Auckland
+* New Zealand
+*
+* (c) 2005 - 2018 Media Design School
+*
+* File Name		: "Terrain.cpp"
+* Description	: Terrain implementation file.
+* Author		: Sakyawira
+* Mail			: Sakyawira.Rus8080@mediadesign.school.nz
+******************************************************/
 #include <fstream>
 #include <sstream>
 #include "Terrain.h"
+#include "Camera.h"
+#include "ShaderLoader.h"
 
-Terrain::Terrain(const InitInfo& initInfo, std::vector<Mesh*>& meshVector)
+/***********************
+* Terrain Constructor: Set up scene items
+* @author: Sakyawira
+***********************/
+Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector)
 {
-	//md3dDevice = device;
+	m_info.HeightmapFilename	= _info.HeightmapFilename;
+	m_info.HeightScale			= _info.HeightScale;
+	m_info.HeightOffset			= _info.HeightOffset;
+	m_info.NumRows				= _info.NumRows;
+	m_info.NumCols				= _info.NumCols;
+	m_info.CellSpacing			= _info.CellSpacing;
 
-	//mTech = fx::TerrainFX->GetTechniqueByName("TerrainTech");
-	//mfxWVPVar = fx::TerrainFX->GetVariableByName("gWVP")->AsMatrix();
-	//mfxWorldVar = fx::TerrainFX->GetVariableByName("gWorld")->AsMatrix();
-	//mfxDirToSunVar = fx::TerrainFX->GetVariableByName("gDirToSunW")->AsVector();
-	//mfxLayer0Var = fx::TerrainFX->GetVariableByName("gLayer0")->AsShaderResource();
-	//mfxLayer1Var = fx::TerrainFX->GetVariableByName("gLayer1")->AsShaderResource();
-	//mfxLayer2Var = fx::TerrainFX->GetVariableByName("gLayer2")->AsShaderResource();
-	//mfxLayer3Var = fx::TerrainFX->GetVariableByName("gLayer3")->AsShaderResource();
-	//mfxLayer4Var = fx::TerrainFX->GetVariableByName("gLayer4")->AsShaderResource();
-	//mfxBlendMapVar = fx::TerrainFX->GetVariableByName("gBlendMap")->AsShaderResource();
+	m_uiNumVertices = m_info.NumRows * m_info.NumCols;
+	m_uiNumFaces = (m_info.NumRows - 1) * (m_info.NumCols - 1) * 2;
 
-	mInfo = initInfo;
+	LoadHeightmap();
+	Smooth();
+	BuildVB();
+	BuildIB();
 
-	mNumVertices = mInfo.NumRows * mInfo.NumCols;
-	mNumFaces = (mInfo.NumRows - 1) * (mInfo.NumCols - 1) * 2;
-
-	loadHeightmap();
-	smooth();
-
-	std::vector<TerrainVertex> vertices = buildVB();
-	std::vector<GLuint> indices =  buildIB();
-	m_indicesSize = indices.size();
-	//m_vertices = vertices;
-
-	glGenVertexArrays(1, &m_VAO);
-	glBindVertexArray(m_VAO);
-
-	glGenBuffers(1, &m_EBO);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
-	// 3 is the size of each vertex
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices.front(), GL_STATIC_DRAW);
-
-	glGenBuffers(1, &m_VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	// 3 is the size of each vertex
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), &vertices.front(), GL_STATIC_DRAW);
-
-	/// Position
-	glVertexAttribPointer(
-		0,
-		3,
-		GL_FLOAT,
-		GL_FALSE,
-		8 * sizeof(GLfloat),				// Stride of the single vertex (pos)
-		(GLvoid*)0);						// Offset from beginning of Vertex
-
+	//Position attribute
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(TerrainVertex), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 
-	/// Color
-	glVertexAttribPointer(
-		1,
-		3,
-		GL_FLOAT,
-		GL_FALSE,
-		8 * sizeof(GLfloat),				// Stride of the single vertex (pos)
-		(GLvoid*)(3 * sizeof(GLfloat)));	// Offset from beginning of Vertex
-
+	//Color attribute
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(TerrainVertex), (GLvoid*)(3 * 12));
 	glEnableVertexAttribArray(1);
 
-
-	/// Texture
-	glVertexAttribPointer(
-		2,
-		2,									// 2 float components for coordinates 
-		GL_FLOAT,
-		GL_FALSE,
-		8 * sizeof(GLfloat),				// Stride the single vertex (pos + color + tex)
-		(GLvoid*)(6 * sizeof(GLfloat)));	// offset from beginning of Vertex
-	glEnableVertexAttribArray(2);
-
-	glBindVertexArray(0);
-
 	meshVector.push_back(this);
-	//mLayer0 = GetTextureMgr().createTex(initInfo.LayerMapFilename0);
-	//mLayer1 = GetTextureMgr().createTex(initInfo.LayerMapFilename1);
-	//mLayer2 = GetTextureMgr().createTex(initInfo.LayerMapFilename2);
-	//mLayer3 = GetTextureMgr().createTex(initInfo.LayerMapFilename3);
-	//mLayer4 = GetTextureMgr().createTex(initInfo.LayerMapFilename4);
-	//mBlendMap = GetTextureMgr().createTex(initInfo.BlendMapFilename);
 }
 
-Terrain::~Terrain()
+/***********************
+* GetHeight: Gets the height value from the terrain based on the position given.
+* @author: Sakyawira
+* @return: height position on terrain OR a very big negative value (-FLT_MAX) if not on the terrain.
+***********************/
+float Terrain::GetHeight(glm::vec3 _position) const
 {
-}
+	float x = _position.x;
+	float z = _position.z;
 
-float Terrain::width() const
-{
-	return (mInfo.NumCols - 1) * mInfo.CellSpacing;
-}
-
-float Terrain::depth() const
-{
-	return (mInfo.NumRows - 1) * mInfo.CellSpacing;
-}
-
-float Terrain::getHeight(float x, float z) const
-{
 	// Transform from terrain local space to "cell" space.
-	float c = (x + 0.5f * width()) / mInfo.CellSpacing;
-	float d = (z - 0.5f * depth()) / -mInfo.CellSpacing;
+	float c = (x + 0.5f * Width()) / m_info.CellSpacing;
+	float d = (z - 0.5f * Depth()) / -m_info.CellSpacing;
 
 	// Get the row and column we are in.
 	int row = (int)floorf(d);
 	int col = (int)floorf(c);
+
+	if (row < 0 || col < 0 || (int)m_info.NumCols <= row || (int)m_info.NumRows <= col)
+	{
+		return -99999;
+	}
 
 	// Grab the heights of the cell we are in.
 	// A*--*B
 	//  | /|
 	//  |/ |
 	// C*--*D
-	float A = mHeightmap[row * mInfo.NumCols + col];
-	float B = mHeightmap[row * mInfo.NumCols + col + 1];
-	float C = mHeightmap[(row + 1) * mInfo.NumCols + col];
-	float D = mHeightmap[(row + 1) * mInfo.NumCols + col + 1];
+	float A = m_vHeightmap[row * m_info.NumCols + col];
+	float B = m_vHeightmap[row * m_info.NumCols + col + 1];
+	float C = m_vHeightmap[(row + 1) * m_info.NumCols + col];
+	float D = m_vHeightmap[(row + 1) * m_info.NumCols + col + 1];
 
 	// Where we are relative to the cell.
 	float s = c - (float)col;
@@ -140,14 +102,36 @@ float Terrain::getHeight(float x, float z) const
 	}
 }
 
-void Terrain::loadHeightmap()
+/***********************
+* Width: Gets the width of a cell
+* @return: the width of a cell
+***********************/
+float Terrain::Width() const
+{
+	return (m_info.NumCols - 1) * m_info.CellSpacing;
+}
+
+/***********************
+* Depth: Gets the depth of a cell
+* @return: the depth of a cell
+***********************/
+float Terrain::Depth() const
+{
+	return (m_info.NumRows - 1) * m_info.CellSpacing;
+}
+
+/***********************
+* LoadHeightmap: Loads heightmap from raw file
+* @author: Sakyawira
+***********************/
+void Terrain::LoadHeightmap()
 {
 	// A height for each vertex
-	std::vector<unsigned char> in(mInfo.NumRows * mInfo.NumCols);
+	std::vector<unsigned char> in(m_info.NumRows * m_info.NumCols);
 
 	// Open the file.
 	std::ifstream inFile;
-	inFile.open(mInfo.HeightmapFilename.c_str(), std::ios_base::binary);
+	inFile.open(m_info.HeightmapFilename.c_str(), std::ios_base::binary);
 
 	if (inFile)
 	{
@@ -159,51 +143,62 @@ void Terrain::loadHeightmap()
 	}
 
 	// Copy the array data into a float array, and scale and offset the heights.
-	mHeightmap.resize(mInfo.NumRows * mInfo.NumCols, 0);
-	for (UINT i = 0; i < mInfo.NumRows * mInfo.NumCols; ++i)
+	m_vHeightmap.resize(m_info.NumRows * m_info.NumCols, 0);
+	for (UINT i = 0; i < m_info.NumRows * m_info.NumCols; ++i)
 	{
-		mHeightmap[i] = (float)in[i] * mInfo.HeightScale + mInfo.HeightOffset;
+		m_vHeightmap[i] = static_cast<float>(in[i]) * m_info.HeightScale + m_info.HeightOffset;
 	}
 }
 
-void Terrain::smooth()
+/***********************
+* Smooth: Smooths the heightmap
+***********************/
+void Terrain::Smooth()
 {
-	std::vector<float> dest(mHeightmap.size());
+	std::vector<float> dest(m_vHeightmap.size());
 
-	for (UINT i = 0; i < mInfo.NumRows; ++i)
+	for (GLuint i = 0; i < m_info.NumRows; ++i)
 	{
-		for (UINT j = 0; j < mInfo.NumCols; ++j)
+		for (GLuint j = 0; j < m_info.NumCols; ++j)
 		{
-			dest[i * mInfo.NumCols + j] = average(i, j);
+			dest[i * m_info.NumCols + j] = Average(i, j);
 		}
 	}
 
-	// Replace the old heightmap with the filtered one. 
-	mHeightmap = dest;
+	// Replace the old heightmap with the filtered one.
+	m_vHeightmap = dest;
 }
 
-bool Terrain::inBounds(UINT i, UINT j)
+/***********************
+* InBounds: Check if ij are valid indices
+* return: whether indices are valid
+***********************/
+bool Terrain::InBounds(GLuint i, GLuint j)
 {
 	// True if ij are valid indices; false otherwise.
 	return
-		i >= 0 && i < mInfo.NumRows&&
-		j >= 0 && j < mInfo.NumCols;
+		i >= 0 && i < m_info.NumRows&&
+		j >= 0 && j < m_info.NumCols;
 }
 
-float Terrain::average(UINT i, UINT j)
+/***********************
+* Average: Computes the average height of ij
+* return: the average height computed
+***********************/
+float Terrain::Average(GLuint i, GLuint j)
 {
 	// Function computes the average height of the ij element.
-// It averages itself with its eight neighbor pixels.  Note
-// that if a pixel is missing neighbor, we just don't include it
-// in the average--that is, edge pixels don't have a neighbor pixel.
-//
-// ----------
-// | 1| 2| 3|
-// ----------
-// |4 |ij| 6|
-// ----------
-// | 7| 8| 9|
-// ----------
+	// It averages itself with its eight neighbor pixels.  Note
+	// that if a pixel is missing neighbor, we just don't include it
+	// in the average--that is, edge pixels don't have a neighbor pixel.
+	//
+	// ----------
+	// | 1| 2| 3|
+	// ----------
+	// |4 |ij| 6|
+	// ----------
+	// | 7| 8| 9|
+	// ----------
 
 	float avg = 0.0f;
 	float num = 0.0f;
@@ -212,9 +207,9 @@ float Terrain::average(UINT i, UINT j)
 	{
 		for (UINT n = j - 1; n <= j + 1; ++n)
 		{
-			if (inBounds(m, n))
+			if (InBounds(m, n))
 			{
-				avg += mHeightmap[m * mInfo.NumCols + n];
+				avg += m_vHeightmap[m * m_info.NumCols + n];
 				num += 1.0f;
 			}
 		}
@@ -223,43 +218,47 @@ float Terrain::average(UINT i, UINT j)
 	return avg / num;
 }
 
-std::vector<TerrainVertex> Terrain::buildVB()
+/***********************
+* BuildVB: Creates vertex buffer for the terrain
+* @author: Sakyawira
+***********************/
+void Terrain::BuildVB()
 {
-	std::vector<TerrainVertex> vertices(mNumVertices);
+	vertices.resize(m_uiNumVertices);
 
-	float halfWidth = (mInfo.NumCols - 1) * mInfo.CellSpacing * 0.5f;
-	float halfDepth = (mInfo.NumRows - 1) * mInfo.CellSpacing * 0.5f;
+	float halfWidth = (m_info.NumCols - 1) * m_info.CellSpacing * 0.5f;
+	float halfDepth = (m_info.NumRows - 1) * m_info.CellSpacing * 0.5f;
 
-	float du = 1.0f / (mInfo.NumCols - 1);
-	float dv = 1.0f / (mInfo.NumRows - 1);
-	for (UINT i = 0; i < mInfo.NumRows; ++i)
+	float du = 1.0f / (m_info.NumCols - 1);
+	float dv = 1.0f / (m_info.NumRows - 1);
+	for (UINT i = 0; i < m_info.NumRows; ++i)
 	{
-		float z = halfDepth - i * mInfo.CellSpacing;
-		for (UINT j = 0; j < mInfo.NumCols; ++j)
+		float z = halfDepth - i * m_info.CellSpacing;
+		for (UINT j = 0; j < m_info.NumCols; ++j)
 		{
-			float x = -halfWidth + j * mInfo.CellSpacing;
+			float x = -halfWidth + j * m_info.CellSpacing;
 
-			float y = mHeightmap[i * mInfo.NumCols + j];
-			vertices[i * mInfo.NumCols + j].pos = glm::vec3(x, y, z);
-			vertices[i * mInfo.NumCols + j].normal = glm::vec3(0.0f, 1.0f, 0.0f);
+			float y = m_vHeightmap[i * m_info.NumCols + j];
+			vertices[i * m_info.NumCols + j].pos = glm::vec3(x, y, z);
+			vertices[i * m_info.NumCols + j].normal = glm::vec3(0.0f, 1.0f, 0.0f);
 
 			//// Stretch texture over grid.
-			//vertices[i*mInfo.NumCols + j].texC.x = j*du;
-			//vertices[i*mInfo.NumCols + j].texC.y = i*dv;
+			//vertices[i*m_info.NumCols + j].texC.x = j*du;
+			//vertices[i*m_info.NumCols + j].texC.y = i*dv;
 		}
 	}
 
 	// Estimate normals for interior nodes using central difference.
-	float invTwoDX = 1.0f / (2.0f * mInfo.CellSpacing);
-	float invTwoDZ = 1.0f / (2.0f * mInfo.CellSpacing);
-	for (UINT i = 2; i < mInfo.NumRows - 1; ++i)
+	float invTwoDX = 1.0f / (2.0f * m_info.CellSpacing);
+	float invTwoDZ = 1.0f / (2.0f * m_info.CellSpacing);
+	for (UINT i = 2; i < m_info.NumRows - 1; ++i)
 	{
-		for (UINT j = 2; j < mInfo.NumCols - 1; ++j)
+		for (UINT j = 2; j < m_info.NumCols - 1; ++j)
 		{
-			float t = mHeightmap[(i - 1) * mInfo.NumCols + j];
-			float b = mHeightmap[(i + 1) * mInfo.NumCols + j];
-			float l = mHeightmap[i * mInfo.NumCols + j - 1];
-			float r = mHeightmap[i * mInfo.NumCols + j + 1];
+			float t = m_vHeightmap[(i - 1) * m_info.NumCols + j];
+			float b = m_vHeightmap[(i + 1) * m_info.NumCols + j];
+			float l = m_vHeightmap[i * m_info.NumCols + j - 1];
+			float r = m_vHeightmap[i * m_info.NumCols + j + 1];
 
 			glm::vec3 tanZ(0.0f, (t - b) * invTwoDZ, 1.0f);
 			glm::vec3 tanX(1.0f, (r - l) * invTwoDX, 0.0f);
@@ -267,68 +266,49 @@ std::vector<TerrainVertex> Terrain::buildVB()
 			glm::vec3 N = glm::cross(tanZ, tanX);
 			N = glm::normalize(N);
 
-			vertices[i * mInfo.NumCols + j].normal = N;
+			vertices[i * m_info.NumCols + j].normal = N;
 		}
 	}
-	return vertices;
 
-	//D3D10_BUFFER_DESC vbd;
-	//vbd.Usage = D3D10_USAGE_IMMUTABLE;
-	//vbd.ByteWidth = sizeof(TerrainVertex) * mNumVertices;
-	//vbd.BindFlags = D3D10_BIND_VERTEX_BUFFER;
-	//vbd.CPUAccessFlags = 0;
-	//vbd.MiscFlags = 0;
-	//D3D10_SUBRESOURCE_DATA vinitData;
-	//vinitData.pSysMem = &vertices[0];
-	//HR(md3dDevice->CreateBuffer(&vbd, &vinitData, &mVB));
+	//Generating vao and vbo
+	glGenVertexArrays(1, &m_VAO); //Vert Array
+	glBindVertexArray(m_VAO);
+
+	glGenBuffers(1, &m_VBO);	//Vert Buffer
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(TerrainVertex) * vertices.size(), &vertices[0], GL_STATIC_DRAW);
+
 }
 
-std::vector<GLuint> Terrain::buildIB()
+/***********************
+* BuildIB: Creates index buffer for the terrain
+* @author: Sakyawira
+***********************/
+void Terrain::BuildIB()
 {
-	std::vector<GLuint> indices(mNumFaces * 3); // 3 indices per face
-
-	// Iterate over each quad and compute indices.
+	indices.resize(m_uiNumFaces * 3); // 3 indices per face
+											   // Iterate over each quad and compute indices.
 	int k = 0;
-	for (UINT i = 0; i < mInfo.NumRows - 1; ++i)
+	for (UINT i = 0; i < m_info.NumRows - 1; ++i)
 	{
-		for (UINT j = 0; j < mInfo.NumCols - 1; ++j)
+		for (UINT j = 0; j < m_info.NumCols - 1; ++j)
 		{
-			indices[k] = i * mInfo.NumCols + j;
-			indices[k + 1] = i * mInfo.NumCols + j + 1;
-			indices[k + 2] = (i + 1) * mInfo.NumCols + j;
+			indices[k] = i * m_info.NumCols + j;
+			indices[k + 1] = i * m_info.NumCols + j + 1;
+			indices[k + 2] = (i + 1) * m_info.NumCols + j;
 
-			indices[k + 3] = (i + 1) * mInfo.NumCols + j;
-			indices[k + 4] = i * mInfo.NumCols + j + 1;
-			indices[k + 5] = (i + 1) * mInfo.NumCols + j + 1;
+			indices[k + 3] = (i + 1) * m_info.NumCols + j;
+			indices[k + 4] = i * m_info.NumCols + j + 1;
+			indices[k + 5] = (i + 1) * m_info.NumCols + j + 1;
 
 			k += 6; // next quad
 		}
 	}
-	/*int VERTEX_COUNT = mInfo.NumRows;
-	int pointer = 0;
-	for (int gz = 0; gz < VERTEX_COUNT - 1; gz++) {
-		for (int gx = 0; gx < VERTEX_COUNT - 1; gx++) {
-			int topLeft = (gz * VERTEX_COUNT) + gx;
-			int topRight = topLeft + 1;
-			int bottomLeft = ((gz + 1) * VERTEX_COUNT) + gx;
-			int bottomRight = bottomLeft + 1;
-			indices[pointer++] = topLeft;
-			indices[pointer++] = bottomLeft;
-			indices[pointer++] = topRight;
-			indices[pointer++] = topRight;
-			indices[pointer++] = bottomLeft;
-			indices[pointer++] = bottomRight;
-		}
-	}*/
 
-	return indices;
-	//D3D10_BUFFER_DESC ibd;
-	//ibd.Usage = D3D10_USAGE_IMMUTABLE;
-	//ibd.ByteWidth = sizeof(DWORD) * mNumFaces * 3;
-	//ibd.BindFlags = D3D10_BIND_INDEX_BUFFER;
-	//ibd.CPUAccessFlags = 0;
-	//ibd.MiscFlags = 0;
-	//D3D10_SUBRESOURCE_DATA iinitData;
-	//iinitData.pSysMem = &indices[0];
-	//HR(md3dDevice->CreateBuffer(&ibd, &iinitData, &mIB));
+	glGenBuffers(1, &m_EBO); //Index Buffer
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+	indicesSize = indices.size() * sizeof(GLuint);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, &indices[0], GL_STATIC_DRAW);    //EBO Buffer
+	m_indicesSize = indices.size();
 }
+

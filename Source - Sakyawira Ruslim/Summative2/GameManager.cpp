@@ -110,20 +110,13 @@ GameManager::GameManager()
 	create_spheres(10, border);
 
 	Terrain::InitInfo tii;
-	tii.HeightmapFilename = L"coastMountain513.raw";
-	tii.LayerMapFilename0 = L"grass.dds";
-	tii.LayerMapFilename1 = L"lightdirt.dds";
-	tii.LayerMapFilename2 = L"darkdirt.dds";
-	tii.LayerMapFilename3 = L"stone.dds";
-	tii.LayerMapFilename4 = L"snow.dds";
-	tii.BlendMapFilename = L"blend.dds";
-	tii.HeightScale = 0.35f;
+	tii.HeightmapFilename = "Resources/Terrain/HeightMap.raw";
+	tii.HeightScale = 0.15f;
 	tii.HeightOffset = -20.0f;
-	tii.NumRows = 513;
-	tii.NumCols = 513;
+	tii.NumRows = 257;
+	tii.NumCols = 257;
 	tii.CellSpacing = 1.0f;
 	m_mesh_terrain = new Terrain(tii, m_v_mesh);
-
 	terrain = new GameObject(m_sh_phong_diffuse_, m_mesh_terrain, plain_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	
 	this->initialize();
