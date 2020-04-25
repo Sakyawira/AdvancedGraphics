@@ -36,6 +36,7 @@
 #include "CubeMap.h" 
 #include "Model.h"
 #include "Bullet.h"
+#include "Terrain.h"
 // #include "ModelMesh.h"
 
 const int WINDOW_WIDHT = 800;
@@ -138,6 +139,7 @@ private:
 	Mesh* m_mesh_cube;
 	Mesh* m_mesh_cube_map;
 	Sphere* m_mesh_sphere;
+	Terrain* m_mesh_terrain;
 
 	Model* m_mdl_tank;
 	Model* m_mdl_cat;
@@ -156,6 +158,8 @@ private:
 	GameObject* stencilCube2;
 
 	GameObject* transparentCube;
+
+	GameObject* terrain;
 	
 	// Vectors
 	std::vector<Enemy*> m_vector_coins;

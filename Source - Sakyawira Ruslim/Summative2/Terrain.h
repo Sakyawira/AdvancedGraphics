@@ -9,7 +9,7 @@
 #include <vector>
 #include "Mesh.h"
 
-class Terrain : Mesh
+class Terrain : public Mesh
 {
 public:
 	struct InitInfo
@@ -29,12 +29,12 @@ public:
 	};
 
 public:
-	Terrain(std::vector<Mesh*>& meshVector);
+	Terrain(const InitInfo& initInfo, std::vector<Mesh*>& meshVector);
 	~Terrain();
 
 	float width()const;
 	float depth()const;
-	float getHeight(float x, float y)const;
+	float getHeight(float x, float z)const;
 
 	// void init(ID3D10Device* device, const InitInfo& initInfo);
 

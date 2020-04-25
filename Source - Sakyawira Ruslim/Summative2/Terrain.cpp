@@ -2,7 +2,7 @@
 #include <sstream>
 #include "Terrain.h"
 
-Terrain::Terrain(std::vector<Mesh*>& meshVector)
+Terrain::Terrain(const InitInfo& initInfo, std::vector<Mesh*>& meshVector)
 {
 	//md3dDevice = device;
 
@@ -17,7 +17,7 @@ Terrain::Terrain(std::vector<Mesh*>& meshVector)
 	//mfxLayer4Var = fx::TerrainFX->GetVariableByName("gLayer4")->AsShaderResource();
 	//mfxBlendMapVar = fx::TerrainFX->GetVariableByName("gBlendMap")->AsShaderResource();
 
-	//mInfo = initInfo;
+	mInfo = initInfo;
 
 	mNumVertices = mInfo.NumRows * mInfo.NumCols;
 	mNumFaces = (mInfo.NumRows - 1) * (mInfo.NumCols - 1) * 2;
@@ -28,6 +28,7 @@ Terrain::Terrain(std::vector<Mesh*>& meshVector)
 	std::vector<GLfloat> vertices = buildVB();
 	std::vector<GLuint> indices =  buildIB();
 	m_indicesSize = indices.size();
+	m_vertices = vertices;
 
 	glGenVertexArrays(1, &m_VAO);
 	glBindVertexArray(m_VAO);
@@ -86,6 +87,55 @@ Terrain::Terrain(std::vector<Mesh*>& meshVector)
 	//mBlendMap = GetTextureMgr().createTex(initInfo.BlendMapFilename);
 }
 
+float Terrain::width() const
+{
+	return (mInfo.NumCols - 1) * mInfo.CellSpacing;
+}
+
+float Terrain::depth() const
+{
+	return (mInfo.NumRows - 1) * mInfo.CellSpacing;
+}
+
+float Terrain::getHeight(float x, float z) const
+{
+	// Transform from terrain local space to "cell" space.
+	float c = (x + 0.5f * width()) / mInfo.CellSpacing;
+	float d = (z - 0.5f * depth()) / -mInfo.CellSpacing;
+
+	// Get the row and column we are in.
+	int row = (int)floorf(d);
+	int col = (int)floorf(c);
+
+	// Grab the heights of the cell we are in.
+	// A*--*B
+	//  | /|
+	//  |/ |
+	// C*--*D
+	float A = mHeightmap[row * mInfo.NumCols + col];
+	float B = mHeightmap[row * mInfo.NumCols + col + 1];
+	float C = mHeightmap[(row + 1) * mInfo.NumCols + col];
+	float D = mHeightmap[(row + 1) * mInfo.NumCols + col + 1];
+
+	// Where we are relative to the cell.
+	float s = c - (float)col;
+	float t = d - (float)row;
+
+	// If upper triangle ABC.
+	if (s + t <= 1.0f)
+	{
+		float uy = B - A;
+		float vy = C - A;
+		return A + s * uy + t * vy;
+	}
+	else // lower triangle DCB.
+	{
+		float uy = C - D;
+		float vy = B - D;
+		return D + (1.0f - s) * uy + (1.0f - t) * vy;
+	}
+}
+
 void Terrain::loadHeightmap()
 {
 	// A height for each vertex
@@ -126,6 +176,47 @@ void Terrain::smooth()
 
 	// Replace the old heightmap with the filtered one. 
 	mHeightmap = dest;
+}
+
+bool Terrain::inBounds(UINT i, UINT j)
+{
+	// True if ij are valid indices; false otherwise.
+	return
+		i >= 0 && i < mInfo.NumRows&&
+		j >= 0 && j < mInfo.NumCols;
+}
+
+float Terrain::average(UINT i, UINT j)
+{
+	// Function computes the average height of the ij element.
+// It averages itself with its eight neighbor pixels.  Note
+// that if a pixel is missing neighbor, we just don't include it
+// in the average--that is, edge pixels don't have a neighbor pixel.
+//
+// ----------
+// | 1| 2| 3|
+// ----------
+// |4 |ij| 6|
+// ----------
+// | 7| 8| 9|
+// ----------
+
+	float avg = 0.0f;
+	float num = 0.0f;
+
+	for (UINT m = i - 1; m <= i + 1; ++m)
+	{
+		for (UINT n = j - 1; n <= j + 1; ++n)
+		{
+			if (inBounds(m, n))
+			{
+				avg += mHeightmap[m * mInfo.NumCols + n];
+				num += 1.0f;
+			}
+		}
+	}
+
+	return avg / num;
 }
 
 std::vector<GLfloat> Terrain::buildVB()

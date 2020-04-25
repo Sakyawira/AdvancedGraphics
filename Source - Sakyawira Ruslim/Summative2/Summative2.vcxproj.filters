@@ -49,6 +49,7 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -109,6 +110,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

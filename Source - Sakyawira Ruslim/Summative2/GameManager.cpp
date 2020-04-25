@@ -108,6 +108,23 @@ GameManager::GameManager()
 	int border = 75;
 
 	create_spheres(10, border);
+
+	Terrain::InitInfo tii;
+	tii.HeightmapFilename = L"coastMountain513.raw";
+	tii.LayerMapFilename0 = L"grass.dds";
+	tii.LayerMapFilename1 = L"lightdirt.dds";
+	tii.LayerMapFilename2 = L"darkdirt.dds";
+	tii.LayerMapFilename3 = L"stone.dds";
+	tii.LayerMapFilename4 = L"snow.dds";
+	tii.BlendMapFilename = L"blend.dds";
+	tii.HeightScale = 0.35f;
+	tii.HeightOffset = -20.0f;
+	tii.NumRows = 513;
+	tii.NumCols = 513;
+	tii.CellSpacing = 1.0f;
+	m_mesh_terrain = new Terrain(tii, m_v_mesh);
+
+	terrain = new GameObject(m_sh_phong_diffuse_, m_mesh_terrain, plain_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	
 	this->initialize();
 }
@@ -225,6 +242,7 @@ void GameManager::render()
 
 		button_up->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
+		terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		//sphere->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 
 		//// Drawing all obstacles
