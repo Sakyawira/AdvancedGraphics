@@ -25,7 +25,7 @@ GeometryModel::~GeometryModel()
 
 }
 
-void GeometryModel::render() 
+void GeometryModel::render(glm::vec3 position) 
 {
 	glUseProgram(this->program);
 	glm::mat4 model;

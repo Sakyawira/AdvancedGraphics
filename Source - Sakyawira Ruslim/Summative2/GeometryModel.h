@@ -30,7 +30,7 @@ class GeometryModel
 		GeometryModel(GLuint program, Camera* camera);
 		~GeometryModel();
 
-		void render();
+		void render(glm::vec3 position);
 
 	private:
 		GLuint program;
