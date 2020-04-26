@@ -55,10 +55,42 @@ GLuint ShaderLoader::CreateProgram(const char* vertexShaderFilename, const char*
 
 GLuint ShaderLoader::CreateProgram(const char* vertexShaderFilename, const char* fragmentShaderFilename, const char* geometryShaderFilename)
 {
-	GLuint program = CreateProgram(vertexShaderFilename, fragmentShaderFilename);
-	
+	//Create program attach the shader(s) to it
+	GLuint program = glCreateProgram();
+
+	const GLuint vertexShaderID = CreateShader(GL_VERTEX_SHADER, vertexShaderFilename);
+	const GLuint fragmentShaderID = CreateShader(GL_FRAGMENT_SHADER, fragmentShaderFilename);
 	const GLuint geometry_shader_ = CreateShader(GL_GEOMETRY_SHADER, geometryShaderFilename);
+	std::string combinedShader = std::to_string(vertexShaderID) + std::to_string(fragmentShaderID) + std::to_string(geometry_shader_);
+
+	for (auto& pair : getInstance().shaderMap)
+	{
+		if (combinedShader == pair.second)
+		{
+			std::cout << "We found the same combined pair!" << std::endl;
+			return pair.first;
+		}
+	}
+
+	glAttachShader(program, vertexShaderID);
+	glAttachShader(program, fragmentShaderID);
 	glAttachShader(program, geometry_shader_);
+
+	//Linking the program
+	glLinkProgram(program);
+
+
+	// Check for link errors
+	int link_result = 0;
+	glGetProgramiv(program, GL_LINK_STATUS, &link_result);
+	if (link_result == GL_FALSE)
+	{
+		std::string programName = vertexShaderFilename + *fragmentShaderFilename;
+		PrintErrorDetails(false, program, programName.c_str());
+		return 0;
+	}
+
+	getInstance().shaderMap.insert({ program, combinedShader });
 
 	return program;
 }
