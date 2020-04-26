@@ -30,7 +30,7 @@ GameManager::GameManager()
 	m_sh_phong_rim_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongRim.fs", m_v_sh);
 	m_sh_cube_map_ = new Shader("Resources/Shaders/CubeMapVS.txt", "Resources/Shaders/CubeMapFS.txt", m_v_sh);
 	m_sh_reflective_ = new Shader("Resources/Shaders/FogReflectionVS.txt", "Resources/Shaders/FogReflectionFS.txt", m_v_sh);
-	m_sh_geometry_ = new Shader("Resources/Shaders/FogReflectionVS.txt", "Resources/Shaders/FogReflectionVS.txt", "Resources/Shaders/FogReflectionVS.txt", m_v_sh);
+	m_sh_geometry_ = new Shader("Resources/Shaders/Geometry.VS", "Resources/Shaders/Geometry.FS", "Resources/Shaders/Geometry.GS", m_v_sh);
 	geomModel = new GeometryModel(m_sh_geometry_->GetProgram(), &camera);
 //	geomModel->setPosition(glm::vec3(6.0f, 1.0f, 0.0f));
 
