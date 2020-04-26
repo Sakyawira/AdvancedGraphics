@@ -1,4 +1,4 @@
-#version 430 core 
+#version 450 core 
 layout (points) in; 
 layout (triangle_strip, max_vertices = 3) out;
 out vec3 outColor;
