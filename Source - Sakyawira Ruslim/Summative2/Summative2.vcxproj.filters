@@ -50,6 +50,7 @@
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Terrain.cpp" />
+    <ClCompile Include="GeometryModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -113,6 +114,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Terrain.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="GeometryModel.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
