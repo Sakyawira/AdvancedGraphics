@@ -219,5 +219,11 @@
     <None Include="Resources\Shaders\tess.VS">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Resources\Shaders\tessTriModel.tcs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\tessTriModel.tes">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -214,6 +214,8 @@
     <None Include="Resources\Shaders\tess.VS" />
     <None Include="Resources\Shaders\tessQuadModel.tcs" />
     <None Include="Resources\Shaders\tessQuadModel.tes" />
+    <None Include="Resources\Shaders\tessTriModel.tcs" />
+    <None Include="Resources\Shaders\tessTriModel.tes" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
