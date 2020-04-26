@@ -38,7 +38,7 @@
 #include "Bullet.h"
 #include "Terrain.h"
 #include "GeometryModel.h"
-// #include "ModelMesh.h"
+#include "TessModel.h"
 
 const int WINDOW_WIDHT = 800;
 const int WINDOW_HEIGHT = 800;
@@ -146,7 +146,7 @@ private:
 	Model* m_mdl_tank;
 	Model* m_mdl_cat;
 	GeometryModel* geomModel;
-
+	TessModel* tessModel;
 
 	GameObject* tank;
 

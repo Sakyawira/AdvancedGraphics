@@ -61,6 +61,7 @@ GLuint ShaderLoader::CreateProgram(const char* vertexShaderFilename, const char*
 	const GLuint vertexShaderID = CreateShader(GL_VERTEX_SHADER, vertexShaderFilename);
 	const GLuint fragmentShaderID = CreateShader(GL_FRAGMENT_SHADER, fragmentShaderFilename);
 	const GLuint geometry_shader_ = CreateShader(GL_GEOMETRY_SHADER, geometryShaderFilename);
+
 	std::string combinedShader = std::to_string(vertexShaderID) + std::to_string(fragmentShaderID) + std::to_string(geometry_shader_);
 
 	for (auto& pair : getInstance().shaderMap)
@@ -75,6 +76,53 @@ GLuint ShaderLoader::CreateProgram(const char* vertexShaderFilename, const char*
 	glAttachShader(program, vertexShaderID);
 	glAttachShader(program, fragmentShaderID);
 	glAttachShader(program, geometry_shader_);
+
+	//Linking the program
+	glLinkProgram(program);
+
+
+	// Check for link errors
+	int link_result = 0;
+	glGetProgramiv(program, GL_LINK_STATUS, &link_result);
+	if (link_result == GL_FALSE)
+	{
+		std::string programName = vertexShaderFilename + *fragmentShaderFilename;
+		PrintErrorDetails(false, program, programName.c_str());
+		return 0;
+	}
+
+	getInstance().shaderMap.insert({ program, combinedShader });
+
+	return program;
+}
+
+GLuint ShaderLoader::CreateProgram(char* vertexShaderFilename, char* fragmentShaderFilename, char* TessControlShaderFilename, char* TessEvalShaderFilename)
+{
+	//Create program attach the shader(s) to it
+	GLuint program = glCreateProgram();
+
+	const GLuint vertexShaderID = CreateShader(GL_VERTEX_SHADER, vertexShaderFilename);
+	const GLuint fragmentShaderID = CreateShader(GL_FRAGMENT_SHADER, fragmentShaderFilename);
+
+	GLuint tessControl_shader = CreateShader(GL_TESS_CONTROL_SHADER, TessControlShaderFilename);
+	GLuint tessEval_shader = CreateShader(GL_TESS_EVALUATION_SHADER, TessEvalShaderFilename);
+
+	std::string combinedShader = std::to_string(vertexShaderID) + std::to_string(fragmentShaderID);
+
+	for (auto& pair : getInstance().shaderMap)
+	{
+		if (combinedShader == pair.second)
+		{
+			std::cout << "We found the same combined pair!" << std::endl;
+			return pair.first;
+		}
+	}
+
+	glAttachShader(program, vertexShaderID);
+	glAttachShader(program, fragmentShaderID);
+
+	glAttachShader(program, tessControl_shader);
+	glAttachShader(program, tessEval_shader);
 
 	//Linking the program
 	glLinkProgram(program);

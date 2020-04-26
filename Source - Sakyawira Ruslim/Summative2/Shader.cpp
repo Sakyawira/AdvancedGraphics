@@ -26,6 +26,12 @@ Shader::Shader(const char* VertexShaderFilename, const char* FragmentShaderFilen
 	shaderVector.push_back(this);
 }
 
+Shader::Shader(const char* VertexShaderFilename, const char* FragmentShaderFilename, const char* TessControlShaderFilename, const char* TessEvalShaderFilename, std::vector<Shader*>& shaderVector)
+{
+	m_program = ShaderLoader::CreateProgram(VertexShaderFilename, FragmentShaderFilename, TessControlShaderFilename, TessEvalShaderFilename);
+	shaderVector.push_back(this);
+}
+
 void Shader::Transform(glm::mat4 translationMatrix, glm::mat4 rotationZ, glm::mat4 scaleMatrix, glm::mat4 modelMatrix, Camera& camera )
 {
 	//// Put translation uniform into '*program'
