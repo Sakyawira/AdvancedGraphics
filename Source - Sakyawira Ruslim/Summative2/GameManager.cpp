@@ -242,7 +242,7 @@ void GameManager::render()
 		terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		//sphere->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		geomModel->render(glm::vec3(0.0f, 100.0f, 0.0f));
-		// tessModel->render(glm::vec3(0.0f, 30.0f, 0.0f));
+		tessModel->render(glm::vec3(0.0f, 30.0f, 0.0f));
 
 		//// Drawing all obstacles
 		//for (auto& coinObjects2 : m_v_sphere)

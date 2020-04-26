@@ -2,6 +2,8 @@
 
 TessModel::TessModel(GLuint program, Camera* camera)
 {
+	this->program = program;
+	this->camera = camera;
 	GLfloat points[] = { -1.0f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 1.0f, 1.0f, 0.0f, -1.0, 1.0, 0.0f }; 
 	glPatchParameteri(GL_PATCH_VERTICES, 4); //comment for tri patch
 	glGenBuffers(1, &VBO);
