@@ -125,6 +125,7 @@ private:
 	Shader* m_sh_cube_map_;
 	Shader* m_sh_reflective_;
 	Shader* m_sh_geometry_;
+	Shader* m_sh_tess_;
 
 	Texture* m_tr_down;
 	Texture* m_tr_plain;

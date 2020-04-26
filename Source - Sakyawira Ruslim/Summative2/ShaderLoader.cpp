@@ -96,7 +96,7 @@ GLuint ShaderLoader::CreateProgram(const char* vertexShaderFilename, const char*
 	return program;
 }
 
-GLuint ShaderLoader::CreateProgram(char* vertexShaderFilename, char* fragmentShaderFilename, char* TessControlShaderFilename, char* TessEvalShaderFilename)
+GLuint ShaderLoader::CreateProgram(const char* vertexShaderFilename, const char* fragmentShaderFilename, const char* TessControlShaderFilename, const char* TessEvalShaderFilename)
 {
 	//Create program attach the shader(s) to it
 	GLuint program = glCreateProgram();

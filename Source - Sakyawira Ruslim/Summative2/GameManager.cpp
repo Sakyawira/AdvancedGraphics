@@ -31,8 +31,7 @@ GameManager::GameManager()
 	m_sh_cube_map_ = new Shader("Resources/Shaders/CubeMapVS.txt", "Resources/Shaders/CubeMapFS.txt", m_v_sh);
 	m_sh_reflective_ = new Shader("Resources/Shaders/FogReflectionVS.txt", "Resources/Shaders/FogReflectionFS.txt", m_v_sh);
 	m_sh_geometry_ = new Shader("Resources/Shaders/Geometry.VS", "Resources/Shaders/Geometry.FS", "Resources/Shaders/Geometry.GS", m_v_sh);
-	geomModel = new GeometryModel(m_sh_geometry_->GetProgram(), &camera);
-//	geomModel->setPosition(glm::vec3(6.0f, 1.0f, 0.0f));
+	m_sh_tess_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/tess.FS", "Resources/Shaders/tessQuadModel.tcs","Resources/Shaders/tessQuadModel.tes", m_v_sh);
 
 	// Create Mesh
 	m_mesh_static = new Mesh(animation_indices, static_vertices, m_v_mesh);
@@ -48,7 +47,8 @@ GameManager::GameManager()
 	// Model
 	m_mdl_tank = new Model("Resources/Models/Tank/Tank.obj", &camera);
 	m_mdl_cat = new Model("Resources/Models/pug/Dog 1.obj", &camera);
-
+	geomModel = new GeometryModel(m_sh_geometry_->GetProgram(), &camera);
+	tessModel = new TessModel(m_sh_tess_->GetProgram(), &camera);
 
 	// Text
 	std::string m_string_menu = "Sakyawira's Burnt Out";
@@ -242,6 +242,7 @@ void GameManager::render()
 		terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		//sphere->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		geomModel->render(glm::vec3(0.0f, 100.0f, 0.0f));
+		// tessModel->render(glm::vec3(0.0f, 30.0f, 0.0f));
 
 		//// Drawing all obstacles
 		//for (auto& coinObjects2 : m_v_sphere)

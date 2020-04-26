@@ -51,6 +51,7 @@
     </ClCompile>
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="GeometryModel.cpp" />
+    <ClCompile Include="TessModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -117,6 +118,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="GeometryModel.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="TessModel.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -201,6 +205,18 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Resources\Shaders\Geometry.FS">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\tessQuadModel.tcs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\tessQuadModel.tes">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\tess.FS">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\tess.VS">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
