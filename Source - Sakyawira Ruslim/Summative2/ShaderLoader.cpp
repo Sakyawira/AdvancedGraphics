@@ -53,7 +53,7 @@ GLuint ShaderLoader::CreateProgram(const char* vertexShaderFilename, const char*
 	return program;
 }
 
-GLuint ShaderLoader::CreateProgram(char* vertexShaderFilename, char* fragmentShaderFilename, char* geometryShaderFilename)
+GLuint ShaderLoader::CreateProgram(const char* vertexShaderFilename, const char* fragmentShaderFilename, const char* geometryShaderFilename)
 {
 	GLuint program = CreateProgram(vertexShaderFilename, fragmentShaderFilename);
 	

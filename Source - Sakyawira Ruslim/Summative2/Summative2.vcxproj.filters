@@ -169,6 +169,9 @@
     <Text Include="Resources\Shaders\FogCubeMapVS.txt">
       <Filter>Shaders</Filter>
     </Text>
+    <Text Include="Resources\Shaders\Geometry.VS">
+      <Filter>Shaders</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">
@@ -192,6 +195,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Resources\Shaders\Reflection.fs">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\Geometry.GS">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\Geometry.FS">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

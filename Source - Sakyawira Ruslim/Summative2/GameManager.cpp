@@ -30,6 +30,9 @@ GameManager::GameManager()
 	m_sh_phong_rim_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongRim.fs", m_v_sh);
 	m_sh_cube_map_ = new Shader("Resources/Shaders/CubeMapVS.txt", "Resources/Shaders/CubeMapFS.txt", m_v_sh);
 	m_sh_reflective_ = new Shader("Resources/Shaders/FogReflectionVS.txt", "Resources/Shaders/FogReflectionFS.txt", m_v_sh);
+	m_sh_geometry_ = new Shader("Resources/Shaders/FogReflectionVS.txt", "Resources/Shaders/FogReflectionVS.txt", "Resources/Shaders/FogReflectionVS.txt", m_v_sh);
+	geomModel = new GeometryModel(m_sh_geometry_->GetProgram(), &camera);
+//	geomModel->setPosition(glm::vec3(6.0f, 1.0f, 0.0f));
 
 	// Create Mesh
 	m_mesh_static = new Mesh(animation_indices, static_vertices, m_v_mesh);
@@ -45,6 +48,7 @@ GameManager::GameManager()
 	// Model
 	m_mdl_tank = new Model("Resources/Models/Tank/Tank.obj", &camera);
 	m_mdl_cat = new Model("Resources/Models/pug/Dog 1.obj", &camera);
+
 
 	// Text
 	std::string m_string_menu = "Sakyawira's Burnt Out";
@@ -237,12 +241,13 @@ void GameManager::render()
 		button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		//sphere->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
+		geomModel->render(glm::vec3(0.0f, 100.0f, 0.0f));
 
 		//// Drawing all obstacles
-	//for (auto& coinObjects2 : m_v_sphere)
-	//{
-	//	coinObjects2->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
-	//}
+		//for (auto& coinObjects2 : m_v_sphere)
+		//{
+		//	coinObjects2->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
+		//}
 
 		//tank->draw_with_model(m_clock->GetDeltaTick());
 		

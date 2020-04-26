@@ -191,6 +191,7 @@
     <Text Include="Resources\Shaders\FogPhongVS.txt" />
     <Text Include="Resources\Shaders\FogReflectionFS.txt" />
     <Text Include="Resources\Shaders\FogReflectionVS.txt" />
+    <Text Include="Resources\Shaders\Geometry.VS" />
     <Text Include="Resources\Shaders\PhongRim.fs" />
     <Text Include="Resources\Shaders\PhongVS.txt" />
     <Text Include="Resources\Shaders\PhongDiffuse.fs" />
@@ -201,6 +202,8 @@
     <Text Include="Resources\Shaders\AnimationVertex.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Shaders\Geometry.FS" />
+    <None Include="Resources\Shaders\Geometry.GS" />
     <None Include="Resources\Shaders\Model.fs" />
     <None Include="Resources\Shaders\Model.vs" />
     <None Include="Resources\Shaders\Reflection.fs" />

@@ -37,6 +37,7 @@
 #include "Model.h"
 #include "Bullet.h"
 #include "Terrain.h"
+#include "GeometryModel.h"
 // #include "ModelMesh.h"
 
 const int WINDOW_WIDHT = 800;
@@ -123,6 +124,7 @@ private:
 	Shader* m_sh_phong_rim_;
 	Shader* m_sh_cube_map_;
 	Shader* m_sh_reflective_;
+	Shader* m_sh_geometry_;
 
 	Texture* m_tr_down;
 	Texture* m_tr_plain;
@@ -143,6 +145,8 @@ private:
 
 	Model* m_mdl_tank;
 	Model* m_mdl_cat;
+	GeometryModel* geomModel;
+
 
 	GameObject* tank;
 
