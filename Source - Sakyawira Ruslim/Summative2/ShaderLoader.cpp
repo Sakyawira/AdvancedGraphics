@@ -53,6 +53,16 @@ GLuint ShaderLoader::CreateProgram(const char* vertexShaderFilename, const char*
 	return program;
 }
 
+GLuint ShaderLoader::CreateProgram(char* vertexShaderFilename, char* fragmentShaderFilename, char* geometryShaderFilename)
+{
+	GLuint program = CreateProgram(vertexShaderFilename, fragmentShaderFilename);
+	
+	const GLuint geometry_shader_ = CreateShader(GL_GEOMETRY_SHADER, geometryShaderFilename);
+	glAttachShader(program, geometry_shader_);
+
+	return program;
+}
+
 GLuint ShaderLoader::CreateShader(GLenum shaderType, const char* shaderName)
 {
 	//Create a shaderID object based on the passed in types
