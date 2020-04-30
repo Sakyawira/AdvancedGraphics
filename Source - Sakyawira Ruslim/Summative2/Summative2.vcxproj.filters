@@ -52,6 +52,7 @@
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="GeometryModel.cpp" />
     <ClCompile Include="TessModel.cpp" />
+    <ClCompile Include="FrameBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -121,6 +122,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="TessModel.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameBuffer.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -223,6 +227,9 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Resources\Shaders\tessTriModel.tes">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\RainingOnYourScreen.FS">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

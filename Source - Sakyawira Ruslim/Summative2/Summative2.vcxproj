@@ -145,6 +145,7 @@
     <ClCompile Include="clock.cpp" />
     <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GeometryModel.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="clock.h" />
     <ClInclude Include="CubeMap.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GeometryModel.h" />
@@ -208,6 +210,7 @@
     <None Include="Resources\Shaders\Geometry.GS" />
     <None Include="Resources\Shaders\Model.fs" />
     <None Include="Resources\Shaders\Model.vs" />
+    <None Include="Resources\Shaders\RainingOnYourScreen.FS" />
     <None Include="Resources\Shaders\Reflection.fs" />
     <None Include="Resources\Shaders\Reflection.vs" />
     <None Include="Resources\Shaders\tess.FS" />
