@@ -1,0 +1,42 @@
+#include "FrameBuffer.h"
+
+FrameBuffer::FrameBuffer()
+{
+	glGenTextures(1, &renderTexture);
+	glBindTexture(GL_TEXTURE_2D, renderTexture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1280, 720, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL); 
+
+	glGenFramebuffers(1, &frameBuffer);
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+	// Attach texture to framebuffer object
+	glFramebufferTexture2D(GL_FRAMEBUFFER, // target buffer 
+		GL_COLOR_ATTACHMENT0, // attachment, could be //GL_DEPTH_ATTACHMENT or //GL_STENCIL_ATTACHMENT 
+		GL_TEXTURE_2D, // texture target type
+		renderTexture, // texture 
+		0); // level © 2005 - 2013 Media 
+
+	glGenRenderbuffers(1, &rbo); 
+	glBindRenderbuffer(GL_RENDERBUFFER, rbo); 
+	glRenderbufferStorage(GL_RENDERBUFFER, 
+		// must be 
+		GL_DEPTH24_STENCIL8, //use as depth - stencil buffer 
+		1280, 
+		720) //viewport width and height
+		;
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, //target 
+		GL_DEPTH_STENCIL_ATTACHMENT, //attachment 
+		GL_RENDERBUFFER, //renderbufferTarget 
+		rbo); // render buffer
+
+	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) 
+	{ 
+		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl; 
+	}
+
+
+}
+
+FrameBuffer::~FrameBuffer()
+{
+
+}

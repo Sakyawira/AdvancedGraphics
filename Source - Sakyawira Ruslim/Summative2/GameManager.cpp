@@ -122,6 +122,8 @@ GameManager::GameManager()
 	tii.CellSpacing = 1.0f;
 	m_mesh_terrain = new Terrain(tii, m_v_mesh);
 	terrain = new GameObject(m_sh_phong_diffuse_, m_mesh_terrain, plain_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
+
+
 	
 	this->initialize();
 }
