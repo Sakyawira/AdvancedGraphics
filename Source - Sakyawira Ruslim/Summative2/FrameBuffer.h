@@ -16,7 +16,8 @@
 #include <SOIL.h>
 #include <vector>
 #include <gtc/type_ptr.hpp>
-#include "ShaderLoader.h"
+#include "Shader.h"
+#include "Mesh.h"
 
 class FrameBuffer 
 {
@@ -30,4 +31,7 @@ class FrameBuffer
         GLuint renderTexture;
         GLuint frameBuffer;
         GLuint rbo;
+
+        Shader* m_shader;
+        Mesh* m_mesh;
 };

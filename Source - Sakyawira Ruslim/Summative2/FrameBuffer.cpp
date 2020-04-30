@@ -48,17 +48,25 @@ void FrameBuffer::Render()
 	glEnable(GL_DEPTH_TEST); // Depth is enabled to capture it
 	glClearColor(1.0f, 0.0f, 0.0f, 1.0f); 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	
+	/*
+	render objects here
+	*/
 
 	// Bind Default framebuffer 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); 
 	glDisable(GL_DEPTH_TEST); //screenspace quad so depth is not required
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f); 
 	glClear(GL_COLOR_BUFFER_BIT);
-	glUseProgram(program); 
+
+	// glUseProgram(program);
+	m_shader->Activate();
 	glActiveTexture(GL_TEXTURE0); 
-	glUniform1i(glGetUniformLocation(program, "renderTexture"), 0); 
+	glUniform1i(glGetUniformLocation(m_shader->GetProgram(), "renderTexture"), 0); 
 	glBindTexture(GL_TEXTURE_2D, renderTexture);
-	glBindVertexArray(quadVAO); 
+
+	//glBindVertexArray(quadVAO); 
+	m_mesh->Bind();
 	glDrawArrays(GL_TRIANGLES, 0, 6); glBindVertexArray(0);
 
 }
