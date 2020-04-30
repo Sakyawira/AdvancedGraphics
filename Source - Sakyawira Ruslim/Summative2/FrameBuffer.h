@@ -24,6 +24,8 @@ class FrameBuffer
         FrameBuffer();
         ~FrameBuffer();
 
+        void Render();
+
     private:
         GLuint renderTexture;
         GLuint frameBuffer;

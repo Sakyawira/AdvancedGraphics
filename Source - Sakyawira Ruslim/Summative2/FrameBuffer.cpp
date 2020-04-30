@@ -40,3 +40,25 @@ FrameBuffer::~FrameBuffer()
 {
 
 }
+
+void FrameBuffer::Render()
+{
+	// Bind our framebuffer
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer); 
+	glEnable(GL_DEPTH_TEST); // Depth is enabled to capture it
+	glClearColor(1.0f, 0.0f, 0.0f, 1.0f); 
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	// Bind Default framebuffer 
+	glBindFramebuffer(GL_FRAMEBUFFER, 0); 
+	glDisable(GL_DEPTH_TEST); //screenspace quad so depth is not required
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f); 
+	glClear(GL_COLOR_BUFFER_BIT);
+	glUseProgram(program); 
+	glActiveTexture(GL_TEXTURE0); 
+	glUniform1i(glGetUniformLocation(program, "renderTexture"), 0); 
+	glBindTexture(GL_TEXTURE_2D, renderTexture);
+	glBindVertexArray(quadVAO); 
+	glDrawArrays(GL_TRIANGLES, 0, 6); glBindVertexArray(0);
+
+}
