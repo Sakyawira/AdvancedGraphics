@@ -6,7 +6,7 @@ out vec4 color;
 
 uniform float currentTime;
 uniform sampler2D tex1;
-uniform sampler2D tex;
+uniform sampler2D renderTexture;
 uniform vec2 iResolution = vec2(800.0f, 800.0f);
 
 void main()
@@ -26,9 +26,9 @@ void main()
 	
 	// final color
     vec3 col;
-    col.r = texture( tex, vec2(uv.x+blur,uv.y) ).r;
-    col.g = texture( tex, uv ).g;
-    col.b = texture( tex, vec2(uv.x-blur,uv.y) ).b;
+    col.r = texture( renderTexture, vec2(uv.x+blur,uv.y) ).r;
+    col.g = texture( renderTexture, uv ).g;
+    col.b = texture( renderTexture, vec2(uv.x-blur,uv.y) ).b;
 	
 	// scanline
 	float scanline = sin(uv.y*800.0)*0.04;

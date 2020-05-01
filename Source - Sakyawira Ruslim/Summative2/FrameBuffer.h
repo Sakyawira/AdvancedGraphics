@@ -26,7 +26,7 @@ class FrameBuffer
         ~FrameBuffer();
 
         void PrepareRender();
-        void Render();
+        void Render(const GLchar* s_currentTime, GLfloat f_currentTime);
 
     private:
         GLuint renderTexture;

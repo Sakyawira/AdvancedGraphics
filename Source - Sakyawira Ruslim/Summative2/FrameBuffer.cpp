@@ -55,7 +55,7 @@ void FrameBuffer::PrepareRender()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void FrameBuffer::Render()
+void FrameBuffer::Render(const GLchar* s_currentTime, GLfloat f_currentTime)
 {
 
 	
@@ -71,6 +71,7 @@ void FrameBuffer::Render()
 
 	// glUseProgram(program);
 	m_shader->Activate();
+	m_shader->PassUniform(s_currentTime, f_currentTime);
 	glActiveTexture(GL_TEXTURE0); 
 	glUniform1i(glGetUniformLocation(m_shader->GetProgram(), "renderTexture"), 0); 
 	glBindTexture(GL_TEXTURE_2D, renderTexture);

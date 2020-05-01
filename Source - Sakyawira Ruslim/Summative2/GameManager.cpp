@@ -281,7 +281,7 @@ void GameManager::render()
 		glDisable(GL_STENCIL_TEST);
 
 
-		m_frameBuffer->Render();
+		m_frameBuffer->Render("currentTime", current_time_);
 
 		glStencilMask(0xFF);//enable writing to stencil buffer
 
