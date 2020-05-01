@@ -1,7 +1,10 @@
 #include "FrameBuffer.h"
 
-FrameBuffer::FrameBuffer()
+FrameBuffer::FrameBuffer(Shader* _shader, Mesh* _mesh)
 {
+	m_shader = _shader;
+	m_mesh = _mesh;
+
 	glGenTextures(1, &renderTexture);
 	glBindTexture(GL_TEXTURE_2D, renderTexture);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1280, 720, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL); 

@@ -22,7 +22,7 @@
 class FrameBuffer 
 {
     public:
-        FrameBuffer();
+        FrameBuffer(Shader* _shader, Mesh* _mesh);
         ~FrameBuffer();
 
         void Render();

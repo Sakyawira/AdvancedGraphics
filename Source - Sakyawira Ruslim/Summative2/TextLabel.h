@@ -19,7 +19,6 @@
 #include <SOIL.h>
 #include <glm.hpp>
 #include <fmod.hpp>
-//#include <vld.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
