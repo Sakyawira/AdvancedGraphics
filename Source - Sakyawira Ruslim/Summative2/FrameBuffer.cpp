@@ -25,8 +25,8 @@ FrameBuffer::FrameBuffer(Shader* _shader, Mesh* _mesh)
 	glRenderbufferStorage(GL_RENDERBUFFER, 
 		// must be 
 		GL_DEPTH24_STENCIL8, //use as depth - stencil buffer 
-		1280, 
-		720) //viewport width and height
+		800, 
+		800) //viewport width and height
 		;
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, //target 
 		GL_DEPTH_STENCIL_ATTACHMENT, //attachment 
