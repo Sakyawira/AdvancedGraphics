@@ -1,11 +1,10 @@
 #version 450 core
  
-in vec2 fragTexCoord;
-
 out vec4 color;
 
+in vec2 fragTexCoord;
+
 uniform float currentTime;
-//uniform sampler2D tex1;
 uniform sampler2D renderTexture;
 uniform vec2 iResolution = vec2(800.0f, 800.0f);
 

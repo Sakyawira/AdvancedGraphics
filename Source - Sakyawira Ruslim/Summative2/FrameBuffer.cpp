@@ -6,21 +6,30 @@ FrameBuffer::FrameBuffer(Shader* _shader, Mesh* _mesh, std::vector<Texture*>& _t
 	m_mesh = _mesh;
 	m_textures = _texture;
 
-	glGenTextures(1, &renderTexture);
-	glBindTexture(GL_TEXTURE_2D, renderTexture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 800, 800, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL); 
 
-	glGenerateMipmap(GL_TEXTURE_2D);
-
+	// Create frame buffer
 	glGenFramebuffers(1, &frameBuffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
+
+	// Create render texture
+	glGenTextures(1, &renderTexture);
+	glBindTexture(GL_TEXTURE_2D, renderTexture);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 800, 800, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+	//glGenerateMipmap(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
 	// Attach texture to framebuffer object
 	glFramebufferTexture2D(GL_FRAMEBUFFER, // target buffer 
 		GL_COLOR_ATTACHMENT0, // attachment, could be //GL_DEPTH_ATTACHMENT or //GL_STENCIL_ATTACHMENT 
 		GL_TEXTURE_2D, // texture target type
 		renderTexture, // texture 
-		0); // level © 2005 - 2013 Media 
+		0);
 
+	// Create render buffer Object
 	glGenRenderbuffers(1, &rbo); 
 	glBindRenderbuffer(GL_RENDERBUFFER, rbo); 
 	glRenderbufferStorage(GL_RENDERBUFFER, 
@@ -29,6 +38,9 @@ FrameBuffer::FrameBuffer(Shader* _shader, Mesh* _mesh, std::vector<Texture*>& _t
 		800, 
 		800) //viewport width and height
 		;
+	glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+	// Attach rbo to the depth and stencil attachment of the frame buffer
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, //target 
 		GL_DEPTH_STENCIL_ATTACHMENT, //attachment 
 		GL_RENDERBUFFER, //renderbufferTarget 
@@ -51,10 +63,14 @@ void FrameBuffer::PrepareRender()
 {
 	// Bind our framebuffer
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
-	glEnable(GL_DEPTH_TEST); // Depth is enabled to capture it
+
 	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glEnable(GL_DEPTH_TEST); // Depth is enabled to capture it
 }
+
 
 void FrameBuffer::Render(const GLchar* s_currentTime, GLfloat f_currentTime)
 {
@@ -66,7 +82,7 @@ void FrameBuffer::Render(const GLchar* s_currentTime, GLfloat f_currentTime)
 
 	// Bind Default framebuffer 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); 
-	glDisable(GL_DEPTH_TEST); //screenspace quad so depth is not required
+
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f); 
 	glClear(GL_COLOR_BUFFER_BIT);
 
@@ -74,12 +90,16 @@ void FrameBuffer::Render(const GLchar* s_currentTime, GLfloat f_currentTime)
 	m_shader->Activate();
 	m_shader->PassUniform(s_currentTime, f_currentTime);
 	//m_shader->PassTexture(m_textures);
-	glActiveTexture(GL_TEXTURE0); 
-	glUniform1i(glGetUniformLocation(m_shader->GetProgram(), "renderTexture"), 0); 
-	glBindTexture(GL_TEXTURE_2D, renderTexture);
 
-	//glBindVertexArray(quadVAO); 
+
 	m_mesh->Bind();
-	glDrawArrays(GL_TRIANGLES, 0, 6); glBindVertexArray(0);
+
+	glDisable(GL_DEPTH_TEST); //screenspace quad so depth is not required
+
+	glActiveTexture(GL_TEXTURE0);
+	glUniform1i(glGetUniformLocation(m_shader->GetProgram(), "renderTexture"), 0);
+	glBindTexture(GL_TEXTURE_2D, renderTexture);
+	glDrawArrays(GL_TRIANGLES, 0, 6); 
+	glBindVertexArray(0);
 
 }

@@ -206,6 +206,7 @@
     <Text Include="Resources\Shaders\AnimationVertex.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Shaders\Chromatical.VS" />
     <None Include="Resources\Shaders\Geometry.FS" />
     <None Include="Resources\Shaders\Geometry.GS" />
     <None Include="Resources\Shaders\Model.fs" />

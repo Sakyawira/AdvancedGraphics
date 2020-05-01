@@ -32,7 +32,7 @@ GameManager::GameManager()
 	m_sh_reflective_ = new Shader("Resources/Shaders/FogReflectionVS.txt", "Resources/Shaders/FogReflectionFS.txt", m_v_sh);
 	m_sh_geometry_ = new Shader("Resources/Shaders/Geometry.VS", "Resources/Shaders/Geometry.FS", "Resources/Shaders/Geometry.GS", m_v_sh);
 	m_sh_tess_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/tess.FS", "Resources/Shaders/tessQuadModel.tcs","Resources/Shaders/tessQuadModel.tes", m_v_sh);
-	m_sh_chromatical = new Shader("Resources/Shaders/AnimationVertex.txt", "Resources/Shaders/Chromatical.FS", m_v_sh);
+	m_sh_chromatical = new Shader("Resources/Shaders/Chromatical.VS", "Resources/Shaders/Chromatical.FS", m_v_sh);
 
 	// Create Mesh
 	m_mesh_static = new Mesh(animation_indices, static_vertices, m_v_mesh);
@@ -230,7 +230,7 @@ void GameManager::render()
 //	glPolygonMode(GL_FRONT, GL_LINE);
 	if (m_b_initialized_ == 1)
 	{
-		m_frameBuffer->PrepareRender();
+		
 
 		glEnable(GL_BLEND);
 		// Drawing all obstacles
@@ -238,9 +238,12 @@ void GameManager::render()
 		//glScissor(0, 200, 800, 400);
 
 		//
+
 		m_tr_cube_map->Render(m_sh_cube_map_, m_mesh_cube_map, camera);
 
 		frame_counts_ += 1.0f * m_clock_->GetDeltaTick() * 120.0f;
+
+		m_frameBuffer->PrepareRender();
 
 		button_up->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
