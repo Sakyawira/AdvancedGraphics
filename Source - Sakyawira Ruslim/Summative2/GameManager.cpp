@@ -36,7 +36,7 @@ GameManager::GameManager()
 	// Create Mesh
 	m_mesh_static = new Mesh(animation_indices, static_vertices, m_v_mesh);
 	m_mesh_animate = new Mesh(animation_indices, animation_vertices, m_v_mesh);
-	m_mesh_animate2 = new Mesh(animation_indices, enemy2_vertices, m_v_mesh);
+	m_mesh_frameBuffer = new Mesh(animation_indices, enemy2_vertices, m_v_mesh);
 	m_mesh_scroll = new Mesh(animation_indices, animation_vertices, m_v_mesh);
 	m_mesh_player = new Mesh(animation_indices, player_animation_vertices, m_v_mesh);
 	m_mesh_pyramid = new Mesh(pyramid_indices, pyramid_vertices, m_v_mesh);
@@ -226,7 +226,7 @@ void GameManager::process_game(Audio& audio)
 
 void GameManager::render()
 {
-	glPolygonMode(GL_FRONT, GL_LINE);
+//	glPolygonMode(GL_FRONT, GL_LINE);
 	if (m_b_initialized_ == 1)
 	{
 		glEnable(GL_BLEND);
