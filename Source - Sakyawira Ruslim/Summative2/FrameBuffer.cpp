@@ -4,7 +4,7 @@ FrameBuffer::FrameBuffer(Shader* _shader, Mesh* _mesh, std::vector<Texture*>& _t
 {
 	m_shader = _shader;
 	m_mesh = _mesh;
-	m_textures = _texture;
+	//m_textures = _texture;
 
 
 	// Create frame buffer
@@ -75,7 +75,7 @@ void FrameBuffer::PrepareRender()
 void FrameBuffer::Render(const GLchar* s_currentTime, GLfloat f_currentTime)
 {
 
-	
+	glm::mat4 position =  glm::translate(glm::mat4(), glm::vec3(0.0f, -1.0f, 0.0f));
 	/*
 	render objects here
 	*/
@@ -89,6 +89,9 @@ void FrameBuffer::Render(const GLchar* s_currentTime, GLfloat f_currentTime)
 	// glUseProgram(program);
 	m_shader->Activate();
 	m_shader->PassUniform(s_currentTime, f_currentTime);
+
+	GLuint translateLoc = glGetUniformLocation(m_shader->GetProgram(), "translation");
+	glUniformMatrix4fv(translateLoc, 1, GL_FALSE, glm::value_ptr(position));
 	//m_shader->PassTexture(m_textures);
 
 
