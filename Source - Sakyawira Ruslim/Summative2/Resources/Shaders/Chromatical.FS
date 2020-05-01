@@ -7,7 +7,7 @@ out vec4 color;
 uniform float currentTime;
 uniform sampler2D tex1;
 uniform sampler2D tex;
-uniform vec2 iResolution;
+uniform vec2 iResolution = vec2(800.0f, 800.0f);
 
 void main()
 {
