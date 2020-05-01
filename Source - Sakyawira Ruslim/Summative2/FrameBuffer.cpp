@@ -99,7 +99,8 @@ void FrameBuffer::Render(const GLchar* s_currentTime, GLfloat f_currentTime)
 	glActiveTexture(GL_TEXTURE0);
 	glUniform1i(glGetUniformLocation(m_shader->GetProgram(), "renderTexture"), 0);
 	glBindTexture(GL_TEXTURE_2D, renderTexture);
-	glDrawArrays(GL_TRIANGLES, 0, 6); 
+	// glDrawArrays(GL_TRIANGLES, 0, 6);
+	glDrawElements(GL_TRIANGLES, m_mesh->GetSize(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 
 }
