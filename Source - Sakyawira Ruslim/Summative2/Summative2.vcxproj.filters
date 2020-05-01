@@ -229,7 +229,7 @@
     <None Include="Resources\Shaders\tessTriModel.tes">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Resources\Shaders\RainingOnYourScreen.FS">
+    <None Include="Resources\Shaders\Chromatical.FS">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

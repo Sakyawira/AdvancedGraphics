@@ -1,41 +1,15 @@
 #version 450 core
 
-//in vec3 fragColor;
-//in vec2 fragTexCoord;
+in vec3 fragColor;
+in vec2 fragTexCoord;
 
-//out vec4 color;
-
-//uniform float currentTime;
-//uniform sampler2D tex;
-//uniform sampler2D tex;
-
-//void main ()
-//{
-	//color = mix(texture(tex, fragTexCoord), texture(tex, fragTexCoord), 1.0f * abs(sin(currentTime))) ;
-//}
-
-#version 450 core 
-
-layout (location = 0) in vec3 position; 
-layout (location = 1) in vec3 color;
-layout (location = 2) in vec2 texCoord;
-
-out vec3 fragColor;
-out vec2 fragTexCoord;
+out vec4 color;
 
 uniform float currentTime;
-
-uniform mat4 translation;
-uniform mat4 rotation;
-uniform mat4 scale;
-
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 proj;
+//uniform sampler2D tex;
+uniform sampler2D tex;
 
 void main ()
 {
-	gl_Position = proj * view *  model *  vec4(position, 1.0);
-	//fragColor = color;
-	fragTexCoord = texCoord;
+	color = mix(texture(tex, fragTexCoord), texture(tex, fragTexCoord), 1.0f * abs(sin(currentTime))) ;
 }

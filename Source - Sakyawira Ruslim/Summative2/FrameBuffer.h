@@ -25,6 +25,7 @@ class FrameBuffer
         FrameBuffer(Shader* _shader, Mesh* _mesh);
         ~FrameBuffer();
 
+        void PrepareRender();
         void Render();
 
     private:

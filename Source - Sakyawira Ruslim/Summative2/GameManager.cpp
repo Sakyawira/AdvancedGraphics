@@ -32,11 +32,12 @@ GameManager::GameManager()
 	m_sh_reflective_ = new Shader("Resources/Shaders/FogReflectionVS.txt", "Resources/Shaders/FogReflectionFS.txt", m_v_sh);
 	m_sh_geometry_ = new Shader("Resources/Shaders/Geometry.VS", "Resources/Shaders/Geometry.FS", "Resources/Shaders/Geometry.GS", m_v_sh);
 	m_sh_tess_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/tess.FS", "Resources/Shaders/tessQuadModel.tcs","Resources/Shaders/tessQuadModel.tes", m_v_sh);
+	m_sh_chromatical = new Shader("Resources/Shaders/AnimationVertex.txt", "Resources/Shaders/Chromatical.FS", m_v_sh);
 
 	// Create Mesh
 	m_mesh_static = new Mesh(animation_indices, static_vertices, m_v_mesh);
 	m_mesh_animate = new Mesh(animation_indices, animation_vertices, m_v_mesh);
-	m_mesh_frameBuffer = new Mesh(animation_indices, enemy2_vertices, m_v_mesh);
+	m_mesh_frameBuffer = new Mesh(animation_indices, static_vertices, m_v_mesh);
 	m_mesh_scroll = new Mesh(animation_indices, animation_vertices, m_v_mesh);
 	m_mesh_player = new Mesh(animation_indices, player_animation_vertices, m_v_mesh);
 	m_mesh_pyramid = new Mesh(pyramid_indices, pyramid_vertices, m_v_mesh);
@@ -123,7 +124,7 @@ GameManager::GameManager()
 	m_mesh_terrain = new Terrain(tii, m_v_mesh);
 	terrain = new GameObject(m_sh_phong_diffuse_, m_mesh_terrain, plain_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 
-
+	m_frameBuffer = new FrameBuffer(m_sh_chromatical, m_mesh_static);
 	
 	this->initialize();
 }
@@ -229,6 +230,8 @@ void GameManager::render()
 //	glPolygonMode(GL_FRONT, GL_LINE);
 	if (m_b_initialized_ == 1)
 	{
+		m_frameBuffer->PrepareRender();
+
 		glEnable(GL_BLEND);
 		// Drawing all obstacles
 		//glEnable(GL_SCISSOR_TEST);
@@ -252,7 +255,7 @@ void GameManager::render()
 		//	coinObjects2->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		//}
 
-		//tank->draw_with_model(m_clock->GetDeltaTick());
+		// tank->draw_with_model(m_clock->GetDeltaTick());
 		
 		//enable stencil and set stencil operation 
 		glEnable(GL_STENCIL_TEST);
@@ -277,6 +280,9 @@ void GameManager::render()
 		glStencilMask(0x00); 
 		glDisable(GL_STENCIL_TEST);
 
+
+		m_frameBuffer->Render();
+
 		glStencilMask(0xFF);//enable writing to stencil buffer
 
 		
@@ -289,6 +295,7 @@ void GameManager::render()
 		
 		m_text_collision_->Render();
 		m_text_instruction_->Render();
+
 	}
 	else
 	{

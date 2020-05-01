@@ -7,7 +7,9 @@ FrameBuffer::FrameBuffer(Shader* _shader, Mesh* _mesh)
 
 	glGenTextures(1, &renderTexture);
 	glBindTexture(GL_TEXTURE_2D, renderTexture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 1280, 720, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL); 
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 800, 800, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL); 
+
+	glGenerateMipmap(GL_TEXTURE_2D);
 
 	glGenFramebuffers(1, &frameBuffer);
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
@@ -44,13 +46,18 @@ FrameBuffer::~FrameBuffer()
 
 }
 
-void FrameBuffer::Render()
+void FrameBuffer::PrepareRender()
 {
 	// Bind our framebuffer
-	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer); 
+	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 	glEnable(GL_DEPTH_TEST); // Depth is enabled to capture it
-	glClearColor(1.0f, 0.0f, 0.0f, 1.0f); 
+	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void FrameBuffer::Render()
+{
+
 	
 	/*
 	render objects here

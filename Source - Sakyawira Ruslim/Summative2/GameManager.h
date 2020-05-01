@@ -39,6 +39,7 @@
 #include "Terrain.h"
 #include "GeometryModel.h"
 #include "TessModel.h"
+#include "FrameBuffer.h"
 
 const int WINDOW_WIDHT = 800;
 const int WINDOW_HEIGHT = 800;
@@ -126,6 +127,9 @@ private:
 	Shader* m_sh_reflective_;
 	Shader* m_sh_geometry_;
 	Shader* m_sh_tess_;
+	Shader* m_sh_chromatical;
+
+	FrameBuffer* m_frameBuffer;
 
 	Texture* m_tr_down;
 	Texture* m_tr_plain;
@@ -134,7 +138,7 @@ private:
 	CubeMap* m_tr_cube_map;
 
 	Mesh* m_mesh_animate;
-	Mesh* m_mesh_animate2;
+	Mesh* m_mesh_frameBuffer;
 	Mesh* m_mesh_scroll;
 	Mesh* m_mesh_player;
 	Mesh* m_mesh_static;
