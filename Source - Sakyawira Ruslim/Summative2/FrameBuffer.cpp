@@ -64,7 +64,7 @@ void FrameBuffer::PrepareRender()
 	// Bind our framebuffer
 	glBindFramebuffer(GL_FRAMEBUFFER, frameBuffer);
 
-	glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+	glClearColor(0.5, 0.5, 0.5, 1.0f);
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -83,7 +83,7 @@ void FrameBuffer::Render(const GLchar* s_currentTime, GLfloat f_currentTime)
 	// Bind Default framebuffer 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); 
 
-	glClearColor(1.0f, 1.0f, 1.0f, 1.0f); 
+	glClearColor(0.5, 0.5, 0.5, 1.0);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	// glUseProgram(program);
