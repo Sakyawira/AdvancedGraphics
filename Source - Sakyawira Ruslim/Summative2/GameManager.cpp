@@ -124,7 +124,7 @@ GameManager::GameManager()
 	m_mesh_terrain = new Terrain(tii, m_v_mesh);
 	terrain = new GameObject(m_sh_phong_diffuse_, m_mesh_terrain, plain_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
 
-	m_frameBuffer = new FrameBuffer(m_sh_chromatical, m_mesh_static);
+	m_frameBuffer = new FrameBuffer(m_sh_chromatical, m_mesh_static, plain_texture);
 	
 	this->initialize();
 }

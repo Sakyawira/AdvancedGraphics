@@ -22,7 +22,7 @@
 class FrameBuffer 
 {
     public:
-        FrameBuffer(Shader* _shader, Mesh* _mesh);
+        FrameBuffer(Shader* _shader, Mesh* _mesh, std::vector<Texture*>& _texture);
         ~FrameBuffer();
 
         void PrepareRender();
@@ -35,4 +35,6 @@ class FrameBuffer
 
         Shader* m_shader;
         Mesh* m_mesh;
+        // Texture Vector
+        std::vector<Texture*> m_textures;
 };

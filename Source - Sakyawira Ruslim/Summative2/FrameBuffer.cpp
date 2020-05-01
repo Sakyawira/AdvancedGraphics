@@ -1,9 +1,10 @@
 #include "FrameBuffer.h"
 
-FrameBuffer::FrameBuffer(Shader* _shader, Mesh* _mesh)
+FrameBuffer::FrameBuffer(Shader* _shader, Mesh* _mesh, std::vector<Texture*>& _texture)
 {
 	m_shader = _shader;
 	m_mesh = _mesh;
+	m_textures = _texture;
 
 	glGenTextures(1, &renderTexture);
 	glBindTexture(GL_TEXTURE_2D, renderTexture);
@@ -72,6 +73,7 @@ void FrameBuffer::Render(const GLchar* s_currentTime, GLfloat f_currentTime)
 	// glUseProgram(program);
 	m_shader->Activate();
 	m_shader->PassUniform(s_currentTime, f_currentTime);
+	//m_shader->PassTexture(m_textures);
 	glActiveTexture(GL_TEXTURE0); 
 	glUniform1i(glGetUniformLocation(m_shader->GetProgram(), "renderTexture"), 0); 
 	glBindTexture(GL_TEXTURE_2D, renderTexture);
