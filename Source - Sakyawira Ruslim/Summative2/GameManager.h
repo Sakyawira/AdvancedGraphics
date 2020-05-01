@@ -69,6 +69,10 @@ public:
 	void set_mouse_pos(glm::vec2 mousePos_);
 
 	void set_click(bool newState);
+
+	void cube_follow_terrain();
+
+	GameObject* stencilCube;
 	
 private:
 
@@ -163,7 +167,6 @@ private:
 	GameObject* sphere;
 	GameObject* sky_box;
 
-	GameObject* stencilCube;
 	GameObject* stencilCube2;
 
 	GameObject* transparentCube;
@@ -406,5 +409,7 @@ private:
 		1, 2, 3, // First Triangle
 		1, 0, 2, // Second Triangle
 	};
+
+	float yPrevious = 0.0f;
 };
 

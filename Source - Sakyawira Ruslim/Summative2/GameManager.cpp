@@ -380,6 +380,25 @@ void GameManager::set_click(bool newState)
 	m_is_clicked_ = newState;
 }
 
+void GameManager::cube_follow_terrain()
+{
+	//Handle player y position when on terrain
+	float x = stencilCube->GetLocation().x;
+	float y = m_mesh_terrain->GetHeight(stencilCube->GetLocation()) + stencilCube->GetScale().y;
+	float z = stencilCube->GetLocation().z;
+
+	//Checks if player is off of the terrain
+	if (!isnan(y) && y != -99998)
+	{
+		yPrevious = y;
+		stencilCube->SetPos(glm::vec3(x, y, z));
+	}
+	else
+	{
+		stencilCube->SetPos(glm::vec3(x, yPrevious, z));
+	}
+}
+
 void GameManager::create_spheres(int _number_coins, int _border)
 {
 	std::vector<Texture*> plain_texture = { m_tr_plain};

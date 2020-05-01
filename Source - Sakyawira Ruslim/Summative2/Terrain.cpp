@@ -5,7 +5,7 @@
 * Auckland
 * New Zealand
 *
-* (c) 2005 - 2018 Media Design School
+* (c) 2018 Media Design School
 *
 * File Name		: "Terrain.cpp"
 * Description	: Terrain implementation file.
@@ -242,9 +242,9 @@ void Terrain::BuildVB()
 			vertices[i * m_info.NumCols + j].pos = glm::vec3(x, y, z);
 			vertices[i * m_info.NumCols + j].normal = glm::vec3(0.0f, 1.0f, 0.0f);
 
-			//// Stretch texture over grid.
-			//vertices[i*m_info.NumCols + j].texC.x = j*du;
-			//vertices[i*m_info.NumCols + j].texC.y = i*dv;
+			// Stretch texture over grid.
+			// vertices[i*m_info.NumCols + j].texC.x = j*du;
+			// vertices[i*m_info.NumCols + j].texC.y = i*dv;
 		}
 	}
 

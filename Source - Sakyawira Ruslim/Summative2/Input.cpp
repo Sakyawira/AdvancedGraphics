@@ -29,18 +29,22 @@ void Input::process_input(GameManager* Game, Audio& audio)
 	if (key_state_['w'] == INPUT_DOWN)
 	{
 		Game->camera.move_pos_z(15.0f, Game->get_clock()->GetDeltaTick());
+		Game->stencilCube->Move(MOVE_FRONT, 2.0f * Game->get_clock()->GetDeltaTick());
 	}
 	if (key_state_['s'] == INPUT_DOWN)
 	{
 		Game->camera.move_pos_z(-15.0f, Game->get_clock()->GetDeltaTick());
+		Game->stencilCube->Move(MOVE_BACK, 2.0f * Game->get_clock()->GetDeltaTick());
 	}
 	if (key_state_['d'] == INPUT_DOWN)
 	{
 		Game->camera.move_pos_x(-15.0f, Game->get_clock()->GetDeltaTick());
+		Game->stencilCube->Move(MOVE_RIGHT, 2.0f * Game->get_clock()->GetDeltaTick());
 	}
 	if (key_state_['a'] == INPUT_DOWN)
 	{
 		Game->camera.move_pos_x(15.0f, Game->get_clock()->GetDeltaTick());
+		Game->stencilCube->Move(MOVE_LEFT, 2.0f * Game->get_clock()->GetDeltaTick());
 	}
 	if (key_state_['r'] == INPUT_DOWN_FIRST)
 	{
