@@ -146,8 +146,8 @@ void GameManager::initialize()
 
 	// Reset Camera's Position
 	camera.set_pos_x(0.0f);
-	camera.set_pos_y(1.5f);
-	camera.set_pos_z(26.0f);
+	camera.set_pos_y(0.0f);
+	camera.set_pos_z(0.0f);
 
 	for (auto& coin : m_vector_coins)
 	{
@@ -252,12 +252,6 @@ void GameManager::render()
 		geomModel->render(glm::vec3(0.0f, 100.0f, 0.0f));
 		tessModel->render(glm::vec3(0.0f, 30.0f, 0.0f));
 
-		//// Drawing all obstacles
-		//for (auto& coinObjects2 : m_v_sphere)
-		//{
-		//	coinObjects2->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
-		//}
-
 		// tank->draw_with_model(m_clock->GetDeltaTick());
 		
 		//enable stencil and set stencil operation 
@@ -283,19 +277,15 @@ void GameManager::render()
 		glStencilMask(0x00); 
 		glDisable(GL_STENCIL_TEST);
 
-
-		m_frameBuffer->Render("currentTime", current_time_);
-
 		glStencilMask(0xFF);//enable writing to stencil buffer
 
-		
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		transparentCube->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 
 		glDisable(GL_BLEND);
 		
 		//glDisable(GL_SCISSOR_TEST);
-		
+		m_frameBuffer->Render("currentTime", current_time_);
 		m_text_collision_->Render();
 		m_text_instruction_->Render();
 
