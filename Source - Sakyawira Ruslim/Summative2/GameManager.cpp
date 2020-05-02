@@ -385,7 +385,7 @@ void GameManager::cube_follow_terrain()
 {
 	//Handle player y position when on terrain
 	float x = stencilCube->GetLocation().x;
-	float y = m_mesh_terrain->GetHeight(stencilCube->GetLocation()) + stencilCube->GetScale().y;
+	float y = m_mesh_terrain->GetHeight(stencilCube->GetLocation()) + stencilCube->GetExtents().y;
 	float z = stencilCube->GetLocation().z;
 
 	//Checks if player is off of the terrain
