@@ -115,14 +115,16 @@ GameManager::GameManager()
 	create_spheres(10, border);
 
 	Terrain::InitInfo tii;
-	tii.HeightmapFilename = "Resources/Terrain/HeightMap.raw";
-	tii.HeightScale = 0.15f;
-	tii.HeightOffset = -20.0f;
-	tii.NumRows = 257;
-	tii.NumCols = 257;
-	tii.CellSpacing = 1.0f;
+	tii.HeightmapFilename = "Resources/Terrain/coastMountain513.raw";
+	tii.HeightScale 	= 0.35f;
+	tii.HeightOffset	= -20.0f;
+	tii.NumRows 		= 513;
+	tii.NumCols 		= 513;
+	tii.CellSpacing 	= 1.0f;
 	m_mesh_terrain = new Terrain(tii, m_v_mesh);
 	terrain = new GameObject(m_sh_phong_diffuse_, m_mesh_terrain, plain_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
+	terrain->SetPos(glm::vec3(0.0f, -20.0f, 0.0f));
+
 
 	m_frameBuffer = new FrameBuffer(m_sh_chromatical, m_mesh_static, plain_texture);
 	
@@ -392,7 +394,7 @@ void GameManager::cube_follow_terrain()
 	if (!isnan(y) && y != -99998)
 	{
 		yPrevious = y;
-		stencilCube->SetPos(glm::vec3(x, y, z));
+		stencilCube->SetPos(glm::vec3(x, y -20.0f, z));
 	}
 	else
 	{
