@@ -235,5 +235,8 @@
     <None Include="Resources\Shaders\Chromatical.VS">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Resources\Shaders\Star.GS">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

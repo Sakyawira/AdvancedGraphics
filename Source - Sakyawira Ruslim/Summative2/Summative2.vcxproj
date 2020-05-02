@@ -214,6 +214,7 @@
     <None Include="Resources\Shaders\Chromatical.FS" />
     <None Include="Resources\Shaders\Reflection.fs" />
     <None Include="Resources\Shaders\Reflection.vs" />
+    <None Include="Resources\Shaders\Star.GS" />
     <None Include="Resources\Shaders\tess.FS" />
     <None Include="Resources\Shaders\tess.VS" />
     <None Include="Resources\Shaders\tessQuadModel.tcs" />

@@ -1,13 +1,17 @@
 #version 450 core 
+
 layout (points) in; 
+
 layout (triangle_strip, max_vertices = 3) out;
+
 out vec3 outColor;
-in VS_GS_VERTEX{ 
-in vec4 position; 
-in vec3 color; 
-in mat4 mvp; 
+	in VS_GS_VERTEX{ 
+	in vec4 position; 
+	in vec3 color; 
+	in mat4 mvp; 
 }
 gs_in[];
+
 void main() 
 {    
 	outColor = gs_in[0].color;
