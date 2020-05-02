@@ -73,17 +73,17 @@ GameManager::GameManager()
 	
 	// Texture Vectors to be passed in
 	std::vector<Texture*> v_water_texture = { m_tr_water, m_tr_water };
-	std::vector<Texture*> v_texture2 = { m_tr_up, m_tr_up };
-	std::vector<Texture*> v_down = { m_tr_down };
-	std::vector<Texture*> plain_texture = { m_tr_plain, m_tr_plain };
+	std::vector<Texture*> red_texture = { m_tr_up, m_tr_up };
 	std::vector<Texture*> v_cubeMap = { m_tr_cube_map };
-	std::vector<Texture*> v_up = {m_tr_up};
+	std::vector<Texture*> v_red = {m_tr_up};
+	std::vector<Texture*> v_blue = { m_tr_down };
+	std::vector<Texture*> v_yellow = { m_tr_plain, m_tr_plain };
 
 	// Stencil Cube
-	stencilCube2 = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_up, 0.0f, 0.0f, 0.0f, m_v_cubes);
+	stencilCube2 = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_blue, 0.0f, 0.0f, 0.0f, m_v_cubes);
 	stencilCube2->Scale(5.5f);
 	stencilCube2->Rotate(0.0f);
-	stencilCube = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, plain_texture, 0.0f, 0.0f, 0.0f, m_v_cubes);
+	stencilCube = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_red, 0.0f, 0.0f, 0.0f, m_v_cubes);
 	stencilCube->Scale(5.0f);
 	stencilCube->Rotate(0.0f);
 
@@ -95,15 +95,15 @@ GameManager::GameManager()
 	sky_box->Scale(2000.0f);
 
 	// Pyramid
-	button_down = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_down, -10.0f, 0.0f, 0.0f, m_v_cubes);
+	button_down = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_blue, -10.0f, 0.0f, 0.0f, m_v_cubes);
 	button_down->Scale(3.0f);
 
 	// Cube
-	button_up = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_up, 10.0f, 0.0f, 0.0f, m_v_cubes);
+	button_up = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_yellow, 10.0f, 0.0f, 0.0f, m_v_cubes);
 	button_up->Scale(3.0f);
 
 	// Sphere
-	sphere = new GameObject(m_sh_phong_diffuse_, m_mesh_sphere, plain_texture, 32.0f, 0.0f, 0.0f, m_v_sphere);
+	sphere = new GameObject(m_sh_phong_diffuse_, m_mesh_sphere, v_yellow, 32.0f, 0.0f, 0.0f, m_v_sphere);
 	sphere->Scale(5.0f);
 
 	// Tank
@@ -122,11 +122,11 @@ GameManager::GameManager()
 	tii.NumCols 		= 513;
 	tii.CellSpacing 	= 1.0f;
 	m_mesh_terrain = new Terrain(tii, m_v_mesh);
-	terrain = new GameObject(m_sh_phong_diffuse_, m_mesh_terrain, plain_texture, 0.0f, 0.0f, 0.0f, m_v_geometry);
+	terrain = new GameObject(m_sh_phong_diffuse_, m_mesh_terrain, v_yellow, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	terrain->SetPos(glm::vec3(0.0f, -20.0f, 0.0f));
 
 
-	m_frameBuffer = new FrameBuffer(m_sh_chromatical, m_mesh_static, plain_texture);
+	m_frameBuffer = new FrameBuffer(m_sh_chromatical, m_mesh_static, v_yellow);
 	
 	this->initialize();
 }
