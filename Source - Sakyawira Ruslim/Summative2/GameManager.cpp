@@ -230,12 +230,9 @@ void GameManager::process_game(Audio& audio)
 
 void GameManager::render()
 {
-//	glPolygonMode(GL_FRONT, GL_LINE);
+	glPolygonMode(GL_FRONT, GL_LINE);
 	if (m_b_initialized_ == 1)
 	{
-		
-
-		
 		// Drawing all obstacles
 		//glEnable(GL_SCISSOR_TEST);
 		//glScissor(0, 200, 800, 400);
