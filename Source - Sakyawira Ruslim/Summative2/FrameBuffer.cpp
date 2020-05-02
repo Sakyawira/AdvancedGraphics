@@ -66,7 +66,7 @@ void FrameBuffer::PrepareRender()
 
 	glClearColor(0.5, 0.5, 0.5, 1.0f);
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 	glEnable(GL_DEPTH_TEST); // Depth is enabled to capture it
 }

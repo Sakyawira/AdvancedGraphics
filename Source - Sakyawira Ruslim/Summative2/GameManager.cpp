@@ -255,8 +255,6 @@ void GameManager::render()
 		//sphere->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		geomModel->render(glm::vec3(0.0f, 100.0f, 0.0f));
 		tessModel->render(glm::vec3(0.0f, 30.0f, 0.0f));
-
-		// tank->draw_with_model(m_clock->GetDeltaTick());
 		
 		//enable stencil and set stencil operation 
 		glEnable(GL_STENCIL_TEST);
@@ -268,7 +266,6 @@ void GameManager::render()
 						0xFF);//mask value, 
 		glStencilMask(0xFF);//enable writing to stencil buffer
 		//--> render regular sized button_up // fills stencil buffer 
-		
 		stencilCube->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 
 		// ** 2nd pass ** 
@@ -286,7 +283,6 @@ void GameManager::render()
 
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		transparentCube->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
-
 		glDisable(GL_BLEND);
 		
 		//glDisable(GL_SCISSOR_TEST);
