@@ -195,6 +195,8 @@ void GameManager::process_game(Audio& audio)
 		{
 			m_text_collision_->SetText("Collided with a stenciled cube!");
 		}
+
+		cube_follow_terrain();
 	
 		//else if (picked_object == sphere)
 		//{
