@@ -19,7 +19,15 @@ TessModel::TessModel(GLuint program, Camera* camera)
 void TessModel::render(glm::vec3 position)
 {
 	glUseProgram(this->program);
-	glm::mat4 model; model = glm::translate(model, position);
+
+	//this->camera->use_camera(this->program);
+
+	float camDistance = glm::distance(position, camera->get_position());
+	GLint camDistanceLoc = glGetUniformLocation(program, "camDistance");
+	glUniform1f(camDistanceLoc, camDistance);
+
+	glm::mat4 model;
+	model = glm::translate(model, position);
 	glm::mat4 mvp = camera->get_projection() * camera->get_view() * model;
 	GLint mvLoc = glGetUniformLocation(program, "mvp");
 	glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvp));
