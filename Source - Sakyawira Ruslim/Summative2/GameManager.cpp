@@ -234,13 +234,14 @@ void GameManager::render()
 	{
 		
 
-		glEnable(GL_BLEND);
+		
 		// Drawing all obstacles
 		//glEnable(GL_SCISSOR_TEST);
 		//glScissor(0, 200, 800, 400);
 
 		//
 		m_frameBuffer->PrepareRender();
+		glEnable(GL_BLEND);
 
 		m_tr_cube_map->Render(m_sh_cube_map_, m_mesh_cube_map, camera);
 
@@ -274,6 +275,7 @@ void GameManager::render()
 		glStencilFunc(GL_NOTEQUAL, 1, 0xFF); 
 		glStencilMask(0x00); //disable writing to stencil buffer
 		//--> render scaled up button_up 
+		stencilCube2->SetPos(stencilCube->GetLocation());
 		stencilCube2->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		// write to areas where value is not equal to 1
 		// disable writing to stencil mask 
