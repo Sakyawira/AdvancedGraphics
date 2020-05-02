@@ -204,15 +204,14 @@ void GameManager::process_game(Audio& audio)
 		//{
 		//	m_text_collision_->SetText("Collided with a sphere!");
 		//}
+		current_time_ = static_cast<float>(glutGet(GLUT_ELAPSED_TIME)); // Get current time.
+		current_time_ = current_time_ * 0.001f;
 
 		if (m_b_start_)
 		{
 			// Update Texts
 			m_string_score_ = "Press 'R' to reset";
 			m_text_instruction_->SetText(m_string_score_);
-
-			current_time_ = static_cast<float>(glutGet(GLUT_ELAPSED_TIME)); // Get current time.
-			current_time_ = current_time_ * 0.001f;
 		}
 		else
 		{
