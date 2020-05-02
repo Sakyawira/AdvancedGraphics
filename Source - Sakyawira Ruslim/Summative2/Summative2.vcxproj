@@ -217,6 +217,7 @@
     <None Include="Resources\Shaders\Star.GS" />
     <None Include="Resources\Shaders\tess.FS" />
     <None Include="Resources\Shaders\tess.VS" />
+    <None Include="Resources\Shaders\tessLODQuadModel.tcs" />
     <None Include="Resources\Shaders\tessQuadModel.tcs" />
     <None Include="Resources\Shaders\tessQuadModel.tes" />
     <None Include="Resources\Shaders\tessTriModel.tcs" />
