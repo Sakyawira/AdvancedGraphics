@@ -122,7 +122,7 @@ private:
 	float frame_counts_ = 0;
 
 	Shader* m_sh_fogBox;
-	Shader* m_sh_animate_;
+	Shader* m_sh_lod_;
 	Shader* m_sh_fog_;
 	Shader* m_sh_phong_diffuse_;
 	Shader* m_sh_phong_specular_;
@@ -156,6 +156,7 @@ private:
 	Model* m_mdl_cat;
 	GeometryModel* geomModel;
 	TessModel* tessModel;
+	TessModel* lod_tessModel;
 
 	GameObject* tank;
 

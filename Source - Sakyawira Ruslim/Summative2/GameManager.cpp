@@ -23,7 +23,7 @@ GameManager::GameManager()
 	
 	// Create Shader
 	m_sh_fogBox = new Shader("Resources/Shaders/FogCubeMapVS.txt", "Resources/Shaders/FogCubeMapFS.txt", m_v_sh);
-	m_sh_animate_ = new Shader("Resources/Shaders/AnimationVertex.txt", "Resources/Shaders/AnimationFragment.txt", m_v_sh);
+	m_sh_lod_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/tess.FS", "Resources/Shaders/tessLODQuadModel.tcs", "Resources/Shaders/tessQuadModel.tes", m_v_sh);
 	m_sh_fog_ = new Shader("Resources/Shaders/FogPhongVS.txt", "Resources/Shaders/FogPhongDiffuseFS.txt", m_v_sh);
 	m_sh_phong_diffuse_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongDiffuse.fs", m_v_sh);
 	m_sh_phong_specular_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongSpecular.fs", m_v_sh);
@@ -50,6 +50,7 @@ GameManager::GameManager()
 	m_mdl_cat = new Model("Resources/Models/pug/Dog 1.obj", &camera);
 	geomModel = new GeometryModel(m_sh_geometry_->GetProgram(), &camera);
 	tessModel = new TessModel(m_sh_tess_->GetProgram(), &camera);
+	lod_tessModel = new TessModel(m_sh_lod_->GetProgram(), &camera);
 
 	// Text
 	std::string m_string_menu = "Sakyawira's Burnt Out";
@@ -253,6 +254,7 @@ void GameManager::render()
 		//sphere->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		geomModel->render(glm::vec3(-10.0f, 5.0f, 0.0f));
 		tessModel->render(glm::vec3(10.0f, 5.0f, 0.0f));
+		lod_tessModel->render(glm::vec3(0.0f, 10.0f, 0.0f));
 		
 		//enable stencil and set stencil operation 
 		glEnable(GL_STENCIL_TEST);
