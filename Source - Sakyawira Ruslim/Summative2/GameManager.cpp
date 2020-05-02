@@ -254,8 +254,8 @@ void GameManager::render()
 		button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		//sphere->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
-		geomModel->render(glm::vec3(0.0f, 100.0f, 0.0f));
-		tessModel->render(glm::vec3(0.0f, 30.0f, 0.0f));
+		geomModel->render(glm::vec3(-10.0f, 5.0f, 0.0f));
+		tessModel->render(glm::vec3(10.0f, 5.0f, 0.0f));
 		
 		//enable stencil and set stencil operation 
 		glEnable(GL_STENCIL_TEST);
