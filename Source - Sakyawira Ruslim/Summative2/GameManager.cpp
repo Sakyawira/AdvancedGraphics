@@ -80,14 +80,14 @@ GameManager::GameManager()
 	std::vector<Texture*> v_up = {m_tr_up};
 
 	// Stencil Cube
-	stencilCube2 = new GameObject(m_sh_fog_, m_mesh_cube, v_up, 0.0f, 0.0f, 0.0f, m_v_cubes);
+	stencilCube2 = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_up, 0.0f, 0.0f, 0.0f, m_v_cubes);
 	stencilCube2->Scale(5.5f);
 	stencilCube2->Rotate(0.0f);
-	stencilCube = new GameObject(m_sh_fog_, m_mesh_cube, plain_texture, 0.0f, 0.0f, 0.0f, m_v_cubes);
+	stencilCube = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, plain_texture, 0.0f, 0.0f, 0.0f, m_v_cubes);
 	stencilCube->Scale(5.0f);
 	stencilCube->Rotate(0.0f);
 
-	transparentCube = new GameObject(m_sh_fog_, m_mesh_cube, v_water_texture, 0.0f, -6.0f, 0.0f, m_v_geometry);
+	transparentCube = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_water_texture, 0.0f, -6.0f, 0.0f, m_v_geometry);
 	transparentCube->Scale(800.0f, 8.0f, 800.0f);
 
 	// Sky-box / Cube-Map
@@ -95,15 +95,15 @@ GameManager::GameManager()
 	sky_box->Scale(2000.0f);
 
 	// Pyramid
-	button_down = new GameObject(m_sh_fog_, m_mesh_cube, v_down, -10.0f, 0.0f, 0.0f, m_v_cubes);
+	button_down = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_down, -10.0f, 0.0f, 0.0f, m_v_cubes);
 	button_down->Scale(3.0f);
 
 	// Cube
-	button_up = new GameObject(m_sh_fog_, m_mesh_cube, v_up, 10.0f, 0.0f, 0.0f, m_v_cubes);
+	button_up = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_up, 10.0f, 0.0f, 0.0f, m_v_cubes);
 	button_up->Scale(3.0f);
 
 	// Sphere
-	sphere = new GameObject(m_sh_fog_, m_mesh_sphere, plain_texture, 32.0f, 0.0f, 0.0f, m_v_sphere);
+	sphere = new GameObject(m_sh_phong_diffuse_, m_mesh_sphere, plain_texture, 32.0f, 0.0f, 0.0f, m_v_sphere);
 	sphere->Scale(5.0f);
 
 	// Tank
@@ -240,12 +240,13 @@ void GameManager::render()
 		//glScissor(0, 200, 800, 400);
 
 		//
+		m_frameBuffer->PrepareRender();
 
 		m_tr_cube_map->Render(m_sh_cube_map_, m_mesh_cube_map, camera);
 
 		frame_counts_ += 1.0f * m_clock_->GetDeltaTick() * 120.0f;
 
-		m_frameBuffer->PrepareRender();
+		
 
 		button_up->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
