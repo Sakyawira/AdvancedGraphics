@@ -104,10 +104,10 @@ GLuint ShaderLoader::CreateProgram(const char* vertexShaderFilename, const char*
 	const GLuint vertexShaderID = CreateShader(GL_VERTEX_SHADER, vertexShaderFilename);
 	const GLuint fragmentShaderID = CreateShader(GL_FRAGMENT_SHADER, fragmentShaderFilename);
 
-	GLuint tessControl_shader = CreateShader(GL_TESS_CONTROL_SHADER, TessControlShaderFilename);
-	GLuint tessEval_shader = CreateShader(GL_TESS_EVALUATION_SHADER, TessEvalShaderFilename);
+	GLuint tessControl_shaderID = CreateShader(GL_TESS_CONTROL_SHADER, TessControlShaderFilename);
+	GLuint tessEval_shaderID = CreateShader(GL_TESS_EVALUATION_SHADER, TessEvalShaderFilename);
 
-	std::string combinedShader = std::to_string(vertexShaderID) + std::to_string(fragmentShaderID);
+	std::string combinedShader = std::to_string(vertexShaderID) + std::to_string(fragmentShaderID) + std::to_string(tessControl_shaderID) + std::to_string(tessEval_shaderID);
 
 	for (auto& pair : getInstance().shaderMap)
 	{
@@ -121,8 +121,8 @@ GLuint ShaderLoader::CreateProgram(const char* vertexShaderFilename, const char*
 	glAttachShader(program, vertexShaderID);
 	glAttachShader(program, fragmentShaderID);
 
-	glAttachShader(program, tessControl_shader);
-	glAttachShader(program, tessEval_shader);
+	glAttachShader(program, tessControl_shaderID);
+	glAttachShader(program, tessEval_shaderID);
 
 	//Linking the program
 	glLinkProgram(program);
