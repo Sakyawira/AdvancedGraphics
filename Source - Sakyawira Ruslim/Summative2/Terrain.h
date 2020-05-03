@@ -66,10 +66,10 @@ public:
 private:
 	InitInfo m_info;
 
-	GLuint m_uiNumVertices;
-	GLuint m_uiNumFaces;
+	GLuint m_vertices_number_;
+	GLuint m_faces_number_;
 
-	std::vector<float> m_vHeightmap;
+	std::vector<float> m_v_heightmap;
 
 	GLsizei indicesSize;
 	std::vector<TerrainVertex> vertices;

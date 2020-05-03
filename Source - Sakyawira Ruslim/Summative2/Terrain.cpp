@@ -31,8 +31,8 @@ Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector)
 	m_info.NumCols				= _info.NumCols;
 	m_info.CellSpacing			= _info.CellSpacing;
 
-	m_uiNumVertices = m_info.NumRows * m_info.NumCols;
-	m_uiNumFaces = (m_info.NumRows - 1) * (m_info.NumCols - 1) * 2;
+	m_vertices_number_ = m_info.NumRows * m_info.NumCols;
+	m_faces_number_ = (m_info.NumRows - 1) * (m_info.NumCols - 1) * 2;
 
 	load_heightmap();
 	smooth();
@@ -78,10 +78,10 @@ float Terrain::get_height(glm::vec3 _position) const
 	//  | /|
 	//  |/ |
 	// C*--*D
-	float A = m_vHeightmap[row * m_info.NumCols + col];
-	float B = m_vHeightmap[row * m_info.NumCols + col + 1];
-	float C = m_vHeightmap[(row + 1) * m_info.NumCols + col];
-	float D = m_vHeightmap[(row + 1) * m_info.NumCols + col + 1];
+	float A = m_v_heightmap[row * m_info.NumCols + col];
+	float B = m_v_heightmap[row * m_info.NumCols + col + 1];
+	float C = m_v_heightmap[(row + 1) * m_info.NumCols + col];
+	float D = m_v_heightmap[(row + 1) * m_info.NumCols + col + 1];
 
 	// Where we are relative to the cell.
 	float s = c - (float)col;
@@ -143,10 +143,10 @@ void Terrain::load_heightmap()
 	}
 
 	// Copy the array data into a float array, and scale and offset the heights.
-	m_vHeightmap.resize(m_info.NumRows * m_info.NumCols, 0);
+	m_v_heightmap.resize(m_info.NumRows * m_info.NumCols, 0);
 	for (UINT i = 0; i < m_info.NumRows * m_info.NumCols; ++i)
 	{
-		m_vHeightmap[i] = static_cast<float>(in[i]) * m_info.HeightScale + m_info.HeightOffset;
+		m_v_heightmap[i] = static_cast<float>(in[i]) * m_info.HeightScale + m_info.HeightOffset;
 	}
 }
 
@@ -155,7 +155,7 @@ void Terrain::load_heightmap()
 ***********************/
 void Terrain::smooth()
 {
-	std::vector<float> dest(m_vHeightmap.size());
+	std::vector<float> dest(m_v_heightmap.size());
 
 	for (GLuint i = 0; i < m_info.NumRows; ++i)
 	{
@@ -166,7 +166,7 @@ void Terrain::smooth()
 	}
 
 	// Replace the old heightmap with the filtered one.
-	m_vHeightmap = dest;
+	m_v_heightmap = dest;
 }
 
 /***********************
@@ -209,7 +209,7 @@ float Terrain::average(GLuint i, GLuint j)
 		{
 			if (in_bounds(m, n))
 			{
-				avg += m_vHeightmap[m * m_info.NumCols + n];
+				avg += m_v_heightmap[m * m_info.NumCols + n];
 				num += 1.0f;
 			}
 		}
@@ -224,7 +224,7 @@ float Terrain::average(GLuint i, GLuint j)
 ***********************/
 void Terrain::build_vb()
 {
-	vertices.resize(m_uiNumVertices);
+	vertices.resize(m_vertices_number_);
 
 	float halfWidth = (m_info.NumCols - 1) * m_info.CellSpacing * 0.5f;
 	float halfDepth = (m_info.NumRows - 1) * m_info.CellSpacing * 0.5f;
@@ -238,7 +238,7 @@ void Terrain::build_vb()
 		{
 			float x = -halfWidth + j * m_info.CellSpacing;
 
-			float y = m_vHeightmap[i * m_info.NumCols + j];
+			float y = m_v_heightmap[i * m_info.NumCols + j];
 			vertices[i * m_info.NumCols + j].pos = glm::vec3(x, y, z);
 			vertices[i * m_info.NumCols + j].normal = glm::vec3(0.0f, 1.0f, 0.0f);
 
@@ -255,10 +255,10 @@ void Terrain::build_vb()
 	{
 		for (UINT j = 2; j < m_info.NumCols - 1; ++j)
 		{
-			float t = m_vHeightmap[(i - 1) * m_info.NumCols + j];
-			float b = m_vHeightmap[(i + 1) * m_info.NumCols + j];
-			float l = m_vHeightmap[i * m_info.NumCols + j - 1];
-			float r = m_vHeightmap[i * m_info.NumCols + j + 1];
+			float t = m_v_heightmap[(i - 1) * m_info.NumCols + j];
+			float b = m_v_heightmap[(i + 1) * m_info.NumCols + j];
+			float l = m_v_heightmap[i * m_info.NumCols + j - 1];
+			float r = m_v_heightmap[i * m_info.NumCols + j + 1];
 
 			glm::vec3 tanZ(0.0f, (t - b) * invTwoDZ, 1.0f);
 			glm::vec3 tanX(1.0f, (r - l) * invTwoDX, 0.0f);
@@ -286,7 +286,7 @@ void Terrain::build_vb()
 ***********************/
 void Terrain::build_ib()
 {
-	indices.resize(m_uiNumFaces * 3); // 3 indices per face
+	indices.resize(m_faces_number_ * 3); // 3 indices per face
 											   // Iterate over each quad and compute indices.
 	int k = 0;
 	for (UINT i = 0; i < m_info.NumRows - 1; ++i)
