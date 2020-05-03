@@ -53,6 +53,8 @@ public:
 
 	float get_height(glm::vec3 _position)const;
 
+private:
+
 	float width()const;
 	float depth()const;
 
@@ -60,10 +62,10 @@ public:
 	void smooth();
 	bool in_bounds(GLuint i, GLuint j);
 	float average(GLuint i, GLuint j);
+
 	void build_vb();
 	void build_ib();
 
-private:
 	InitInfo m_info;
 
 	GLuint m_vertices_number_;
