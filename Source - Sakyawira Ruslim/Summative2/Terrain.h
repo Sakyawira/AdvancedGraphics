@@ -51,17 +51,17 @@ public:
 	Terrain(InitInfo _info, std::vector<Mesh*>& meshVector);
 	~Terrain() {};
 
-	float GetHeight(glm::vec3 _position)const;
+	float get_height(glm::vec3 _position)const;
 
-	float Width()const;
-	float Depth()const;
+	float width()const;
+	float depth()const;
 
-	void LoadHeightmap();
-	void Smooth();
-	bool InBounds(GLuint i, GLuint j);
-	float Average(GLuint i, GLuint j);
-	void BuildVB();
-	void BuildIB();
+	void load_heightmap();
+	void smooth();
+	bool in_bounds(GLuint i, GLuint j);
+	float average(GLuint i, GLuint j);
+	void build_vb();
+	void build_ib();
 
 private:
 	InitInfo m_info;

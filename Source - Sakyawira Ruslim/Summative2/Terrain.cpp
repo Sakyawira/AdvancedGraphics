@@ -34,10 +34,10 @@ Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector)
 	m_uiNumVertices = m_info.NumRows * m_info.NumCols;
 	m_uiNumFaces = (m_info.NumRows - 1) * (m_info.NumCols - 1) * 2;
 
-	LoadHeightmap();
-	Smooth();
-	BuildVB();
-	BuildIB();
+	load_heightmap();
+	smooth();
+	build_vb();
+	build_ib();
 
 	//Position attribute
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(TerrainVertex), (GLvoid*)0);
@@ -55,14 +55,14 @@ Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector)
 * @author: Sakyawira
 * @return: height position on terrain OR a very big negative value (-FLT_MAX) if not on the terrain.
 ***********************/
-float Terrain::GetHeight(glm::vec3 _position) const
+float Terrain::get_height(glm::vec3 _position) const
 {
 	float x = _position.x;
 	float z = _position.z;
 
 	// Transform from terrain local space to "cell" space.
-	float c = (x + 0.5f * Width()) / m_info.CellSpacing;
-	float d = (z - 0.5f * Depth()) / -m_info.CellSpacing;
+	float c = (x + 0.5f * width()) / m_info.CellSpacing;
+	float d = (z - 0.5f * depth()) / -m_info.CellSpacing;
 
 	// Get the row and column we are in.
 	int row = (int)floorf(d);
@@ -106,7 +106,7 @@ float Terrain::GetHeight(glm::vec3 _position) const
 * Width: Gets the width of a cell
 * @return: the width of a cell
 ***********************/
-float Terrain::Width() const
+float Terrain::width() const
 {
 	return (m_info.NumCols - 1) * m_info.CellSpacing;
 }
@@ -115,7 +115,7 @@ float Terrain::Width() const
 * Depth: Gets the depth of a cell
 * @return: the depth of a cell
 ***********************/
-float Terrain::Depth() const
+float Terrain::depth() const
 {
 	return (m_info.NumRows - 1) * m_info.CellSpacing;
 }
@@ -124,7 +124,7 @@ float Terrain::Depth() const
 * LoadHeightmap: Loads heightmap from raw file
 * @author: Sakyawira
 ***********************/
-void Terrain::LoadHeightmap()
+void Terrain::load_heightmap()
 {
 	// A height for each vertex
 	std::vector<unsigned char> in(m_info.NumRows * m_info.NumCols);
@@ -153,7 +153,7 @@ void Terrain::LoadHeightmap()
 /***********************
 * Smooth: Smooths the heightmap
 ***********************/
-void Terrain::Smooth()
+void Terrain::smooth()
 {
 	std::vector<float> dest(m_vHeightmap.size());
 
@@ -161,7 +161,7 @@ void Terrain::Smooth()
 	{
 		for (GLuint j = 0; j < m_info.NumCols; ++j)
 		{
-			dest[i * m_info.NumCols + j] = Average(i, j);
+			dest[i * m_info.NumCols + j] = average(i, j);
 		}
 	}
 
@@ -173,7 +173,7 @@ void Terrain::Smooth()
 * InBounds: Check if ij are valid indices
 * return: whether indices are valid
 ***********************/
-bool Terrain::InBounds(GLuint i, GLuint j)
+bool Terrain::in_bounds(GLuint i, GLuint j)
 {
 	// True if ij are valid indices; false otherwise.
 	return
@@ -185,7 +185,7 @@ bool Terrain::InBounds(GLuint i, GLuint j)
 * Average: Computes the average height of ij
 * return: the average height computed
 ***********************/
-float Terrain::Average(GLuint i, GLuint j)
+float Terrain::average(GLuint i, GLuint j)
 {
 	// Function computes the average height of the ij element.
 	// It averages itself with its eight neighbor pixels.  Note
@@ -207,7 +207,7 @@ float Terrain::Average(GLuint i, GLuint j)
 	{
 		for (UINT n = j - 1; n <= j + 1; ++n)
 		{
-			if (InBounds(m, n))
+			if (in_bounds(m, n))
 			{
 				avg += m_vHeightmap[m * m_info.NumCols + n];
 				num += 1.0f;
@@ -222,7 +222,7 @@ float Terrain::Average(GLuint i, GLuint j)
 * BuildVB: Creates vertex buffer for the terrain
 * @author: Sakyawira
 ***********************/
-void Terrain::BuildVB()
+void Terrain::build_vb()
 {
 	vertices.resize(m_uiNumVertices);
 
@@ -284,7 +284,7 @@ void Terrain::BuildVB()
 * BuildIB: Creates index buffer for the terrain
 * @author: Sakyawira
 ***********************/
-void Terrain::BuildIB()
+void Terrain::build_ib()
 {
 	indices.resize(m_uiNumFaces * 3); // 3 indices per face
 											   // Iterate over each quad and compute indices.
