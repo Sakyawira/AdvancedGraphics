@@ -241,5 +241,8 @@
     <None Include="Resources\Shaders\tessLODQuadModel.tcs">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Resources\Shaders\Quad.GS">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
