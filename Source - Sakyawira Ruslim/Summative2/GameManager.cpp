@@ -252,7 +252,7 @@ void GameManager::render()
 		button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		//sphere->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
-		geomModel->render(glm::vec3(-10.0f, 5.0f, 0.0f), m_tr_up);
+		geomModel->render(glm::vec3(-10.0f, 5.0f, 0.0f), m_tr_water);
 		tessModel->render(glm::vec3(10.0f, 5.0f, 0.0f));
 		lod_tessModel->render(glm::vec3(0.0f, 10.0f, 0.0f));
 		

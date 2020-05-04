@@ -17,20 +17,20 @@ void main()
 	outColor = gs_in[0].color;
 
 	// Left Triangle
-	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(1.3f, -1.95f, 0.0f, 0.0f); EmitVertex();
-	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(0.0f, -1.17f, 0.0f, 0.0f); EmitVertex();
-	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(0.0f, 1.3f, 0.0f, 0.0f);   EmitVertex();
+	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(1.3f, -1.95f, 0.0f, 0.0f);  EmitVertex();
+	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(0.0f, -1.17f, 0.0f, 0.0f);  EmitVertex();
+	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(0.0f, 1.3f, 0.0f, 0.0f);    EmitVertex();
 	EndPrimitive();
 
 	// Right Triangle
-	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(0.0f, 1.3f, 0.0f, 0.0f);  EmitVertex();
-	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(0.0f, -1.17f, 0.0f, 0.0f); EmitVertex();	
-	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(-1.3f, -1.95f, 0.0f, 0.0f);EmitVertex();
+	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(0.0f, 1.3f, 0.0f, 0.0f);	  EmitVertex();
+	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(0.0f, -1.17f, 0.0f, 0.0f);  EmitVertex();	
+	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(-1.3f, -1.95f, 0.0f, 0.0f); EmitVertex();
 	EndPrimitive();	
 
 	// Middle Triangle
-	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(0.0f, -1.17f, 0.0f, 0.0f); EmitVertex();
+	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(0.0f, -1.17f, 0.0f, 0.0f);  EmitVertex();
 	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(-1.95f, 0.26f, 0.0f, 0.0f); EmitVertex();
-	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(1.95f, 0.26f, 0.0f, 0.0f); EmitVertex();
+	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(1.95f, 0.26f, 0.0f, 0.0f);  EmitVertex();
 	EndPrimitive();	
 }
