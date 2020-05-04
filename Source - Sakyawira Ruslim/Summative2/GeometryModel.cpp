@@ -6,17 +6,30 @@ GeometryModel::GeometryModel(GLuint program, Camera* camera)
 	this->camera = camera;
 	GLfloat points[] = 
 	{ 
-		0.0f,  0.0f, 0.0f, 1.0f, 0.0f, 0.0f, //passing in 1 point 
+		0.0f,  0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f//passing in 1 point 
 	};
 	glBindVertexArray(m_VAO);
 	glGenBuffers(1, &m_VBO);
 	glGenVertexArrays(1, &m_VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(points), &points, GL_STATIC_DRAW);
+
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), 0);
+
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+
+	glEnableVertexAttribArray(2);
+	glVertexAttribPointer(
+		2,
+		2,									// 2 float components for coordinates 
+		GL_FLOAT,
+		GL_FALSE,
+		8 * sizeof(GLfloat),				// Stride the single vertex (pos + color + tex)
+		(GLvoid*)(6 * sizeof(GLfloat)));	// offset from beginning of Vertex
+	
+
 	glBindVertexArray(0);
 }
 
@@ -25,9 +38,14 @@ GeometryModel::~GeometryModel()
 
 }
 
-void GeometryModel::render(glm::vec3 position) 
+void GeometryModel::render(glm::vec3 position, Texture* _texture)
 {
 	glUseProgram(this->program);
+
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, _texture->GetID());
+	const GLchar* name = "tex";
+	glUniform1i(glGetUniformLocation(program, name), 0);
 
 	glm::mat4 model;
 	model = glm::translate(model, position);

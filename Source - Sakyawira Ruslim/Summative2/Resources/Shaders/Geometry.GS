@@ -8,14 +8,15 @@ layout (triangle_strip, max_vertices = 3) out;
 //    vec2 texCoords;
 //} gs_in[];
 
-//out vec2 TexCoords; 
+out vec2 TexCoords; 
 
 out vec3 outColor;
 
 in VS_GS_VERTEX{ 
 	in vec4 position; 
 	in vec3 color; 
-	in mat4 mvp; 
+	in mat4 mvp;
+	in vec2 texCoords;
 }
 gs_in[];
 
@@ -23,15 +24,15 @@ void main()
 {    
 	outColor = gs_in[0].color;
 	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(-2.0f, 0.0f, 0.0f, 0.0f); 
-	//TexCoords = gs_in[0].texCoords;
+	TexCoords = vec2(0.0f, 0.0f);
 	EmitVertex(); 
 	
 	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(2.0f, 0.0f, 0.0f, 0.0f); 
-	//TexCoords = gs_in[1].texCoords;
+	TexCoords = vec2(1.0f, 0.0f);
 	EmitVertex(); 
 	
 	gl_Position = gs_in[0].position + gs_in[0].mvp * vec4(0.0f, 2.0f, 0.0f, 0.0f);  
-	//TexCoords = gs_in[2].texCoords;
+	TexCoords = vec2(0.5f, 1.0f);
 	EmitVertex();
 
 	EndPrimitive();

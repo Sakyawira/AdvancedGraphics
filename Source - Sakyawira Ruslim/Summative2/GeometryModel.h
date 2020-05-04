@@ -24,6 +24,7 @@ using namespace std;
 
 #include "Mesh.h"
 #include "Camera.h"
+#include "Texture.h"
 
 class GeometryModel : public Mesh
 {
@@ -31,7 +32,7 @@ class GeometryModel : public Mesh
 		GeometryModel(GLuint program, Camera* camera);
 		~GeometryModel();
 
-		void render(glm::vec3 position);
+		void render(glm::vec3 position, Texture* _texture);
 
 	private:
 		GLuint program;
