@@ -139,6 +139,7 @@ private:
 	Texture* m_tr_plain;
 	Texture* m_tr_up;
 	Texture* m_tr_water;
+	Texture* m_tr_grass;
 	CubeMap* m_tr_cube_map;
 
 	Mesh* m_mesh_animate;

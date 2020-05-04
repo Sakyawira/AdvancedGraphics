@@ -69,6 +69,7 @@ GameManager::GameManager()
 	m_tr_plain = new Texture("Resources/Textures/bullet.png");
 	m_tr_up = new Texture("Resources/Textures/up.png");
 	m_tr_water = new Texture("Resources/Textures/green.png");
+	m_tr_grass = new Texture("Resources/Textures/grass-texture-png-2.png");
 	std::vector<const char*> textureDirs = {"right.jpg", "left.jpg", "top.jpg", "bottom.jpg", "back.jpg", "front.jpg"};
 	m_tr_cube_map = new CubeMap(textureDirs);
 	
@@ -262,7 +263,7 @@ void GameManager::render()
 			i++;
 			if (i % 100 == 0)
 			{
-				geomModel->render(point.pos, m_tr_up);
+				geomModel->render(glm::vec3(point.pos.x, point.pos.y - 20, point.pos.z), m_tr_grass);
 			}
 			
 		}
