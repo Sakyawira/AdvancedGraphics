@@ -130,6 +130,7 @@ private:
 	Shader* m_sh_cube_map_;
 	Shader* m_sh_reflective_;
 	Shader* m_sh_geometry_;
+	Shader* m_sh_star_geo_;
 	Shader* m_sh_tess_;
 	Shader* m_sh_chromatical;
 
@@ -156,6 +157,7 @@ private:
 	Model* m_mdl_tank;
 	Model* m_mdl_cat;
 	GeometryModel* geomModel;
+	GeometryModel* starModel;
 	TessModel* tessModel;
 	TessModel* lod_tessModel;
 

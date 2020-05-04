@@ -30,6 +30,7 @@ GameManager::GameManager()
 	m_sh_cube_map_ = new Shader("Resources/Shaders/CubeMapVS.txt", "Resources/Shaders/CubeMapFS.txt", m_v_sh);
 	m_sh_reflective_ = new Shader("Resources/Shaders/FogReflectionVS.txt", "Resources/Shaders/FogReflectionFS.txt", m_v_sh);
 	m_sh_geometry_ = new Shader("Resources/Shaders/Geometry.VS", "Resources/Shaders/Geometry.FS", "Resources/Shaders/Quad.GS", m_v_sh);
+	m_sh_star_geo_ = new Shader("Resources/Shaders/Geometry.VS", "Resources/Shaders/Geometry.FS", "Resources/Shaders/Star.GS", m_v_sh);
 	m_sh_tess_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/tess.FS", "Resources/Shaders/tessQuadModel.tcs","Resources/Shaders/tessQuadModel.tes", m_v_sh);
 	m_sh_lod_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/tess.FS", "Resources/Shaders/tessLODQuadModel.tcs", "Resources/Shaders/tessQuadModel.tes", m_v_sh);
 	m_sh_chromatical = new Shader("Resources/Shaders/Chromatical.VS", "Resources/Shaders/Chromatical.FS", m_v_sh);
@@ -49,6 +50,7 @@ GameManager::GameManager()
 	m_mdl_tank = new Model("Resources/Models/Tank/Tank.obj", &camera);
 	m_mdl_cat = new Model("Resources/Models/pug/Dog 1.obj", &camera);
 	geomModel = new GeometryModel(m_sh_geometry_->GetProgram(), &camera);
+	starModel = new GeometryModel(m_sh_star_geo_->GetProgram(), &camera);
 	tessModel = new TessModel(m_sh_tess_->GetProgram(), &camera);
 	lod_tessModel = new TessModel(m_sh_lod_->GetProgram(), &camera);
 
@@ -253,7 +255,7 @@ void GameManager::render()
 		button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		//sphere->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
-		geomModel->render(glm::vec3(-10.0f, 5.0f, 0.0f), m_tr_water);
+		starModel->render(glm::vec3(-10.0f, 5.0f, 0.0f), m_tr_water);
 		tessModel->render(glm::vec3(10.0f, 5.0f, 0.0f));
 		lod_tessModel->render(glm::vec3(0.0f, 10.0f, 0.0f));
 
