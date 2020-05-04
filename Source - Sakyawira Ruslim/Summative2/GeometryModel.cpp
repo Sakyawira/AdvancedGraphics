@@ -8,10 +8,10 @@ GeometryModel::GeometryModel(GLuint program, Camera* camera)
 	{ 
 		0.0f,  0.0f, 0.0f, 1.0f, 0.0f, 0.0f, //passing in 1 point 
 	};
-	glBindVertexArray(VAO);
-	glGenBuffers(1, &VBO);
-	glGenVertexArrays(1, &VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBindVertexArray(m_VAO);
+	glGenBuffers(1, &m_VBO);
+	glGenVertexArrays(1, &m_VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(points), &points, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), 0);
@@ -28,12 +28,14 @@ GeometryModel::~GeometryModel()
 void GeometryModel::render(glm::vec3 position) 
 {
 	glUseProgram(this->program);
+
 	glm::mat4 model;
 	model = glm::translate(model, position);
 	glm::mat4 mvp = camera->get_projection() * camera->get_view() * model;
 	GLint vpLoc = glGetUniformLocation(program, "mvp");
 	glUniformMatrix4fv(vpLoc, 1, GL_FALSE, glm::value_ptr(mvp));
-	glBindVertexArray(VAO);
+
+	glBindVertexArray(m_VAO);
 	glDrawArrays(GL_POINTS, 0, 1);
 	glBindVertexArray(0);
 }

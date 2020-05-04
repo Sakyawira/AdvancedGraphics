@@ -22,9 +22,10 @@ using namespace std;
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+#include "Mesh.h"
 #include "Camera.h"
 
-class GeometryModel
+class GeometryModel : public Mesh
 {
 	public:
 		GeometryModel(GLuint program, Camera* camera);
@@ -35,6 +36,6 @@ class GeometryModel
 	private:
 		GLuint program;
 		Camera* camera;
-		GLuint VAO, VBO, EBO;
+		//GLuint VAO, VBO, EBO;
 
 };
