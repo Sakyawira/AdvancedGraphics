@@ -256,10 +256,11 @@ void GameManager::render()
 		tessModel->render(glm::vec3(10.0f, 5.0f, 0.0f));
 		lod_tessModel->render(glm::vec3(0.0f, 10.0f, 0.0f));
 
-		//int i = 0;
+		int i = 0;
 		for (auto point : *(m_mesh_terrain->get_vertices()))
 		{
-			if (rand() % 100 == 0)
+			i++;
+			if (i % 100 == 0)
 			{
 				geomModel->render(point.pos, m_tr_up);
 			}
