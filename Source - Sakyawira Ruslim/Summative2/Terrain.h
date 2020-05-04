@@ -24,14 +24,12 @@
 * Mail			: Sakyawira.Rus8080@mediadesign.school.nz
 ******************************************************/
 
-namespace
+
+struct TerrainVertex
 {
-	struct TerrainVertex
-	{
-		glm::vec3 pos;
-		glm::vec3 normal;
-	};
-}
+	glm::vec3 pos;
+	glm::vec3 normal;
+};
 
 class Terrain : public Mesh
 {
@@ -52,6 +50,7 @@ public:
 	~Terrain() {};
 
 	float get_height(glm::vec3 _position)const;
+	std::vector<TerrainVertex>* get_vertices();
 
 private:
 

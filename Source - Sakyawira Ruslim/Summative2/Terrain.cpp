@@ -102,6 +102,11 @@ float Terrain::get_height(glm::vec3 _position) const
 	}
 }
 
+std::vector<TerrainVertex>* Terrain::get_vertices()
+{
+	return &vertices;
+}
+
 /***********************
 * Width: Gets the width of a cell
 * @return: the width of a cell
