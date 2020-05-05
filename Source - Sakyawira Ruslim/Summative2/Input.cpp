@@ -22,10 +22,6 @@ void Input::process_input(GameManager* Game, Audio& audio)
 		key_state_['d'] = INPUT_DOWN;
 	}
 
-	if (key_state_[32] == INPUT_DOWN_FIRST)
-	{
-	}
-
 	if (key_state_['w'] == INPUT_DOWN)
 	{
 		Game->camera.move_pos_z(15.0f, Game->get_clock()->GetDeltaTick());
@@ -82,14 +78,17 @@ void Input::process_input(GameManager* Game, Audio& audio)
 		key_state_['r'] = INPUT_DOWN;
 	}
 
-	if (key_state_['e'] == INPUT_DOWN)
+	if (key_state_[32] == INPUT_DOWN_FIRST)
 	{
-		//Game->camera.MovePosY(-0.1f * Game->GetClock()->GetDeltaTick() * 120.0f);
-	}
-
-	if (key_state_['q'] == INPUT_DOWN)
-	{
-	//	Game->camera.MovePosY(0.1f * Game->GetClock()->GetDeltaTick() * 120.0f);
+		if (Game->m_b_wireframe == false)
+		{
+			Game->m_b_wireframe = true;
+		}
+		else
+		{
+			Game->m_b_wireframe = false;
+		}
+		key_state_[32] = INPUT_DOWN;
 	}
 
 	//if (SpecialKeyState[GLUT_KEY_UP] == INPUT_DOWN || KeyState['w'] == INPUT_DOWN)

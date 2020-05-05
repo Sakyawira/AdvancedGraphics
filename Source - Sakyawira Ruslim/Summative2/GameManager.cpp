@@ -240,7 +240,11 @@ void GameManager::process_game(Audio& audio)
 
 void GameManager::render()
 {
-	//glPolygonMode(GL_FRONT, GL_LINE);
+	if (m_b_wireframe)
+	{
+		glPolygonMode(GL_FRONT, GL_LINE);
+	}
+	
 	if (m_b_initialized_ == 1)
 	{
 		// Drawing all obstacles
@@ -404,12 +408,12 @@ void GameManager::cube_follow_terrain()
 	//Checks if player is off of the terrain
 	if (!isnan(y) && y != -99998)
 	{
-		yPrevious = y;
+		m_cube_previous_y = y;
 		stencilCube->SetPos(glm::vec3(x, y -20.0f, z));
 	}
 	else
 	{
-		stencilCube->SetPos(glm::vec3(x, yPrevious, z));
+		stencilCube->SetPos(glm::vec3(x, m_cube_previous_y, z));
 	}
 }
 

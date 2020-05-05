@@ -73,6 +73,9 @@ public:
 	void cube_follow_terrain();
 
 	GameObject* stencilCube;
+
+	// Control polygon mode
+	bool m_b_wireframe = false;
 	
 private:
 
@@ -94,7 +97,6 @@ private:
 	
 	// Control whether the game has been started
 	bool m_b_start_ = false;
-	// bool m_b_ended = false;
 	
 	// Declaring Strings
 	std::string m_string_score_;
@@ -414,6 +416,6 @@ private:
 		1, 0, 2, // Second Triangle
 	};
 
-	float yPrevious = 0.0f;
+	float m_cube_previous_y = 0.0f;
 };
 
