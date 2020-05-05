@@ -203,7 +203,10 @@ void GameManager::process_game(Audio& audio)
 			m_text_collision_->SetText("Collided with a stenciled cube!");
 		}
 
-		stencilCube->SetPos(camera.get_position() + camera.get_look_dir() * 30.0f);
+		if (this->is_started())
+		{
+			stencilCube->SetPos(camera.get_position() + camera.get_look_dir() * 30.0f);
+		}
 
 		cube_follow_terrain();
 	
