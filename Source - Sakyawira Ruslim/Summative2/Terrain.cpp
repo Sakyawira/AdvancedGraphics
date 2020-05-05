@@ -68,7 +68,7 @@ float Terrain::get_height(glm::vec3 _position) const
 	int row = (int)floorf(d);
 	int col = (int)floorf(c);
 
-	if (row < 0 || col < 0 || (int)m_info.NumCols <= row || (int)m_info.NumRows <= col)
+	if (row < 0 || col < 0 || (int)m_info.NumCols - 2 < row || (int)m_info.NumRows - 2 < col)
 	{
 		return -99999;
 	}
