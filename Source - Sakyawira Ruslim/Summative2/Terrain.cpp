@@ -8,7 +8,7 @@
 * (c) 2018 Media Design School
 *
 * File Name		: "Terrain.cpp"
-* Description	: Terrain implementation file.
+* Description	: definitions of Terrain class functions.
 * Author		: Sakyawira
 * Mail			: Sakyawira.Rus8080@mediadesign.school.nz
 ******************************************************/
@@ -20,7 +20,7 @@
 
 /***********************
 * Terrain Constructor: Set up scene items
-* @author: Sakyawira
+* @parameter: -
 ***********************/
 Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector)
 {
@@ -52,7 +52,7 @@ Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector)
 
 /***********************
 * GetHeight: Gets the height value from the terrain based on the position given.
-* @author: Sakyawira
+* @parameter: -
 * @return: height position on terrain OR a very big negative value (-FLT_MAX) if not on the terrain.
 ***********************/
 float Terrain::get_height(glm::vec3 _position) const
@@ -127,7 +127,7 @@ float Terrain::depth() const
 
 /***********************
 * LoadHeightmap: Loads heightmap from raw file
-* @author: Sakyawira
+* @parameter: -
 ***********************/
 void Terrain::load_heightmap()
 {
@@ -225,7 +225,7 @@ float Terrain::average(GLuint i, GLuint j)
 
 /***********************
 * BuildVB: Creates vertex buffer for the terrain
-* @author: Sakyawira
+* @parameter: -
 ***********************/
 void Terrain::build_vb()
 {
@@ -287,7 +287,7 @@ void Terrain::build_vb()
 
 /***********************
 * BuildIB: Creates index buffer for the terrain
-* @author: Sakyawira
+* @parameter: -
 ***********************/
 void Terrain::build_ib()
 {
