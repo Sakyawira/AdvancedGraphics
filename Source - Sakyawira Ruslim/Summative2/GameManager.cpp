@@ -244,7 +244,10 @@ void GameManager::render()
 	{
 		glPolygonMode(GL_FRONT, GL_LINE);
 	}
-	
+	else
+	{
+		glPolygonMode(GL_FRONT, GL_FILL);
+	}
 	if (m_b_initialized_ == 1)
 	{
 		// Drawing all obstacles
