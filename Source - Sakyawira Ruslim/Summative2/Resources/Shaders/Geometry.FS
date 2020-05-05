@@ -10,7 +10,11 @@ out vec4 color;
 
 void main()
 {
-    //color = vec4(outColor, 1.0f) * texture(tex, TexCoords);
-
-    color = texture(tex, vec2(TexCoords.x , TexCoords.y));// * vec4(123.0f/255.0f, 173.0f/255.0f, 203.0f/255.0f, 1.0f); 
+    vec4 texColor = texture(tex, vec2(TexCoords.x , TexCoords.y));
+    if(texColor.a < 0.1)
+    {
+        discard;
+    }
+   
+    color = texColor;// * vec4(123.0f/255.0f, 173.0f/255.0f, 203.0f/255.0f, 1.0f); 
 }

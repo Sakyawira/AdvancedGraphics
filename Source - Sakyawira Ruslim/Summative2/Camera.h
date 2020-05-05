@@ -67,6 +67,8 @@ public:
 	glm::mat4 get_projection();
 
 	glm::mat4 get_view();
+
+	glm::vec3 get_look_dir();
 	
 private:
 

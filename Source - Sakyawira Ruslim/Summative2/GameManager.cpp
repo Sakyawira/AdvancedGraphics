@@ -193,6 +193,7 @@ void GameManager::process_game(Audio& audio)
 				stencilCube2->Move(MOVE_BACK, 10.0f * delta_t);
 			}
 		}
+
 		else if (picked_object == stencilCube2)
 		{
 			m_text_collision_->SetText("Collided with a stenciled cube!");
@@ -201,6 +202,8 @@ void GameManager::process_game(Audio& audio)
 		{
 			m_text_collision_->SetText("Collided with a stenciled cube!");
 		}
+
+		stencilCube->SetPos(camera.get_position() + camera.get_look_dir() * 30.0f);
 
 		cube_follow_terrain();
 	
@@ -234,27 +237,23 @@ void GameManager::process_game(Audio& audio)
 
 void GameManager::render()
 {
-	// glPolygonMode(GL_FRONT, GL_LINE);
+	//glPolygonMode(GL_FRONT, GL_LINE);
 	if (m_b_initialized_ == 1)
 	{
 		// Drawing all obstacles
 		//glEnable(GL_SCISSOR_TEST);
 		//glScissor(0, 200, 800, 400);
 
-		//
-		m_frameBuffer->PrepareRender();
-		glEnable(GL_BLEND);
-
-		m_tr_cube_map->Render(m_sh_cube_map_, m_mesh_cube_map, camera);
-
 		frame_counts_ += 1.0f * m_clock_->GetDeltaTick() * 120.0f;
-
-		
+		m_frameBuffer->PrepareRender();
+		m_tr_cube_map->Render(m_sh_cube_map_, m_mesh_cube_map, camera);
+	
+	
+		//glEnable(GL_BLEND);
 
 		button_up->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
-		//sphere->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		starModel->render(glm::vec3(-10.0f, 5.0f, 0.0f), m_tr_water);
 		tessModel->render(glm::vec3(10.0f, 5.0f, 0.0f));
 		lod_tessModel->render(glm::vec3(0.0f, 10.0f, 0.0f));
@@ -267,13 +266,11 @@ void GameManager::render()
 			{
 				geomModel->render(glm::vec3(point.pos.x, point.pos.y - 18, point.pos.z), m_tr_grass);
 			}
-			
 		}
 
 		//enable stencil and set stencil operation 
 		glEnable(GL_STENCIL_TEST);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE); //stPass, dpFail, bothPass 
-
 		//** 1st pass ** //set current stencil value 
 		glStencilFunc(GL_ALWAYS, // test function 
 						1,// current value to set 
@@ -281,7 +278,6 @@ void GameManager::render()
 		glStencilMask(0xFF);//enable writing to stencil buffer
 		//--> render regular sized button_up // fills stencil buffer 
 		stencilCube->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
-
 		// ** 2nd pass ** 
 		glStencilFunc(GL_NOTEQUAL, 1, 0xFF); 
 		glStencilMask(0x00); //disable writing to stencil buffer
@@ -292,11 +288,11 @@ void GameManager::render()
 		// disable writing to stencil mask 
 		glStencilMask(0x00); 
 		glDisable(GL_STENCIL_TEST);
-
 		glStencilMask(0xFF);//enable writing to stencil buffer
-
+	
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		transparentCube->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
+	
 		glDisable(GL_BLEND);
 		
 		//glDisable(GL_SCISSOR_TEST);

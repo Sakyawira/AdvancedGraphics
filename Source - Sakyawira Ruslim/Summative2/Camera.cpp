@@ -176,4 +176,9 @@ glm::mat4 Camera::get_view()
 	return view;
 }
 
+glm::vec3 Camera::get_look_dir()
+{
+	return camLookDir;
+}
+
 
