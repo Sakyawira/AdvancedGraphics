@@ -36,26 +36,35 @@ void Input::process_input(GameManager* Game, Audio& audio)
 	}
 	if (key_state_['s'] == INPUT_DOWN)
 	{
-		Game->camera.move_pos_z(-15.0f, Game->get_clock()->GetDeltaTick());
 		if (!Game->is_started())
 		{
 			Game->stencilCube->Move(MOVE_BACK, 12.0f * Game->get_clock()->GetDeltaTick());
 		}
+		else
+		{
+			Game->camera.move_pos_z(-15.0f, Game->get_clock()->GetDeltaTick());
+		}
 	}
 	if (key_state_['d'] == INPUT_DOWN)
 	{
-		Game->camera.move_pos_x(-15.0f, Game->get_clock()->GetDeltaTick());
 		if (!Game->is_started())
 		{
 			Game->stencilCube->Move(MOVE_RIGHT, 12.0f * Game->get_clock()->GetDeltaTick());
 		}
+		else
+		{
+			Game->camera.move_pos_x(-15.0f, Game->get_clock()->GetDeltaTick());
+		}
 	}
 	if (key_state_['a'] == INPUT_DOWN)
 	{
-		Game->camera.move_pos_x(15.0f, Game->get_clock()->GetDeltaTick());
 		if (!Game->is_started())
 		{
 			Game->stencilCube->Move(MOVE_LEFT, 12.0f * Game->get_clock()->GetDeltaTick());
+		}
+		else
+		{
+			Game->camera.move_pos_x(15.0f, Game->get_clock()->GetDeltaTick());
 		}
 	}
 	if (key_state_['r'] == INPUT_DOWN_FIRST)

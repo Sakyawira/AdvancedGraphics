@@ -21,7 +21,7 @@ void TessModel::render(glm::vec3 position)
 	glUseProgram(this->program);
 
 	//this->camera->use_camera(this->program);
-
+	
 	float camDistance = glm::distance(position, camera->get_position());
 	GLint camDistanceLoc = glGetUniformLocation(program, "camDistance");
 	glUniform1f(camDistanceLoc, camDistance);
