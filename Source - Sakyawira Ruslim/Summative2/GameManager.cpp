@@ -240,14 +240,6 @@ void GameManager::process_game(Audio& audio)
 
 void GameManager::render()
 {
-	if (m_b_wireframe)
-	{
-		glPolygonMode(GL_FRONT, GL_LINE);
-	}
-	else
-	{
-		glPolygonMode(GL_FRONT, GL_FILL);
-	}
 	if (m_b_initialized_ == 1)
 	{
 		// Drawing all obstacles
@@ -256,17 +248,26 @@ void GameManager::render()
 
 		frame_counts_ += 1.0f * m_clock_->GetDeltaTick() * 120.0f;
 		m_frameBuffer->PrepareRender();
-		m_tr_cube_map->Render(m_sh_cube_map_, m_mesh_cube_map, camera);
-	
-	
+		
 		//glEnable(GL_BLEND);
+		if (m_b_wireframe)
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+		else
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
+		m_tr_cube_map->Render(m_sh_cube_map_, m_mesh_cube_map, camera);
+
+		starModel->render(glm::vec3(-10.0f, 5.0f, 0.0f), m_tr_water);
+		tessModel->render(glm::vec3(10.0f, 5.0f, 0.0f));
+		lod_tessModel->render(glm::vec3(0.0f, 10.0f, 0.0f));
 
 		button_up->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
-		starModel->render(glm::vec3(-10.0f, 5.0f, 0.0f), m_tr_water);
-		tessModel->render(glm::vec3(10.0f, 5.0f, 0.0f));
-		lod_tessModel->render(glm::vec3(0.0f, 10.0f, 0.0f));
+		
 
 		int i = 0;
 		for (auto point : *(m_mesh_terrain->get_vertices()))
@@ -304,8 +305,9 @@ void GameManager::render()
 		transparentCube->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 	
 		glDisable(GL_BLEND);
-		
+	
 		//glDisable(GL_SCISSOR_TEST);
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		m_frameBuffer->Render("currentTime", current_time_);
 		m_text_collision_->Render();
 		m_text_instruction_->Render();
