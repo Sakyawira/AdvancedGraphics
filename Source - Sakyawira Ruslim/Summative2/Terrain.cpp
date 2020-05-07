@@ -50,6 +50,11 @@ Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector)
 	meshVector.push_back(this);
 }
 
+Terrain::~Terrain()
+{
+
+}
+
 /***********************
 * get_height: Gets the height of the Terrain in a certain position
 * @parameter: _position -> position in the game world

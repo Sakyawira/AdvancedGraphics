@@ -33,10 +33,6 @@ GeometryModel::GeometryModel(GLuint program, Camera* camera)
 	glBindVertexArray(0);
 }
 
-GeometryModel::~GeometryModel()
-{
-
-}
 
 void GeometryModel::render(glm::vec3 position, Texture* _texture)
 {

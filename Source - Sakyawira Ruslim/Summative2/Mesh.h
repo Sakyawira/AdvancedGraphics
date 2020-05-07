@@ -22,7 +22,7 @@ class Mesh
 public:
 	Mesh() = default;
 	Mesh(const std::vector<GLuint>& indices, const std::vector<GLfloat>& vertices, std::vector<Mesh*>& meshVector);
-	~Mesh() = default;
+	virtual ~Mesh() = default;
 
 	void Bind();
 	int GetSize();

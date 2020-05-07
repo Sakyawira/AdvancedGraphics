@@ -47,7 +47,7 @@ public:
 
 
 	Terrain(InitInfo _info, std::vector<Mesh*>& meshVector);
-	~Terrain() {};
+	virtual ~Terrain();
 
 	float get_height(glm::vec3 _position)const;
 	std::vector<TerrainVertex>* get_vertices();

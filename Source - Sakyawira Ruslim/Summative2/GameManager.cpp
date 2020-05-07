@@ -524,6 +524,9 @@ GameManager::~GameManager()
 		mesh = nullptr;
 	}
 
+	//delete m_mesh_terrain;
+	//m_mesh_terrain = nullptr;
+
 	delete m_mesh_sphere;
 	m_mesh_sphere = nullptr;
 }

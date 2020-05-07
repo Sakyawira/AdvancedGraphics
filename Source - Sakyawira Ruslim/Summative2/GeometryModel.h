@@ -30,7 +30,7 @@ class GeometryModel : public Mesh
 {
 	public:
 		GeometryModel(GLuint program, Camera* camera);
-		~GeometryModel();
+		~GeometryModel() {};
 
 		void render(glm::vec3 position, Texture* _texture);
 
