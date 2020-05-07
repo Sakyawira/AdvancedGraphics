@@ -35,5 +35,4 @@ class TessModel
 		GLuint program;
 		Camera* camera;
 		GLuint VAO, VBO, EBO;
-
 };

@@ -476,6 +476,8 @@ GameManager::~GameManager()
 	m_tr_up = nullptr;
 	delete m_tr_water;
 	m_tr_water = nullptr;
+	delete m_tr_grass;
+	m_tr_grass = nullptr;
 
 	for (auto& text : m_v_text)
 	{
