@@ -27,7 +27,7 @@ class TessModel
 {
 	public:
 		TessModel(GLuint program, Camera* camera);
-		~TessModel();
+		~TessModel() {};
 
 		void render(glm::vec3 position);
 

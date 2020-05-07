@@ -452,6 +452,12 @@ GameManager::~GameManager()
 	m_mdl_cat = nullptr;
 	delete m_mdl_tank;
 	m_mdl_tank = nullptr;
+	delete starModel;
+	starModel = nullptr;
+	delete tessModel;
+	tessModel = nullptr;
+	delete lod_tessModel;
+	lod_tessModel = nullptr;
 
 	delete tank;
 	tank = nullptr;
