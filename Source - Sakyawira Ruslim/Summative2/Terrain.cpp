@@ -164,7 +164,9 @@ void Terrain::load_heightmap()
 }
 
 /***********************
-* Smooth: Smooths the heightmap
+* smooth: apply a filter to the floating-point heightmap to smooth it
+* @parameter: -
+* @return: -
 ***********************/
 void Terrain::smooth()
 {
@@ -183,8 +185,9 @@ void Terrain::smooth()
 }
 
 /***********************
-* InBounds: Check if ij are valid indices
-* return: whether indices are valid
+* in_bounds: check whether i and j exists within the bounds of the heightmap 
+* @parameter: index of heightmap based on info's col and row
+* @return: do i and j exist?
 ***********************/
 bool Terrain::in_bounds(GLuint i, GLuint j)
 {
@@ -195,8 +198,9 @@ bool Terrain::in_bounds(GLuint i, GLuint j)
 }
 
 /***********************
-* Average: Computes the average height of ij
-* return: the average height computed
+* average: calculate the average height of elements between [i][j]
+* @parameter: index of heightmap based on info's col and row
+* @return: average height
 ***********************/
 float Terrain::average(GLuint i, GLuint j)
 {
@@ -232,8 +236,9 @@ float Terrain::average(GLuint i, GLuint j)
 }
 
 /***********************
-* BuildVB: Creates vertex buffer for the terrain
+* build_vb: generates vertex buffer (VAO, VBO)
 * @parameter: -
+* @return: -
 ***********************/
 void Terrain::build_vb()
 {
@@ -294,8 +299,9 @@ void Terrain::build_vb()
 }
 
 /***********************
-* BuildIB: Creates index buffer for the terrain
+* build_ib: generates index buffer (EBO)
 * @parameter: -
+* @return: -
 ***********************/
 void Terrain::build_ib()
 {
