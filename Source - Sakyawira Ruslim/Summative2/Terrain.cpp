@@ -19,8 +19,8 @@
 #include "ShaderLoader.h"
 
 /***********************
-* Terrain Constructor: Set up scene items
-* @parameter: -
+* Terrain Constructor: Setup the Terrain Mesh by loading the info and then push it to a meshVector
+* @parameter: _info -> Terrain settings that needs to be adjusted based on the Heightmap, meshVector -> vector of meshes used to handle in GameManager
 ***********************/
 Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector)
 {
@@ -51,9 +51,9 @@ Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector)
 }
 
 /***********************
-* GetHeight: Gets the height value from the terrain based on the position given.
-* @parameter: -
-* @return: height position on terrain OR a very big negative value (-FLT_MAX) if not on the terrain.
+* GetHeight: Gets the height of the Terrain in a certain position
+* @parameter: _position -> position in the game world
+* @return: height of terrain / 99999
 ***********************/
 float Terrain::get_height(glm::vec3 _position) const
 {
