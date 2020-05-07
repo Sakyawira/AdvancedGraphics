@@ -19,7 +19,7 @@
 #include "ShaderLoader.h"
 
 /***********************
-* Terrain Constructor: Setup the Terrain Mesh by loading the info and then push it to a meshVector
+* Constructor: Setup the Terrain Mesh by loading the info and then push it to a meshVector
 * @parameter: _info -> Terrain settings that needs to be adjusted based on the Heightmap, meshVector -> vector of meshes used to handle in GameManager
 ***********************/
 Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector)
@@ -51,7 +51,7 @@ Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector)
 }
 
 /***********************
-* GetHeight: Gets the height of the Terrain in a certain position
+* get_height: Gets the height of the Terrain in a certain position
 * @parameter: _position -> position in the game world
 * @return: height of terrain / 99999
 ***********************/
@@ -102,14 +102,20 @@ float Terrain::get_height(glm::vec3 _position) const
 	}
 }
 
+/***********************
+* get_vertices: Getter for the vertices vector.
+* @parameter: -
+* @return: vertices vector.
+***********************/
 std::vector<TerrainVertex>* Terrain::get_vertices()
 {
 	return &vertices;
 }
 
 /***********************
-* Width: Gets the width of a cell
-* @return: the width of a cell
+* width: calculate a cell's width
+* @parameter: -
+* @return: cell's width
 ***********************/
 float Terrain::width() const
 {
@@ -117,8 +123,9 @@ float Terrain::width() const
 }
 
 /***********************
-* Depth: Gets the depth of a cell
-* @return: the depth of a cell
+* depth: calculate a cell's depth
+* @parameter: -
+* @return: cell's depth
 ***********************/
 float Terrain::depth() const
 {
@@ -126,8 +133,9 @@ float Terrain::depth() const
 }
 
 /***********************
-* LoadHeightmap: Loads heightmap from raw file
+* load_heightmap: read a raw file and populate the heightmap vector with its data
 * @parameter: -
+* @return: -
 ***********************/
 void Terrain::load_heightmap()
 {
