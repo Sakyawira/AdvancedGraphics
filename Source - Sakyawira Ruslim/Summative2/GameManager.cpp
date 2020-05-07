@@ -450,12 +450,14 @@ GameManager::~GameManager()
 {
 	delete m_mdl_cat;
 	m_mdl_cat = nullptr;
+	delete m_mdl_tank;
+	m_mdl_tank = nullptr;
 
 	delete tank;
 	tank = nullptr;
 
-	delete m_mdl_tank;
-	m_mdl_tank = nullptr;
+	delete m_frameBuffer;
+	m_frameBuffer = nullptr;
 
 	delete m_tr_cube_map;
 	m_tr_cube_map = nullptr;
