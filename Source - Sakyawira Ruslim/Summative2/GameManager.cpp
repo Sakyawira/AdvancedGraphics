@@ -249,7 +249,7 @@ void GameManager::render()
 		frame_counts_ += 1.0f * m_clock_->GetDeltaTick() * 120.0f;
 		m_frameBuffer->PrepareRender();
 		
-		//glEnable(GL_BLEND);
+		glEnable(GL_BLEND);
 		if (m_b_wireframe)
 		{
 			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
