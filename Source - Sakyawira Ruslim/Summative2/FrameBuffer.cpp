@@ -59,6 +59,11 @@ FrameBuffer::~FrameBuffer()
 
 }
 
+/***********************
+* PrepareRender: Everything drawn under this function wil be drawn to the frame buffer
+* @parameter: -
+* @return: -
+***********************/
 void FrameBuffer::PrepareRender()
 {
 	// Bind our framebuffer
