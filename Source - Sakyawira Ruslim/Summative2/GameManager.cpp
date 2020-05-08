@@ -273,10 +273,14 @@ void GameManager::render()
 		for (auto point : *(m_mesh_terrain->get_vertices()))
 		{
 			i++;
-			if (i % 100 == 0)
+			if (point.pos.y < 30 && point.pos.y > 10)
 			{
-				geomModel->render(glm::vec3(point.pos.x, point.pos.y - 18, point.pos.z), m_tr_grass);
+				if (i % 30 == 0)
+				{
+					geomModel->render(glm::vec3(point.pos.x, point.pos.y - 18, point.pos.z), m_tr_grass);
+				}
 			}
+			
 		}
 
 		//enable stencil and set stencil operation 
