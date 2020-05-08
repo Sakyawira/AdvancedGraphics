@@ -72,6 +72,8 @@ public:
 
 	void cube_follow_terrain();
 
+	void all_mouse_pick(float delta_t);
+
 	GameObject* stencilCube;
 
 	// Control polygon mode

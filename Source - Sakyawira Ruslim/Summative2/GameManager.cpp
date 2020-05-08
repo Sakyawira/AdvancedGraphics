@@ -170,38 +170,7 @@ void GameManager::process_game(Audio& audio)
 		const float delta_t = m_clock_->GetDeltaTick();
 		camera.update(m_b_start_, m_clock_->GetDeltaTick() * 1.0f, tank->GetLocation());
 
-		float mouse_pick_distance = INT_MAX;
-		m_text_collision_->SetText("Not Collided!");
-
-		GameObject* picked_object = update_mouse_picking();
-	//	auto it = std::find(m_v_sphere.begin(), m_v_sphere.end(), picked_object);
-		if (picked_object == button_up)
-		{
-			m_text_collision_->SetText("Collided with Red!");
-			if (m_is_clicked_)
-			{
-				stencilCube->Move(MOVE_FRONT, 10.0f * delta_t);
-				stencilCube2->Move(MOVE_FRONT, 10.0f * delta_t);
-			}
-		}
-		else if(picked_object == button_down)
-		{
-			m_text_collision_->SetText("Collided with Blue!");
-			if (m_is_clicked_)
-			{
-				stencilCube->Move(MOVE_BACK, 10.0f * delta_t);
-				stencilCube2->Move(MOVE_BACK, 10.0f * delta_t);
-			}
-		}
-
-		else if (picked_object == stencilCube2)
-		{
-			m_text_collision_->SetText("Collided with a stenciled cube!");
-		}
-		else if (picked_object == stencilCube)
-		{
-			m_text_collision_->SetText("Collided with a stenciled cube!");
-		}
+		// all_mouse_pick(delta_t);
 
 		if (this->is_started())
 		{
@@ -210,10 +179,7 @@ void GameManager::process_game(Audio& audio)
 
 		cube_follow_terrain();
 	
-		//else if (picked_object == sphere)
-		//{
-		//	m_text_collision_->SetText("Collided with a sphere!");
-		//}
+		
 		current_time_ = static_cast<float>(glutGet(GLUT_ELAPSED_TIME)); // Get current time.
 		current_time_ = current_time_ * 0.001f;
 
@@ -228,6 +194,12 @@ void GameManager::process_game(Audio& audio)
 			m_string_score_ = "Press 'R' to use free moving camera!";
 			m_text_instruction_->SetText(m_string_score_);
 		}
+		/*if (m_b_wireframe)
+		{*/
+	
+			m_text_collision_->SetText("Hit 'Space' to change polygon mode.");
+		
+		//}
 	}
 	
 	else
@@ -423,6 +395,41 @@ void GameManager::cube_follow_terrain()
 	else
 	{
 		stencilCube->SetPos(glm::vec3(x, m_cube_previous_y, z));
+	}
+}
+
+void GameManager::all_mouse_pick(float delta_t)
+{
+	float mouse_pick_distance = INT_MAX;
+	m_text_collision_->SetText("Not Collided!");
+
+	GameObject* picked_object = update_mouse_picking();
+	if (picked_object == button_up)
+	{
+		m_text_collision_->SetText("Collided with Red!");
+		if (m_is_clicked_)
+		{
+			stencilCube->Move(MOVE_FRONT, 10.0f * delta_t);
+			stencilCube2->Move(MOVE_FRONT, 10.0f * delta_t);
+		}
+	}
+	else if (picked_object == button_down)
+	{
+		m_text_collision_->SetText("Collided with Blue!");
+		if (m_is_clicked_)
+		{
+			stencilCube->Move(MOVE_BACK, 10.0f * delta_t);
+			stencilCube2->Move(MOVE_BACK, 10.0f * delta_t);
+		}
+	}
+
+	else if (picked_object == stencilCube2)
+	{
+		m_text_collision_->SetText("Collided with a stenciled cube!");
+	}
+	else if (picked_object == stencilCube)
+	{
+		m_text_collision_->SetText("Collided with a stenciled cube!");
 	}
 }
 
