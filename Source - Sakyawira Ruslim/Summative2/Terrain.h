@@ -1,15 +1,3 @@
-#pragma once
-
-#include <glew.h>
-#include <freeglut.h>
-#define _USE_MATH_DEFINES
-#include <cmath>
-#include <math.h>
-#include <string>
-#include <vector>
-#include "Camera.h"
-#include "Mesh.h"
-#pragma once
 /****************************************************
 * Bachelor of Software Engineering
 * Media Design School
@@ -23,7 +11,17 @@
 * Author		: Sakyawira
 * Mail			: Sakyawira.Rus8080@mediadesign.school.nz
 ******************************************************/
+#pragma once
 
+#include <glew.h>
+#include <freeglut.h>
+#define _USE_MATH_DEFINES
+#include <cmath>
+#include <math.h>
+#include <string>
+#include <vector>
+#include "Camera.h"
+#include "Mesh.h"
 
 struct TerrainVertex
 {
