@@ -1,3 +1,16 @@
+/***********************
+  Bachelor of Software Engineering
+  Media Design School
+  Auckland
+  New Zealand
+
+  (c) 2018 Media Design School
+
+  File Name   :   TessModel.h
+  Description :   contains declaration of TessModel.h
+  Author      :   Sakyawira Nanda Ruslim
+  Mail        :   Sakyawira.Rus8080@mediadesign.school.nz
+********************/
 #pragma once
 #include <fstream>
 #include <sstream>
@@ -34,5 +47,5 @@ class TessModel
 	private:
 		GLuint program;
 		Camera* camera;
-		GLuint VAO, VBO, EBO;
+		GLuint VAO, VBO;
 };

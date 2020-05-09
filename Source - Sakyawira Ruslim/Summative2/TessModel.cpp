@@ -1,5 +1,23 @@
+/***********************
+  Bachelor of Software Engineering
+  Media Design School
+  Auckland
+  New Zealand
+
+  (c) 2018 Media Design School
+
+  File Name   :   TessModel.cpp
+  Description :   contains definition of TessModel.cpp
+  Author      :   Sakyawira Nanda Ruslim
+  Mail        :   Sakyawira.Rus8080@mediadesign.school.nz
+********************/
 #include "TessModel.h"
 
+/***********************
+* Constructor	: Pass in a point vertices, create VBO and VAO
+* @parameter	: shader's program and camera
+* @return		: -
+***********************/
 TessModel::TessModel(GLuint program, Camera* camera)
 {
 	this->program = program;
@@ -16,6 +34,11 @@ TessModel::TessModel(GLuint program, Camera* camera)
 	glBindVertexArray(0);
 }
 
+/***********************
+* render		: render the model
+* @parameter	: position to render the model
+* @return		: -
+***********************/
 void TessModel::render(glm::vec3 position)
 {
 	glUseProgram(this->program);

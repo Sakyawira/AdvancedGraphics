@@ -14,9 +14,9 @@
 #include "FrameBuffer.h"
 
 /***********************
-* Constructor: Create the frame buffer and the render texture, set shader and mesh pointer
-* @parameter: shader point and mesh pointer
-* @return: -
+* Constructor	: Create the frame buffer and the render texture, set shader and mesh pointer
+* @parameter	: shader point and mesh pointer
+* @return		: -
 ***********************/
 FrameBuffer::FrameBuffer(Shader* _shader, Mesh* _mesh)
 {
