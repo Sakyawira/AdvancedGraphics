@@ -1,12 +1,30 @@
+/***********************
+  Bachelor of Software Engineering
+  Media Design School
+  Auckland
+  New Zealand
+
+  (c) 2018 Media Design School
+
+  File Name   :   GeometryModel.cpp
+  Description :   contains definition of GeometryModel.cpp
+  Author      :   Sakyawira Nanda Ruslim
+  Mail        :   Sakyawira.Rus8080@mediadesign.school.nz
+********************/
 #include "GeometryModel.h"
 
+/***********************
+* Constructor	: Pass in a point vertices, create VBO and VAO
+* @parameter	: shader's program and camera
+* @return		: -
+***********************/
 GeometryModel::GeometryModel(GLuint program, Camera* camera) 
 {
 	this->program = program; 
 	this->camera = camera;
 	GLfloat points[] = 
 	{ 
-		0.0f,  0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f//passing in 1 point 
+		0.0f,  0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f //passing in 1 point 
 	};
 	glBindVertexArray(m_VAO);
 	glGenBuffers(1, &m_VBO);
@@ -28,12 +46,15 @@ GeometryModel::GeometryModel(GLuint program, Camera* camera)
 		GL_FALSE,
 		8 * sizeof(GLfloat),				// Stride the single vertex (pos + color + tex)
 		(GLvoid*)(6 * sizeof(GLfloat)));	// offset from beginning of Vertex
-	
 
 	glBindVertexArray(0);
 }
 
-
+/***********************
+* render		: render the model
+* @parameter	: position to render the model
+* @return		: -
+***********************/
 void GeometryModel::render(glm::vec3 position, Texture* _texture)
 {
 	glUseProgram(this->program);

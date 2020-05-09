@@ -19,8 +19,8 @@
 #include "ShaderLoader.h"
 
 /***********************
-* Constructor: Setup the Terrain Mesh by loading the info and then push it to a meshVector
-* @parameter: _info -> Terrain settings that needs to be adjusted based on the Heightmap, meshVector -> vector of meshes used to handle in GameManager
+* Constructor	: Setup the Terrain Mesh by loading the info and then push it to a meshVector
+* @parameter	: _info -> Terrain settings that needs to be adjusted based on the Heightmap, meshVector -> vector of meshes used to handle in GameManager
 ***********************/
 Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector)
 {
@@ -56,9 +56,9 @@ Terrain::~Terrain()
 }
 
 /***********************
-* get_height: Gets the height of the Terrain in a certain position
-* @parameter: _position -> position in the game world
-* @return: height of terrain / 99999
+* get_height	: Gets the height of the Terrain in a certain position
+* @parameter	: _position -> position in the game world
+* @return		: height of terrain / 99999
 ***********************/
 float Terrain::get_height(glm::vec3 _position) const
 {
@@ -108,9 +108,9 @@ float Terrain::get_height(glm::vec3 _position) const
 }
 
 /***********************
-* get_vertices: Getter for the vertices vector.
-* @parameter: -
-* @return: vertices vector.
+* get_vertices	: Getter for the vertices vector.
+* @parameter	: -
+* @return		: vertices vector.
 ***********************/
 std::vector<TerrainVertex>* Terrain::get_vertices()
 {
@@ -118,9 +118,9 @@ std::vector<TerrainVertex>* Terrain::get_vertices()
 }
 
 /***********************
-* width: calculate a cell's width
-* @parameter: -
-* @return: cell's width
+* width			: calculate a cell's width
+* @parameter	: -
+* @return		: cell's width
 ***********************/
 float Terrain::width() const
 {
@@ -128,9 +128,9 @@ float Terrain::width() const
 }
 
 /***********************
-* depth: calculate a cell's depth
-* @parameter: -
-* @return: cell's depth
+* depth			: calculate a cell's depth
+* @parameter	: -
+* @return		: cell's depth
 ***********************/
 float Terrain::depth() const
 {
@@ -138,9 +138,9 @@ float Terrain::depth() const
 }
 
 /***********************
-* load_heightmap: read a raw file and populate the heightmap vector with its data
-* @parameter: -
-* @return: -
+* load_heightmap	: read a raw file and populate the heightmap vector with its data
+* @parameter		: -
+* @return			: -
 ***********************/
 void Terrain::load_heightmap()
 {
@@ -169,9 +169,9 @@ void Terrain::load_heightmap()
 }
 
 /***********************
-* smooth: apply a filter to the floating-point heightmap to smooth it
-* @parameter: -
-* @return: -
+* smooth		: apply a filter to the floating-point heightmap to smooth it
+* @parameter	: -
+* @return		: -
 ***********************/
 void Terrain::smooth()
 {
@@ -190,9 +190,9 @@ void Terrain::smooth()
 }
 
 /***********************
-* in_bounds: check whether i and j exists within the bounds of the heightmap 
-* @parameter: index of heightmap based on info's col and row
-* @return: do i and j exist?
+* in_bounds		: check whether i and j exists within the bounds of the heightmap 
+* @parameter	: index of heightmap based on info's col and row
+* @return		: do i and j exist?
 ***********************/
 bool Terrain::in_bounds(GLuint i, GLuint j)
 {
@@ -203,9 +203,9 @@ bool Terrain::in_bounds(GLuint i, GLuint j)
 }
 
 /***********************
-* average: calculate the average height of elements between [i][j]
-* @parameter: index of heightmap based on info's col and row
-* @return: average height
+* average		: calculate the average height of elements between [i][j]
+* @parameter	: index of heightmap based on info's col and row
+* @return		: average height
 ***********************/
 float Terrain::average(GLuint i, GLuint j)
 {
@@ -241,9 +241,9 @@ float Terrain::average(GLuint i, GLuint j)
 }
 
 /***********************
-* build_vb: generates vertex buffer (VAO, VBO)
-* @parameter: -
-* @return: -
+* build_vb		: generates vertex buffer (VAO, VBO)
+* @parameter	: -
+* @return		: -
 ***********************/
 void Terrain::build_vb()
 {
@@ -304,9 +304,9 @@ void Terrain::build_vb()
 }
 
 /***********************
-* build_ib: generates index buffer (EBO)
-* @parameter: -
-* @return: -
+* build_ib		: generates index buffer (EBO)
+* @parameter	: -
+* @return		: -
 ***********************/
 void Terrain::build_ib()
 {
