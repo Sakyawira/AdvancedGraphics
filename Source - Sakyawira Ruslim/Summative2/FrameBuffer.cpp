@@ -1,11 +1,14 @@
 #include "FrameBuffer.h"
 
-FrameBuffer::FrameBuffer(Shader* _shader, Mesh* _mesh, std::vector<Texture*>& _texture)
+/***********************
+* Constructor: Create the frame buffer and the render texture
+* @parameter: -
+* @return: -
+***********************/
+FrameBuffer::FrameBuffer(Shader* _shader, Mesh* _mesh)
 {
 	m_shader = _shader;
 	m_mesh = _mesh;
-	//m_textures = _texture;
-
 
 	// Create frame buffer
 	glGenFramebuffers(1, &frameBuffer);
@@ -50,8 +53,6 @@ FrameBuffer::FrameBuffer(Shader* _shader, Mesh* _mesh, std::vector<Texture*>& _t
 	{ 
 		std::cout << "ERROR::FRAMEBUFFER:: Framebuffer is not complete!" << std::endl; 
 	}
-
-
 }
 
 FrameBuffer::~FrameBuffer()
@@ -76,14 +77,14 @@ void FrameBuffer::PrepareRender()
 	glEnable(GL_DEPTH_TEST); // Depth is enabled to capture it
 }
 
-
+/***********************
+* Render: Render the FrameBuffer
+* @parameter: s_currentTime-> uniform name for current time, f_currentTime-> current time uniform
+* @return: -
+***********************/
 void FrameBuffer::Render(const GLchar* s_currentTime, GLfloat f_currentTime)
 {
-
 	glm::mat4 position =  glm::translate(glm::mat4(), glm::vec3(0.0f, -1.0f, 0.0f));
-	/*
-	render objects here
-	*/
 
 	// Bind Default framebuffer 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0); 
@@ -97,8 +98,6 @@ void FrameBuffer::Render(const GLchar* s_currentTime, GLfloat f_currentTime)
 
 	GLuint translateLoc = glGetUniformLocation(m_shader->GetProgram(), "translation");
 	glUniformMatrix4fv(translateLoc, 1, GL_FALSE, glm::value_ptr(position));
-	//m_shader->PassTexture(m_textures);
-
 
 	m_mesh->Bind();
 
@@ -110,5 +109,4 @@ void FrameBuffer::Render(const GLchar* s_currentTime, GLfloat f_currentTime)
 	// glDrawArrays(GL_TRIANGLES, 0, 6);
 	glDrawElements(GL_TRIANGLES, m_mesh->GetSize(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
-
 }

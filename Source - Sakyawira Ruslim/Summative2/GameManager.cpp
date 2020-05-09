@@ -130,7 +130,7 @@ GameManager::GameManager()
 	terrain->SetPos(glm::vec3(0.0f, -20.0f, 0.0f));
 
 
-	m_frameBuffer = new FrameBuffer(m_sh_chromatical, m_mesh_static, v_yellow);
+	m_frameBuffer = new FrameBuffer(m_sh_chromatical, m_mesh_static);
 	
 	this->initialize();
 }
