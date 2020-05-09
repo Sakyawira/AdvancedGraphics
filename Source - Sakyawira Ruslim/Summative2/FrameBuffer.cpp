@@ -1,8 +1,21 @@
+/***********************
+  Bachelor of Software Engineering
+  Media Design School
+  Auckland
+  New Zealand
+
+  (c) 2018 Media Design School
+
+  File Name   :   FrameBuffer.cpp
+  Description :   contains definition of FrameBuffer
+  Author      :   Sakyawira Nanda Ruslim
+  Mail        :   Sakyawira.Rus8080@mediadesign.school.nz
+********************/
 #include "FrameBuffer.h"
 
 /***********************
-* Constructor: Create the frame buffer and the render texture
-* @parameter: -
+* Constructor: Create the frame buffer and the render texture, set shader and mesh pointer
+* @parameter: shader point and mesh pointer
 * @return: -
 ***********************/
 FrameBuffer::FrameBuffer(Shader* _shader, Mesh* _mesh)

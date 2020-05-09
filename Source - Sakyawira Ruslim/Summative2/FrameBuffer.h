@@ -6,8 +6,8 @@
 
   (c) 2018 Media Design School
 
-  File Name   :   Texture.h
-  Description :   declare the Texture class
+  File Name   :   FrameBuffer.h
+  Description :   declare the FrameBuffer class
   Author      :   Sakyawira Nanda Ruslim
   Mail        :   Sakyawira.Rus8080@mediadesign.school.nz
 ********************/
