@@ -324,7 +324,8 @@ GameObject* GameManager::update_mouse_picking()
 	glm::vec4 clipCoords = glm::vec4(normalizedScreenPos.x, normalizedScreenPos.y, -1.0f, 1.0f);
 	//Proj Space to eye space
 	glm::mat4 invProjMat = glm::inverse(camera.get_projection());
-	glm::vec4 eyeCoords = invProjMat * clipCoords; eyeCoords = glm::vec4(eyeCoords.x, eyeCoords.y, -1.0f, 0.0f);
+	glm::vec4 eyeCoords = invProjMat * clipCoords; 
+	eyeCoords = glm::vec4(eyeCoords.x, eyeCoords.y, -1.0f, 0.0f);
 
 	//eyespace to world space
 	glm::mat4 invViewMat = glm::inverse(camera.get_view());
