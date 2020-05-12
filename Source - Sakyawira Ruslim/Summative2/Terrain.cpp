@@ -354,8 +354,7 @@ void Terrain::build_ib()
 
 	glGenBuffers(1, &m_EBO); //Index Buffer
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
-	indicesSize = indices.size() * sizeof(GLuint);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesSize, &indices[0], GL_STATIC_DRAW);    //EBO Buffer
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);    //EBO Buffer
 	m_indicesSize = indices.size();
 }
 

@@ -65,7 +65,6 @@ private:
 
 	std::vector<float> m_v_heightmap;
 
-	GLsizei indicesSize;
 	std::vector<TerrainAttribute> vertices;
 	std::vector<GLuint> indices;
 };
