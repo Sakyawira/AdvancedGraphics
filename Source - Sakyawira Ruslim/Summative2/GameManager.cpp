@@ -68,7 +68,7 @@ GameManager::GameManager()
 
 	// Texture
 	m_tr_down = new Texture("Resources/Textures/down.png");
-	m_tr_plain = new Texture("Resources/Textures/bullet.png");
+	m_tr_plain = new Texture("Resources/Textures/grass snow.png");
 	m_tr_up = new Texture("Resources/Textures/up.png");
 	m_tr_water = new Texture("Resources/Textures/green.png");
 	m_tr_grass = new Texture("Resources/Textures/grass-texture-png-2.png");
