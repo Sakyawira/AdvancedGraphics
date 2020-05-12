@@ -316,14 +316,14 @@ void Terrain::build_vb()
 		}
 	}
 
-	//Generating vao and vbo
-	glGenVertexArrays(1, &m_VAO); //Vert Array
+	// Creating Vertex Array
+	glGenVertexArrays(1, &m_VAO); 
 	glBindVertexArray(m_VAO);
 
-	glGenBuffers(1, &m_VBO);	//Vert Buffer
+	// Creating Vertex Buffer
+	glGenBuffers(1, &m_VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(TerrainAttribute) * vertices.size(), &vertices[0], GL_STATIC_DRAW);
-
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(TerrainAttribute), &vertices[0], GL_STATIC_DRAW);
 }
 
 /***********************
@@ -334,7 +334,8 @@ void Terrain::build_vb()
 void Terrain::build_ib()
 {
 	indices.resize(m_faces_number_ * 3); // 3 indices per face
-											   // Iterate over each quad and compute indices.
+	
+	// Iterate over each quad and compute indices.
 	int k = 0;
 	for (UINT i = 0; i < m_info.NumRows - 1; ++i)
 	{
