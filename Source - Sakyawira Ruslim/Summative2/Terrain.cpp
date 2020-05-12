@@ -1,4 +1,3 @@
-#pragma once
 /****************************************************
 * Bachelor of Software Engineering
 * Media Design School
@@ -15,8 +14,6 @@
 #include <fstream>
 #include <sstream>
 #include "Terrain.h"
-#include "Camera.h"
-#include "ShaderLoader.h"
 
 /***********************
 * Constructor	: Setup the Terrain Mesh by loading the info and then push it to a meshVector
@@ -264,7 +261,7 @@ float Terrain::average(GLuint i, GLuint j)
 }
 
 /***********************
-* build_vb		: generates vertex buffer (VAO, VBO)
+* build_vb		: generates vertex array and buffer (VAO, VBO)
 * @parameter	: -
 * @return		: -
 ***********************/
@@ -353,9 +350,10 @@ void Terrain::build_ib()
 		}
 	}
 
-	glGenBuffers(1, &m_EBO); //Index Buffer
+	// Create Index Buffer
+	glGenBuffers(1, &m_EBO); 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);    //EBO Buffer
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
 	m_indicesSize = indices.size();
 }
 
