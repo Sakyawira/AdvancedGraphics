@@ -15,7 +15,6 @@
 
 #include <glew.h>
 #include <freeglut.h>
-#include <string>
 #include "Camera.h"
 #include "Mesh.h"
 
@@ -39,7 +38,6 @@ public:
 		UINT NumCols;
 		float CellSpacing;
 	};
-
 
 	Terrain(InitInfo _info, std::vector<Mesh*>& meshVector);
 	virtual ~Terrain();
