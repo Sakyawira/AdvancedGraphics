@@ -15,10 +15,7 @@
 
 #include <glew.h>
 #include <freeglut.h>
-#include <cmath>
-#include <math.h>
 #include <string>
-#include <vector>
 #include "Camera.h"
 #include "Mesh.h"
 
