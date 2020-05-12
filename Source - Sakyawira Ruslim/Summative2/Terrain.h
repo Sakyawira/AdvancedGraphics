@@ -27,6 +27,7 @@ struct TerrainAttribute
 {
 	glm::vec3 pos;
 	glm::vec3 normal;
+	glm::vec2 texCoord;
 };
 
 class Terrain : public Mesh

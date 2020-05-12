@@ -42,23 +42,33 @@ Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector)
 	// Position
 	glVertexAttribPointer(
 		0, 
-		3, 								// 3 float components for coordinates 
+		3, 									// 3 float components for coordinates 
 		GL_FLOAT,
 		GL_FALSE,
-		sizeof(TerrainAttribute), 		// Stride the single vertex (pos)
-		(GLvoid*)0);					// offset from beginning of Vertex
+		sizeof(TerrainAttribute), 			// Stride the single vertex (pos + normal + tex)
+		(GLvoid*)0);						// offset from beginning of Vertex
 	glEnableVertexAttribArray(0);
 
 
-	// Color
+	// Normal
 	glVertexAttribPointer(
 		1, 
-		3, 								// 3 float components for coordinates 
+		3, 									// 3 float components for coordinates 
 		GL_FLOAT,
 		GL_FALSE,
-		sizeof(TerrainAttribute), 		// Stride the single vertex (pos + color) 
-		(GLvoid*)(3 * 12));				// offset from beginning of Vertex
+		sizeof(TerrainAttribute), 			// Stride the single vertex (pos + normal + tex)
+		(GLvoid*)(3 * sizeof(GLfloat)));	// offset from beginning of Vertex
 	glEnableVertexAttribArray(1);
+
+	// Texture
+	glVertexAttribPointer(
+		2,
+		2,									// 2 float components for coordinates 
+		GL_FLOAT,
+		GL_FALSE,
+		sizeof(TerrainAttribute),			// Stride the single vertex (pos + normal + tex)
+		(GLvoid*)(6 * sizeof(GLfloat)));	// offset from beginning of Vertex
+	glEnableVertexAttribArray(2);
 
 	meshVector.push_back(this);
 }
@@ -279,8 +289,8 @@ void Terrain::build_vb()
 			vertices[i * m_info.NumCols + j].normal = glm::vec3(0.0f, 1.0f, 0.0f);
 
 			// Stretch texture over grid.
-			// vertices[i*m_info.NumCols + j].texC.x = j*du;
-			// vertices[i*m_info.NumCols + j].texC.y = i*dv;
+			 vertices[i*m_info.NumCols + j].texCoord.x = j*du;
+			 vertices[i*m_info.NumCols + j].texCoord.y = i*dv;
 		}
 	}
 

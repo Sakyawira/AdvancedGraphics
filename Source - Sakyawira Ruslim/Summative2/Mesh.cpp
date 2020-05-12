@@ -32,7 +32,7 @@ Mesh::Mesh(const std::vector<GLuint>& indices, const std::vector<GLfloat>& verti
 	// 3 is the size of each vertex
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(float), &vertices.front(), GL_STATIC_DRAW);
 
-	/// Position
+	// Position
 	glVertexAttribPointer(
 		0,
 		3,
@@ -43,7 +43,7 @@ Mesh::Mesh(const std::vector<GLuint>& indices, const std::vector<GLfloat>& verti
 
 	glEnableVertexAttribArray(0);
 
-	/// Color
+	// Color
 	glVertexAttribPointer(
 		1,
 		3,
@@ -55,7 +55,7 @@ Mesh::Mesh(const std::vector<GLuint>& indices, const std::vector<GLfloat>& verti
 	glEnableVertexAttribArray(1);
 
 
-	/// Texture
+	// Texture
 	glVertexAttribPointer(
 		2,
 		2,									// 2 float components for coordinates 
