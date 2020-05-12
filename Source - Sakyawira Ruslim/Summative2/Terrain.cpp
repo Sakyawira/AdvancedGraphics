@@ -18,6 +18,7 @@
 /***********************
 * Constructor	: Setup the Terrain Mesh by loading the info and then push it to a meshVector
 * @parameter	: _info -> Terrain settings that needs to be adjusted based on the Heightmap, meshVector -> vector of meshes used to handle in GameManager
+* @return		: Terrain
 ***********************/
 Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector)
 {
