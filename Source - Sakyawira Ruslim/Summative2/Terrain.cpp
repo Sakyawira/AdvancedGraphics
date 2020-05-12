@@ -39,12 +39,25 @@ Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector)
 	build_vb();
 	build_ib();
 
-	//Position attribute
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(TerrainVertex), (GLvoid*)0);
+	// Position
+	glVertexAttribPointer(
+		0, 
+		3, 								// 3 float components for coordinates 
+		GL_FLOAT,
+		GL_FALSE,
+		sizeof(TerrainAttribute), 		// Stride the single vertex (pos)
+		(GLvoid*)0);					// offset from beginning of Vertex
 	glEnableVertexAttribArray(0);
 
-	//Color attribute
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(TerrainVertex), (GLvoid*)(3 * 12));
+
+	// Color
+	glVertexAttribPointer(
+		1, 
+		3, 								// 3 float components for coordinates 
+		GL_FLOAT,
+		GL_FALSE,
+		sizeof(TerrainAttribute), 		// Stride the single vertex (pos + color) 
+		(GLvoid*)(3 * 12));				// offset from beginning of Vertex
 	glEnableVertexAttribArray(1);
 
 	meshVector.push_back(this);
@@ -112,7 +125,7 @@ float Terrain::get_height(glm::vec3 _position) const
 * @parameter	: -
 * @return		: vertices vector.
 ***********************/
-std::vector<TerrainVertex>* Terrain::get_vertices()
+std::vector<TerrainAttribute>* Terrain::get_vertices()
 {
 	return &vertices;
 }
@@ -299,7 +312,7 @@ void Terrain::build_vb()
 
 	glGenBuffers(1, &m_VBO);	//Vert Buffer
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(TerrainVertex) * vertices.size(), &vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(TerrainAttribute) * vertices.size(), &vertices[0], GL_STATIC_DRAW);
 
 }
 

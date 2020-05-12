@@ -23,7 +23,7 @@
 #include "Camera.h"
 #include "Mesh.h"
 
-struct TerrainVertex
+struct TerrainAttribute
 {
 	glm::vec3 pos;
 	glm::vec3 normal;
@@ -48,7 +48,7 @@ public:
 	virtual ~Terrain();
 
 	float get_height(glm::vec3 _position)const;
-	std::vector<TerrainVertex>* get_vertices();
+	std::vector<TerrainAttribute>* get_vertices();
 
 private:
 
@@ -71,7 +71,7 @@ private:
 	std::vector<float> m_v_heightmap;
 
 	GLsizei indicesSize;
-	std::vector<TerrainVertex> vertices;
+	std::vector<TerrainAttribute> vertices;
 	std::vector<GLuint> indices;
 };
 
