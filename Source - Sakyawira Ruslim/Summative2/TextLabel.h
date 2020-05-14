@@ -29,7 +29,6 @@
 
 // Local Includes
 #include "ShaderLoader.h"
-#include "Object.h"
 #include "Camera.h"
 #include "glm.hpp"
 

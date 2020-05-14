@@ -35,10 +35,8 @@
 #include "Shader.h"
 #include "Texture.h"
 #include "Audio.h"
-#include "Enemy.h"
 //#include "GameManager.h"
 #include "Input.h"
-#include "Vertices.h"
 
 Audio audio;
 

@@ -140,11 +140,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Audio.cpp" />
-    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="clock.cpp" />
     <ClCompile Include="CubeMap.cpp" />
-    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="FrameBuffer.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -162,11 +160,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Audio.h" />
-    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="clock.h" />
     <ClInclude Include="CubeMap.h" />
-    <ClInclude Include="Enemy.h" />
     <ClInclude Include="FrameBuffer.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameObject.h" />
@@ -176,7 +172,6 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="ModelMesh.h" />
-    <ClInclude Include="Object.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="Sphere.h" />
@@ -184,7 +179,6 @@
     <ClInclude Include="TessModel.h" />
     <ClInclude Include="TextLabel.h" />
     <ClInclude Include="Texture.h" />
-    <ClInclude Include="Vertices.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Resources\Shaders\FogCubeMapFS.txt" />

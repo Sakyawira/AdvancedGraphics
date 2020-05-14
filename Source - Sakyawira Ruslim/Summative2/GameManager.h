@@ -28,14 +28,12 @@
 #include "Mesh.h"
 #include "Texture.h"
 #include "Camera.h"
-#include "Enemy.h"
 #include "TextLabel.h"
 #include "clock.h"
 #include "Audio.h"
 #include "Sphere.h"
 #include "CubeMap.h" 
 #include "Model.h"
-#include "Bullet.h"
 #include "Terrain.h"
 #include "GeometryModel.h"
 #include "TessModel.h"
@@ -168,7 +166,6 @@ private:
 	GameObject* tank;
 
 	GameObject* m_coin;
-	Enemy* m_enemy;
 
 	GameObject* button_down;
 	GameObject* button_up;
@@ -182,7 +179,6 @@ private:
 	GameObject* terrain;
 	
 	// Vectors
-	std::vector<Enemy*> m_vector_coins;
 	std::vector<GameObject*> m_v_geometry;
 	std::vector<GameObject*> m_v_cubes;
 	std::vector<GameObject*> m_v_sphere;

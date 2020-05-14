@@ -25,9 +25,6 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="GameManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -43,9 +40,6 @@
     <ClCompile Include="CubeMap.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -59,9 +53,6 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="ShaderLoader.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Initialization.h">
@@ -88,13 +79,7 @@
     <ClInclude Include="GameObject.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="GameManager.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Vertices.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="clock.h">
@@ -110,9 +95,6 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="ModelMesh.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="Terrain.h">

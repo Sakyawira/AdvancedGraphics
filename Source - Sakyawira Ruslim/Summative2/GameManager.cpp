@@ -154,11 +154,6 @@ void GameManager::initialize()
 	camera.set_pos_x(0.0f);
 	camera.set_pos_y(0.0f);
 	camera.set_pos_z(0.0f);
-
-	for (auto& coin : m_vector_coins)
-	{
-		coin->Enable();
-	}
 	
 	m_b_initialized_ = true;
 }
@@ -497,12 +492,6 @@ GameManager::~GameManager()
 	{
 		delete text;
 		text = nullptr;
-	}
-
-	for (auto& coinObjects2 : m_vector_coins)
-	{
-		delete coinObjects2;
-		coinObjects2 = nullptr;
 	}
 
 	delete m_clock_;
