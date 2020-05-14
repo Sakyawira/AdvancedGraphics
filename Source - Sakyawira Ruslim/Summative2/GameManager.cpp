@@ -328,7 +328,7 @@ GameObject* GameManager::update_mouse_picking()
 	glm::vec3 end_p = camera.get_position() + m_ray_direction_ * radius;
 
 
-	float mouse_pick_distance = INT_MAX;
+	int mouse_pick_distance = INT_MAX;
 	GameObject* return_object = nullptr;
 	
 	for (auto& object : m_v_cubes)
@@ -378,7 +378,6 @@ void GameManager::cube_follow_terrain()
 
 void GameManager::all_mouse_pick(float delta_t)
 {
-	float mouse_pick_distance = INT_MAX;
 	m_text_collision_->SetText("Not Collided!");
 
 	GameObject* picked_object = update_mouse_picking();
