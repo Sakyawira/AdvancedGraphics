@@ -62,7 +62,7 @@ int main(int argc, char **argv)
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA | GLUT_MULTISAMPLE);
 	glutInitWindowPosition(50, 50);
 	glutInitWindowSize(WINDOW_WIDHT, WINDOW_HEIGHT);
-	glutCreateWindow("Sakyawira's Summative 1");
+	glutCreateWindow("Sakyawira's Summative 2");
 
 	// Sets up all gl function callbacks based on pc hardware
 
