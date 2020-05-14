@@ -22,16 +22,6 @@ bool Audio::Load()
 	audioSystem->createSound("Resources/Audio/GORE_SPLATS/GORE_Stab_Splat_Only_Bubbles_mono.wav", FMOD_DEFAULT, 0, &sounds[SOUND_GAMEOVER]);
 	audioSystem->createSound("Resources/Audio/THUD_Bright_04_Movement_mono.wav", FMOD_DEFAULT, 0, &sounds[SOUND_MOVE]);
 	audioSystem->createSound("Resources/Audio/EAT_Swallow_mono.wav", FMOD_DEFAULT, 0, &sounds[SOUND_CONSUME]);
-	//audioSystem->createSound("Sounds/hit.wav", FMOD_DEFAULT, 0, &sounds[SOUND_HIT]);
-	//audioSystem->createSound("Sounds/explosion.wav", FMOD_DEFAULT, 0, &sounds[SOUND_EXPLOSION]);
-	//audioSystem->createSound("Sounds/fireball.wav", FMOD_DEFAULT, 0, &sounds[SOUND_FIREBALL]);
-	//audioSystem->createSound("Sounds/superfireball.wav", FMOD_DEFAULT, 0, &sounds[SOUND_SUPERFIREBALL]);
-	//audioSystem->createSound("Sounds/arrow.wav", FMOD_DEFAULT, 0, &sounds[SOUND_ARROW]);
-	//audioSystem->createSound("Sounds/death.wav", FMOD_DEFAULT, 0, &sounds[SOUND_DEATH]);
-	//audioSystem->createSound("Sounds/token.wav", FMOD_DEFAULT, 0, &sounds[SOUND_TOKEN]);
-	//audioSystem->createSound("Sounds/fail.wav", FMOD_DEFAULT, 0, &sounds[SOUND_FAIL]);
-	//audioSystem->createSound("Sounds/charged.wav", FMOD_DEFAULT, 0, &sounds[SOUND_CHARGED]);
-	//audioSystem->createSound("Resources/Audio/Thump.wav", FMOD_DEFAULT, 0, &sounds[SOUND_VICTORY]);
 	return true;
 }
 
