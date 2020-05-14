@@ -186,7 +186,7 @@ void GameManager::process_game(Audio& audio)
 		}
 		else
 		{
-			m_string_score_ = "Press 'R' to use free moving camera!";
+			m_string_score_ = "Press 'R' to use free moving camera! WASD to move Red Box.";
 			m_text_instruction_->SetText(m_string_score_);
 		}
 		/*if (m_b_wireframe)
