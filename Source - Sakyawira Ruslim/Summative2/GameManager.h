@@ -21,7 +21,6 @@
 #include <gtc/type_ptr.hpp>
 #include <glm.hpp>
 #include <mat4x2.hpp>
-//#include <gtc/matrix_transform.inl>
 
 // Local Includes
 #include "Shader.h"
