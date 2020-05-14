@@ -1,15 +1,15 @@
 /****************************************************
-* Bachelor of Software Engineering
-* Media Design School
-* Auckland
-* New Zealand
-*
-* (c) 2018 Media Design School
-*
-* File Name		: "Terrain.h"
-* Description	: Terrain Declaration file
-* Author		: Sakyawira
-* Mail			: Sakyawira.Rus8080@mediadesign.school.nz
+  Bachelor of Software Engineering
+  Media Design School
+  Auckland
+  New Zealand
+ 
+  (c) 2018 Media Design School
+ 
+  File Name		: "Terrain.h"
+  Description	: contains declaration of the Terrain class
+  Author		: Sakyawira
+  Mail			: Sakyawira.Rus8080@mediadesign.school.nz
 ******************************************************/
 #pragma once
 
@@ -34,8 +34,8 @@ public:
 
 		float HeightScale;
 		float HeightOffset;
-		UINT NumRows;
-		UINT NumCols;
+		GLuint NumRows;
+		GLuint NumCols;
 		float CellSpacing;
 	};
 
