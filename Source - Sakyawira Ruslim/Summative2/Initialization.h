@@ -19,7 +19,6 @@
 #include <SOIL.h>
 #include <glm.hpp>
 #include <fmod.hpp>
-#include <vld.h>
 
 // Library Includes
 #include <iostream>
