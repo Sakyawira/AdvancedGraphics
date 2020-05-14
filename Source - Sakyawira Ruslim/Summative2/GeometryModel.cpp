@@ -7,7 +7,7 @@
   (c) 2018 Media Design School
 
   File Name   :   GeometryModel.cpp
-  Description :   contains definition of GeometryModel.cpp
+  Description :   contains definition of GeometryModel's constructor and member functions
   Author      :   Sakyawira Nanda Ruslim
   Mail        :   Sakyawira.Rus8080@mediadesign.school.nz
 ********************/
@@ -16,7 +16,7 @@
 /***********************
 * Constructor	: Pass in a point vertices, create VBO and VAO
 * @parameter	: shader's program and camera
-* @return		: -
+* @return		: Geometry Model
 ***********************/
 GeometryModel::GeometryModel(GLuint program, Camera* camera) 
 {
