@@ -7,7 +7,7 @@
   (c) 2018 Media Design School
 
   File Name   :   TessModel.h
-  Description :   contains declaration of TessModel.h
+  Description :   contains declaration of TessModel class
   Author      :   Sakyawira Nanda Ruslim
   Mail        :   Sakyawira.Rus8080@mediadesign.school.nz
 ********************/
@@ -17,9 +17,8 @@
 #include <iostream>
 #include <map>
 #include <vector>
-using namespace std;
-// GL Includes
 
+// GL Includes
 #include <glew.h>
 #include <freeglut.h>
 #include <SOIL.h>

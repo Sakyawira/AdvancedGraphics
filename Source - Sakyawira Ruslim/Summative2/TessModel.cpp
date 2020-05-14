@@ -7,7 +7,7 @@
   (c) 2018 Media Design School
 
   File Name   :   TessModel.cpp
-  Description :   contains definition of TessModel.cpp
+  Description :   contains definition of TessModel's constructor and member functions
   Author      :   Sakyawira Nanda Ruslim
   Mail        :   Sakyawira.Rus8080@mediadesign.school.nz
 ********************/
