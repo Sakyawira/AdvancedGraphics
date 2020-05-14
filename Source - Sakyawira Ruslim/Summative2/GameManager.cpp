@@ -189,12 +189,7 @@ void GameManager::process_game(Audio& audio)
 			m_string_score_ = "Press 'R' to use free moving camera! WASD to move Red Box.";
 			m_text_instruction_->SetText(m_string_score_);
 		}
-		/*if (m_b_wireframe)
-		{*/
-	
-			m_text_collision_->SetText("Hit 'Space' to change polygon mode.");
-		
-		//}
+		m_text_collision_->SetText("Hit 'Space' to change polygon mode.");
 	}
 	
 	else
@@ -209,7 +204,6 @@ void GameManager::render()
 {
 	if (m_b_initialized_ == 1)
 	{
-		// Drawing all obstacles
 		//glEnable(GL_SCISSOR_TEST);
 		//glScissor(0, 200, 800, 400);
 
@@ -349,19 +343,7 @@ GameObject* GameManager::update_mouse_picking()
 			}
 		}
 	}
-	
-	//for (auto& object : m_v_sphere)
-	//{
-		//if (sphere->ray_sphere_col(camera.get_position(), m_ray_direction_, 10.0f))
-		//{
-		//	const float new_distance = glm::length(sphere->GetLocation() - camera.get_position());
-		//	if (new_distance < mouse_pick_distance)
-		//	{
-		//		mouse_pick_distance = new_distance;
-		//		return_object = sphere;
-		//	}
-		//}
-	//}
+
 	return return_object;
 }
 
@@ -377,20 +359,20 @@ void GameManager::set_click(bool newState)
 
 void GameManager::cube_follow_terrain()
 {
-	//Handle player y position when on terrain
+	// Get the height of the terrain and adjust the y position of the cube based on it
 	float x = stencilCube->GetLocation().x;
 	float y = m_mesh_terrain->get_height(stencilCube->GetLocation()) + stencilCube->GetExtents().y;
 	float z = stencilCube->GetLocation().z;
 
-	//Checks if player is off of the terrain
-	if (!isnan(y) && y != -99998)
+	// If the Cube is not off the terrain
+	if (!isnan(y) && y != -99999 + stencilCube->GetExtents().y)
 	{
 		m_cube_previous_y = y;
 		stencilCube->SetPos(glm::vec3(x, y -20.0f, z));
 	}
 	else
 	{
-		stencilCube->SetPos(glm::vec3(x, m_cube_previous_y, z));
+		stencilCube->SetPos(glm::vec3(x, m_cube_previous_y - 20.0f, z));
 	}
 }
 
@@ -526,9 +508,6 @@ GameManager::~GameManager()
 		delete mesh;
 		mesh = nullptr;
 	}
-
-	//delete m_mesh_terrain;
-	//m_mesh_terrain = nullptr;
 
 	delete m_mesh_sphere;
 	m_mesh_sphere = nullptr;
