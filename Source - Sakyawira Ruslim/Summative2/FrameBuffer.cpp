@@ -51,18 +51,18 @@ FrameBuffer::FrameBuffer(Shader* _shader, Mesh* _mesh)
 	glBindRenderbuffer(GL_RENDERBUFFER, rbo); 
 	glRenderbufferStorage(GL_RENDERBUFFER, 
 		// must be 
-		GL_DEPTH24_STENCIL8,				//use as depth - stencil buffer 
+		GL_DEPTH24_STENCIL8,				// use as depth - stencil buffer 
 		800, 
-		800)								//viewport width and height
+		800)								// viewport width and height
 		;
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 	// Attach rbo to the depth and stencil attachment of the frame buffer
 	glFramebufferRenderbuffer(
-		GL_FRAMEBUFFER,									//target 
-		GL_DEPTH_STENCIL_ATTACHMENT,					//attachment 
-		GL_RENDERBUFFER,								//renderbufferTarget 
-		rbo);											// render buffer
+		GL_FRAMEBUFFER,						// target 
+		GL_DEPTH_STENCIL_ATTACHMENT,		// attachment 
+		GL_RENDERBUFFER,					// renderbufferTarget 
+		rbo);								// render buffer
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) 
 	{ 
