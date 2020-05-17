@@ -51,7 +51,7 @@ GameManager::GameManager()
 	tii.HeightOffset = -20.0f;
 	tii.NumRows = 513;
 	tii.NumCols = 513;
-	tii.CellSpacing = 1.0f;
+	tii.CellSpacing = 2.0f;
 	m_mesh_terrain = new Terrain(tii, m_v_mesh, m_sh_tess_->GetProgram(), &camera);
 
 	// Model
@@ -227,7 +227,7 @@ void GameManager::render()
 		button_up->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		//terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
-		m_mesh_terrain->render(glm::vec3(0.0f, 0.0f, 0.0f));
+		m_mesh_terrain->render(glm::vec3(0.0f, -20.0f, 0.0f));
 
 		int i = 0;
 		for (auto point : *(m_mesh_terrain->get_vertices()))
