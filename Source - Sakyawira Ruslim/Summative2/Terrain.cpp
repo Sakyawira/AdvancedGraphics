@@ -98,6 +98,8 @@ void Terrain::render(glm::vec3 _position)
 	GLint mvLoc = glGetUniformLocation(program, "mvp");
 	glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvp));
 	glBindVertexArray(VAO);
+
+	glPatchParameteri(GL_PATCH_VERTICES, /*m_indicesSize*/3);
 	//glDrawArrays(GL_PATCHES, 0, m_indicesSize);
 	glDrawElements(GL_PATCHES, m_indicesSize, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
