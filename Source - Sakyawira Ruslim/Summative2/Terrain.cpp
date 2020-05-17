@@ -79,11 +79,15 @@ Terrain::~Terrain()
 
 }
 
-void Terrain::render(glm::vec3 _position)
+void Terrain::render(glm::vec3 _position, Texture* _texture)
 {
 	glUseProgram(this->program);
 
 	//this->camera->use_camera(this->program);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, _texture->GetID());
+	const GLchar* name = "tex";
+	glUniform1i(glGetUniformLocation(program, name), 0);
 
 	float camDistance = glm::distance(_position, camera->get_position());
 	GLint camDistanceLoc = glGetUniformLocation(program, "camDistance");

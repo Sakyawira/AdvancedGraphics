@@ -1,11 +1,19 @@
 #version 450 core
 
+//size of output patch & no. of times the TCS will be executed 
+layout (vertices = 3) out;
+
 uniform float camDistance;
 
 uniform vec3 camPos;
 
-//size of output patch & no. of times the TCS will be executed 
-layout (vertices = 3) out;
+in vec3 fragPos[];
+in vec3 fragNormal[];
+in vec2 fragTexCoord[];
+
+out vec3 tesfragPos[];
+out vec3 tesfragNormal[];
+out vec2 tesfragTexCoord[];
 
 void main() 
 { 
@@ -21,4 +29,8 @@ void main()
 		gl_TessLevelInner[0] = 32/d;
 	}
 	gl_out[gl_InvocationID].gl_Position = gl_in[gl_InvocationID].gl_Position; 
+
+	tesfragPos[gl_InvocationID] = fragPos[gl_InvocationID];
+	tesfragNormal[gl_InvocationID] = fragNormal[gl_InvocationID];
+	tesfragTexCoord[gl_InvocationID] = fragTexCoord[gl_InvocationID];
 }

@@ -31,7 +31,7 @@ GameManager::GameManager()
 	m_sh_reflective_ = new Shader("Resources/Shaders/FogReflectionVS.txt", "Resources/Shaders/FogReflectionFS.txt", m_v_sh);
 	m_sh_geometry_ = new Shader("Resources/Shaders/Geometry.VS", "Resources/Shaders/Geometry.FS", "Resources/Shaders/Quad.GS", m_v_sh);
 	m_sh_star_geo_ = new Shader("Resources/Shaders/Geometry.VS", "Resources/Shaders/Geometry.FS", "Resources/Shaders/Star.GS", m_v_sh);
-	m_sh_tess_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/tess.FS", "Resources/Shaders/tessTriModel.tcs","Resources/Shaders/tessTriModel.tes", m_v_sh);
+	m_sh_tess_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/PhongDiffuse.FS", "Resources/Shaders/tessTriModel.tcs","Resources/Shaders/tessTriModel.tes", m_v_sh);
 	m_sh_lod_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/tess.FS", "Resources/Shaders/tessLODQuadModel.tcs", "Resources/Shaders/tessQuadModel.tes", m_v_sh);
 	m_sh_chromatical = new Shader("Resources/Shaders/Chromatical.VS", "Resources/Shaders/Chromatical.FS", m_v_sh);
 
@@ -227,7 +227,7 @@ void GameManager::render()
 		button_up->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		//terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
-		m_mesh_terrain->render(glm::vec3(0.0f, -20.0f, 0.0f));
+		m_mesh_terrain->render(glm::vec3(0.0f, -20.0f, 0.0f), m_tr_plain);
 
 		int i = 0;
 		for (auto point : *(m_mesh_terrain->get_vertices()))

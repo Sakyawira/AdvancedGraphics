@@ -18,6 +18,7 @@
 #include "Camera.h"
 #include "Mesh.h"
 #include "TessModel.h"
+#include "Texture.h"
 
 struct TerrainAttribute
 {
@@ -42,7 +43,7 @@ public:
 
 	Terrain(InitInfo _info, std::vector<Mesh*>& meshVector, GLuint program, Camera* camera);
 	virtual ~Terrain();
-	void render(glm::vec3 _position);
+	void render(glm::vec3 _position, Texture* _texture);
 
 	float get_height(glm::vec3 _position)const;
 	std::vector<TerrainAttribute>* get_vertices();
