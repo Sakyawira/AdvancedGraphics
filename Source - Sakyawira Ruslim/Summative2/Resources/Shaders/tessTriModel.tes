@@ -14,10 +14,7 @@ layout (triangles, equal_spacing, cw) in;
 
 void main(void)
 { 
-	fragPos = (
-		gl_TessCoord.x * tesfragPos[0] +
-		gl_TessCoord.y * tesfragPos[1] +
-		gl_TessCoord.z * tesfragPos[2]);
+	fragPos = (tesfragPos[0] + tesfragPos[1] + tesfragPos[2]);
 
 	fragTexCoord = (
 		gl_TessCoord.x * tesfragTexCoord[0] +
