@@ -90,7 +90,7 @@ void Terrain::render(glm::vec3 _position)
 	glUniform1f(camDistanceLoc, camDistance);
 
 	GLuint camLoc = glGetUniformLocation(program, "camPos");
-	glUniform3fv(camLoc, 1, glm::value_ptr(camera->get_position()));
+	glUniform3fv(camLoc, 1, glm::value_ptr(camera->get_position() + camera->get_look_dir() * 30.0f));
 
 	glm::mat4 model;
 	model = glm::translate(model, _position);
