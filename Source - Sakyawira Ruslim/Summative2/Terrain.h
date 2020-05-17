@@ -17,6 +17,7 @@
 #include <freeglut.h>
 #include "Camera.h"
 #include "Mesh.h"
+#include "TessModel.h"
 
 struct TerrainAttribute
 {
@@ -25,7 +26,7 @@ struct TerrainAttribute
 	glm::vec2 texCoord;
 };
 
-class Terrain : public Mesh
+class Terrain : public TessModel
 {
 public:
 	struct InitInfo
@@ -39,8 +40,9 @@ public:
 		float CellSpacing;
 	};
 
-	Terrain(InitInfo _info, std::vector<Mesh*>& meshVector);
+	Terrain(InitInfo _info, std::vector<Mesh*>& meshVector, GLuint program, Camera* camera);
 	virtual ~Terrain();
+	void render(glm::vec3 _position);
 
 	float get_height(glm::vec3 _position)const;
 	std::vector<TerrainAttribute>* get_vertices();

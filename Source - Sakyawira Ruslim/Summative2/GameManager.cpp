@@ -20,7 +20,7 @@ GameManager::GameManager()
 
 	// Create Clock
 	m_clock_ = new CClock();
-	
+
 	// Create Shader
 	m_sh_fogBox = new Shader("Resources/Shaders/FogCubeMapVS.txt", "Resources/Shaders/FogCubeMapFS.txt", m_v_sh);
 	m_sh_fog_ = new Shader("Resources/Shaders/FogPhongVS.txt", "Resources/Shaders/FogPhongDiffuseFS.txt", m_v_sh);
@@ -31,7 +31,7 @@ GameManager::GameManager()
 	m_sh_reflective_ = new Shader("Resources/Shaders/FogReflectionVS.txt", "Resources/Shaders/FogReflectionFS.txt", m_v_sh);
 	m_sh_geometry_ = new Shader("Resources/Shaders/Geometry.VS", "Resources/Shaders/Geometry.FS", "Resources/Shaders/Quad.GS", m_v_sh);
 	m_sh_star_geo_ = new Shader("Resources/Shaders/Geometry.VS", "Resources/Shaders/Geometry.FS", "Resources/Shaders/Star.GS", m_v_sh);
-	m_sh_tess_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/tess.FS", "Resources/Shaders/tessQuadModel.tcs","Resources/Shaders/tessQuadModel.tes", m_v_sh);
+	m_sh_tess_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/tess.FS", "Resources/Shaders/tessTriModel.tcs","Resources/Shaders/tessTriModel.tes", m_v_sh);
 	m_sh_lod_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/tess.FS", "Resources/Shaders/tessLODQuadModel.tcs", "Resources/Shaders/tessQuadModel.tes", m_v_sh);
 	m_sh_chromatical = new Shader("Resources/Shaders/Chromatical.VS", "Resources/Shaders/Chromatical.FS", m_v_sh);
 
@@ -45,6 +45,14 @@ GameManager::GameManager()
 	m_mesh_cube = new Mesh(cube_indices, cube_vertices, m_v_mesh);
 	m_mesh_sphere = new Sphere();
 	m_mesh_cube_map = new Mesh(cube_map_indices, cube_map_vertices, m_v_mesh);
+	Terrain::InitInfo tii;
+	tii.HeightmapFilename = "Resources/Terrain/coastMountain513.raw";
+	tii.HeightScale = 0.35f;
+	tii.HeightOffset = -20.0f;
+	tii.NumRows = 513;
+	tii.NumCols = 513;
+	tii.CellSpacing = 1.0f;
+	m_mesh_terrain = new Terrain(tii, m_v_mesh, m_sh_tess_->GetProgram(), &camera);
 
 	// Model
 	m_mdl_tank = new Model("Resources/Models/Tank/Tank.obj", &camera);
@@ -118,17 +126,8 @@ GameManager::GameManager()
 
 	create_spheres(10, border);
 
-	Terrain::InitInfo tii;
-	tii.HeightmapFilename = "Resources/Terrain/coastMountain513.raw";
-	tii.HeightScale 	= 0.35f;
-	tii.HeightOffset	= -20.0f;
-	tii.NumRows 		= 513;
-	tii.NumCols 		= 513;
-	tii.CellSpacing 	= 1.0f;
-	m_mesh_terrain = new Terrain(tii, m_v_mesh);
-	terrain = new GameObject(m_sh_phong_diffuse_, m_mesh_terrain, v_yellow, 0.0f, 0.0f, 0.0f, m_v_geometry);
-	terrain->SetPos(glm::vec3(0.0f, -20.0f, 0.0f));
-
+	//terrain = new GameObject(m_sh_lod_, m_mesh_terrain, v_yellow, 0.0f, 0.0f, 0.0f, m_v_geometry);
+	//terrain->SetPos(glm::vec3(0.0f, -20.0f, 0.0f));
 
 	m_frameBuffer = new FrameBuffer(m_sh_chromatical, m_mesh_static);
 	
@@ -227,8 +226,8 @@ void GameManager::render()
 
 		button_up->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
-		terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
-		
+		//terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
+		m_mesh_terrain->render(glm::vec3(0.0f, 0.0f, 0.0f));
 
 		int i = 0;
 		for (auto point : *(m_mesh_terrain->get_vertices()))

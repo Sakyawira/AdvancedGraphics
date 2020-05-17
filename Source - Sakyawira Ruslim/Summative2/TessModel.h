@@ -38,13 +38,18 @@
 class TessModel
 {
 	public:
+        TessModel() {};
 		TessModel(GLuint program, Camera* camera);
 		~TessModel() {};
 
 		void render(glm::vec3 position);
 
-	private:
+	protected:
 		GLuint program;
 		Camera* camera;
-		GLuint VAO, VBO;
+		GLuint VAO, VBO, EBO;
+
+        std::vector<GLfloat> m_vertices;
+
+        int m_indicesSize;
 };

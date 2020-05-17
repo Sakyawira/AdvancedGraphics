@@ -20,8 +20,11 @@
 * @parameter	: _info -> Terrain settings that needs to be adjusted based on the Heightmap, meshVector -> vector of meshes used to handle in GameManager
 * @return		: Terrain
 ***********************/
-Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector)
+Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector, GLuint program, Camera* camera)
 {
+	this->program = program;
+	this->camera = camera;
+
 	m_info.HeightmapFilename	= _info.HeightmapFilename;
 	m_info.HeightScale			= _info.HeightScale;
 	m_info.HeightOffset			= _info.HeightOffset;
@@ -68,12 +71,33 @@ Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector)
 		(GLvoid*)(6 * sizeof(GLfloat)));	// offset from beginning of Vertex
 	glEnableVertexAttribArray(2);
 
-	meshVector.push_back(this);
+	//meshVector.push_back(this);
 }
 
 Terrain::~Terrain()
 {
 
+}
+
+void Terrain::render(glm::vec3 _position)
+{
+	glUseProgram(this->program);
+
+	//this->camera->use_camera(this->program);
+
+	float camDistance = glm::distance(_position, camera->get_position());
+	GLint camDistanceLoc = glGetUniformLocation(program, "camDistance");
+	glUniform1f(camDistanceLoc, camDistance);
+
+	glm::mat4 model;
+	model = glm::translate(model, _position);
+	glm::mat4 mvp = camera->get_projection() * camera->get_view() * model;
+	GLint mvLoc = glGetUniformLocation(program, "mvp");
+	glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvp));
+	glBindVertexArray(VAO);
+	//glDrawArrays(GL_PATCHES, 0, 4);
+	glDrawElements(GL_PATCHES, m_indicesSize, GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
 }
 
 /***********************
@@ -314,14 +338,21 @@ void Terrain::build_vb()
 		}
 	}
 
+	glPatchParameteri(GL_PATCH_VERTICES, 4); //comment for tri patch
+	glGenBuffers(1, &VBO);
+	glGenVertexArrays(1, &VAO);
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(TerrainAttribute), &vertices[0], GL_STATIC_DRAW);
+
 	// Creating Vertex Array
-	glGenVertexArrays(1, &m_VAO); 
-	glBindVertexArray(m_VAO);
+	//glGenVertexArrays(1, &m_VAO); 
+	//glBindVertexArray(m_VAO);
 
 	// Creating Vertex Buffer
-	glGenBuffers(1, &m_VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(TerrainAttribute), &vertices[0], GL_STATIC_DRAW);
+	//glGenBuffers(1, &m_VBO);
+	//glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
+	//glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(TerrainAttribute), &vertices[0], GL_STATIC_DRAW);
 }
 
 /***********************
@@ -352,9 +383,10 @@ void Terrain::build_ib()
 	}
 
 	// Create Index Buffer
-	glGenBuffers(1, &m_EBO); 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+	glGenBuffers(1, &EBO); 
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
 	m_indicesSize = indices.size();
+
 }
 
