@@ -341,7 +341,7 @@ void Terrain::build_vb()
 		}
 	}
 
-	glPatchParameteri(GL_PATCH_VERTICES, m_indicesSize); //comment for tri patch
+	glPatchParameteri(GL_PATCH_VERTICES, /*m_indicesSize*/3); //comment for tri patch
 	glGenBuffers(1, &VBO);
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
