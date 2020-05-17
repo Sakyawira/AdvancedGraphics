@@ -1,6 +1,6 @@
 #version 450 core
 
-uniform mat4  mvp;
+uniform mat4  MVP;
 
 in vec3 tesfragPos[];
 in vec3 tesfragNormal[];
@@ -14,7 +14,10 @@ layout (triangles, equal_spacing, cw) in;
 
 void main(void)
 { 
-	fragPos = (tesfragPos[0] + tesfragPos[1] + tesfragPos[2]);
+	fragPos = (
+	gl_TessCoord.x * tesfragPos[0] + 
+	gl_TessCoord.y * tesfragPos[1] + 
+	gl_TessCoord.z * tesfragPos[2]);
 
 	fragTexCoord = (
 		gl_TessCoord.x * tesfragTexCoord[0] +
@@ -28,6 +31,6 @@ void main(void)
 
 	//fragPos = (fragPos[0] + fragPos[1] + fragPos[2]);
 
-	gl_Position= mvp * 
+	gl_Position= MVP * 
 	(gl_TessCoord.x * gl_in[0].gl_Position + gl_TessCoord.y * gl_in[1].gl_Position + gl_TessCoord.z * gl_in[2].gl_Position );
 }

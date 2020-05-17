@@ -98,8 +98,12 @@ void Terrain::render(glm::vec3 _position, Texture* _texture)
 
 	glm::mat4 model;
 	model = glm::translate(model, _position);
+
+	GLuint modelLoc = glGetUniformLocation(program, "model");
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
 	glm::mat4 mvp = camera->get_projection() * camera->get_view() * model;
-	GLint mvLoc = glGetUniformLocation(program, "mvp");
+	GLint mvLoc = glGetUniformLocation(program, "MVP");
 	glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvp));
 	glBindVertexArray(VAO);
 
