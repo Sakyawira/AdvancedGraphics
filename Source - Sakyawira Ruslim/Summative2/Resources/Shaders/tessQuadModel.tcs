@@ -1,6 +1,7 @@
 #version 450 core
 
 uniform float camDistance;
+uniform vec3 camPos;
 
 //size of output patch & no. of times the TCS will be executed 
 layout (vertices = 4) out; 

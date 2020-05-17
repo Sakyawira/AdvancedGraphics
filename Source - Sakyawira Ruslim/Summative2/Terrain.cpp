@@ -89,13 +89,16 @@ void Terrain::render(glm::vec3 _position)
 	GLint camDistanceLoc = glGetUniformLocation(program, "camDistance");
 	glUniform1f(camDistanceLoc, camDistance);
 
+	GLuint camLoc = glGetUniformLocation(program, "camPos");
+	glUniform3fv(camLoc, 1, glm::value_ptr(camera->get_position()));
+
 	glm::mat4 model;
 	model = glm::translate(model, _position);
 	glm::mat4 mvp = camera->get_projection() * camera->get_view() * model;
 	GLint mvLoc = glGetUniformLocation(program, "mvp");
 	glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvp));
 	glBindVertexArray(VAO);
-	//glDrawArrays(GL_PATCHES, 0, 4);
+	//glDrawArrays(GL_PATCHES, 0, m_indicesSize);
 	glDrawElements(GL_PATCHES, m_indicesSize, GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }
@@ -338,7 +341,7 @@ void Terrain::build_vb()
 		}
 	}
 
-	glPatchParameteri(GL_PATCH_VERTICES, 4); //comment for tri patch
+	glPatchParameteri(GL_PATCH_VERTICES, m_indicesSize); //comment for tri patch
 	glGenBuffers(1, &VBO);
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
