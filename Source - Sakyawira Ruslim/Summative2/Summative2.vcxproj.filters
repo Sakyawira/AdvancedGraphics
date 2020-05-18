@@ -55,6 +55,7 @@
     <ClCompile Include="TessModel.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Particle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -115,6 +116,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="FrameBuffer.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
