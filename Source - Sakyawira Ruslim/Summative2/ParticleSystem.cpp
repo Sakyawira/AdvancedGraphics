@@ -18,4 +18,61 @@ ParticleSystem::ParticleSystem(glm::vec3 origin, Camera* _camera, std::string te
 			_camera);   
 		particles.push_back(p);													// add 
 	}
+
+	glGenVertexArrays(1, &vao); 
+	glBindVertexArray(vao);
+	glGenVertexArrays(1, &vbo); 
+	glBindBuffer(GL_ARRAY_BUFFER, vbo); 
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * vPosition.size(), &vPosition[0], GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (GLvoid*)0); 
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0); 
+	glBindVertexArray(0);
+}
+
+void ParticleSystem::render(float dt)
+{
+	for (int i = 0; i < nParticles; i++) 
+	{ 
+		particles[i].update(.0167); 
+		vPosition[i] = particles[i].getPosition(); 
+	} 
+
+	glm::mat4 viewMat = camera->getViewMatrix(); 
+	glm::vec3 vQuad1, vQuad2; 
+
+	glm::vec3 vView = camera->getCameraFront(); 
+	vView = glm::normalize(vView);
+
+	vQuad1 = glm::cross(vView, camera->getCameraUp()); 
+	vQuad1 = glm::normalize(vQuad1);
+
+	vQuad2 = glm::cross(vView, vQuad1); 
+	vQuad2 = glm::normalize(vQuad2);
+
+	glUseProgram(program);
+
+	glUniform3f(glGetUniformLocation(program, "vQuad1"), vQuad1.x, vQuad1.y, vQuad1.z); 
+	glUniform3f(glGetUniformLocation(program, "vQuad2"), vQuad2.x, vQuad2.y, vQuad2.z);
+
+	glUniformMatrix4fv(glGetUniformLocation(program, "vp"), 1, GL_FALSE, glm::value_ptr(vp));
+
+	glActiveTexture(GL_TEXTURE0); 
+	glUniform1i(glGetUniformLocation(program, "Texture"), 0); 
+	glBindTexture(GL_TEXTURE_2D, texture);
+
+	glEnable(GL_BLEND); 
+	glDepthMask(GL_FALSE); 
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vbo); 
+	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * vPosition.size(), &vPosition[0], GL_STATIC_DRAW);
+
+	glBindVertexArray(vao); 
+	glDrawArrays(GL_POINTS, 0, nParticles);
+
+	glBindVertexArray(0);
+
+	glDepthMask(GL_TRUE); 
+	glDisable(GL_BLEND);
 }
