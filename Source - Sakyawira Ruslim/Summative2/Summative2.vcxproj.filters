@@ -242,5 +242,14 @@
     <None Include="Resources\Shaders\Quad.GS">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Resources\Shaders\Particle.VS">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\Particle.GS">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\Particle.FS">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -210,6 +210,9 @@
     <None Include="Resources\Shaders\Model.fs" />
     <None Include="Resources\Shaders\Model.vs" />
     <None Include="Resources\Shaders\Chromatical.FS" />
+    <None Include="Resources\Shaders\Particle.FS" />
+    <None Include="Resources\Shaders\Particle.GS" />
+    <None Include="Resources\Shaders\Particle.VS" />
     <None Include="Resources\Shaders\Quad.GS" />
     <None Include="Resources\Shaders\Reflection.fs" />
     <None Include="Resources\Shaders\Reflection.vs" />
