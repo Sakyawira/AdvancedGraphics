@@ -35,16 +35,16 @@ void ParticleSystem::render(float dt)
 	for (int i = 0; i < nParticles; i++) 
 	{ 
 		particles[i].update(.0167); 
-		vPosition[i] = particles[i].getPosition(); 
+		vPosition[i] = particles[i].get_position(); 
 	} 
 
-	glm::mat4 viewMat = camera->getViewMatrix(); 
+	glm::mat4 viewMat = camera->get_view(); 
 	glm::vec3 vQuad1, vQuad2; 
 
-	glm::vec3 vView = camera->getCameraFront(); 
+	glm::vec3 vView = camera->get_look_dir(); 
 	vView = glm::normalize(vView);
 
-	vQuad1 = glm::cross(vView, camera->getCameraUp()); 
+	vQuad1 = glm::cross(vView, camera->get_up_dir()); 
 	vQuad1 = glm::normalize(vQuad1);
 
 	vQuad2 = glm::cross(vView, vQuad1); 
@@ -55,7 +55,7 @@ void ParticleSystem::render(float dt)
 	glUniform3f(glGetUniformLocation(program, "vQuad1"), vQuad1.x, vQuad1.y, vQuad1.z); 
 	glUniform3f(glGetUniformLocation(program, "vQuad2"), vQuad2.x, vQuad2.y, vQuad2.z);
 
-	glUniformMatrix4fv(glGetUniformLocation(program, "vp"), 1, GL_FALSE, glm::value_ptr(vp));
+	glUniformMatrix4fv(glGetUniformLocation(program, "vp"), 1, GL_FALSE, glm::value_ptr(camera->get_vp()));
 
 	glActiveTexture(GL_TEXTURE0); 
 	glUniform1i(glGetUniformLocation(program, "Texture"), 0); 

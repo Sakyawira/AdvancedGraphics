@@ -15,6 +15,7 @@ class Particle
 	public:
 		Particle(glm::vec3 _position, glm::vec3 _velocity, float _elapsed_time, float _speed, int _id, Camera* _camera);
 		void update(float dt);
+		glm::vec3 get_position();
 
 	private:
 		Camera* camera;

@@ -26,3 +26,8 @@ void Particle::update(float dt)
 	}
 
 }
+
+glm::vec3 Particle::get_position()
+{
+	return position;
+}

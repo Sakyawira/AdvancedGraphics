@@ -69,6 +69,8 @@ public:
 	glm::mat4 get_view();
 
 	glm::vec3 get_look_dir();
+
+	glm::vec3 get_up_dir();
 	
 private:
 

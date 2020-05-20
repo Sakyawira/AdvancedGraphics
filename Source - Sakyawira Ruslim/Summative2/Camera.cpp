@@ -181,4 +181,9 @@ glm::vec3 Camera::get_look_dir()
 	return camLookDir;
 }
 
+glm::vec3 Camera::get_up_dir()
+{
+	return camUpDir;
+}
+
 
