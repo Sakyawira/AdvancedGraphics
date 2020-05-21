@@ -356,7 +356,7 @@ void Terrain::build_vb()
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(TerrainAttribute), &vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(TerrainAttribute), &vertices.front(), GL_STATIC_DRAW);
 
 	// Creating Vertex Array
 	//glGenVertexArrays(1, &m_VAO); 
@@ -365,7 +365,7 @@ void Terrain::build_vb()
 	// Creating Vertex Buffer
 	//glGenBuffers(1, &m_VBO);
 	//glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	//glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(TerrainAttribute), &vertices[0], GL_STATIC_DRAW);
+	//glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(TerrainAttribute), &vertices.front(), GL_STATIC_DRAW);
 }
 
 /***********************
@@ -398,7 +398,7 @@ void Terrain::build_ib()
 	// Create Index Buffer
 	glGenBuffers(1, &EBO); 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint), &indices.front(), GL_STATIC_DRAW);
 	m_indicesSize = indices.size();
 
 }
