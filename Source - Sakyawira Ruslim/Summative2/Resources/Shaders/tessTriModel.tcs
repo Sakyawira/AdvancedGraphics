@@ -21,12 +21,30 @@ void main()
 	float d = distance(gl_in[gl_InvocationID].gl_Position.xyz, camPos);
 	if (gl_InvocationID == 0)
 	{
+		if (d >= 160)
+		{
+			gl_TessLevelOuter[0] = 1; 
+			gl_TessLevelOuter[1] = 1; 
+			gl_TessLevelOuter[2] = 1;
 
-		gl_TessLevelOuter[0] = 32/d; 
-		gl_TessLevelOuter[1] = 32/d; 
-		gl_TessLevelOuter[2] = 32/d;
+			gl_TessLevelInner[0] = 1;
+		}
+		else if (d >= 80 && d < 160)
+		{
+			gl_TessLevelOuter[0] = 4; 
+			gl_TessLevelOuter[1] = 4; 
+			gl_TessLevelOuter[2] = 4;
 
-		gl_TessLevelInner[0] = 32/d;
+			gl_TessLevelInner[0] = 4;
+		}
+		else if (d < 80)
+		{
+			gl_TessLevelOuter[0] = 8; 
+			gl_TessLevelOuter[1] = 8; 
+			gl_TessLevelOuter[2] = 8;
+
+			gl_TessLevelInner[0] = 8;
+		}
 	}
 	gl_out[gl_InvocationID].gl_Position = gl_in[gl_InvocationID].gl_Position; 
 
