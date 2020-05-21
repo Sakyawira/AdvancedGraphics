@@ -47,11 +47,11 @@ GameManager::GameManager()
 	m_mesh_cube_map = new Mesh(cube_map_indices, cube_map_vertices, m_v_mesh);
 	Terrain::InitInfo tii;
 	tii.HeightmapFilename = "Resources/Terrain/coastMountain513.raw";
-	tii.HeightScale = 0.35f;
+	tii.HeightScale = 0.25f;
 	tii.HeightOffset = -20.0f;
-	tii.NumRows = 513;
-	tii.NumCols = 513;
-	tii.CellSpacing = 2.0f;
+	tii.NumRows = 32;
+	tii.NumCols = 32;
+	tii.CellSpacing = 16.0f;
 	m_mesh_terrain = new Terrain(tii, m_v_mesh, m_sh_tess_->GetProgram(), &camera);
 
 	// Model
