@@ -34,7 +34,7 @@ GameManager::GameManager()
 	m_sh_tess_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/PhongDiffuse.FS", "Resources/Shaders/tessTriModel.tcs","Resources/Shaders/tessTriModel.tes", m_v_sh);
 	m_sh_lod_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/tess.FS", "Resources/Shaders/tessLODQuadModel.tcs", "Resources/Shaders/tessQuadModel.tes", m_v_sh);
 	m_sh_chromatical_ = new Shader("Resources/Shaders/Chromatical.VS", "Resources/Shaders/Chromatical.FS", m_v_sh);
-	m_sh_particles_ = new Shader("Resources/Shaders/Particle.VS", "Resources/Shaders/Particle.FS,", "Resources/Shaders/Particle.GS", m_v_sh);
+	m_sh_particles_ = new Shader("Resources/Shaders/Particle.VS", "Resources/Shaders/Particle.FS", "Resources/Shaders/Particle.GS", m_v_sh);
 
 	// Create Mesh
 	m_mesh_static = new Mesh(animation_indices, static_vertices, m_v_mesh);
@@ -123,7 +123,7 @@ GameManager::GameManager()
 	tank = new GameObject(m_mdl_tank, 0.0f, 0.0f, 0.0f);
 
 	// Particle System
-	m_particles = new ParticleSystem(glm::vec3(6.4f, 10.0f, 2.45f), &camera, m_tr_grass, m_sh_particles_);
+	m_particles = new ParticleSystem(glm::vec3(10.0f, 10.0f, 10.0f), &camera, m_tr_grass, m_sh_particles_);
 
 	srand(static_cast<unsigned>(std::random_device()()));
 	int border = 75;
@@ -233,7 +233,7 @@ void GameManager::render()
 		//terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		m_mesh_terrain->render(glm::vec3(0.0f, -20.0f, 0.0f), m_tr_plain);
 
-		//m_particles->render(m_clock_->GetDeltaTick());
+		m_particles->render(m_clock_->GetDeltaTick());
 
 		int i = 0;
 		for (auto point : *(m_mesh_terrain->get_vertices()))

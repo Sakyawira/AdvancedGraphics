@@ -1,4 +1,4 @@
-#version 4500 core 
+#version 450 core 
 
 layout (points) in; 
 layout (triangle_strip, max_vertices = 4) out;
@@ -11,11 +11,6 @@ out GS_FS_VERTEX
 { 
 	vec2 texcoord; 
 }gs_out;
-
-void main() 
-{    
-	buildQuad(0.1, vp); 
-}
 
 void buildQuad(float size, mat4 vp)
 {
@@ -41,3 +36,9 @@ void buildQuad(float size, mat4 vp)
 
 	EndPrimitive(); 
 }
+
+void main() 
+{    
+	buildQuad(0.1, vp); 
+}
+
