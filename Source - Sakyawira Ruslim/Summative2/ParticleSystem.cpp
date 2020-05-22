@@ -1,4 +1,5 @@
 #include "ParticleSystem.h"
+static bool myComparison(Particle a, Particle b) { return (a.get_distanceToCamera() > b.get_distanceToCamera()); }
 
 ParticleSystem::ParticleSystem(glm::vec3 origin, Camera* _camera, Texture* _texture, Shader* _shader)
 {
@@ -41,6 +42,8 @@ void ParticleSystem::render(float dt)
 		particles[i].update(.0167); 
 		vPosition[i] = particles[i].get_position(); 
 	} 
+
+	std::sort(particles.begin(), particles.end(), myComparison);
 
 	glm::mat4 viewMat = camera->get_view(); 
 	glm::vec3 vQuad1, vQuad2; 

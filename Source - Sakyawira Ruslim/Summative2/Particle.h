@@ -16,6 +16,7 @@ class Particle
 		Particle(glm::vec3 _position, glm::vec3 _velocity, float _elapsed_time, float _speed, int _id, Camera* _camera);
 		void update(float dt);
 		glm::vec3 get_position();
+		float get_distanceToCamera() { return camDistance; };
 
 	private:
 		Camera* camera;
@@ -28,4 +29,5 @@ class Particle
 
 		float elapsed_time;
 		float speed;
+		float camDistance = 0;
 };

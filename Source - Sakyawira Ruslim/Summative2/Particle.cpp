@@ -24,7 +24,9 @@ void Particle::update(float dt)
 								   0.25 * sin(this->id * .0167) + 0.25f * randomFloat() - 0.125f); 
 		this->elapsed_time = randomFloat() + 0.125;
 	}
-
+	this->position += velocity;
+	this->elapsed_time -= .000167;
+	this->camDistance = glm::distance(this->camera->get_position(), this->position); //add
 }
 
 glm::vec3 Particle::get_position()
