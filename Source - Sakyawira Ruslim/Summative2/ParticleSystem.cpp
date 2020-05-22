@@ -1,7 +1,11 @@
 #include "ParticleSystem.h"
 
-ParticleSystem::ParticleSystem(glm::vec3 origin, Camera* _camera, std::string texFileName)
+ParticleSystem::ParticleSystem(glm::vec3 origin, Camera* _camera, Texture* _texture, Shader* _shader)
 {
+	texture = _texture->GetID();
+	camera = _camera;
+	program = _shader->GetProgram();
+
 	nParticles = 4000; 
 	for (int i = 0; i < nParticles; i++) 
 	{

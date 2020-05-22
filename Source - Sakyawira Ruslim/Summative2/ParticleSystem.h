@@ -2,12 +2,13 @@
 #include "Camera.h"
 #include "Particle.h"
 #include "Texture.h"
+#include "Shader.h"
 #include <string>
 
 class ParticleSystem 
 {
 	public: 
-		ParticleSystem(glm::vec3 origin, Camera* _camera, std::string texFileName); 
+		ParticleSystem(glm::vec3 origin, Camera* _camera, Texture* _texture, Shader* _shader); 
 		 ~ParticleSystem();
 		 void render(float dt);
 		 std::vector<Particle> particles; 

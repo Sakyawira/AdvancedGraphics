@@ -37,6 +37,7 @@
 #include "GeometryModel.h"
 #include "TessModel.h"
 #include "FrameBuffer.h"
+#include "ParticleSystem.h"
 
 const int WINDOW_WIDHT = 800;
 const int WINDOW_HEIGHT = 800;
@@ -77,6 +78,9 @@ public:
 	bool m_b_wireframe = false;
 	
 private:
+
+	// Particle  System
+	ParticleSystem* m_particles;
 
 	// Is click
 	bool m_is_clicked_ = false;
@@ -133,7 +137,8 @@ private:
 	Shader* m_sh_geometry_;
 	Shader* m_sh_star_geo_;
 	Shader* m_sh_tess_;
-	Shader* m_sh_chromatical;
+	Shader* m_sh_chromatical_;
+	Shader* m_sh_particles_;
 
 	FrameBuffer* m_frameBuffer;
 
