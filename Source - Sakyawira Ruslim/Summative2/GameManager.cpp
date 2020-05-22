@@ -234,6 +234,7 @@ void GameManager::render()
 		m_mesh_terrain->render(glm::vec3(0.0f, -20.0f, 0.0f), m_tr_plain);
 
 		m_particles->render(m_clock_->GetDeltaTick());
+		glEnable(GL_BLEND);
 
 		int i = 0;
 		for (auto point : *(m_mesh_terrain->get_vertices()))
