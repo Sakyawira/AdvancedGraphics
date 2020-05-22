@@ -123,7 +123,7 @@ GameManager::GameManager()
 	tank = new GameObject(m_mdl_tank, 0.0f, 0.0f, 0.0f);
 
 	// Particle System
-	m_particles = new ParticleSystem(glm::vec3(10.0f, 10.0f, 10.0f), &camera, m_tr_grass, m_sh_particles_);
+	m_particles = new ParticleSystem(glm::vec3(10.0f, 2.0f, 0.0f), &camera, m_tr_grass, m_sh_particles_);
 
 	srand(static_cast<unsigned>(std::random_device()()));
 	int border = 75;
