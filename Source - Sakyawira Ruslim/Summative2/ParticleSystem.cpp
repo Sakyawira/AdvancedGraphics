@@ -56,18 +56,23 @@ void ParticleSystem::init()
 
 	glGenBuffers(1, &posVbo);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, posVbo);
-	glBufferData(GL_SHADER_STORAGE_BUFFER, initialposition.size() * sizeof(glm::vec4), &initialposition[0], GL_DYNAMIC_DRAW);
+	glBufferData(GL_SHADER_STORAGE_BUFFER, initialposition.size() * sizeof(glm::vec4), &initialposition.front(), GL_DYNAMIC_DRAW);
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, posVbo);
+
+	glGenBuffers(1, &initPosVbo);
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, initPosVbo);
+	glBufferData(GL_SHADER_STORAGE_BUFFER, initialposition.size() * sizeof(glm::vec4), &initialposition.front(), GL_DYNAMIC_DRAW);
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, initPosVbo);
 
 	glGenBuffers(1, &velVbo);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, velVbo);
-	glBufferData(GL_SHADER_STORAGE_BUFFER, initialvelocity.size() * sizeof(glm::vec4), &initialvelocity[0], GL_DYNAMIC_DRAW);
-	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, velVbo);
+	glBufferData(GL_SHADER_STORAGE_BUFFER, initialvelocity.size() * sizeof(glm::vec4), &initialvelocity.front(), GL_DYNAMIC_DRAW);
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, velVbo);
 
 	glGenBuffers(1, &initVelVbo);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, initVelVbo);
-	glBufferData(GL_SHADER_STORAGE_BUFFER, initialvelocity.size() * sizeof(glm::vec4), &initialvelocity[0], GL_DYNAMIC_DRAW);
-	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, initVelVbo);
+	glBufferData(GL_SHADER_STORAGE_BUFFER, initialvelocity.size() * sizeof(glm::vec4), &initialvelocity.front(), GL_DYNAMIC_DRAW);
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, initVelVbo);
 
 	// useless vao but we need it bound to not get errors
 

@@ -4,9 +4,9 @@
 layout(local_size_x = WORK_GROUP_SIZE, local_size_y = 1, local_size_z = 1) in;
 
 layout(std430, binding = 0) buffer positionBuffer { vec4 position []; };
-//layout(std430, binding = 1) buffer initPositionBuffer { vec4 initPosition []; };
-layout(std430, binding = 1) buffer velocityBuffer { vec4 velocity []; };
-layout(std430, binding = 2) buffer initVelocityBuffer { vec4 initVelocity []; };
+layout(std430, binding = 1) buffer initPositionBuffer { vec4 initPosition []; };
+layout(std430, binding = 2) buffer velocityBuffer { vec4 velocity []; };
+layout(std430, binding = 3) buffer initVelocityBuffer { vec4 initVelocity []; };
 
 uniform float currentTime;
 
@@ -22,7 +22,7 @@ void main()
 
 	if (position[i].w <= 0.0f || position[i].y < -90.0f)
 	{
-		//position[i] = initPosition[i];
+		position[i] = initPosition[i];
 		position[i].w = initVelocity[i].w;
 
 		velocity[i] = initVelocity[i];

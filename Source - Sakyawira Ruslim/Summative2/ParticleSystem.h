@@ -23,7 +23,7 @@ class ParticleSystem
 
 		std::vector<glm::vec4> initialposition;
 		std::vector<glm::vec4> initialvelocity;
-		GLuint posVbo, velVbo, initVelVbo, particleVao;
+		GLuint posVbo, velVbo, initPosVbo, initVelVbo, particleVao;
 		GLuint computeProgram;
 
 };
