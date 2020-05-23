@@ -14,6 +14,12 @@
 #include "Shader.h"
 
 
+Shader::Shader(const char* ComputeShaderFilename, std::vector<Shader*>& shaderVector)
+{
+	m_program = ShaderLoader::CreateProgram(ComputeShaderFilename);
+	shaderVector.push_back(this);
+}
+
 Shader::Shader(const char * VertexShaderFilename, const char * FragmentShaderFilename, std::vector<Shader*>& shaderVector)
 {
 	m_program = ShaderLoader::CreateProgram(VertexShaderFilename, FragmentShaderFilename);

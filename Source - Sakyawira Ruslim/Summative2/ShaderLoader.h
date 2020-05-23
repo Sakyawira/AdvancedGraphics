@@ -15,6 +15,7 @@ public:
 	ShaderLoader(ShaderLoader const&) = delete;
 	void operator=(ShaderLoader const&) = delete;
 
+	static GLuint CreateProgram(const char* ComputeShaderFilename);
 	static GLuint CreateProgram(const char* VertexShaderFilename, const char* FragmentShaderFilename);
 	static GLuint CreateProgram(const char* vertexShaderFilename, const char* fragmentShaderFilename, const char* geometryShaderFilename);
 	static GLuint CreateProgram(const char* vertexShaderFilename, const char* fragmentShaderFilename, const char* TessControlShaderFilename, const char* TessEvalShaderFilename);

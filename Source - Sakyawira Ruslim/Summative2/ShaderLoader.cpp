@@ -13,6 +13,44 @@ ShaderLoader& ShaderLoader::getInstance()
 }
 
 
+GLuint ShaderLoader::CreateProgram(const char* ComputeShaderFilename)
+{
+	//Create program attach the shader(s) to it
+	GLuint program = glCreateProgram();
+
+	const GLuint computeShaderID = CreateShader(GL_COMPUTE_SHADER, ComputeShaderFilename);
+	std::string combinedShader = std::to_string(computeShaderID);
+
+	for (auto& pair : getInstance().shaderMap)
+	{
+		if (combinedShader == pair.second)
+		{
+			std::cout << "We found the same combined pair!" << std::endl;
+			return pair.first;
+		}
+	}
+
+	glAttachShader(program, computeShaderID);
+
+	//Linking the program
+	glLinkProgram(program);
+
+
+	// Check for link errors
+	int link_result = 0;
+	glGetProgramiv(program, GL_LINK_STATUS, &link_result);
+	if (link_result == GL_FALSE)
+	{
+		std::string programName = ComputeShaderFilename;
+		PrintErrorDetails(false, program, programName.c_str());
+		return 0;
+	}
+
+	getInstance().shaderMap.insert({ program, combinedShader });
+
+	return program;
+}
+
 GLuint ShaderLoader::CreateProgram(const char* vertexShaderFilename, const char* fragmentShaderFilename)
 {
 	//Create program attach the shader(s) to it

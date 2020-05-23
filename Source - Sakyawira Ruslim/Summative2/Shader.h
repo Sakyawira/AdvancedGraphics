@@ -23,6 +23,7 @@ class Shader
 {
 	//Square 1
 public:
+	Shader(const char* ComputeShaderFilename, std::vector<Shader*>& shaderVector);
 	Shader(const char* VertexShaderFilename, const char* FragmentShaderFilename, std::vector<Shader*>& shaderVector);
 	Shader(const char* VertexShaderFilename, const char* FragmentShaderFilename, const char* geometryShaderFilename, std::vector<Shader*>& shaderVector);
 	Shader(const char* VertexShaderFilename, const char* FragmentShaderFilename, const char* TessControlShaderFilename, const char* TessEvalShaderFilename, std::vector<Shader*>& shaderVector);
