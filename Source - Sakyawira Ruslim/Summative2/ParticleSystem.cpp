@@ -8,6 +8,7 @@ ParticleSystem::ParticleSystem(glm::vec3 origin, Camera* _camera, Texture* _text
 	renderProgram = _shaderRender->GetProgram();
 	computeProgram = _shaderCompute->GetProgram();
 
+	this->init();
 	//nParticles = 4000; 
 	//for (int i = 0; i < nParticles; i++) 
 	//{
@@ -82,7 +83,7 @@ void ParticleSystem::init()
 	glBindVertexArray(0);
 }
 
-void ParticleSystem::render(float dt)
+void ParticleSystem::render(float dt, glm::vec3 _position)
 {
 	/*for (int i = 0; i < nParticles; i++) 
 	{ 
@@ -144,6 +145,12 @@ void ParticleSystem::render(float dt)
 
 	glUseProgram(renderProgram);
 	glUniformMatrix4fv(glGetUniformLocation(renderProgram, "vp"), 1, GL_FALSE, glm::value_ptr(camera->get_vp()));
+
+	glm::mat4 model;
+	model = glm::translate(model, _position);
+
+	GLuint modelLoc = glGetUniformLocation(renderProgram, "model");
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
 	// Bind Position buffer as GL_ARRAY_BUFFER
 	glBindBuffer(GL_ARRAY_BUFFER, posVbo);

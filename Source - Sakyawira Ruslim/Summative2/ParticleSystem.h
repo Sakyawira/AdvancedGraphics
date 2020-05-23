@@ -13,7 +13,7 @@ class ParticleSystem
 		ParticleSystem(glm::vec3 origin, Camera* _camera, Texture* _texture, Shader* _shaderRender, Shader* _shaderCompute);
 		 ~ParticleSystem();
 		 void init();
-		 void render(float dt);
+		 void render(float dt, glm::vec3 _position);
 		 std::vector<Particle> particles; 
 		 std::vector<glm::vec3> vPosition;
 	private: 

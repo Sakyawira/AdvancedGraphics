@@ -234,7 +234,7 @@ void GameManager::render()
 		//terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		m_mesh_terrain->render(glm::vec3(0.0f, -20.0f, 0.0f), m_tr_plain);
 
-		m_particles->render(m_clock_->GetDeltaTick());
+		m_particles->render(m_clock_->GetDeltaTick(), glm::vec3(0.0f, 10.0f, 0.0f));
 		glEnable(GL_BLEND);
 
 		int i = 0;
