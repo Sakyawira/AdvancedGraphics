@@ -66,6 +66,19 @@ void ParticleSystem::init()
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, initVelVbo);
 	glBufferData(GL_SHADER_STORAGE_BUFFER, initialvelocity.size() * sizeof(glm::vec4), &initialvelocity[0], GL_DYNAMIC_DRAW);
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, initVelVbo);
+
+	// useless vao but we need it bound to not get errors
+
+	glGenVertexArrays(1, &particleVao);
+	glBindVertexArray(particleVao);
+
+	glBindBuffer(GL_ARRAY_BUFFER, posVbo);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, NULL, 0);
+	glEnableVertexAttribArray(0);
+
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 }
 
 void ParticleSystem::render(float dt)
