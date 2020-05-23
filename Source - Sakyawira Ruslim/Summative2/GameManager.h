@@ -139,6 +139,7 @@ private:
 	Shader* m_sh_tess_;
 	Shader* m_sh_chromatical_;
 	Shader* m_sh_particles_;
+	Shader* m_sh_compute_;
 
 	FrameBuffer* m_frameBuffer;
 

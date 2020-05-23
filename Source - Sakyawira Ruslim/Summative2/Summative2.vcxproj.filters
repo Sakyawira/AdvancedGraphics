@@ -251,5 +251,14 @@
     <None Include="Resources\Shaders\Particle.FS">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Resources\Shaders\Particle.CS">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\ParticleComputed.VS">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\ParticleComputed.FS">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

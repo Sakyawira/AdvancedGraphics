@@ -1,11 +1,12 @@
 #include "ParticleSystem.h"
 static bool myComparison(Particle a, Particle b) { return (a.get_distanceToCamera() > b.get_distanceToCamera()); }
 
-ParticleSystem::ParticleSystem(glm::vec3 origin, Camera* _camera, Texture* _texture, Shader* _shader)
+ParticleSystem::ParticleSystem(glm::vec3 origin, Camera* _camera, Texture* _texture, Shader* _shaderRender, Shader* _shaderCompute)
 {
 	texture = _texture->GetID();
 	camera = _camera;
-	program = _shader->GetProgram();
+	renderProgram = _shaderRender->GetProgram();
+	computeProgram = _shaderCompute->GetProgram();
 
 	//nParticles = 4000; 
 	//for (int i = 0; i < nParticles; i++) 
@@ -130,14 +131,19 @@ void ParticleSystem::render(float dt)
 	glDisable(GL_BLEND);*/
 
 	glUseProgram(computeProgram);
+	float currentTime = static_cast<float>(glutGet(GLUT_ELAPSED_TIME));
+	currentTime = currentTime / 1000.0f;
+	GLint currentTimeLoc = glGetUniformLocation(computeProgram, "currentTime");
+	glUniform1f(currentTimeLoc, currentTime);
+
 	glDispatchCompute(NUM_PARTICLES / 128, 1, 1);
 
 	// Sync, wait for completion
 	glMemoryBarrier(GL_ALL_BARRIER_BITS);
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
-	glUseProgram(program);
-	glUniformMatrix4fv(glGetUniformLocation(program, "vp"), 1, GL_FALSE, glm::value_ptr(camera->get_vp()));
+	glUseProgram(renderProgram);
+	glUniformMatrix4fv(glGetUniformLocation(renderProgram, "vp"), 1, GL_FALSE, glm::value_ptr(camera->get_vp()));
 
 	// Bind Position buffer as GL_ARRAY_BUFFER
 	glBindBuffer(GL_ARRAY_BUFFER, posVbo);
