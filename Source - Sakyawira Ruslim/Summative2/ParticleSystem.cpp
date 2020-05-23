@@ -8,21 +8,21 @@ ParticleSystem::ParticleSystem(glm::vec3 origin, Camera* _camera, Texture* _text
 	program = _shader->GetProgram();
 
 	nParticles = 4000; 
-	for (int i = 0; i < nParticles; i++) 
-	{
-		vPosition.push_back(glm::vec3(0.0));
-		//initialize position vector 
-		Particle p = Particle( 
-			origin,																// pos 
-			glm::vec3(0.25 * cos(i * .0167) + 0.25f * randomFloat() - 0.125f,  
-					  2.0f + 0.25f * randomFloat() - 0.125f, 
-					  0.25 * sin(i* .0167) + 0.25f * randomFloat() - 0.125f),	// vel
-			randomFloat() + 0.125,												// elapsed time 
-			1.0f,																// speed 
-			i,																	// id 
-			_camera);   
-		particles.push_back(p);													// add 
-	}
+	//for (int i = 0; i < nParticles; i++) 
+	//{
+	//	vPosition.push_back(glm::vec3(0.0));
+	//	//initialize position vector 
+	//	Particle p = Particle( 
+	//		origin,																// pos 
+	//		glm::vec3(0.25 * cos(i * .0167) + 0.25f * randomFloat() - 0.125f,  
+	//				  2.0f + 0.25f * randomFloat() - 0.125f, 
+	//				  0.25 * sin(i* .0167) + 0.25f * randomFloat() - 0.125f),	// vel
+	//		randomFloat() + 0.125,												// elapsed time 
+	//		1.0f,																// speed 
+	//		i,																	// id 
+	//		_camera);   
+	//	particles.push_back(p);													// add 
+	//}
 
 	glGenVertexArrays(1, &vao); 
 	glBindVertexArray(vao);
@@ -33,6 +33,28 @@ ParticleSystem::ParticleSystem(glm::vec3 origin, Camera* _camera, Texture* _text
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0); 
 	glBindVertexArray(0);
+}
+
+void ParticleSystem::init()
+{
+	initialposition.resize(NUM_PARTICLES);
+	initialvelocity.resize(NUM_PARTICLES);
+
+	for (int i = 0; i < NUM_PARTICLES; i++)
+	{
+		initialposition[i] = glm::vec4(0.0f, 0.0f, 0.0f, randomFloat() + 0.125f);
+
+		initialvelocity[i] = glm::vec4(
+							0.25 * cos(i * .0167) + 0.25f * randomFloat() - 0.125f,
+							2.0f + 0.25f * randomFloat() - 0.125f, 
+							0.25 * sin(i* .0167) + 0.25f * randomFloat() - 0.125f,
+							randomFloat() + 0.125f);
+	}
+
+	glGenBuffers(1, &posVbo);
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, posVbo);
+	glBufferData(GL_SHADER_STORAGE_BUFFER, initialposition.size() * sizeof(glm::vec4), &initialposition[0], GL_DYNAMIC_DRAW);
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, posVbo);
 }
 
 void ParticleSystem::render(float dt)
