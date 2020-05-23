@@ -26,6 +26,7 @@ ParticleSystem::ParticleSystem(glm::vec3 origin, Camera* _camera, Texture* _text
 
 	glGenVertexArrays(1, &vao); 
 	glBindVertexArray(vao);
+
 	glGenVertexArrays(1, &vbo); 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo); 
 	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * vPosition.size(), &vPosition[0], GL_STATIC_DRAW);
@@ -55,6 +56,16 @@ void ParticleSystem::init()
 	glBindBuffer(GL_SHADER_STORAGE_BUFFER, posVbo);
 	glBufferData(GL_SHADER_STORAGE_BUFFER, initialposition.size() * sizeof(glm::vec4), &initialposition[0], GL_DYNAMIC_DRAW);
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, posVbo);
+
+	glGenBuffers(1, &velVbo);
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, velVbo);
+	glBufferData(GL_SHADER_STORAGE_BUFFER, initialvelocity.size() * sizeof(glm::vec4), &initialvelocity[0], GL_DYNAMIC_DRAW);
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, velVbo);
+
+	glGenBuffers(1, &initVelVbo);
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, initVelVbo);
+	glBufferData(GL_SHADER_STORAGE_BUFFER, initialvelocity.size() * sizeof(glm::vec4), &initialvelocity[0], GL_DYNAMIC_DRAW);
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, initVelVbo);
 }
 
 void ParticleSystem::render(float dt)
