@@ -7,7 +7,7 @@ ParticleSystem::ParticleSystem(glm::vec3 origin, Camera* _camera, Texture* _text
 	camera = _camera;
 	program = _shader->GetProgram();
 
-	nParticles = 4000; 
+	//nParticles = 4000; 
 	//for (int i = 0; i < nParticles; i++) 
 	//{
 	//	vPosition.push_back(glm::vec3(0.0));
@@ -24,16 +24,16 @@ ParticleSystem::ParticleSystem(glm::vec3 origin, Camera* _camera, Texture* _text
 	//	particles.push_back(p);													// add 
 	//}
 
-	glGenVertexArrays(1, &vao); 
-	glBindVertexArray(vao);
+	//glGenVertexArrays(1, &vao); 
+	//glBindVertexArray(vao);
 
-	glGenVertexArrays(1, &vbo); 
-	glBindBuffer(GL_ARRAY_BUFFER, vbo); 
-	glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * vPosition.size(), &vPosition[0], GL_STATIC_DRAW);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (GLvoid*)0); 
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0); 
-	glBindVertexArray(0);
+	//glGenVertexArrays(1, &vbo); 
+	//glBindBuffer(GL_ARRAY_BUFFER, vbo); 
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec3) * vPosition.size(), &vPosition[0], GL_STATIC_DRAW);
+	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(glm::vec3), (GLvoid*)0); 
+	//glEnableVertexAttribArray(0);
+	//glBindBuffer(GL_ARRAY_BUFFER, 0); 
+	//glBindVertexArray(0);
 }
 
 void ParticleSystem::init()
@@ -83,7 +83,7 @@ void ParticleSystem::init()
 
 void ParticleSystem::render(float dt)
 {
-	for (int i = 0; i < nParticles; i++) 
+	/*for (int i = 0; i < nParticles; i++) 
 	{ 
 		particles[i].update(.0167); 
 		vPosition[i] = particles[i].get_position(); 
@@ -127,5 +127,28 @@ void ParticleSystem::render(float dt)
 	glBindVertexArray(0);
 
 	glDepthMask(GL_TRUE); 
-	glDisable(GL_BLEND);
+	glDisable(GL_BLEND);*/
+
+	glUseProgram(computeProgram);
+	glDispatchCompute(NUM_PARTICLES / 128, 1, 1);
+
+	// Sync, wait for completion
+	glMemoryBarrier(GL_ALL_BARRIER_BITS);
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+
+	glUseProgram(program);
+	glUniformMatrix4fv(glGetUniformLocation(program, "vp"), 1, GL_FALSE, glm::value_ptr(camera->get_vp()));
+
+	// Bind Position buffer as GL_ARRAY_BUFFER
+	glBindBuffer(GL_ARRAY_BUFFER, posVbo);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, NULL, 0);
+	glEnableVertexAttribArray(0);
+
+	// Render
+	glDrawArrays(GL_POINTS, 0, NUM_PARTICLES);
+
+	// Tidy up
+	glDisableVertexAttribArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glUseProgram(0);
 }
