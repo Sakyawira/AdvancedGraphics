@@ -24,11 +24,14 @@ class Texture
 public:
 	Texture() = default;
 	Texture(const char * textureDir);
+    bool Load(float _image[], int _imageWidth, int _imageHeight);
 	~Texture() = default;
 	GLuint GetID();
 
 protected:
 	GLuint textureID;
+    int imageHeight;
+    int imageWidth;
 
 };
 

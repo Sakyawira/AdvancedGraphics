@@ -22,7 +22,7 @@
 ***********************/
 Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector, GLuint program, Camera* camera)
 {
-	this->program = program;
+	/*this->program = program;
 	this->camera = camera;
 
 	m_info.HeightmapFilename	= _info.HeightmapFilename;
@@ -36,7 +36,10 @@ Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector, GLuint program,
 	m_faces_number_ = (m_info.NumRows - 1) * (m_info.NumCols - 1) * 2;
 
 	load_heightmap();
-	smooth();
+	smooth();*/
+
+	Perlin::perlin_noise(m_imagePerlin, 4, 10.0f, 0.5f, 0, 0);
+
 	build_vb();
 	build_ib();
 
@@ -298,6 +301,11 @@ float Terrain::average(GLuint i, GLuint j)
 	return avg / num;
 }
 
+void Terrain::create_texture()
+{
+
+}
+
 /***********************
 * build_vb		: generates vertex array and buffer (VAO, VBO)
 * @parameter	: -
@@ -355,8 +363,11 @@ void Terrain::build_vb()
 	glGenBuffers(1, &VBO);
 	glGenVertexArrays(1, &VAO);
 	glBindVertexArray(VAO);
+
+
+	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(TerrainAttribute), &vertices.front(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(TerrainAttribute), vertices.data(), GL_STATIC_DRAW);
 
 	// Creating Vertex Array
 	//glGenVertexArrays(1, &m_VAO); 

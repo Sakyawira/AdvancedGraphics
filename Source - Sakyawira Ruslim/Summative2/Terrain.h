@@ -19,6 +19,7 @@
 #include "Mesh.h"
 #include "TessModel.h"
 #include "Texture.h"
+#include "PerlinNoise.h"
 
 struct TerrainAttribute
 {
@@ -58,8 +59,14 @@ private:
 	bool in_bounds(GLuint i, GLuint j);
 	float average(GLuint i, GLuint j);
 
+	void create_texture();
+
 	void build_vb();
 	void build_ib();
+
+	Texture* m_texture;
+
+	Array3D m_imagePerlin;
 
 	InitInfo m_info;
 

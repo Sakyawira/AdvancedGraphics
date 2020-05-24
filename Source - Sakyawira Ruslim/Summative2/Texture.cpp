@@ -34,6 +34,29 @@ Texture::Texture(const char * textureDir)
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+bool Texture::Load(float _image[], int _imageWidth, int _imageHeight)
+{
+	imageHeight = _imageWidth;
+	imageWidth = _imageHeight;
+
+	if (_image != NULL)
+	{
+		glGenTextures(1, &textureID);
+		glBindTexture(textureID, textureID);
+		glTexImage2D(textureID, 0, GL_RGB, imageWidth, imageHeight, 0, GL_RGB, GL_FLOAT, _image);
+
+		glTexParameterf(textureID, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameterf(textureID, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		glGenerateMipmap(GL_TEXTURE_2D);
+		//SOIL_free_image_data(image);
+		glBindTexture(textureID, 0);
+		return true;
+	}
+
+	return false;
+}
+
 GLuint Texture::GetID()
 {
 	return textureID;
