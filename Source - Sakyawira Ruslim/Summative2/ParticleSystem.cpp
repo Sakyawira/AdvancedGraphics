@@ -45,13 +45,26 @@ void ParticleSystem::init()
 
 	for (int i = 0; i < NUM_PARTICLES; i++)
 	{
-		initialposition[i] = glm::vec4(0.0f, 0.0f, 0.0f, randomFloat() + 0.125f);
+		/*initialposition[i] = glm::vec4(0.0f, 0.0f, 0.0f, randomFloat() + 0.125f);
 
 		initialvelocity[i] = glm::vec4(
 							0.25 * cos(i * .0167) + 0.25f * randomFloat() - 0.125f,
 							2.0f + 0.25f * randomFloat() - 0.125f, 
 							0.25 * sin(i* .0167) + 0.25f * randomFloat() - 0.125f,
-							randomFloat() + 0.125f);
+							randomFloat() + 0.125f);*/
+		float lifetime = 300.0f;
+
+		initialposition.at(i) = glm::vec4(
+			((randomFloat() * 2.6f) - 1.3f) * 52.0f,
+			((randomFloat() * 2.6f) - 1.3f) * 13.0f,
+			((randomFloat() * 2.6f) - 1.3f) * 52.0f,
+			lifetime);
+
+		initialvelocity.at(i) = glm::vec4(
+			0.0f,
+			-0.052f + -randomFloat() * 0.26f,
+			0.0f,
+			lifetime);
 	}
 
 	glGenBuffers(1, &posVbo);
