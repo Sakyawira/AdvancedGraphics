@@ -52,7 +52,7 @@ void ParticleSystem::init()
 							2.0f + 0.25f * randomFloat() - 0.125f, 
 							0.25 * sin(i* .0167) + 0.25f * randomFloat() - 0.125f,
 							randomFloat() + 0.125f);*/
-		float lifetime = 300.0f;
+		float lifetime = 390.0f;
 
 		initialposition.at(i) = glm::vec4(
 			((randomFloat() * 2.6f) - 1.3f) * 52.0f,
@@ -150,10 +150,10 @@ void ParticleSystem::render(float dt, glm::vec3 _position)
 	glDisable(GL_BLEND);*/
 
 	glUseProgram(computeProgram);
-	float currentTime = static_cast<float>(glutGet(GLUT_ELAPSED_TIME));
-	currentTime = currentTime / 1000.0f;
+	float current_time_ = static_cast<float>(glutGet(GLUT_ELAPSED_TIME)); // Get current time.
+	current_time_ = current_time_ * 0.001f;
 	GLint currentTimeLoc = glGetUniformLocation(computeProgram, "currentTime");
-	glUniform1f(currentTimeLoc, currentTime);
+	glUniform1f(currentTimeLoc, current_time_);
 
 	glDispatchCompute(NUM_PARTICLES / 128, 1, 1);
 
