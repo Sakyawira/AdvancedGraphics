@@ -54,7 +54,7 @@ GameManager::GameManager()
 	tii.NumRows = 32;
 	tii.NumCols = 32;
 	tii.CellSpacing = 16.0f;
-	m_mesh_terrain = new Terrain(tii, m_v_mesh, m_sh_tess_->GetProgram(), &camera);
+	
 
 	// Model
 	m_mdl_tank = new Model("Resources/Models/Tank/Tank.obj", &camera);
@@ -84,13 +84,14 @@ GameManager::GameManager()
 	m_tr_grass = new Texture("Resources/Textures/grass-texture-png-2.png");
 	std::vector<const char*> textureDirs = {"right.jpg", "left.jpg", "top.jpg", "bottom.jpg", "back.jpg", "front.jpg"};
 	m_tr_cube_map = new CubeMap(textureDirs);
+	m_mesh_terrain = new Terrain(tii, m_v_mesh, m_sh_tess_->GetProgram(), &camera, m_tr_plain);
 	
 	// Texture Vectors to be passed in
 	std::vector<Texture*> v_water_texture = { m_tr_water, m_tr_water };
 	std::vector<Texture*> red_texture = { m_tr_up, m_tr_up };
 	std::vector<Texture*> v_cubeMap = { m_tr_cube_map };
 	std::vector<Texture*> v_red = {m_tr_up};
-	std::vector<Texture*> v_blue = { m_tr_down };
+	std::vector<Texture*> v_blue = { m_tr_plain };
 	std::vector<Texture*> v_yellow = { m_tr_plain, m_tr_plain };
 
 	// Stencil Cube
@@ -232,7 +233,7 @@ void GameManager::render()
 		button_up->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		//terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
-		m_mesh_terrain->render(glm::vec3(0.0f, -20.0f, 0.0f), m_tr_plain);
+		m_mesh_terrain->render(glm::vec3(0.0f, -20.0f, 0.0f));
 
 		m_particles->render(m_clock_->GetDeltaTick(), glm::vec3(0.0f, 50.0f, 0.0f));
 		glEnable(GL_BLEND);

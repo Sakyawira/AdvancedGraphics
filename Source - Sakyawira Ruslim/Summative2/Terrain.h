@@ -42,12 +42,14 @@ public:
 		float CellSpacing;
 	};
 
-	Terrain(InitInfo _info, std::vector<Mesh*>& meshVector, GLuint program, Camera* camera);
+	Terrain(InitInfo _info, std::vector<Mesh*>& meshVector, GLuint program, Camera* camera, Texture* _texture);
 	virtual ~Terrain();
-	void render(glm::vec3 _position, Texture* _texture);
+	void render(glm::vec3 _position);
 
 	float get_height(glm::vec3 _position)const;
 	std::vector<TerrainAttribute>* get_vertices();
+
+	static Array3D<float, PERLIN_HEIGHT, PERLIN_WIDTH, 3> m_imagePerlin;
 
 private:
 
@@ -66,7 +68,7 @@ private:
 
 	Texture* m_texture;
 
-	Array3D m_imagePerlin;
+	float m_fSize = 100.0f;
 
 	InitInfo m_info;
 

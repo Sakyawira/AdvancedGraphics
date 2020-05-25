@@ -3,7 +3,12 @@
 #include <array>
 
 // A typedef for 3D array
-typedef std::array<std::array<std::array<float, 250>, 250>, 3> Array3D;
+// A neater interface for arrays of arrays of arrays
+template <typename T, size_t I, size_t J, size_t K>
+using Array3D = std::array<std::array<std::array<T, K>, J>, I>;
+#define PERLIN_HEIGHT 250
+#define PERLIN_WIDTH 250
+//typedef std::array<std::array<std::array<float, 250>, 250>, 3> Array3D;
 
 class Perlin
 {
@@ -11,7 +16,7 @@ class Perlin
 		Perlin() = default;
 		~Perlin() = default;
 
-		static void perlin_noise(Array3D & _r3DImage, int _iOctaves, float _fZoom, float _fPersistance, int _iXoffset, int _iYoffset);
+		static void perlin_noise(Array3D<float, PERLIN_HEIGHT, PERLIN_WIDTH, 3>& _r3DImage, int _iOctaves, float _fZoom, float _fPersistance, int _iXoffset, int _iYoffset);
 
 	private:
 		static float random(int x, int y);

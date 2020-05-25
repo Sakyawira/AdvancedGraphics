@@ -14,15 +14,16 @@
 #include <fstream>
 #include <sstream>
 #include "Terrain.h"
-
+Array3D<float, PERLIN_HEIGHT, PERLIN_WIDTH, 3> Terrain::m_imagePerlin = { {{}} };
 /***********************
 * Constructor	: Setup the Terrain Mesh by loading the info and then push it to a meshVector
 * @parameter	: _info -> Terrain settings that needs to be adjusted based on the Heightmap, meshVector -> vector of meshes used to handle in GameManager
 * @return		: Terrain
 ***********************/
-Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector, GLuint program, Camera* camera)
+Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector, GLuint program, Camera* camera, Texture* _texture)
 {
-	/*this->program = program;
+	
+	this->program = program;
 	this->camera = camera;
 
 	m_info.HeightmapFilename	= _info.HeightmapFilename;
@@ -35,7 +36,7 @@ Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector, GLuint program,
 	m_vertices_number_ = m_info.NumRows * m_info.NumCols;
 	m_faces_number_ = (m_info.NumRows - 1) * (m_info.NumCols - 1) * 2;
 
-	load_heightmap();
+	/*load_heightmap();
 	smooth();*/
 
 	Perlin::perlin_noise(m_imagePerlin, 4, 10.0f, 0.5f, 0, 0);
@@ -74,6 +75,8 @@ Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector, GLuint program,
 		(GLvoid*)(6 * sizeof(GLfloat)));	// offset from beginning of Vertex
 	glEnableVertexAttribArray(2);
 
+	m_texture = _texture;
+	m_texture->Load(&m_imagePerlin[0][0][0], 250, 250);
 	//meshVector.push_back(this);
 }
 
@@ -82,13 +85,13 @@ Terrain::~Terrain()
 
 }
 
-void Terrain::render(glm::vec3 _position, Texture* _texture)
+void Terrain::render(glm::vec3 _position)
 {
 	glUseProgram(this->program);
 
 	//this->camera->use_camera(this->program);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, _texture->GetID());
+	glBindTexture(GL_TEXTURE_2D, m_texture->GetID());
 	const GLchar* name = "tex";
 	glUniform1i(glGetUniformLocation(program, name), 0);
 
@@ -123,49 +126,49 @@ void Terrain::render(glm::vec3 _position, Texture* _texture)
 ***********************/
 float Terrain::get_height(glm::vec3 _position) const
 {
-	float x = _position.x;
-	float z = _position.z;
+	//float x = _position.x;
+	//float z = _position.z;
 
-	// Transform from terrain local space to "cell" space.
-	float c = (x + 0.5f * width()) / m_info.CellSpacing;
-	float d = (z - 0.5f * depth()) / -m_info.CellSpacing;
+	//// Transform from terrain local space to "cell" space.
+	//float c = (x + 0.5f * width()) / m_info.CellSpacing;
+	//float d = (z - 0.5f * depth()) / -m_info.CellSpacing;
 
-	// Get the row and column we are in.
-	int row = (int)floorf(d);
-	int col = (int)floorf(c);
+	//// Get the row and column we are in.
+	//int row = (int)floorf(d);
+	//int col = (int)floorf(c);
 
-	if (row < 0 || col < 0 || (int)m_info.NumCols - 2 < row || (int)m_info.NumRows - 2 < col)
-	{
+	//if (row < 0 || col < 0 || (int)m_info.NumCols - 2 < row || (int)m_info.NumRows - 2 < col)
+	//{
 		return -99999;
-	}
+	//}
 
-	// Grab the heights of the cell we are in.
-	// A*--*B
-	//  | /|
-	//  |/ |
-	// C*--*D
-	float A = m_v_heightmap[row * m_info.NumCols + col];
-	float B = m_v_heightmap[row * m_info.NumCols + col + 1];
-	float C = m_v_heightmap[(row + 1) * m_info.NumCols + col];
-	float D = m_v_heightmap[(row + 1) * m_info.NumCols + col + 1];
+	//// Grab the heights of the cell we are in.
+	//// A*--*B
+	////  | /|
+	////  |/ |
+	//// C*--*D
+	//float A = m_v_heightmap[row * m_info.NumCols + col];
+	//float B = m_v_heightmap[row * m_info.NumCols + col + 1];
+	//float C = m_v_heightmap[(row + 1) * m_info.NumCols + col];
+	//float D = m_v_heightmap[(row + 1) * m_info.NumCols + col + 1];
 
-	// Where we are relative to the cell.
-	float s = c - (float)col;
-	float t = d - (float)row;
+	//// Where we are relative to the cell.
+	//float s = c - (float)col;
+	//float t = d - (float)row;
 
-	// If upper triangle ABC.
-	if (s + t <= 1.0f)
-	{
-		float uy = B - A;
-		float vy = C - A;
-		return A + s * uy + t * vy;
-	}
-	else // lower triangle DCB.
-	{
-		float uy = C - D;
-		float vy = B - D;
-		return D + (1.0f - s) * uy + (1.0f - t) * vy;
-	}
+	//// If upper triangle ABC.
+	//if (s + t <= 1.0f)
+	//{
+	//	float uy = B - A;
+	//	float vy = C - A;
+	//	return A + s * uy + t * vy;
+	//}
+	//else // lower triangle DCB.
+	//{
+	//	float uy = C - D;
+	//	float vy = B - D;
+	//	return D + (1.0f - s) * uy + (1.0f - t) * vy;
+	//}
 }
 
 /***********************
@@ -313,49 +316,76 @@ void Terrain::create_texture()
 ***********************/
 void Terrain::build_vb()
 {
-	vertices.resize(m_vertices_number_);
+	//vertices.resize(m_vertices_number_);
 
-	float halfWidth = (m_info.NumCols - 1) * m_info.CellSpacing * 0.5f;
-	float halfDepth = (m_info.NumRows - 1) * m_info.CellSpacing * 0.5f;
+	//float halfWidth = (m_info.NumCols - 1) * m_info.CellSpacing * 0.5f;
+	//float halfDepth = (m_info.NumRows - 1) * m_info.CellSpacing * 0.5f;
 
-	float du = 1.0f / (m_info.NumCols - 1);
-	float dv = 1.0f / (m_info.NumRows - 1);
-	for (UINT i = 0; i < m_info.NumRows; ++i)
+	//float du = 1.0f / (m_info.NumCols - 1);
+	//float dv = 1.0f / (m_info.NumRows - 1);
+	//for (UINT i = 0; i < m_info.NumRows; ++i)
+	//{
+	//	float z = halfDepth - i * m_info.CellSpacing;
+	//	for (UINT j = 0; j < m_info.NumCols; ++j)
+	//	{
+	//		float x = -halfWidth + j * m_info.CellSpacing;
+
+	//		float y = m_v_heightmap[i * m_info.NumCols + j];
+	//		vertices[i * m_info.NumCols + j].pos = glm::vec3(x, y, z);
+	//		vertices[i * m_info.NumCols + j].normal = glm::vec3(0.0f, 1.0f, 0.0f);
+
+	//		// Stretch texture over grid.
+	//		 vertices[i*m_info.NumCols + j].texCoord.x = j*du;
+	//		 vertices[i*m_info.NumCols + j].texCoord.y = i*dv;
+	//	}
+	//}
+
+	//// Estimate normals for interior nodes using central difference.
+	//float invTwoDX = 1.0f / (2.0f * m_info.CellSpacing);
+	//float invTwoDZ = 1.0f / (2.0f * m_info.CellSpacing);
+	//for (UINT i = 2; i < m_info.NumRows - 1; ++i)
+	//{
+	//	for (UINT j = 2; j < m_info.NumCols - 1; ++j)
+	//	{
+	//		float t = m_v_heightmap[(i - 1) * m_info.NumCols + j];
+	//		float b = m_v_heightmap[(i + 1) * m_info.NumCols + j];
+	//		float l = m_v_heightmap[i * m_info.NumCols + j - 1];
+	//		float r = m_v_heightmap[i * m_info.NumCols + j + 1];
+
+	//		glm::vec3 tanZ(0.0f, (t - b) * invTwoDZ, 1.0f);
+	//		glm::vec3 tanX(1.0f, (r - l) * invTwoDX, 0.0f);
+
+	//		glm::vec3 N = glm::cross(tanZ, tanX);
+	//		N = glm::normalize(N);
+
+	//		vertices[i * m_info.NumCols + j].normal = N;
+	//	}
+	//}
+	//std::vector<VertexFormat> vecVertices{};
+	float fHalfSize = m_fSize / 2;
+
+	for (int i = 0; i < m_info.NumRows; i++)
 	{
-		float z = halfDepth - i * m_info.CellSpacing;
-		for (UINT j = 0; j < m_info.NumCols; ++j)
+		float fZPercentage = static_cast<float>(i) / (m_info.NumRows - 1);
+		for (int j = 0; j < m_info.NumCols; j++)
 		{
-			float x = -halfWidth + j * m_info.CellSpacing;
+			float fXPercentage = static_cast<float>(j) / (m_info.NumCols - 1);
+			//int iPerlinXvalue = static_cast<int>(fXPercentage * static_cast<float>(PERLIN_WIDTH - 1));
+			//int iPerlinYvalue = static_cast<int>(fZPercentage * static_cast<float>(PERLIN_HEIGHT - 1));
 
-			float y = m_v_heightmap[i * m_info.NumCols + j];
-			vertices[i * m_info.NumCols + j].pos = glm::vec3(x, y, z);
-			vertices[i * m_info.NumCols + j].normal = glm::vec3(0.0f, 1.0f, 0.0f);
+			//vecVertices.push_back({ {
+			//		(fXPercentage  * m_fSize) - fHalfSize,
+			//		static_cast<float>(tenImage[iPerlinXvalue][iPerlinYvalue][0]) * m_fMaxHeight,
+			//		(fZPercentage  * m_fSize) - fHalfSize },													// Position
+			//		{1.0f,1.0f,1.0f},																			// Color
+			//		{ fXPercentage, fZPercentage } });															// UV
 
-			// Stretch texture over grid.
-			 vertices[i*m_info.NumCols + j].texCoord.x = j*du;
-			 vertices[i*m_info.NumCols + j].texCoord.y = i*dv;
-		}
-	}
-
-	// Estimate normals for interior nodes using central difference.
-	float invTwoDX = 1.0f / (2.0f * m_info.CellSpacing);
-	float invTwoDZ = 1.0f / (2.0f * m_info.CellSpacing);
-	for (UINT i = 2; i < m_info.NumRows - 1; ++i)
-	{
-		for (UINT j = 2; j < m_info.NumCols - 1; ++j)
-		{
-			float t = m_v_heightmap[(i - 1) * m_info.NumCols + j];
-			float b = m_v_heightmap[(i + 1) * m_info.NumCols + j];
-			float l = m_v_heightmap[i * m_info.NumCols + j - 1];
-			float r = m_v_heightmap[i * m_info.NumCols + j + 1];
-
-			glm::vec3 tanZ(0.0f, (t - b) * invTwoDZ, 1.0f);
-			glm::vec3 tanX(1.0f, (r - l) * invTwoDX, 0.0f);
-
-			glm::vec3 N = glm::cross(tanZ, tanX);
-			N = glm::normalize(N);
-
-			vertices[i * m_info.NumCols + j].normal = N;
+			vertices.push_back({ {
+					(fXPercentage * m_fSize) - fHalfSize,
+					0.0f,
+					(fZPercentage * m_fSize) - fHalfSize },													// Position
+					{ 1.0f,1.0f,1.0f },																			// Color
+					{ fXPercentage, fZPercentage } });															// UV
 		}
 	}
 
@@ -386,23 +416,38 @@ void Terrain::build_vb()
 ***********************/
 void Terrain::build_ib()
 {
-	indices.resize(m_faces_number_ * 3); // 3 indices per face
+	//indices.resize(m_faces_number_ * 3); // 3 indices per face
 	
 	// Iterate over each quad and compute indices.
-	int k = 0;
-	for (UINT i = 0; i < m_info.NumRows - 1; ++i)
+	//int k = 0;
+	//for (UINT i = 0; i < m_info.NumRows - 1; ++i)
+	//{
+	//	for (UINT j = 0; j < m_info.NumCols - 1; ++j)
+	//	{
+	//		indices[k] = i * m_info.NumCols + j;
+	//		indices[k + 1] = i * m_info.NumCols + j + 1;
+	//		indices[k + 2] = (i + 1) * m_info.NumCols + j;
+
+	//		indices[k + 3] = (i + 1) * m_info.NumCols + j;
+	//		indices[k + 4] = i * m_info.NumCols + j + 1;
+	//		indices[k + 5] = (i + 1) * m_info.NumCols + j + 1;
+
+	//		k += 6; // next quad
+	//	}
+	//}
+
+	for (int i = 0; i < m_info.NumRows - 1; i++)
 	{
-		for (UINT j = 0; j < m_info.NumCols - 1; ++j)
+		for (int j = 0; j < m_info.NumCols - 1; j++)
 		{
-			indices[k] = i * m_info.NumCols + j;
-			indices[k + 1] = i * m_info.NumCols + j + 1;
-			indices[k + 2] = (i + 1) * m_info.NumCols + j;
+			int iColValue = j + (i * m_info.NumRows);
+			indices.push_back(iColValue);
+			indices.push_back(iColValue + 1);
+			indices.push_back(j + ((i + 1) * m_info.NumRows));
 
-			indices[k + 3] = (i + 1) * m_info.NumCols + j;
-			indices[k + 4] = i * m_info.NumCols + j + 1;
-			indices[k + 5] = (i + 1) * m_info.NumCols + j + 1;
-
-			k += 6; // next quad
+			indices.push_back(iColValue + 1);
+			indices.push_back(j + ((i + 1) * m_info.NumRows) + 1);
+			indices.push_back(j + ((i + 1) * m_info.NumRows));
 		}
 	}
 

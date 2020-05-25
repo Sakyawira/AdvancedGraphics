@@ -1,6 +1,6 @@
 #include "PerlinNoise.h"
 
-void Perlin::perlin_noise(Array3D& _r3DImage, int _iOctaves, float _fZoom, float _fPersistance, int _iXoffset, int _iYoffset)
+void Perlin::perlin_noise(Array3D<float, PERLIN_HEIGHT, PERLIN_WIDTH, 3>& _r3DImage, int _iOctaves, float _fZoom, float _fPersistance, int _iXoffset, int _iYoffset)
 {
 	for (size_t i = 0; i < 250; ++i)
 	{
