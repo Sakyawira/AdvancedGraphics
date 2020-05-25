@@ -19,6 +19,7 @@ public:
 	static GLuint CreateProgram(const char* VertexShaderFilename, const char* FragmentShaderFilename);
 	static GLuint CreateProgram(const char* vertexShaderFilename, const char* fragmentShaderFilename, const char* geometryShaderFilename);
 	static GLuint CreateProgram(const char* vertexShaderFilename, const char* fragmentShaderFilename, const char* TessControlShaderFilename, const char* TessEvalShaderFilename);
+	static GLuint CreateProgram(const char* vertexShaderFilename, const char* fragmentShaderFilename, const char* TessControlShaderFilename, const char* TessEvalShaderFilename, const char* geometryShaderFilename);
 
 private:
 	ShaderLoader() {}
