@@ -70,6 +70,8 @@ private:
 
 	float m_fSize = 100.0f;
 
+	int m_seed = 0;
+
 	InitInfo m_info;
 
 	GLuint m_vertices_number_;

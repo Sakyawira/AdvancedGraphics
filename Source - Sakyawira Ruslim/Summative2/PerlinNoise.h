@@ -16,13 +16,13 @@ class Perlin
 		Perlin() = default;
 		~Perlin() = default;
 
-		static void perlin_noise(Array3D<float, PERLIN_HEIGHT, PERLIN_WIDTH, 3>& _r3DImage, int _iOctaves, float _fZoom, float _fPersistance, int _iXoffset, int _iYoffset);
-		static float total_noise_perpoint(int x, int y, int _iOctaves, float _fZoom, float _fPersistance);
+		static void perlin_noise(Array3D<float, PERLIN_HEIGHT, PERLIN_WIDTH, 3>& _r3DImage, int _iOctaves, float _fZoom, float _fPersistance, int _iXoffset, int _iYoffset, int _seed);
+		static float total_noise_perpoint(int x, int y, int _iOctaves, float _fZoom, float _fPersistance, int _seed);
 
 	private:
-		static float random(int x, int y);
-		static float smooth(float x, float y);
+		static float random(int x, int y, int _seed);
+		static float smooth(float x, float y, int _seed);
 		static float interpolate(float a, float b, float x);
-		static float noise(float x, float y);
+		static float noise(float x, float y, int _seed);
 		
 };
