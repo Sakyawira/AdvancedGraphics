@@ -335,7 +335,8 @@ void Terrain::build_vb()
 		{
 			float x = -halfWidth + j * m_info.CellSpacing;
 
-			float y = (Perlin::total_noise_perpoint(i + 0, j + 0, 4, 10.0f, 0.5f,m_seed))*255;//m_v_heightmap[i * m_info.NumCols + j];
+			float y = (Perlin::total_noise_perpoint(i + 0, j + 0, 4, 10.0f, 0.5f,m_seed))*255;
+			m_v_heightmap[i * m_info.NumCols + j] = y; // Comment and swap with above to use heightmap
 			vertices[i * m_info.NumCols + j].pos = glm::vec3(x, y, z);
 			vertices[i * m_info.NumCols + j].normal = glm::vec3(0.0f, 1.0f, 0.0f);
 
