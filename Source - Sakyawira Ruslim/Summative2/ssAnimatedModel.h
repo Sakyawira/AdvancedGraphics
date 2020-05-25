@@ -201,8 +201,8 @@ public:
 	ssAnimatedModel(std::string modelFilname,
 					std::string texFilename,
 							Camera *_camera,
-							GLuint _program,
-							Light * _light);
+							GLuint _program/*,
+							Light * _light*/);
 	~ssAnimatedModel();
 
 
@@ -281,7 +281,7 @@ public:
 private:
 
 	Camera* camera;
-	Light* light;
+	//Light* light;
 	GLuint program;
 
 	int mNumBones;

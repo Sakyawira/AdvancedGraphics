@@ -58,6 +58,9 @@
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
+    <ClCompile Include="ssAnimatedModel.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -127,6 +130,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="PerlinNoise.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ssAnimatedModel.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

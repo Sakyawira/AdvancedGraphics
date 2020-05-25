@@ -20,10 +20,10 @@
 //	//assert(0); //more bones than we have space for
 //}
 
-ssAnimatedModel::ssAnimatedModel(std::string modelFilname, std::string texFilename, Camera *_camera, GLuint _program, Light * _light){
+ssAnimatedModel::ssAnimatedModel(std::string modelFilname, std::string texFilename, Camera *_camera, GLuint _program/*, Light * _light*/){
 
 	camera = _camera;
-	light = _light;
+	//light = _light;
 
 	program = _program;
 
@@ -374,7 +374,7 @@ void ssAnimatedModel::setShaderEffectVariables(float dt, Terrain* terrain){
 	this->position.x += dx;
 	this->position.z += dz;
 
-	this->position.y  = terrain->getHeight(this->position.x, this->position.z) - 0.0f;
+	this->position.y  = terrain->get_height(this->position) - 0.0f;
 
 	glm::mat4 t = glm::translate(glm::mat4(), this->position);
 	glm::mat4 r = glm::rotate(glm::mat4(), glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
@@ -382,7 +382,7 @@ void ssAnimatedModel::setShaderEffectVariables(float dt, Terrain* terrain){
 	
 	model = t * r * s;
 
-	glm::mat4 vp = camera->getprojectionMatrix() * camera->getViewMatrix();
+	glm::mat4 vp = camera->get_projection() * camera->get_view();
 	GLint vpLoc = glGetUniformLocation(program, "vp");
 	glUniformMatrix4fv(vpLoc, 1, GL_FALSE, glm::value_ptr(vp));
 
@@ -396,13 +396,13 @@ void ssAnimatedModel::setShaderEffectVariables(float dt, Terrain* terrain){
 	glUniform3f(colorLoc, 1.0f, 1.0f, 1.0f);
 
 	GLuint cameraPosLoc = glGetUniformLocation(program, "cameraPos");
-	glUniform3f(cameraPosLoc, camera->getCameraPosition().x, camera->getCameraPosition().y, camera->getCameraPosition().z);
+	glUniform3f(cameraPosLoc, camera->get_position().x, camera->get_position().y, camera->get_position().z);
 
-	GLuint lightPosLoc = glGetUniformLocation(program, "lightPos");
-	glUniform3f(lightPosLoc, this->light->getPosition().x, this->light->getPosition().y, this->light->getPosition().z);
+	//GLuint lightPosLoc = glGetUniformLocation(program, "lightPos");
+	//glUniform3f(lightPosLoc, this->light->getPosition().x, this->light->getPosition().y, this->light->getPosition().z);
 
-	GLuint lightColorLoc = glGetUniformLocation(program, "lightColor");
-	glUniform3f(lightColorLoc, this->light->getColor().x, this->light->getColor().y, this->light->getColor().z);
+	//GLuint lightColorLoc = glGetUniformLocation(program, "lightColor");
+	//glUniform3f(lightColorLoc, this->light->getColor().x, this->light->getColor().y, this->light->getColor().z);
 
 	GLuint specularStrengthLoc = glGetUniformLocation(program, "specularStrength");
 	glUniform1f(specularStrengthLoc, 0.1f);

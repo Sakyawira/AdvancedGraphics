@@ -233,9 +233,9 @@ void GameManager::render()
 		button_up->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		//terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
-		m_mesh_terrain->render(glm::vec3(0.0f, -91.0f, 39.0f));
+		m_mesh_terrain->render(glm::vec3(0.0f, -75.0f, 35.0f));
 
-		m_particles->render(m_clock_->GetDeltaTick(), glm::vec3(0.0f, 50.0f, 0.0f));
+		m_particles->render(m_clock_->GetDeltaTick(), glm::vec3(0.0f, 25.0f, 0.0f));
 		glEnable(GL_BLEND);
 
 		int i = 0;
