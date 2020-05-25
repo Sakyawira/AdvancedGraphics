@@ -36,8 +36,8 @@ Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector, GLuint program,
 	m_vertices_number_ = m_info.NumRows * m_info.NumCols;
 	m_faces_number_ = (m_info.NumRows - 1) * (m_info.NumCols - 1) * 2;
 
-	/*load_heightmap();
-	smooth();*/
+	load_heightmap();
+	smooth();
 
 	Perlin::perlin_noise(m_imagePerlin, 4, 10.0f, 0.5f, 0, 0);
 
@@ -76,7 +76,7 @@ Terrain::Terrain(InitInfo _info, std::vector<Mesh*>& meshVector, GLuint program,
 	glEnableVertexAttribArray(2);
 
 	m_texture = _texture;
-	m_texture->Load(&m_imagePerlin[0][0][0], 250, 250);
+	// m_texture->Load(&m_imagePerlin[0][0][0], 250, 250);
 	//meshVector.push_back(this);
 }
 
@@ -316,78 +316,78 @@ void Terrain::create_texture()
 ***********************/
 void Terrain::build_vb()
 {
-	//vertices.resize(m_vertices_number_);
+	vertices.resize(m_vertices_number_);
 
-	//float halfWidth = (m_info.NumCols - 1) * m_info.CellSpacing * 0.5f;
-	//float halfDepth = (m_info.NumRows - 1) * m_info.CellSpacing * 0.5f;
+	float halfWidth = (m_info.NumCols - 1) * m_info.CellSpacing * 0.5f;
+	float halfDepth = (m_info.NumRows - 1) * m_info.CellSpacing * 0.5f;
 
-	//float du = 1.0f / (m_info.NumCols - 1);
-	//float dv = 1.0f / (m_info.NumRows - 1);
-	//for (UINT i = 0; i < m_info.NumRows; ++i)
-	//{
-	//	float z = halfDepth - i * m_info.CellSpacing;
-	//	for (UINT j = 0; j < m_info.NumCols; ++j)
-	//	{
-	//		float x = -halfWidth + j * m_info.CellSpacing;
-
-	//		float y = m_v_heightmap[i * m_info.NumCols + j];
-	//		vertices[i * m_info.NumCols + j].pos = glm::vec3(x, y, z);
-	//		vertices[i * m_info.NumCols + j].normal = glm::vec3(0.0f, 1.0f, 0.0f);
-
-	//		// Stretch texture over grid.
-	//		 vertices[i*m_info.NumCols + j].texCoord.x = j*du;
-	//		 vertices[i*m_info.NumCols + j].texCoord.y = i*dv;
-	//	}
-	//}
-
-	//// Estimate normals for interior nodes using central difference.
-	//float invTwoDX = 1.0f / (2.0f * m_info.CellSpacing);
-	//float invTwoDZ = 1.0f / (2.0f * m_info.CellSpacing);
-	//for (UINT i = 2; i < m_info.NumRows - 1; ++i)
-	//{
-	//	for (UINT j = 2; j < m_info.NumCols - 1; ++j)
-	//	{
-	//		float t = m_v_heightmap[(i - 1) * m_info.NumCols + j];
-	//		float b = m_v_heightmap[(i + 1) * m_info.NumCols + j];
-	//		float l = m_v_heightmap[i * m_info.NumCols + j - 1];
-	//		float r = m_v_heightmap[i * m_info.NumCols + j + 1];
-
-	//		glm::vec3 tanZ(0.0f, (t - b) * invTwoDZ, 1.0f);
-	//		glm::vec3 tanX(1.0f, (r - l) * invTwoDX, 0.0f);
-
-	//		glm::vec3 N = glm::cross(tanZ, tanX);
-	//		N = glm::normalize(N);
-
-	//		vertices[i * m_info.NumCols + j].normal = N;
-	//	}
-	//}
-	//std::vector<VertexFormat> vecVertices{};
-	float fHalfSize = m_fSize / 2;
-
-	for (int i = 0; i < m_info.NumRows; i++)
+	float du = 1.0f / (m_info.NumCols - 1);
+	float dv = 1.0f / (m_info.NumRows - 1);
+	for (UINT i = 0; i < m_info.NumRows; ++i)
 	{
-		float fZPercentage = static_cast<float>(i) / (m_info.NumRows - 1);
-		for (int j = 0; j < m_info.NumCols; j++)
+		float z = halfDepth - i * m_info.CellSpacing;
+		for (UINT j = 0; j < m_info.NumCols; ++j)
 		{
-			float fXPercentage = static_cast<float>(j) / (m_info.NumCols - 1);
-			//int iPerlinXvalue = static_cast<int>(fXPercentage * static_cast<float>(PERLIN_WIDTH - 1));
-			//int iPerlinYvalue = static_cast<int>(fZPercentage * static_cast<float>(PERLIN_HEIGHT - 1));
+			float x = -halfWidth + j * m_info.CellSpacing;
 
-			//vecVertices.push_back({ {
-			//		(fXPercentage  * m_fSize) - fHalfSize,
-			//		static_cast<float>(tenImage[iPerlinXvalue][iPerlinYvalue][0]) * m_fMaxHeight,
-			//		(fZPercentage  * m_fSize) - fHalfSize },													// Position
-			//		{1.0f,1.0f,1.0f},																			// Color
-			//		{ fXPercentage, fZPercentage } });															// UV
+			float y = (Perlin::total_noise_perpoint(i + 0, j + 0, 4, 10.0f, 0.5f))*255;//m_v_heightmap[i * m_info.NumCols + j];
+			vertices[i * m_info.NumCols + j].pos = glm::vec3(x, y, z);
+			vertices[i * m_info.NumCols + j].normal = glm::vec3(0.0f, 1.0f, 0.0f);
 
-			vertices.push_back({ {
-					(fXPercentage * m_fSize) - fHalfSize,
-					0.0f,
-					(fZPercentage * m_fSize) - fHalfSize },													// Position
-					{ 1.0f,1.0f,1.0f },																			// Color
-					{ fXPercentage, fZPercentage } });															// UV
+			// Stretch texture over grid.
+			 vertices[i*m_info.NumCols + j].texCoord.x = j*du;
+			 vertices[i*m_info.NumCols + j].texCoord.y = i*dv;
 		}
 	}
+
+	// Estimate normals for interior nodes using central difference.
+	float invTwoDX = 1.0f / (2.0f * m_info.CellSpacing);
+	float invTwoDZ = 1.0f / (2.0f * m_info.CellSpacing);
+	for (UINT i = 2; i < m_info.NumRows - 1; ++i)
+	{
+		for (UINT j = 2; j < m_info.NumCols - 1; ++j)
+		{
+			float t = m_v_heightmap[(i - 1) * m_info.NumCols + j];
+			float b = m_v_heightmap[(i + 1) * m_info.NumCols + j];
+			float l = m_v_heightmap[i * m_info.NumCols + j - 1];
+			float r = m_v_heightmap[i * m_info.NumCols + j + 1];
+
+			glm::vec3 tanZ(0.0f, (t - b) * invTwoDZ, 1.0f);
+			glm::vec3 tanX(1.0f, (r - l) * invTwoDX, 0.0f);
+
+			glm::vec3 N = glm::cross(tanZ, tanX);
+			N = glm::normalize(N);
+
+			vertices[i * m_info.NumCols + j].normal = N;
+		}
+	}
+	//std::vector<VertexFormat> vecVertices{};
+	//float fHalfSize = m_fSize / 2;
+
+	//for (int i = 0; i < m_info.NumRows; i++)
+	//{
+	//	float fZPercentage = static_cast<float>(i) / (m_info.NumRows - 1);
+	//	for (int j = 0; j < m_info.NumCols; j++)
+	//	{
+	//		float fXPercentage = static_cast<float>(j) / (m_info.NumCols - 1);
+	//		//int iPerlinXvalue = static_cast<int>(fXPercentage * static_cast<float>(PERLIN_WIDTH - 1));
+	//		//int iPerlinYvalue = static_cast<int>(fZPercentage * static_cast<float>(PERLIN_HEIGHT - 1));
+
+	//		//vecVertices.push_back({ {
+	//		//		(fXPercentage  * m_fSize) - fHalfSize,
+	//		//		static_cast<float>(tenImage[iPerlinXvalue][iPerlinYvalue][0]) * m_fMaxHeight,
+	//		//		(fZPercentage  * m_fSize) - fHalfSize },													// Position
+	//		//		{1.0f,1.0f,1.0f},																			// Color
+	//		//		{ fXPercentage, fZPercentage } });															// UV
+
+	//		vertices.push_back({ {
+	//				(fXPercentage * m_fSize) - fHalfSize,
+	//				0.0f,
+	//				(fZPercentage * m_fSize) - fHalfSize },													// Position
+	//				{ 1.0f,1.0f,1.0f },																			// Color
+	//				{ fXPercentage, fZPercentage } });															// UV
+	//	}
+	//}
 
 	glPatchParameteri(GL_PATCH_VERTICES, /*m_indicesSize*/3); //comment for tri patch
 	glGenBuffers(1, &VBO);
@@ -416,27 +416,27 @@ void Terrain::build_vb()
 ***********************/
 void Terrain::build_ib()
 {
-	//indices.resize(m_faces_number_ * 3); // 3 indices per face
+	indices.resize(m_faces_number_ * 3); // 3 indices per face
 	
 	// Iterate over each quad and compute indices.
-	//int k = 0;
-	//for (UINT i = 0; i < m_info.NumRows - 1; ++i)
-	//{
-	//	for (UINT j = 0; j < m_info.NumCols - 1; ++j)
-	//	{
-	//		indices[k] = i * m_info.NumCols + j;
-	//		indices[k + 1] = i * m_info.NumCols + j + 1;
-	//		indices[k + 2] = (i + 1) * m_info.NumCols + j;
+	int k = 0;
+	for (UINT i = 0; i < m_info.NumRows - 1; ++i)
+	{
+		for (UINT j = 0; j < m_info.NumCols - 1; ++j)
+		{
+			indices[k] = i * m_info.NumCols + j;
+			indices[k + 1] = i * m_info.NumCols + j + 1;
+			indices[k + 2] = (i + 1) * m_info.NumCols + j;
 
-	//		indices[k + 3] = (i + 1) * m_info.NumCols + j;
-	//		indices[k + 4] = i * m_info.NumCols + j + 1;
-	//		indices[k + 5] = (i + 1) * m_info.NumCols + j + 1;
+			indices[k + 3] = (i + 1) * m_info.NumCols + j;
+			indices[k + 4] = i * m_info.NumCols + j + 1;
+			indices[k + 5] = (i + 1) * m_info.NumCols + j + 1;
 
-	//		k += 6; // next quad
-	//	}
-	//}
+			k += 6; // next quad
+		}
+	}
 
-	for (int i = 0; i < m_info.NumRows - 1; i++)
+	/*for (int i = 0; i < m_info.NumRows - 1; i++)
 	{
 		for (int j = 0; j < m_info.NumCols - 1; j++)
 		{
@@ -449,7 +449,7 @@ void Terrain::build_ib()
 			indices.push_back(j + ((i + 1) * m_info.NumRows) + 1);
 			indices.push_back(j + ((i + 1) * m_info.NumRows));
 		}
-	}
+	}*/
 
 	// Create Index Buffer
 	glGenBuffers(1, &EBO); 
