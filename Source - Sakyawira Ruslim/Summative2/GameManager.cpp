@@ -113,7 +113,7 @@ GameManager::GameManager()
 	sky_box->Scale(2000.0f);
 
 	// Pyramid
-	button_down = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_blue, -10.0f, 0.0f, 0.0f, m_v_cubes);
+	button_down = new GameObject(m_sh_skeletal_, m_mesh_cube, v_blue, -10.0f, 0.0f, 0.0f, m_v_cubes);
 	button_down->Scale(3.0f);
 
 	// Cube
