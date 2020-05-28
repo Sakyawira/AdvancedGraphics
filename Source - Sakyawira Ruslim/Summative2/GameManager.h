@@ -144,6 +144,7 @@ private:
 	Shader* m_sh_chromatical_;
 	Shader* m_sh_particles_;
 	Shader* m_sh_compute_;
+	Shader* m_sh_skeletal_anim_;
 
 	FrameBuffer* m_frameBuffer;
 

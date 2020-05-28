@@ -36,6 +36,7 @@ GameManager::GameManager()
 	m_sh_chromatical_ = new Shader("Resources/Shaders/Chromatical.VS", "Resources/Shaders/Chromatical.FS", m_v_sh);
 	m_sh_particles_ = new Shader("Resources/Shaders/ParticleComputed.VS", "Resources/Shaders/ParticleComputed.FS", m_v_sh);
 	m_sh_compute_ = new Shader("Resources/Shaders/Particle.CS", m_v_sh);
+	m_sh_skeletal_anim_ = new Shader("Resources/Shaders/Animation.VS", "Resources/Shaders/PhongDiffuse.fs", m_v_sh);
 
 	// Create Mesh
 	m_mesh_static = new Mesh(animation_indices, static_vertices, m_v_mesh);
@@ -57,8 +58,8 @@ GameManager::GameManager()
 	
 
 	// Model
-	m_mdl_tank = new Model("Resources/Models/Tank/Tank.obj", &camera);
-	m_mdl_cat = new Model("Resources/Models/pug/Dog 1.obj", &camera);
+	//m_mdl_tank = new Model("Resources/Models/Tank/Tank.obj", &camera);
+	//m_mdl_cat = new Model("Resources/Models/pug/Dog 1.obj", &camera);
 	geomModel = new GeometryModel(m_sh_geometry_->GetProgram(), &camera);
 	starModel = new GeometryModel(m_sh_star_geo_->GetProgram(), &camera);
 	tessModel = new TessModel(m_sh_tess_->GetProgram(), &camera);
