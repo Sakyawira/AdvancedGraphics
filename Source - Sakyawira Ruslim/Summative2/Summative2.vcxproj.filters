@@ -273,5 +273,8 @@
     <None Include="Resources\Shaders\Animation.VS">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="Resources\Shaders\Animation.FS">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

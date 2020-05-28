@@ -22,6 +22,7 @@ GameManager::GameManager()
 	m_clock_ = new CClock();
 
 	// Create Shader
+	m_sh_skeletal_ = new Shader("Resources/Shaders/Animation.VS", "Resources/Shaders/Animation.FS", m_v_sh);
 	m_sh_fogBox = new Shader("Resources/Shaders/FogCubeMapVS.txt", "Resources/Shaders/FogCubeMapFS.txt", m_v_sh);
 	m_sh_fog_ = new Shader("Resources/Shaders/FogPhongVS.txt", "Resources/Shaders/FogPhongDiffuseFS.txt", m_v_sh);
 	m_sh_phong_diffuse_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongDiffuse.fs", m_v_sh);
@@ -36,7 +37,7 @@ GameManager::GameManager()
 	m_sh_chromatical_ = new Shader("Resources/Shaders/Chromatical.VS", "Resources/Shaders/Chromatical.FS", m_v_sh);
 	m_sh_particles_ = new Shader("Resources/Shaders/ParticleComputed.VS", "Resources/Shaders/ParticleComputed.FS", m_v_sh);
 	m_sh_compute_ = new Shader("Resources/Shaders/Particle.CS", m_v_sh);
-	m_sh_skeletal_anim_ = new Shader("Resources/Shaders/Animation.VS", "Resources/Shaders/PhongDiffuse.fs", m_v_sh);
+	
 
 	// Create Mesh
 	m_mesh_static = new Mesh(animation_indices, static_vertices, m_v_mesh);
@@ -64,7 +65,7 @@ GameManager::GameManager()
 	starModel = new GeometryModel(m_sh_star_geo_->GetProgram(), &camera);
 	tessModel = new TessModel(m_sh_tess_->GetProgram(), &camera);
 	lod_tessModel = new TessModel(m_sh_lod_->GetProgram(), &camera);
-	m_skModel = new ssAnimatedModel("Resources/Models/theDude.DAE", "Resources/Textures/theDude.png", &camera, m_sh_phong_diffuse_->GetProgram());
+	m_skModel = new ssAnimatedModel("Resources/Models/theDude.DAE", "Resources/Textures/theDude.png", &camera, m_sh_skeletal_->GetProgram());
 
 	// Text
 	std::string m_string_menu = "Sakyawira's Burnt Out";
@@ -240,7 +241,7 @@ void GameManager::render()
 
 		m_skModel->render(m_clock_->GetDeltaTick(), m_mesh_terrain);
 
-		m_particles->render(m_clock_->GetDeltaTick(), glm::vec3(camera.get_position().x, camera.get_position().y + 25.0f, camera.get_position().z));
+		//m_particles->render(m_clock_->GetDeltaTick(), glm::vec3(camera.get_position().x, camera.get_position().y + 25.0f, camera.get_position().z));
 		glEnable(GL_BLEND);
 
 		int i = 0;
