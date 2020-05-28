@@ -38,6 +38,7 @@
 #include "TessModel.h"
 #include "FrameBuffer.h"
 #include "ParticleSystem.h"
+#include "ssAnimatedModel.h"
 
 const int WINDOW_WIDHT = 800;
 const int WINDOW_HEIGHT = 800;
@@ -78,6 +79,9 @@ public:
 	bool m_b_wireframe = false;
 	
 private:
+
+	// Skeletal Model
+	ssAnimatedModel* m_skModel;
 
 	// Particle  System
 	ParticleSystem* m_particles;

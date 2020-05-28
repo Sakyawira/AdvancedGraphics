@@ -63,6 +63,7 @@ GameManager::GameManager()
 	starModel = new GeometryModel(m_sh_star_geo_->GetProgram(), &camera);
 	tessModel = new TessModel(m_sh_tess_->GetProgram(), &camera);
 	lod_tessModel = new TessModel(m_sh_lod_->GetProgram(), &camera);
+	m_skModel = new ssAnimatedModel("Resources/Models/theDude.DAE", "Resources/Textures/theDude.png", &camera, m_sh_phong_diffuse_->GetProgram());
 
 	// Text
 	std::string m_string_menu = "Sakyawira's Burnt Out";
@@ -229,11 +230,14 @@ void GameManager::render()
 		starModel->render(glm::vec3(-10.0f, 5.0f, 0.0f), m_tr_down);
 		tessModel->render(glm::vec3(10.0f, 5.0f, 0.0f));
 		lod_tessModel->render(glm::vec3(0.0f, 10.0f, 0.0f));
+	
 
 		button_up->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		//terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		m_mesh_terrain->render(glm::vec3(0.0f, -75.0f, 35.0f));
+
+		m_skModel->render(m_clock_->GetDeltaTick(), m_mesh_terrain);
 
 		m_particles->render(m_clock_->GetDeltaTick(), glm::vec3(camera.get_position().x, camera.get_position().y + 25.0f, camera.get_position().z));
 		glEnable(GL_BLEND);
