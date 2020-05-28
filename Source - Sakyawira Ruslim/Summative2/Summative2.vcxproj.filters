@@ -270,10 +270,10 @@
     <None Include="Resources\Shaders\ParticleComputed.FS">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Resources\Shaders\Animation.VS">
+    <None Include="Resources\Shaders\Animation.FS">
       <Filter>Shaders</Filter>
     </None>
-    <None Include="Resources\Shaders\Animation.FS">
+    <None Include="Resources\Shaders\AnimationVS.txt">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

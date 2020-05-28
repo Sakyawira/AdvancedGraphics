@@ -432,7 +432,7 @@ void ssAnimatedModel::setShaderEffectVariables(float dt, Terrain* terrain){
 
 void ssAnimatedModel::render(float dt, Terrain* terrain){
 	
-	setShaderEffectVariables(dt, terrain);
+	setShaderEffectVariables(dt*100, terrain);
 
 	glBindVertexArray(m_VAO);
 

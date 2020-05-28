@@ -22,7 +22,7 @@ GameManager::GameManager()
 	m_clock_ = new CClock();
 
 	// Create Shader
-	m_sh_skeletal_ = new Shader("Resources/Shaders/Animation.VS", "Resources/Shaders/Animation.FS", m_v_sh);
+	m_sh_skeletal_ = new Shader("Resources/Shaders/AnimationVS.txt", "Resources/Shaders/Animation.FS", m_v_sh);
 	m_sh_fogBox = new Shader("Resources/Shaders/FogCubeMapVS.txt", "Resources/Shaders/FogCubeMapFS.txt", m_v_sh);
 	m_sh_fog_ = new Shader("Resources/Shaders/FogPhongVS.txt", "Resources/Shaders/FogPhongDiffuseFS.txt", m_v_sh);
 	m_sh_phong_diffuse_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongDiffuse.fs", m_v_sh);

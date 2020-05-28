@@ -209,7 +209,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\Animation.FS" />
-    <None Include="Resources\Shaders\Animation.VS" />
+    <None Include="Resources\Shaders\AnimationVS.txt" />
     <None Include="Resources\Shaders\Chromatical.VS" />
     <None Include="Resources\Shaders\Geometry.FS" />
     <None Include="Resources\Shaders\Geometry.GS" />
