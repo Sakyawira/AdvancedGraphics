@@ -177,11 +177,12 @@ void GameManager::process_game(Audio& audio)
 
 		if (this->is_started())
 		{
-			stencilCube->SetPos(camera.get_position() + camera.get_look_dir() * 30.0f);
+			//stencilCube->SetPos(camera.get_position() + camera.get_look_dir() * 30.0f);
+			m_skModel->setPosition(camera.get_position() + camera.get_look_dir() * 30.0f);
 		}
 
 		cube_follow_terrain();
-		m_skModel->setPosition(glm::vec3(stencilCube->GetLocation().x, stencilCube->GetLocation().y + 30, stencilCube->GetLocation().z));
+		//m_skModel->setPosition(glm::vec3(stencilCube->GetLocation().x, stencilCube->GetLocation().y + 30, stencilCube->GetLocation().z));
 		
 		current_time_ = static_cast<float>(glutGet(GLUT_ELAPSED_TIME)); // Get current time.
 		current_time_ = current_time_ * 0.001f;
@@ -373,20 +374,21 @@ void GameManager::set_click(bool newState)
 
 void GameManager::cube_follow_terrain()
 {
+	
 	// Get the height of the terrain and adjust the y position of the cube based on it
-	float x = stencilCube->GetLocation().x;
-	float y = m_mesh_terrain->get_height(stencilCube->GetLocation()) + stencilCube->GetExtents().y;
-	float z = stencilCube->GetLocation().z;
+	float x = m_skModel->position.x;
+	float y = m_mesh_terrain->get_height(m_skModel->position) + (m_skModel->scale.y*30);
+	float z = m_skModel->position.z;
 
 	// If the Cube is not off the terrain
-	if (!isnan(y) && y != -99999 + stencilCube->GetExtents().y)
+	if (!isnan(y) && y != -99999 + m_skModel->scale.y * 30)
 	{
 		m_cube_previous_y = y;
-		stencilCube->SetPos(glm::vec3(x, y, z));
+		m_skModel->setPosition(glm::vec3(x, y, z));
 	}
 	else
 	{
-		stencilCube->SetPos(glm::vec3(x, m_cube_previous_y, z));
+		m_skModel->setPosition(glm::vec3(x, m_cube_previous_y, z));
 	}
 }
 

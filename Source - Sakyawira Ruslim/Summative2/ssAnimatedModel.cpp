@@ -28,7 +28,7 @@ ssAnimatedModel::ssAnimatedModel(std::string modelFilname, std::string texFilena
 	program = _program;
 
 
-	this->scale = glm::vec3(0.5f, 0.5f, 0.5f);
+	this->scale = glm::vec3(0.1f, 0.1f, 0.1f);
 	this->position = glm::vec3(0.0, 0.0, 0.0);
 	this->rotation = glm::vec3(1.0f, 0.0f, 0.0f);
 

@@ -277,6 +277,7 @@ public:
 
 	glm::vec3 position;
 	glm::vec3 rotation;
+	glm::vec3 scale;
 
 private:
 
@@ -342,10 +343,6 @@ private:
 	float animEndtime;
 	
 	float animationTime;
-
-
-	glm::vec3 scale;
-
 
 	float currentPlayerSpeed;
 	float currentRotationSpeed;
