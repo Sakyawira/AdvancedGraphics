@@ -131,49 +131,49 @@ void Terrain::render(glm::vec3 _position)
 ***********************/
 float Terrain::get_height(glm::vec3 _position) const
 {
-	//float x = _position.x;
-	//float z = _position.z;
+	float x = _position.x;
+	float z = _position.z;
 
-	//// Transform from terrain local space to "cell" space.
-	//float c = (x + 0.5f * width()) / m_info.CellSpacing;
-	//float d = (z - 0.5f * depth()) / -m_info.CellSpacing;
+	// Transform from terrain local space to "cell" space.
+	float c = (x + 0.5f * width()) / m_info.CellSpacing;
+	float d = (z - 0.5f * depth()) / -m_info.CellSpacing;
 
-	//// Get the row and column we are in.
-	//int row = (int)floorf(d);
-	//int col = (int)floorf(c);
+	// Get the row and column we are in.
+	int row = (int)floorf(d);
+	int col = (int)floorf(c);
 
-	//if (row < 0 || col < 0 || (int)m_info.NumCols - 2 < row || (int)m_info.NumRows - 2 < col)
-	//{
+	if (row < 0 || col < 0 || (int)m_info.NumCols - 2 < row || (int)m_info.NumRows - 2 < col)
+	{
 		return -99999;
-	//}
+	}
 
-	//// Grab the heights of the cell we are in.
-	//// A*--*B
-	////  | /|
-	////  |/ |
-	//// C*--*D
-	//float A = m_v_heightmap[row * m_info.NumCols + col];
-	//float B = m_v_heightmap[row * m_info.NumCols + col + 1];
-	//float C = m_v_heightmap[(row + 1) * m_info.NumCols + col];
-	//float D = m_v_heightmap[(row + 1) * m_info.NumCols + col + 1];
+	// Grab the heights of the cell we are in.
+	// A*--*B
+	//  | /|
+	//  |/ |
+	// C*--*D
+	float A = m_v_heightmap[row * m_info.NumCols + col];
+	float B = m_v_heightmap[row * m_info.NumCols + col + 1];
+	float C = m_v_heightmap[(row + 1) * m_info.NumCols + col];
+	float D = m_v_heightmap[(row + 1) * m_info.NumCols + col + 1];
 
-	//// Where we are relative to the cell.
-	//float s = c - (float)col;
-	//float t = d - (float)row;
+	// Where we are relative to the cell.
+	float s = c - (float)col;
+	float t = d - (float)row;
 
-	//// If upper triangle ABC.
-	//if (s + t <= 1.0f)
-	//{
-	//	float uy = B - A;
-	//	float vy = C - A;
-	//	return A + s * uy + t * vy;
-	//}
-	//else // lower triangle DCB.
-	//{
-	//	float uy = C - D;
-	//	float vy = B - D;
-	//	return D + (1.0f - s) * uy + (1.0f - t) * vy;
-	//}
+	// If upper triangle ABC.
+	if (s + t <= 1.0f)
+	{
+		float uy = B - A;
+		float vy = C - A;
+		return A + s * uy + t * vy;
+	}
+	else // lower triangle DCB.
+	{
+		float uy = C - D;
+		float vy = B - D;
+		return D + (1.0f - s) * uy + (1.0f - t) * vy;
+	}
 }
 
 /***********************

@@ -28,7 +28,7 @@ ssAnimatedModel::ssAnimatedModel(std::string modelFilname, std::string texFilena
 	program = _program;
 
 
-	this->scale = glm::vec3(1.0f, 1.0f, 1.0f);
+	this->scale = glm::vec3(0.5f, 0.5f, 0.5f);
 	this->position = glm::vec3(0.0, 0.0, 0.0);
 	this->rotation = glm::vec3(1.0f, 0.0f, 0.0f);
 
@@ -389,7 +389,11 @@ void ssAnimatedModel::setShaderEffectVariables(float dt, Terrain* terrain){
 	GLint modelLoc = glGetUniformLocation(program, "model");
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
-
+	//glm::mat4 model;
+	model = glm::translate(model, position);
+	glm::mat4 mvp = camera->get_projection() * camera->get_view() * model;
+	GLint mvLoc = glGetUniformLocation(program, "MVP");
+	glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvp));
 
 	// lighting calculations
 	GLint colorLoc = glGetUniformLocation(program, "objectColor");
@@ -432,7 +436,7 @@ void ssAnimatedModel::setShaderEffectVariables(float dt, Terrain* terrain){
 
 void ssAnimatedModel::render(float dt, Terrain* terrain){
 	
-	setShaderEffectVariables(dt*100, terrain);
+	setShaderEffectVariables(dt*100000, terrain);
 
 	glBindVertexArray(m_VAO);
 
@@ -451,13 +455,14 @@ void ssAnimatedModel::render(float dt, Terrain* terrain){
 			//glUniform1i(glGetUniformLocation(program, "Texture"), MaterialIndex);
 		}
 
-		glDrawElementsBaseVertex(GL_TRIANGLES,
+		/*glDrawElementsBaseVertex(GL_TRIANGLES,
 								m_Entries[i].NumIndices, 
 								GL_UNSIGNED_INT,
 								(void*)(sizeof(GLuint) * m_Entries[i].BaseIndex),
-								m_Entries[i].BaseVertex);
+								m_Entries[i].BaseVertex);*/
 
-		//glDrawElements(GL_TRIANGLES, m_Entries[i].NumIndices, GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, m_Entries[i].NumIndices, GL_UNSIGNED_INT, 0);
+
 	}
 
 	// Make sure the VAO is not changed from the outside    

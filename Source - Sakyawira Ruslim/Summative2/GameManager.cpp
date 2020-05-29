@@ -114,11 +114,11 @@ GameManager::GameManager()
 
 	// Pyramid
 	button_down = new GameObject(m_sh_skeletal_, m_mesh_cube, v_blue, -10.0f, 0.0f, 0.0f, m_v_cubes);
-	button_down->Scale(3.0f);
+	button_down->Scale(10.1f);
 
 	// Cube
 	button_up = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_yellow, 10.0f, 0.0f, 0.0f, m_v_cubes);
-	button_up->Scale(3.0f);
+	button_up->Scale(0.1f);
 
 	// Sphere
 	sphere = new GameObject(m_sh_phong_diffuse_, m_mesh_sphere, v_yellow, 32.0f, 0.0f, 0.0f, m_v_sphere);
