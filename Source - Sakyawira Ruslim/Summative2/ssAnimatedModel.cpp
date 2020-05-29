@@ -374,7 +374,7 @@ void ssAnimatedModel::setShaderEffectVariables(float dt, Terrain* terrain){
 	this->position.x += dx;
 	this->position.z += dz;
 
-	this->position.y  = terrain->get_height(this->position) - 0.0f;
+	this->position.y  = terrain->get_height(this->position) +  scale.y * 35.0f;
 
 	glm::mat4 t = glm::translate(glm::mat4(), this->position);
 	glm::mat4 r = glm::rotate(glm::mat4(), glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
