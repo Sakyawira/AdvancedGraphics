@@ -88,7 +88,7 @@ ssAnimatedModel::ssAnimatedModel(std::string modelFilname, std::string texFilena
 	animStartTime = startFrame / float(animFps);
 	animEndtime = endFrame / float(animFps);
 	animationTime = animStartTime;
-	animSpeed = 1.250f;
+	animSpeed = 0.250f;
 
 	animTick = 1.0f / float(animFps)  * animSpeed;
 
