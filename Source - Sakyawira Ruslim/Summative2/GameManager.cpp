@@ -237,7 +237,7 @@ void GameManager::render()
 		button_up->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		//terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
-		m_mesh_terrain->render(glm::vec3(0.0f, -75.0f, 35.0f));
+		m_mesh_terrain->render(glm::vec3(0.0f, -50.0f, 0.0f));
 
 		m_skModel->render(m_clock_->GetDeltaTick(), m_mesh_terrain);
 
@@ -382,11 +382,11 @@ void GameManager::cube_follow_terrain()
 	if (!isnan(y) && y != -99999 + stencilCube->GetExtents().y)
 	{
 		m_cube_previous_y = y;
-		stencilCube->SetPos(glm::vec3(x, y -20.0f, z));
+		stencilCube->SetPos(glm::vec3(x, y, z));
 	}
 	else
 	{
-		stencilCube->SetPos(glm::vec3(x, m_cube_previous_y - 20.0f, z));
+		stencilCube->SetPos(glm::vec3(x, m_cube_previous_y, z));
 	}
 }
 

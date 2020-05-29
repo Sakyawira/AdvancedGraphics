@@ -92,6 +92,8 @@ Terrain::~Terrain()
 
 void Terrain::render(glm::vec3 _position)
 {
+	m_position = _position;
+
 	glUseProgram(this->program);
 
 	//this->camera->use_camera(this->program);
@@ -100,7 +102,7 @@ void Terrain::render(glm::vec3 _position)
 	const GLchar* name = "tex";
 	glUniform1i(glGetUniformLocation(program, name), 0);
 
-	float camDistance = glm::distance(_position, camera->get_position());
+	float camDistance = glm::distance(m_position, camera->get_position());
 	GLint camDistanceLoc = glGetUniformLocation(program, "camDistance");
 	glUniform1f(camDistanceLoc, camDistance);
 
@@ -108,7 +110,7 @@ void Terrain::render(glm::vec3 _position)
 	glUniform3fv(camLoc, 1, glm::value_ptr(camera->get_position() + camera->get_look_dir() * 15.0f));
 
 	glm::mat4 model;
-	model = glm::translate(model, _position);
+	model = glm::translate(model, m_position);
 
 	GLuint modelLoc = glGetUniformLocation(program, "model");
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
@@ -166,13 +168,13 @@ float Terrain::get_height(glm::vec3 _position) const
 	{
 		float uy = B - A;
 		float vy = C - A;
-		return A + s * uy + t * vy;
+		return (A + s * uy + t * vy) + m_position.y;
 	}
 	else // lower triangle DCB.
 	{
 		float uy = C - D;
 		float vy = B - D;
-		return D + (1.0f - s) * uy + (1.0f - t) * vy;
+		return (D + (1.0f - s) * uy + (1.0f - t) * vy) + m_position.y;
 	}
 }
 

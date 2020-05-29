@@ -81,5 +81,7 @@ private:
 
 	std::vector<TerrainAttribute> vertices;
 	std::vector<GLuint> indices;
+
+	glm::vec3 m_position = glm::vec3(0.0f, 0.0f, 0.0f);
 };
 
