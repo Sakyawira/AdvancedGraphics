@@ -2,19 +2,7 @@
 
 void Input::process_input(GameManager* Game, Audio& audio)
 {
-	if (key_state_['w'] == INPUT_UP)
-	{
-		Game->m_skModel->setIdle();
-	}
-	if (key_state_['a'] == INPUT_UP)
-	{
-		Game->m_skModel->setIdle();
-	}
-	if (key_state_['s'] == INPUT_UP)
-	{
-		Game->m_skModel->setIdle();
-	}
-	if (key_state_['d'] == INPUT_UP)
+	if (key_state_['w'] == INPUT_UP && key_state_['s'] == INPUT_UP && key_state_['d'] == INPUT_UP && key_state_['a'] == INPUT_UP)
 	{
 		Game->m_skModel->setIdle();
 	}
