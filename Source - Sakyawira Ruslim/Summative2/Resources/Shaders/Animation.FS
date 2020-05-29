@@ -29,5 +29,5 @@ void main ()
     float diffuseStr = max(dot(norm, -lightDir), 0.0f);
     vec3 diffuse = diffuseStr * lightColor;
 
-    color =  (texture(tex, fragTexCoord)) * vec4(ambient + diffuse, 1.0f);
+    color =  (texture(tex, fragTexCoord));// * vec4(ambient + diffuse, 1.0f);
 }

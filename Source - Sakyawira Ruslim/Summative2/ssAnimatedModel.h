@@ -310,7 +310,7 @@ private:
 	
 	std::vector<MeshEntry> m_Entries;
 	std::vector<GLuint> m_Textures;
-
+	GLuint mtexture;
 	std::vector<glm::vec3> positions;
 	std::vector<glm::vec3> normals;
 	std::vector<glm::vec2> texcoords;

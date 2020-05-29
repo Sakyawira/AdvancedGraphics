@@ -355,9 +355,9 @@ void ssAnimatedModel::setShaderEffectVariables(float dt, Terrain* terrain){
 	glUseProgram(this->program);
 
 	//if(bIsTextureSet)
-	//glActiveTexture(GL_TEXTURE0);
-	//glBindTexture(GL_TEXTURE_2D, textureID);
-	//glUniform1i(glGetUniformLocation(program, "Texture"), 0);
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, mtexture);
+	glUniform1i(glGetUniformLocation(program, "tex"), 0);
 
 
 	glm::mat4 model;
@@ -835,7 +835,7 @@ void ssAnimatedModel::setBufferandAttributes(){
 
 GLuint ssAnimatedModel::loadTexture(std::string texFileName) {
 
-	GLuint mtexture;
+
 
 	//** load texture
 	glGenTextures(1, &mtexture);
