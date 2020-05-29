@@ -368,13 +368,13 @@ void ssAnimatedModel::setShaderEffectVariables(float dt, Terrain* terrain){
 
 	//printf("speed %f, \n", currentRotationSpeed);
 
-	float dx = (float)(distance * sin(glm::radians(rotation.y)));
-	float dz = (float)(distance * cos(glm::radians(rotation.y)));
+	//float dx = (float)(distance * sin(glm::radians(rotation.y)));
+	//float dz = (float)(distance * cos(glm::radians(rotation.y)));
 
-	this->position.x += dx;
-	this->position.z += dz;
+	//this->position.x += dx;
+	//this->position.z += dz;
 
-	this->position.y  = terrain->get_height(this->position) +  scale.y * 35.0f;
+	//this->position.y  = terrain->get_height(this->position) +  scale.y * 33.0f;
 
 	glm::mat4 t = glm::translate(glm::mat4(), this->position);
 	glm::mat4 r = glm::rotate(glm::mat4(), glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
