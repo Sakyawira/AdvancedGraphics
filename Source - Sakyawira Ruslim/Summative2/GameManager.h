@@ -77,11 +77,11 @@ public:
 
 	// Control polygon mode
 	bool m_b_wireframe = false;
-	
-private:
 
 	// Skeletal Model
 	ssAnimatedModel* m_skModel;
+	
+private:
 
 	// Particle  System
 	ParticleSystem* m_particles;

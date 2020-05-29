@@ -181,7 +181,7 @@ void GameManager::process_game(Audio& audio)
 		}
 
 		cube_follow_terrain();
-		m_skModel->setPosition(glm::vec3(stencilCube->GetLocation().x, stencilCube->GetLocation().y + 20, stencilCube->GetLocation().z));
+		m_skModel->setPosition(glm::vec3(stencilCube->GetLocation().x, stencilCube->GetLocation().y + 30, stencilCube->GetLocation().z));
 		
 		current_time_ = static_cast<float>(glutGet(GLUT_ELAPSED_TIME)); // Get current time.
 		current_time_ = current_time_ * 0.001f;

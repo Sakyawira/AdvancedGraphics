@@ -24,44 +24,59 @@ void Input::process_input(GameManager* Game, Audio& audio)
 
 	if (key_state_['w'] == INPUT_DOWN)
 	{
-		Game->camera.move_pos_z(15.0f, Game->get_clock()->GetDeltaTick());
 		if (!Game->is_started())
 		{
 			Game->stencilCube->Move(MOVE_FRONT, 12.0f * Game->get_clock()->GetDeltaTick());
+
 		}
+		else
+		{
+			Game->camera.move_pos_z(15.0f, Game->get_clock()->GetDeltaTick());
+		}
+		Game->m_skModel->setCurrentAnimation(31, 50);
+		Game->m_skModel->bMoving = true;
 	}
 	if (key_state_['s'] == INPUT_DOWN)
 	{
 		if (!Game->is_started())
 		{
 			Game->stencilCube->Move(MOVE_BACK, 12.0f * Game->get_clock()->GetDeltaTick());
+
 		}
 		else
 		{
 			Game->camera.move_pos_z(-15.0f, Game->get_clock()->GetDeltaTick());
 		}
+		Game->m_skModel->setCurrentAnimation(31, 50);
+		Game->m_skModel->bMoving = true;
 	}
 	if (key_state_['d'] == INPUT_DOWN)
 	{
 		if (!Game->is_started())
 		{
 			Game->stencilCube->Move(MOVE_RIGHT, 12.0f * Game->get_clock()->GetDeltaTick());
+
 		}
 		else
 		{
 			Game->camera.move_pos_x(-15.0f, Game->get_clock()->GetDeltaTick());
 		}
+		Game->m_skModel->setCurrentAnimation(31, 50);
+		Game->m_skModel->bMoving = true;
 	}
 	if (key_state_['a'] == INPUT_DOWN)
 	{
 		if (!Game->is_started())
 		{
 			Game->stencilCube->Move(MOVE_LEFT, 12.0f * Game->get_clock()->GetDeltaTick());
+
 		}
 		else
 		{
 			Game->camera.move_pos_x(15.0f, Game->get_clock()->GetDeltaTick());
 		}
+		Game->m_skModel->setCurrentAnimation(31, 50);
+		Game->m_skModel->bMoving = true;
 	}
 	if (key_state_['r'] == INPUT_DOWN_FIRST)
 	{
@@ -90,7 +105,22 @@ void Input::process_input(GameManager* Game, Audio& audio)
 		}
 		key_state_[32] = INPUT_DOWN;
 	}
-
+	if (key_state_['w'] == INPUT_UP)
+	{
+		//Game->m_skModel->setCurrentAnimation(0, 30); //idle animation
+	}
+	if (key_state_['a'] == INPUT_UP)
+	{
+		//Game->m_skModel->setCurrentAnimation(0, 30); //idle animation
+	}
+	if (key_state_['s'] == INPUT_UP)
+	{
+		//Game->m_skModel->setCurrentAnimation(0, 30); //idle animation
+	}
+	if (key_state_['d'] == INPUT_UP)
+	{
+		//Game->m_skModel->setCurrentAnimation(0, 30); //idle animation
+	}
 	//if (SpecialKeyState[GLUT_KEY_UP] == INPUT_DOWN || KeyState['w'] == INPUT_DOWN)
 	//{
 	//	Game->camera.MovePosZ(-0.1f * Game->GetClock()->GetDeltaTick() * 120.0f);
