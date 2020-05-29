@@ -390,10 +390,10 @@ void ssAnimatedModel::setShaderEffectVariables(float dt, Terrain* terrain){
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
 	//glm::mat4 model;
-	model = glm::translate(model, position);
-	glm::mat4 mvp = camera->get_projection() * camera->get_view() * model;
-	GLint mvLoc = glGetUniformLocation(program, "MVP");
-	glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvp));
+	//model = glm::translate(model, position);
+	//glm::mat4 mvp = camera->get_projection() * camera->get_view() * model;
+	//GLint mvLoc = glGetUniformLocation(program, "MVP");
+	//glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvp));
 
 	// lighting calculations
 	GLint colorLoc = glGetUniformLocation(program, "objectColor");

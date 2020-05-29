@@ -21,7 +21,7 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 proj;
 
-uniform mat4 MVP;
+uniform mat4 vp;
 
 uniform mat4 jointTransforms[MAX_JOINTS];
 
@@ -39,7 +39,7 @@ void main ()
 		totalNormal += worldNormal * weights[i];
 	}
 
-	gl_Position = MVP * totalLocalPosition;
+	gl_Position = vp * model * totalLocalPosition;
 	fragPos = vec3(model * vec4(position, 1.0f));
 	fragNormal =  mat3(transpose(inverse(model))) * normal;
 	fragTexCoord = texCoord;
