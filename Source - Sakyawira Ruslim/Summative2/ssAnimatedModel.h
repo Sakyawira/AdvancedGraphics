@@ -269,6 +269,8 @@ public:
 	void setSpeed(float _speed);
 	void setRotSpeed(float _rotSpeed);
 	void setAnimSpeed(float _animSpeed);
+	void setIdle();
+	void setRun();
 
 	void move(float direction);
 	void rotate(float direction);

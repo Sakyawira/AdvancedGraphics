@@ -893,3 +893,21 @@ void ssAnimatedModel::setAnimSpeed(float _animSpeed){
 	animTick = 1.0f / float(animFps)  * animSpeed;
 }
 
+void ssAnimatedModel::setIdle()
+{
+	if (this->bMoving == true) 
+	{
+		this->bMoving = false;
+		this->setCurrentAnimation(0, 30); //idle animation 
+	}
+}
+
+void ssAnimatedModel::setRun()
+{
+	if (this->bMoving == false)
+	{
+		this->bMoving = true;
+		this->setCurrentAnimation(31, 50); // run animation 
+	}
+}
+

@@ -2,24 +2,45 @@
 
 void Input::process_input(GameManager* Game, Audio& audio)
 {
+	if (key_state_['w'] == INPUT_UP)
+	{
+		Game->m_skModel->setIdle();
+	}
+	if (key_state_['a'] == INPUT_UP)
+	{
+		Game->m_skModel->setIdle();
+	}
+	if (key_state_['s'] == INPUT_UP)
+	{
+		Game->m_skModel->setIdle();
+	}
+	if (key_state_['d'] == INPUT_UP)
+	{
+		Game->m_skModel->setIdle();
+	}
+
 	if (key_state_['w'] == INPUT_DOWN_FIRST)
 	{
 		key_state_['w'] = INPUT_DOWN;
+		Game->m_skModel->setRun();
 	}
 
 	if (key_state_['s'] == INPUT_DOWN_FIRST)
 	{
 		key_state_['s'] = INPUT_DOWN;
+		Game->m_skModel->setRun();
 	}
 
 	if (key_state_['a'] == INPUT_DOWN_FIRST)
 	{
 		key_state_['a'] = INPUT_DOWN;
+		Game->m_skModel->setRun();
 	}
 
 	if (key_state_['d'] == INPUT_DOWN_FIRST)
 	{
 		key_state_['d'] = INPUT_DOWN;
+		Game->m_skModel->setRun();
 	}
 
 	if (key_state_['w'] == INPUT_DOWN)
@@ -33,8 +54,7 @@ void Input::process_input(GameManager* Game, Audio& audio)
 		{
 			Game->camera.move_pos_z(15.0f, Game->get_clock()->GetDeltaTick());
 		}
-		Game->m_skModel->setCurrentAnimation(31, 50);
-		Game->m_skModel->bMoving = true;
+		//Game->m_skModel->setRun();
 	}
 	if (key_state_['s'] == INPUT_DOWN)
 	{
@@ -47,8 +67,7 @@ void Input::process_input(GameManager* Game, Audio& audio)
 		{
 			Game->camera.move_pos_z(-15.0f, Game->get_clock()->GetDeltaTick());
 		}
-		Game->m_skModel->setCurrentAnimation(31, 50);
-		Game->m_skModel->bMoving = true;
+		//Game->m_skModel->setRun();
 	}
 	if (key_state_['d'] == INPUT_DOWN)
 	{
@@ -61,8 +80,7 @@ void Input::process_input(GameManager* Game, Audio& audio)
 		{
 			Game->camera.move_pos_x(-15.0f, Game->get_clock()->GetDeltaTick());
 		}
-		Game->m_skModel->setCurrentAnimation(31, 50);
-		Game->m_skModel->bMoving = true;
+		//Game->m_skModel->setRun();
 	}
 	if (key_state_['a'] == INPUT_DOWN)
 	{
@@ -75,8 +93,7 @@ void Input::process_input(GameManager* Game, Audio& audio)
 		{
 			Game->camera.move_pos_x(15.0f, Game->get_clock()->GetDeltaTick());
 		}
-		Game->m_skModel->setCurrentAnimation(31, 50);
-		Game->m_skModel->bMoving = true;
+		//Game->m_skModel->setRun();
 	}
 	if (key_state_['r'] == INPUT_DOWN_FIRST)
 	{
@@ -105,22 +122,7 @@ void Input::process_input(GameManager* Game, Audio& audio)
 		}
 		key_state_[32] = INPUT_DOWN;
 	}
-	if (key_state_['w'] == INPUT_UP)
-	{
-		//Game->m_skModel->setCurrentAnimation(0, 30); //idle animation
-	}
-	if (key_state_['a'] == INPUT_UP)
-	{
-		//Game->m_skModel->setCurrentAnimation(0, 30); //idle animation
-	}
-	if (key_state_['s'] == INPUT_UP)
-	{
-		//Game->m_skModel->setCurrentAnimation(0, 30); //idle animation
-	}
-	if (key_state_['d'] == INPUT_UP)
-	{
-		//Game->m_skModel->setCurrentAnimation(0, 30); //idle animation
-	}
+	
 	//if (SpecialKeyState[GLUT_KEY_UP] == INPUT_DOWN || KeyState['w'] == INPUT_DOWN)
 	//{
 	//	Game->camera.MovePosZ(-0.1f * Game->GetClock()->GetDeltaTick() * 120.0f);
