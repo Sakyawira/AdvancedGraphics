@@ -2,11 +2,6 @@
 
 void Input::process_input(GameManager* Game, Audio& audio)
 {
-	if (key_state_['w'] == INPUT_UP && key_state_['s'] == INPUT_UP && key_state_['d'] == INPUT_UP && key_state_['a'] == INPUT_UP)
-	{
-		Game->m_skModel->setIdle();
-	}
-
 	if (key_state_['w'] == INPUT_DOWN_FIRST)
 	{
 		key_state_['w'] = INPUT_DOWN;
@@ -36,7 +31,6 @@ void Input::process_input(GameManager* Game, Audio& audio)
 		if (!Game->is_started())
 		{
 			Game->stencilCube->Move(MOVE_FRONT, 12.0f * Game->get_clock()->GetDeltaTick());
-
 		}
 		else
 		{
@@ -49,7 +43,6 @@ void Input::process_input(GameManager* Game, Audio& audio)
 		if (!Game->is_started())
 		{
 			Game->stencilCube->Move(MOVE_BACK, 12.0f * Game->get_clock()->GetDeltaTick());
-
 		}
 		else
 		{
@@ -62,7 +55,6 @@ void Input::process_input(GameManager* Game, Audio& audio)
 		if (!Game->is_started())
 		{
 			Game->stencilCube->Move(MOVE_RIGHT, 12.0f * Game->get_clock()->GetDeltaTick());
-
 		}
 		else
 		{
@@ -75,13 +67,16 @@ void Input::process_input(GameManager* Game, Audio& audio)
 		if (!Game->is_started())
 		{
 			Game->stencilCube->Move(MOVE_LEFT, 12.0f * Game->get_clock()->GetDeltaTick());
-
 		}
 		else
 		{
 			Game->camera.move_pos_x(15.0f, Game->get_clock()->GetDeltaTick());
 		}
 		//Game->m_skModel->setRun();
+	}
+	if (key_state_['w'] == INPUT_UP && key_state_['s'] == INPUT_UP && key_state_['d'] == INPUT_UP && key_state_['a'] == INPUT_UP)
+	{
+		Game->m_skModel->setIdle();
 	}
 	if (key_state_['r'] == INPUT_DOWN_FIRST)
 	{

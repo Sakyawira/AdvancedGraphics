@@ -81,8 +81,8 @@ ssAnimatedModel::ssAnimatedModel(std::string modelFilname, std::string texFilena
 
 
 	//animation defaults
-	startFrame = 31;
-	endFrame = 50;
+	startFrame = 0;
+	endFrame = 30;
 	animFps = m_pScene->mAnimations[0]->mChannels[0]->mNumPositionKeys / m_pScene->mAnimations[0]->mDuration;
 
 	animStartTime = startFrame / float(animFps);
