@@ -171,7 +171,7 @@ void GameManager::process_game(Audio& audio)
 	if (m_b_initialized_ == 1)
 	{
 		const float delta_t = m_clock_->GetDeltaTick();
-		camera.update(m_b_start_, m_clock_->GetDeltaTick() * 1.0f, tank->GetLocation());
+		camera.update(m_b_start_, m_clock_->GetDeltaTick() * 1.0f, m_skModel->position);
 
 		// all_mouse_pick(delta_t);
 
@@ -242,7 +242,7 @@ void GameManager::render()
 
 		m_skModel->render(m_clock_->GetDeltaTick(), m_mesh_terrain);
 
-		//m_particles->render(m_clock_->GetDeltaTick(), glm::vec3(camera.get_position().x, camera.get_position().y + 25.0f, camera.get_position().z));
+		m_particles->render(m_clock_->GetDeltaTick(), glm::vec3(camera.get_position().x, camera.get_position().y + 25.0f, camera.get_position().z));
 		glEnable(GL_BLEND);
 
 		int i = 0;

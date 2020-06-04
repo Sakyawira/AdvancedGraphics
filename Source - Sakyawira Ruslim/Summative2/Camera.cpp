@@ -52,7 +52,7 @@ void Camera::update(bool isGameStarted, float deltaTime, glm::vec3 _center)
 		camPos.y = 1.5f;
 		camPos.z = 26.0f;
 		// View
-		view = glm::lookAt(camPos, glm::vec3(0.0f, 0.0f, 0.0f), camUpDir);
+		view = glm::lookAt(camPos, glm::vec3(_center), camUpDir);
 	}
 	// Rotate around a center point
 	//else
