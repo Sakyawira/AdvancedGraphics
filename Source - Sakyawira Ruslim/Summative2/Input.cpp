@@ -30,7 +30,8 @@ void Input::process_input(GameManager* Game, Audio& audio)
 	{
 		if (!Game->is_started())
 		{
-			Game->stencilCube->Move(MOVE_FRONT, 12.0f * Game->get_clock()->GetDeltaTick());
+			//Game->stencilCube->Move(MOVE_FRONT, 12.0f * Game->get_clock()->GetDeltaTick());
+			Game->m_skModel->position.z += 12.0f * Game->get_clock()->GetDeltaTick();
 		}
 		else
 		{
@@ -42,7 +43,8 @@ void Input::process_input(GameManager* Game, Audio& audio)
 	{
 		if (!Game->is_started())
 		{
-			Game->stencilCube->Move(MOVE_BACK, 12.0f * Game->get_clock()->GetDeltaTick());
+			//Game->stencilCube->Move(MOVE_BACK, 12.0f * Game->get_clock()->GetDeltaTick());
+			Game->m_skModel->position.z -= 12.0f * Game->get_clock()->GetDeltaTick();
 		}
 		else
 		{
@@ -54,7 +56,8 @@ void Input::process_input(GameManager* Game, Audio& audio)
 	{
 		if (!Game->is_started())
 		{
-			Game->stencilCube->Move(MOVE_RIGHT, 12.0f * Game->get_clock()->GetDeltaTick());
+			//Game->stencilCube->Move(MOVE_RIGHT, 12.0f * Game->get_clock()->GetDeltaTick());
+			Game->m_skModel->position.x += 12.0f * Game->get_clock()->GetDeltaTick();
 		}
 		else
 		{
@@ -66,7 +69,8 @@ void Input::process_input(GameManager* Game, Audio& audio)
 	{
 		if (!Game->is_started())
 		{
-			Game->stencilCube->Move(MOVE_LEFT, 12.0f * Game->get_clock()->GetDeltaTick());
+			//Game->stencilCube->Move(MOVE_LEFT, 12.0f * Game->get_clock()->GetDeltaTick());
+			Game->m_skModel->position.x -= 12.0f * Game->get_clock()->GetDeltaTick();
 		}
 		else
 		{
