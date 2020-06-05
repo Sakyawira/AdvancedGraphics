@@ -61,6 +61,7 @@
     <ClCompile Include="ssAnimatedModel.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="ShadowMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -133,6 +134,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="ssAnimatedModel.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowMap.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -274,6 +278,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="Resources\Shaders\AnimationVS.txt">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\ShadowMap.VS">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Resources\Shaders\ShadowMap.FS">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

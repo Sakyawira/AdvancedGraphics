@@ -39,6 +39,7 @@
 #include "FrameBuffer.h"
 #include "ParticleSystem.h"
 #include "ssAnimatedModel.h"
+#include "ShadowMap.h"
 
 const int WINDOW_WIDHT = 800;
 const int WINDOW_HEIGHT = 800;
@@ -140,13 +141,15 @@ private:
 	Shader* m_sh_reflective_;
 	Shader* m_sh_geometry_;
 	Shader* m_sh_star_geo_;
-	Shader* m_sh_tess_;
+	Shader* m_sh_tess_shadow_;
 	Shader* m_sh_chromatical_;
 	Shader* m_sh_particles_;
 	Shader* m_sh_compute_;
 	Shader* m_sh_skeletal_;
+	Shader* m_sh_shadow_;
 
 	FrameBuffer* m_frameBuffer;
+	ShadowMap* m_shadowMap;
 
 	Texture* m_tr_down;
 	Texture* m_tr_plain;

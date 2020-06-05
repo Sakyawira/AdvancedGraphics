@@ -37,6 +37,7 @@ GameManager::GameManager()
 	m_sh_chromatical_ = new Shader("Resources/Shaders/Chromatical.VS", "Resources/Shaders/Chromatical.FS", m_v_sh);
 	m_sh_particles_ = new Shader("Resources/Shaders/ParticleComputed.VS", "Resources/Shaders/ParticleComputed.FS", m_v_sh);
 	m_sh_compute_ = new Shader("Resources/Shaders/Particle.CS", m_v_sh);
+	m_sh_shadow_ = new Shader("Resources/Shaders/ShadowMap.VS", "Resources/Shaders/ShadowMap.FS",m_v_sh);
 	
 
 	// Create Mesh
@@ -139,6 +140,7 @@ GameManager::GameManager()
 	//terrain->SetPos(glm::vec3(0.0f, -20.0f, 0.0f));
 
 	m_frameBuffer = new FrameBuffer(m_sh_chromatical_, m_mesh_static);
+	m_shadowMap = new ShadowMap(m_sh_shadow_);
 	
 	this->initialize();
 }
@@ -217,6 +219,9 @@ void GameManager::render()
 		//glScissor(0, 200, 800, 400);
 
 		frame_counts_ += 1.0f * m_clock_->GetDeltaTick() * 120.0f;
+
+		m_shadowMap->start();
+
 		m_frameBuffer->PrepareRender();
 		
 		glEnable(GL_BLEND);
@@ -238,7 +243,7 @@ void GameManager::render()
 		button_up->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		//terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
-		m_mesh_terrain->render(glm::vec3(0.0f, -50.0f, 0.0f));
+		m_mesh_terrain->render(glm::vec3(0.0f, -50.0f, 0.0f), m_shadowMap);
 
 		m_skModel->render(m_clock_->GetDeltaTick(), m_mesh_terrain);
 
@@ -289,6 +294,7 @@ void GameManager::render()
 		//glDisable(GL_SCISSOR_TEST);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		m_frameBuffer->Render("currentTime", current_time_);
+		m_shadowMap->end();
 		m_text_collision_->Render();
 		m_text_instruction_->Render();
 

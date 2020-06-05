@@ -90,9 +90,14 @@ Terrain::~Terrain()
 
 }
 
-void Terrain::render(glm::vec3 _position)
+void Terrain::render(glm::vec3 _position, ShadowMap* _shadowMap)
 {
 	m_position = _position;
+
+	glm::mat4 model;
+	model = glm::translate(model, m_position);
+
+	_shadowMap->ShadowMapPass(model, camera, m_indicesSize, VAO);
 
 	glUseProgram(this->program);
 
@@ -108,9 +113,6 @@ void Terrain::render(glm::vec3 _position)
 
 	GLuint camLoc = glGetUniformLocation(program, "camPos");
 	glUniform3fv(camLoc, 1, glm::value_ptr(camera->get_position() + camera->get_look_dir() * 15.0f));
-
-	glm::mat4 model;
-	model = glm::translate(model, m_position);
 
 	GLuint modelLoc = glGetUniformLocation(program, "model");
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));

@@ -20,6 +20,7 @@
 #include "TessModel.h"
 #include "Texture.h"
 #include "PerlinNoise.h"
+#include "ShadowMap.h"
 
 struct TerrainAttribute
 {
@@ -44,7 +45,7 @@ public:
 
 	Terrain(InitInfo _info, std::vector<Mesh*>& meshVector, GLuint program, Camera* camera, Texture* _texture);
 	virtual ~Terrain();
-	void render(glm::vec3 _position);
+	void render(glm::vec3 _position, ShadowMap* _shadowMap);
 
 	float get_height(glm::vec3 _position)const;
 	std::vector<TerrainAttribute>* get_vertices();
