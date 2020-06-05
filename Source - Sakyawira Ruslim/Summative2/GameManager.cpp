@@ -32,7 +32,7 @@ GameManager::GameManager()
 	m_sh_reflective_ = new Shader("Resources/Shaders/FogReflectionVS.txt", "Resources/Shaders/FogReflectionFS.txt", m_v_sh);
 	m_sh_geometry_ = new Shader("Resources/Shaders/Geometry.VS", "Resources/Shaders/Geometry.FS", "Resources/Shaders/Quad.GS", m_v_sh);
 	m_sh_star_geo_ = new Shader("Resources/Shaders/Geometry.VS", "Resources/Shaders/Geometry.FS", "Resources/Shaders/Star.GS", m_v_sh);
-	m_sh_tess_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/PhongDiffuse.FS", "Resources/Shaders/tessTriModel.tcs","Resources/Shaders/tessTriModel.tes", m_v_sh);
+	m_sh_tess_shadow_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/PhongDiffuse.FS", "Resources/Shaders/tessTriModel.tcs","Resources/Shaders/tessTriModel.tes", m_v_sh);
 	m_sh_lod_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/tess.FS", "Resources/Shaders/tessLODQuadModel.tcs", "Resources/Shaders/tessQuadModel.tes", m_v_sh);
 	m_sh_chromatical_ = new Shader("Resources/Shaders/Chromatical.VS", "Resources/Shaders/Chromatical.FS", m_v_sh);
 	m_sh_particles_ = new Shader("Resources/Shaders/ParticleComputed.VS", "Resources/Shaders/ParticleComputed.FS", m_v_sh);
@@ -63,7 +63,7 @@ GameManager::GameManager()
 	//m_mdl_cat = new Model("Resources/Models/pug/Dog 1.obj", &camera);
 	geomModel = new GeometryModel(m_sh_geometry_->GetProgram(), &camera);
 	starModel = new GeometryModel(m_sh_star_geo_->GetProgram(), &camera);
-	tessModel = new TessModel(m_sh_tess_->GetProgram(), &camera);
+	tessModel = new TessModel(m_sh_tess_shadow_->GetProgram(), &camera);
 	lod_tessModel = new TessModel(m_sh_lod_->GetProgram(), &camera);
 	m_skModel = new ssAnimatedModel("Resources/Models/theDude.DAE", "Resources/Textures/theDude.png", &camera, m_sh_skeletal_->GetProgram());
 
@@ -87,7 +87,7 @@ GameManager::GameManager()
 	m_tr_grass = new Texture("Resources/Textures/grass-texture-png-2.png");
 	std::vector<const char*> textureDirs = {"right.jpg", "left.jpg", "top.jpg", "bottom.jpg", "back.jpg", "front.jpg"};
 	m_tr_cube_map = new CubeMap(textureDirs);
-	m_mesh_terrain = new Terrain(tii, m_v_mesh, m_sh_tess_->GetProgram(), &camera, m_tr_plain);
+	m_mesh_terrain = new Terrain(tii, m_v_mesh, m_sh_tess_shadow_->GetProgram(), &camera, m_tr_plain);
 	
 	// Texture Vectors to be passed in
 	std::vector<Texture*> v_water_texture = { m_tr_water, m_tr_water };

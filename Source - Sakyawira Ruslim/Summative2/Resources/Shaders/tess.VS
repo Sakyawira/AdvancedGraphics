@@ -20,6 +20,7 @@ layout (location = 2) in vec2 texCoord;
 out vec3 fragPos;
 out vec3 fragNormal;
 out vec2 fragTexCoord;
+out vec4 FragPosLightSpace;
 
 uniform mat4 translation;
 uniform mat4 rotation;
@@ -28,6 +29,7 @@ uniform mat4 scale;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 proj;
+uniform mat4 lightVPMatrix;
 
 uniform mat4 MVP;
 
