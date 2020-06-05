@@ -49,13 +49,14 @@ GameObject::GameObject(Model * _model, float _initial_x, float _initial_y, float
 
 void GameObject::ShadowPass(Camera& _camera, ShadowMap* _shadowMap)
 {
-	_shadowMap->ShadowMapPass(m_modelMatrix, &_camera, m_mesh->GetSize(), m_mesh->GetVAO());
+	
 }
 
 void GameObject::DrawShadow(ShadowMap* _shadowMap, Camera& _camera, const GLchar* s_currentTime, GLfloat f_currentTime, const GLchar* s_frameTime, GLint i_frameTime, float deltaTime)
 {
-	ShadowPass(_camera, _shadowMap);
-	this->Draw(_camera, s_currentTime, f_currentTime, s_frameTime, i_frameTime, deltaTime);
+	//ShadowPass(_camera, _shadowMap);
+	_shadowMap->ShadowMapPass(m_modelMatrix, &_camera, m_mesh->GetSize(), m_mesh->GetVAO());
+	//this->Draw(_camera, s_currentTime, f_currentTime, s_frameTime, i_frameTime, deltaTime);
 }
 
 void GameObject::Draw(Camera& _camera, const GLchar* s_currentTime, GLfloat f_currentTime, float deltaTime)

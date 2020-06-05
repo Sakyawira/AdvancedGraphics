@@ -17,6 +17,7 @@ class ShadowMap
 		GLuint GetTexture() { return depthMapTexture; }		
 		GLuint GetProgram() { return shadowMapProgram; }
 		glm::mat4 GetLightViewMatrix() { return lightViewMatrix; }
+		glm::vec3 GetLightPos() { return lightPosition; }
 
 	private:
 		// depth texture 

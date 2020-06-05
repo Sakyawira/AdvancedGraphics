@@ -45,6 +45,8 @@ void ShadowMap::start()
 
 void ShadowMap::end()
 {
+	glFlush();
+	glFinish();
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
@@ -63,4 +65,8 @@ void ShadowMap::ShadowMapPass(glm::mat4 modelMatrix, Camera* camera, GLuint indi
 	glBindVertexArray(vao); 
 	glDrawElements(GL_TRIANGLES, indices_size, GL_UNSIGNED_INT, 0); 
 	glBindVertexArray(0);
+	//glPatchParameteri(GL_PATCH_VERTICES, /*m_indicesSize*/3);
+	//glDrawArrays(GL_PATCHES, 0, m_indicesSize);
+	//glDrawElements(GL_PATCHES, indices_size, GL_UNSIGNED_INT, 0);
+	//glBindVertexArray(0);
 }

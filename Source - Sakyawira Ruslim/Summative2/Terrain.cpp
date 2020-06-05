@@ -98,6 +98,23 @@ void Terrain::ShadowPass(glm::vec3 _position, ShadowMap* _shadowMap)
 	model = glm::translate(model, m_position);
 
 	_shadowMap->ShadowMapPass(model, camera, m_indicesSize, VAO);
+	//glUseProgram(_shadowMap->GetProgram());
+	//glm::mat4 lightViewMatrix = glm::lookAt(_shadowMap->GetLightPos(), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	//glm::mat4 lightVPMatrix = camera->get_projection() * lightViewMatrix;
+
+	//GLint vpLoc = glGetUniformLocation(_shadowMap->GetProgram(), "lightVPMatrix");
+	//glUniformMatrix4fv(vpLoc, 1, GL_FALSE, glm::value_ptr(lightVPMatrix));
+	//// model matrix of the current object 
+	//GLint modelLoc = glGetUniformLocation(_shadowMap->GetProgram(), "model");
+	//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+	//// draw the current object 
+	//glBindVertexArray(VAO);
+	//glPatchParameteri(GL_PATCH_VERTICES, /*m_indicesSize*/3);
+	////glDrawArrays(GL_PATCHES, 0, m_indicesSize);
+	//glDrawElements(GL_PATCHES, m_indicesSize, GL_UNSIGNED_INT, 0);
+	//glBindVertexArray(0);
+
 }
 
 void Terrain::render(glm::vec3 _position, ShadowMap* _shadowMap)
