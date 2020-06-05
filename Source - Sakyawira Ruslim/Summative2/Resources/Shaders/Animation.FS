@@ -65,7 +65,7 @@ void main ()
     }
     		
     
-    //float shadow = ShadowCalculation();
+    //float shadow = ShadowCalculation(FragPosLightSpace);
     
     gl_FragColor = texture(tex, fragTexCoord) * vec4(objectColor, 1.0f);// * toonStrength;// * shadow;
 }
