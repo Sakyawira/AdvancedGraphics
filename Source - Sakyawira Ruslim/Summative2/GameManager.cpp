@@ -25,16 +25,16 @@ GameManager::GameManager()
 	m_sh_skeletal_ = new Shader("Resources/Shaders/AnimationVS.txt", "Resources/Shaders/Animation.FS", m_v_sh);
 	//m_sh_fogBox = new Shader("Resources/Shaders/FogCubeMapVS.txt", "Resources/Shaders/FogCubeMapFS.txt", m_v_sh);
 	//m_sh_fog_ = new Shader("Resources/Shaders/FogPhongVS.txt", "Resources/Shaders/FogPhongDiffuseFS.txt", m_v_sh);
-	m_sh_phong_diffuse_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongDiffuse.fs", m_v_sh);
+	//m_sh_phong_diffuse_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongDiffuse.fs", m_v_sh);
 	//m_sh_phong_specular_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongSpecular.fs", m_v_sh);
 	//m_sh_phong_rim_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongRim.fs", m_v_sh);
 	m_sh_cube_map_ = new Shader("Resources/Shaders/CubeMapVS.txt", "Resources/Shaders/CubeMapFS.txt", m_v_sh);
 	///m_sh_reflective_ = new Shader("Resources/Shaders/FogReflectionVS.txt", "Resources/Shaders/FogReflectionFS.txt", m_v_sh);
-	m_sh_geometry_ = new Shader("Resources/Shaders/Geometry.VS", "Resources/Shaders/Geometry.FS", "Resources/Shaders/Quad.GS", m_v_sh);
-	m_sh_star_geo_ = new Shader("Resources/Shaders/Geometry.VS", "Resources/Shaders/Geometry.FS", "Resources/Shaders/Star.GS", m_v_sh);
+	//m_sh_geometry_ = new Shader("Resources/Shaders/Geometry.VS", "Resources/Shaders/Geometry.FS", "Resources/Shaders/Quad.GS", m_v_sh);
+	//m_sh_star_geo_ = new Shader("Resources/Shaders/Geometry.VS", "Resources/Shaders/Geometry.FS", "Resources/Shaders/Star.GS", m_v_sh);
 	m_sh_tess_shadow_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/PhongDiffuse.FS", "Resources/Shaders/tessTriModel.tcs","Resources/Shaders/tessTriModel.tes", m_v_sh);
-	m_sh_lod_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/tess.FS", "Resources/Shaders/tessLODQuadModel.tcs", "Resources/Shaders/tessQuadModel.tes", m_v_sh);
-	m_sh_chromatical_ = new Shader("Resources/Shaders/Chromatical.VS", "Resources/Shaders/Chromatical.FS", m_v_sh);
+	//m_sh_lod_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/tess.FS", "Resources/Shaders/tessLODQuadModel.tcs", "Resources/Shaders/tessQuadModel.tes", m_v_sh);
+	//m_sh_chromatical_ = new Shader("Resources/Shaders/Chromatical.VS", "Resources/Shaders/Chromatical.FS", m_v_sh);
 	m_sh_particles_ = new Shader("Resources/Shaders/ParticleComputed.VS", "Resources/Shaders/ParticleComputed.FS", m_v_sh);
 	m_sh_compute_ = new Shader("Resources/Shaders/Particle.CS", m_v_sh);
 	m_sh_shadow_ = new Shader("Resources/Shaders/ShadowMap.VS", "Resources/Shaders/ShadowMap.FS",m_v_sh);
@@ -62,10 +62,10 @@ GameManager::GameManager()
 	// Model
 	//m_mdl_tank = new Model("Resources/Models/Tank/Tank.obj", &camera);
 	//m_mdl_cat = new Model("Resources/Models/pug/Dog 1.obj", &camera);
-	geomModel = new GeometryModel(m_sh_geometry_->GetProgram(), &camera);
-	starModel = new GeometryModel(m_sh_star_geo_->GetProgram(), &camera);
-	tessModel = new TessModel(m_sh_tess_shadow_->GetProgram(), &camera);
-	lod_tessModel = new TessModel(m_sh_lod_->GetProgram(), &camera);
+	//geomModel = new GeometryModel(m_sh_geometry_->GetProgram(), &camera);
+	//starModel = new GeometryModel(m_sh_star_geo_->GetProgram(), &camera);
+	//tessModel = new TessModel(m_sh_tess_shadow_->GetProgram(), &camera);
+	//lod_tessModel = new TessModel(m_sh_lod_->GetProgram(), &camera);
 	m_skModel = new ssAnimatedModel("Resources/Models/theDude.DAE", "Resources/Textures/theDude.png", &camera, m_sh_skeletal_->GetProgram());
 
 	// Text
@@ -99,34 +99,34 @@ GameManager::GameManager()
 	std::vector<Texture*> v_yellow = { m_tr_plain, m_tr_plain };
 
 	// Stencil Cube
-	stencilCube2 = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_blue, 0.0f, 0.0f, 0.0f, m_v_cubes);
-	stencilCube2->Scale(5.5f);
-	stencilCube2->Rotate(0.0f);
-	stencilCube = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_red, 0.0f, 0.0f, 0.0f, m_v_cubes);
-	stencilCube->Scale(5.0f);
-	stencilCube->Rotate(0.0f);
+	//stencilCube2 = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_blue, 0.0f, 0.0f, 0.0f, m_v_cubes);
+	//stencilCube2->Scale(5.5f);
+	//stencilCube2->Rotate(0.0f);
+	//stencilCube = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_red, 0.0f, 0.0f, 0.0f, m_v_cubes);
+	//stencilCube->Scale(5.0f);
+	//stencilCube->Rotate(0.0f);
 
-	transparentCube = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_water_texture, 0.0f, -6.0f, 0.0f, m_v_geometry);
-	transparentCube->Scale(800.0f, 8.0f, 800.0f);
+	//transparentCube = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_water_texture, 0.0f, -6.0f, 0.0f, m_v_geometry);
+	//transparentCube->Scale(800.0f, 8.0f, 800.0f);
 
 	// Sky-box / Cube-Map
 	sky_box = new GameObject(m_sh_cube_map_, m_mesh_cube_map, v_cubeMap, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	sky_box->Scale(2000.0f);
 
 	// Pyramid
-	button_down = new GameObject(m_sh_skeletal_, m_mesh_cube, v_blue, -10.0f, 0.0f, 0.0f, m_v_cubes);
-	button_down->Scale(10.1f);
+	//button_down = new GameObject(m_sh_skeletal_, m_mesh_cube, v_blue, -10.0f, 0.0f, 0.0f, m_v_cubes);
+	//button_down->Scale(10.1f);
 
 	// Cube
-	button_up = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_yellow, 10.0f, 0.0f, 0.0f, m_v_cubes);
-	button_up->Scale(0.1f);
+	//button_up = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_yellow, 10.0f, 0.0f, 0.0f, m_v_cubes);
+	//button_up->Scale(0.1f);
 
 	// Sphere
-	sphere = new GameObject(m_sh_phong_diffuse_, m_mesh_sphere, v_yellow, 32.0f, 0.0f, 0.0f, m_v_sphere);
-	sphere->Scale(5.0f);
+	//sphere = new GameObject(m_sh_phong_diffuse_, m_mesh_sphere, v_yellow, 32.0f, 0.0f, 0.0f, m_v_sphere);
+	//sphere->Scale(5.0f);
 
 	// Tank
-	tank = new GameObject(m_mdl_tank, 0.0f, 0.0f, 0.0f);
+	//tank = new GameObject(m_mdl_tank, 0.0f, 0.0f, 0.0f);
 
 	// Particle System
 	m_particles = new ParticleSystem(glm::vec3(10.0f, 2.0f, 0.0f), &camera, m_tr_grass, m_sh_particles_, m_sh_compute_);
@@ -134,12 +134,12 @@ GameManager::GameManager()
 	srand(static_cast<unsigned>(std::random_device()()));
 	int border = 75;
 
-	create_spheres(10, border);
+	//create_spheres(10, border);
 
 	//terrain = new GameObject(m_sh_lod_, m_mesh_terrain, v_yellow, 0.0f, 0.0f, 0.0f, m_v_geometry);
 	//terrain->SetPos(glm::vec3(0.0f, -20.0f, 0.0f));
 
-	m_frameBuffer = new FrameBuffer(m_sh_chromatical_, m_mesh_static);
+	//m_frameBuffer = new FrameBuffer(m_sh_chromatical_, m_mesh_static);
 	m_shadowMap = new ShadowMap(m_sh_shadow_);
 	
 	this->initialize();
@@ -224,7 +224,7 @@ void GameManager::render()
 		m_mesh_terrain->ShadowPass(glm::vec3(0.0f, -50.0f, 0.0f), m_shadowMap);
 		m_skModel->ShadowPass(m_shadowMap);
 		m_shadowMap->end();
-		m_frameBuffer->PrepareRender();
+	//	m_frameBuffer->PrepareRender();
 		
 		glEnable(GL_BLEND);
 		if (m_b_wireframe)
@@ -260,7 +260,7 @@ void GameManager::render()
 			{
 				if (i % 30 == 0)
 				{
-					geomModel->render(glm::vec3(point.pos.x, point.pos.y - 18, point.pos.z), m_tr_grass);
+					//geomModel->render(glm::vec3(point.pos.x, point.pos.y - 18, point.pos.z), m_tr_grass);
 				}
 			}
 			
@@ -275,13 +275,13 @@ void GameManager::render()
 						0xFF);//mask value, 
 		glStencilMask(0xFF);//enable writing to stencil buffer
 		//--> render regular sized button_up // fills stencil buffer 
-		stencilCube->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
+		//stencilCube->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		// ** 2nd pass ** 
 		glStencilFunc(GL_NOTEQUAL, 1, 0xFF); 
 		glStencilMask(0x00); //disable writing to stencil buffer
 		//--> render scaled up button_up 
-		stencilCube2->SetPos(stencilCube->GetLocation());
-		stencilCube2->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
+		//stencilCube2->SetPos(stencilCube->GetLocation());
+		//stencilCube2->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		// write to areas where value is not equal to 1
 		// disable writing to stencil mask 
 		glStencilMask(0x00); 
@@ -289,13 +289,13 @@ void GameManager::render()
 		glStencilMask(0xFF);//enable writing to stencil buffer
 	
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		transparentCube->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
+		//transparentCube->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 	
 		glDisable(GL_BLEND);
 	
 		//glDisable(GL_SCISSOR_TEST);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-		m_frameBuffer->Render("currentTime", current_time_);
+		//m_frameBuffer->Render("currentTime", current_time_);
 
 		m_text_collision_->Render();
 		m_text_instruction_->Render();
@@ -318,8 +318,8 @@ void GameManager::start_game(bool _isStart)
 	camera.set_pos_y(1.5f);
 	camera.set_pos_z(26.0f);
 	camera.set_look_dir(glm::vec3(0.0f, 0.0f, 0.0f));
-	stencilCube->SetPos(glm::vec3(0.0f, 0.0f, 0.0f));
-	stencilCube2->SetPos(glm::vec3(0.0f, 0.0f, 0.0f));
+	//stencilCube->SetPos(glm::vec3(0.0f, 0.0f, 0.0f));
+	//stencilCube2->SetPos(glm::vec3(0.0f, 0.0f, 0.0f));
 	m_b_start_ = _isStart;
 }
 
