@@ -26,6 +26,7 @@ public:
 
 	void Bind();
 	int GetSize();
+	GLuint GetVAO() { return m_VAO; }
 
 	std::vector<GLfloat> GetVertices();
 

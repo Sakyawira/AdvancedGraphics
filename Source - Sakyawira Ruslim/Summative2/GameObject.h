@@ -29,6 +29,7 @@
 //#include "CubeMap.h"
 #include "Camera.h"
 #include "Model.h"
+#include "ShadowMap.h"
 
 // Move identifiers
 #define	MOVE_UP      0
@@ -59,6 +60,11 @@ class GameObject
 		GameObject(Model* _model, float _initial_x, float _initial_y, float _initial_z);
 	
 		~GameObject() = default;
+
+		void ShadowPass(Camera& _camera, ShadowMap* _shadowMap);
+
+		// OverLoad that takes one uniform
+		void DrawShadow(ShadowMap* _shadowMap, Camera& _camera, const GLchar* s_currentTime, GLfloat f_currentTime, const GLchar* s_frameTime, GLint i_frameTime, float deltaTime);
 	
 		// OverLoad that takes one uniform
 		void Draw(Camera& _camera, const GLchar* s_currentTime, GLfloat f_currentTime, float deltaTime);

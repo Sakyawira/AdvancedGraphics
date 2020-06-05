@@ -25,7 +25,7 @@ GameManager::GameManager()
 	m_sh_skeletal_ = new Shader("Resources/Shaders/AnimationVS.txt", "Resources/Shaders/Animation.FS", m_v_sh);
 	//m_sh_fogBox = new Shader("Resources/Shaders/FogCubeMapVS.txt", "Resources/Shaders/FogCubeMapFS.txt", m_v_sh);
 	//m_sh_fog_ = new Shader("Resources/Shaders/FogPhongVS.txt", "Resources/Shaders/FogPhongDiffuseFS.txt", m_v_sh);
-	//m_sh_phong_diffuse_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongDiffuse.fs", m_v_sh);
+	m_sh_phong_diffuse_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongDiffuse.fs", m_v_sh);
 	//m_sh_phong_specular_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongSpecular.fs", m_v_sh);
 	//m_sh_phong_rim_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongRim.fs", m_v_sh);
 	m_sh_cube_map_ = new Shader("Resources/Shaders/CubeMapVS.txt", "Resources/Shaders/CubeMapFS.txt", m_v_sh);
@@ -102,8 +102,8 @@ GameManager::GameManager()
 	//stencilCube2 = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_blue, 0.0f, 0.0f, 0.0f, m_v_cubes);
 	//stencilCube2->Scale(5.5f);
 	//stencilCube2->Rotate(0.0f);
-	//stencilCube = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_red, 0.0f, 0.0f, 0.0f, m_v_cubes);
-	//stencilCube->Scale(5.0f);
+	stencilCube = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_red, 0.0f, 30.0f, 0.0f, m_v_cubes);
+	stencilCube->Scale(15.0f);
 	//stencilCube->Rotate(0.0f);
 
 	//transparentCube = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_water_texture, 0.0f, -6.0f, 0.0f, m_v_geometry);
@@ -221,8 +221,9 @@ void GameManager::render()
 		frame_counts_ += 1.0f * m_clock_->GetDeltaTick() * 120.0f;
 
 		m_shadowMap->start();
-		m_mesh_terrain->ShadowPass(glm::vec3(0.0f, -50.0f, 0.0f), m_shadowMap);
 		m_skModel->ShadowPass(m_shadowMap);
+		stencilCube->DrawShadow(m_shadowMap,camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
+		m_mesh_terrain->ShadowPass(glm::vec3(0.0f, -50.0f, 0.0f), m_shadowMap);
 		m_shadowMap->end();
 	//	m_frameBuffer->PrepareRender();
 		
@@ -248,7 +249,7 @@ void GameManager::render()
 		m_mesh_terrain->render(glm::vec3(0.0f, -50.0f, 0.0f), m_shadowMap);
 
 		m_skModel->render(m_clock_->GetDeltaTick(), m_mesh_terrain);
-
+		stencilCube->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		m_particles->render(m_clock_->GetDeltaTick(), glm::vec3(camera.get_position().x, camera.get_position().y + 25.0f, camera.get_position().z));
 		glEnable(GL_BLEND);
 
