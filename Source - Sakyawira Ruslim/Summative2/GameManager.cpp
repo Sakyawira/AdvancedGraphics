@@ -179,8 +179,9 @@ void GameManager::process_game(Audio& audio)
 
 		if (this->is_started())
 		{
-			//stencilCube->SetPos(camera.get_position() + camera.get_look_dir() * 30.0f);
+			
 			m_skModel->setPosition(camera.get_position() + camera.get_look_dir() * 30.0f);
+			stencilCube->SetPos(m_skModel->position + camera.get_look_dir() * 30.0f);
 		}
 
 		cube_follow_terrain();
@@ -221,9 +222,9 @@ void GameManager::render()
 		frame_counts_ += 1.0f * m_clock_->GetDeltaTick() * 120.0f;
 
 		m_shadowMap->start();
+		m_mesh_terrain->ShadowPass(glm::vec3(0.0f, -50.0f, 0.0f), m_shadowMap);
 		m_skModel->ShadowPass(m_shadowMap,m_clock_->GetDeltaTick(), m_mesh_terrain);
 		stencilCube->DrawShadow(m_shadowMap,camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
-		m_mesh_terrain->ShadowPass(glm::vec3(0.0f, -50.0f, 0.0f), m_shadowMap);
 		m_shadowMap->end();
 	//	m_frameBuffer->PrepareRender();
 		

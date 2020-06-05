@@ -384,10 +384,10 @@ void ssAnimatedModel::ShadowPass(ShadowMap* _shadowMap, float dt, Terrain* terra
 
 	boneTransforms(dt, transforms);
 
-	for (int i = 0; i < transforms.size(); i++) {
-		Matrix4f Transform = transforms[i];
-		glUniformMatrix4fv(m_boneLocation[i], 1, GL_TRUE, (const GLfloat*)(Transform));
-	}
+	//for (int i = 0; i < transforms.size(); i++) {
+	//	Matrix4f Transform = transforms[i];
+	//	glUniformMatrix4fv(m_boneLocation[i], 1, GL_TRUE, (const GLfloat*)(Transform));
+	//}
 	glBindVertexArray(m_VAO);
 
 	for (GLuint i = 0; i < m_Entries.size(); i++) {

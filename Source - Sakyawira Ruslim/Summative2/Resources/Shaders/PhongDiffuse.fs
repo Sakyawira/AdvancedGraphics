@@ -12,7 +12,7 @@ uniform float currentTime;
 uniform sampler2D tex;
 uniform sampler2D shadowMap; 
 
-uniform float ambientStr = 0.05f;
+uniform float ambientStr = 0.15f;
 uniform vec3 ambientColor = vec3(1.0f, 1.0f, 1.0f);
 
 uniform vec3 lightColor = vec3(1.0f, 1.0f, 1.0f);
@@ -20,14 +20,26 @@ uniform vec3 lightPos = vec3(-2.0f, 6.0f, 3.0f);
 
 float ShadowCalculation(vec4 fragPosLightSpace)
 {
-    // To get NDC [-1, 1] from screenspace 
-    vec3 ndcSpace = fragPosLightSpace.xyz/fragPosLightSpace.w;
-    // Convert to Tex Coord Space [0,1] 
-    vec3 texCoordSpace =  0.5f * ndcSpace + 0.5f;
-    float currentDepth = texCoordSpace.z ;
-    float closestDepth = texture(shadowMap, texCoordSpace.xy).r;
-    float shadow = closestDepth > currentDepth ? 0.0 : 1.0;
-    return shadow;
+   // To get NDC [-1, 1] from screenspace 
+   	vec3 ndcSpace = FragPosLightSpace.xyz / FragPosLightSpace.w;
+   
+   	// Convert to Tex CoordSpace [0,1]
+   	vec3 texCoordSpace = 0.5f * ndcSpace + 0.5f;
+   
+   	float bias = 0.000004f;
+   	float currentDepth = texCoordSpace.z - bias;
+  
+   
+   	float shadow;
+   	vec2 texelSize = 1.0 / textureSize(shadowMap, 0); 
+   	for (int x = -1; x <= 1; ++x) { 
+   		for (int y = -1; y <= 1; ++y) { 
+   			float pcfDepth = texture(shadowMap, texCoordSpace.xy + vec2(x, y) * texelSize).x; 
+   			shadow += currentDepth< pcfDepth ? 1.0 : 0.3;
+   		} 
+   	}
+   	shadow /= 9.0;
+   	return shadow == 1.0 ? 1.0 : 0.3;
 }
 
 void main ()
