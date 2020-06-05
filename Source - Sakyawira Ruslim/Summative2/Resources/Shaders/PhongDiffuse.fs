@@ -10,7 +10,6 @@ out vec4 color;
 
 uniform float currentTime;
 uniform sampler2D tex;
-uniform sampler2D tex1;
 uniform sampler2D shadowMap; 
 
 uniform float ambientStr = 0.05f;

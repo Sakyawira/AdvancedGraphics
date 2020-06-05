@@ -57,5 +57,6 @@ void ShadowMap::ShadowMapPass(glm::mat4 modelMatrix, Camera* camera, GLuint indi
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(modelMatrix));
 	// draw the current object 
 	glBindVertexArray(vao); 
-	glDrawElements(GL_TRIANGLES, indices_size, GL_UNSIGNED_INT, 0); glBindVertexArray(0);
+	glDrawElements(GL_TRIANGLES, indices_size, GL_UNSIGNED_INT, 0); 
+	glBindVertexArray(0);
 }

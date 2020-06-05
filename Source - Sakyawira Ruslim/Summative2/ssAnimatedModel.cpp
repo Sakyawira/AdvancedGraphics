@@ -100,6 +100,48 @@ ssAnimatedModel::~ssAnimatedModel(){
 	Clear();
 }
 
+void ssAnimatedModel::ShadowPass(ShadowMap* _shadowMap)
+{
+	glUseProgram(this->program);
+
+	//if(bIsTextureSet)
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, mtexture);
+	glUniform1i(glGetUniformLocation(program, "tex"), 0);
+
+
+	glm::mat4 model;
+
+	rotation.y += currentRotationSpeed * .016f;
+
+	float distance = currentPlayerSpeed * .016f;
+
+	//printf("speed %f, \n", currentRotationSpeed);
+
+	//float dx = (float)(distance * sin(glm::radians(rotation.y)));
+	//float dz = (float)(distance * cos(glm::radians(rotation.y)));
+
+	//this->position.x += dx;
+	//this->position.z += dz;
+
+	//this->position.y  = terrain->get_height(this->position) +  scale.y * 33.0f;
+
+	glm::mat4 t = glm::translate(glm::mat4(), this->position);
+	glm::mat4 r = glm::rotate(glm::mat4(), glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 s = glm::scale(glm::mat4(), this->scale);
+
+	model = t * r * s;
+
+	glm::mat4 vp = camera->get_projection() * camera->get_view();
+	GLint vpLoc = glGetUniformLocation(program, "vp");
+	glUniformMatrix4fv(vpLoc, 1, GL_FALSE, glm::value_ptr(vp));
+
+	GLint modelLoc = glGetUniformLocation(program, "model");
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+	_shadowMap->ShadowMapPass(model, camera, indices.size(), m_VAO);
+}
+
 bool ssAnimatedModel::loadMesh(std::string fileName){
 	
 	//Clear();

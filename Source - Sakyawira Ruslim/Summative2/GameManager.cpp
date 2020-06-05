@@ -23,13 +23,13 @@ GameManager::GameManager()
 
 	// Create Shader
 	m_sh_skeletal_ = new Shader("Resources/Shaders/AnimationVS.txt", "Resources/Shaders/Animation.FS", m_v_sh);
-	m_sh_fogBox = new Shader("Resources/Shaders/FogCubeMapVS.txt", "Resources/Shaders/FogCubeMapFS.txt", m_v_sh);
-	m_sh_fog_ = new Shader("Resources/Shaders/FogPhongVS.txt", "Resources/Shaders/FogPhongDiffuseFS.txt", m_v_sh);
+	//m_sh_fogBox = new Shader("Resources/Shaders/FogCubeMapVS.txt", "Resources/Shaders/FogCubeMapFS.txt", m_v_sh);
+	//m_sh_fog_ = new Shader("Resources/Shaders/FogPhongVS.txt", "Resources/Shaders/FogPhongDiffuseFS.txt", m_v_sh);
 	m_sh_phong_diffuse_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongDiffuse.fs", m_v_sh);
-	m_sh_phong_specular_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongSpecular.fs", m_v_sh);
-	m_sh_phong_rim_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongRim.fs", m_v_sh);
+	//m_sh_phong_specular_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongSpecular.fs", m_v_sh);
+	//m_sh_phong_rim_ = new Shader("Resources/Shaders/PhongVS.txt", "Resources/Shaders/PhongRim.fs", m_v_sh);
 	m_sh_cube_map_ = new Shader("Resources/Shaders/CubeMapVS.txt", "Resources/Shaders/CubeMapFS.txt", m_v_sh);
-	m_sh_reflective_ = new Shader("Resources/Shaders/FogReflectionVS.txt", "Resources/Shaders/FogReflectionFS.txt", m_v_sh);
+	///m_sh_reflective_ = new Shader("Resources/Shaders/FogReflectionVS.txt", "Resources/Shaders/FogReflectionFS.txt", m_v_sh);
 	m_sh_geometry_ = new Shader("Resources/Shaders/Geometry.VS", "Resources/Shaders/Geometry.FS", "Resources/Shaders/Quad.GS", m_v_sh);
 	m_sh_star_geo_ = new Shader("Resources/Shaders/Geometry.VS", "Resources/Shaders/Geometry.FS", "Resources/Shaders/Star.GS", m_v_sh);
 	m_sh_tess_shadow_ = new Shader("Resources/Shaders/tess.VS", "Resources/Shaders/PhongDiffuse.FS", "Resources/Shaders/tessTriModel.tcs","Resources/Shaders/tessTriModel.tes", m_v_sh);
@@ -221,7 +221,9 @@ void GameManager::render()
 		frame_counts_ += 1.0f * m_clock_->GetDeltaTick() * 120.0f;
 
 		m_shadowMap->start();
-
+		m_mesh_terrain->ShadowPass(glm::vec3(0.0f, -50.0f, 0.0f), m_shadowMap);
+		m_skModel->ShadowPass(m_shadowMap);
+		m_shadowMap->end();
 		m_frameBuffer->PrepareRender();
 		
 		glEnable(GL_BLEND);
@@ -233,7 +235,7 @@ void GameManager::render()
 		{
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
-		m_tr_cube_map->Render(m_sh_cube_map_, m_mesh_cube_map, camera);
+		//m_tr_cube_map->Render(m_sh_cube_map_, m_mesh_cube_map, camera);
 
 		//starModel->render(glm::vec3(-10.0f, 5.0f, 0.0f), m_tr_down);
 		//tessModel->render(glm::vec3(10.0f, 5.0f, 0.0f));
@@ -294,7 +296,7 @@ void GameManager::render()
 		//glDisable(GL_SCISSOR_TEST);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		m_frameBuffer->Render("currentTime", current_time_);
-		m_shadowMap->end();
+
 		m_text_collision_->Render();
 		m_text_instruction_->Render();
 

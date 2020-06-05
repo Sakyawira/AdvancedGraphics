@@ -14,6 +14,8 @@ class ShadowMap
 		void start();
 		void end();
 		void ShadowMapPass(glm::mat4 modelMatrix, Camera* camera, GLuint indices_size, GLuint vao);
+		GLuint GetTexture() { return depthMapTexture; }
+		glm::mat4 GetLightViewMatrix() { return lightViewMatrix; }
 
 	private:
 		// depth texture 

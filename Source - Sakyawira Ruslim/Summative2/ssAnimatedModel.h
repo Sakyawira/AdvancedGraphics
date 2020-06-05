@@ -37,6 +37,7 @@
 //#include "Math_3d.h"
 
 #include "Terrain.h"
+#include "ShadowMap.h"
 
 #define ZERO_MEM(a) memset(a, 0, sizeof(a))
 #define ZERO_MEM_VAR(var) memset(&var, 0, sizeof(var))
@@ -206,6 +207,8 @@ public:
 	~ssAnimatedModel();
 
 
+
+
 #define NUM_BONES_PER_VERTEX 4
 
 	//stores offset matrix and final transforms matrix for each bone
@@ -253,7 +256,7 @@ public:
 
 	bool loadMesh(std::string fileName);
 	void render(float dt, Terrain* terrain);
-
+	void ShadowPass(ShadowMap* _shadowMap);
 	//GLuint numBones() {
 	//	return mNumBones;
 	//}

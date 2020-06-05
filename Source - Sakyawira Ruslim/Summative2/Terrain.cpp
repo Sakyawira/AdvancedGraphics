@@ -90,7 +90,7 @@ Terrain::~Terrain()
 
 }
 
-void Terrain::render(glm::vec3 _position, ShadowMap* _shadowMap)
+void Terrain::ShadowPass(glm::vec3 _position, ShadowMap* _shadowMap)
 {
 	m_position = _position;
 
@@ -98,14 +98,23 @@ void Terrain::render(glm::vec3 _position, ShadowMap* _shadowMap)
 	model = glm::translate(model, m_position);
 
 	_shadowMap->ShadowMapPass(model, camera, m_indicesSize, VAO);
+}
+
+void Terrain::render(glm::vec3 _position, ShadowMap* _shadowMap)
+{
+	m_position = _position;
 
 	glUseProgram(this->program);
 
-	//this->camera->use_camera(this->program);
+	// Pass Textures
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, m_texture->GetID());
 	const GLchar* name = "tex";
 	glUniform1i(glGetUniformLocation(program, name), 0);
+
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, _shadowMap->GetTexture());
+	glUniform1i(glGetUniformLocation(program, "shadowMap"), 1);
 
 	float camDistance = glm::distance(m_position, camera->get_position());
 	GLint camDistanceLoc = glGetUniformLocation(program, "camDistance");
@@ -114,6 +123,8 @@ void Terrain::render(glm::vec3 _position, ShadowMap* _shadowMap)
 	GLuint camLoc = glGetUniformLocation(program, "camPos");
 	glUniform3fv(camLoc, 1, glm::value_ptr(camera->get_position() + camera->get_look_dir() * 15.0f));
 
+	glm::mat4 model;
+	model = glm::translate(model, m_position);
 	GLuint modelLoc = glGetUniformLocation(program, "model");
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
@@ -121,6 +132,10 @@ void Terrain::render(glm::vec3 _position, ShadowMap* _shadowMap)
 	GLint mvLoc = glGetUniformLocation(program, "MVP");
 	glUniformMatrix4fv(mvLoc, 1, GL_FALSE, glm::value_ptr(mvp));
 	glBindVertexArray(VAO);
+
+	// Light MVP for shadow
+	glm::mat4 lightMvp = camera->get_projection() * _shadowMap->GetLightViewMatrix() * model;
+	glUniformMatrix4fv(glGetUniformLocation(program, "lightVPMatrix"), 1, GL_FALSE, glm::value_ptr(lightMvp));
 
 	glPatchParameteri(GL_PATCH_VERTICES, /*m_indicesSize*/3);
 	//glDrawArrays(GL_PATCHES, 0, m_indicesSize);

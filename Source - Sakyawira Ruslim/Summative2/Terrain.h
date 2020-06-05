@@ -45,6 +45,7 @@ public:
 
 	Terrain(InitInfo _info, std::vector<Mesh*>& meshVector, GLuint program, Camera* camera, Texture* _texture);
 	virtual ~Terrain();
+	void ShadowPass(glm::vec3 _position, ShadowMap* _shadowMap);
 	void render(glm::vec3 _position, ShadowMap* _shadowMap);
 
 	float get_height(glm::vec3 _position)const;
