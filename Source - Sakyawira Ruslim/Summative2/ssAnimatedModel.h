@@ -256,7 +256,7 @@ public:
 
 	bool loadMesh(std::string fileName);
 	void render(float dt, Terrain* terrain);
-	void ShadowPass(ShadowMap* _shadowMap);
+	void ShadowPass(ShadowMap* _shadowMap, float dt, Terrain* terrain);
 	//GLuint numBones() {
 	//	return mNumBones;
 	//}

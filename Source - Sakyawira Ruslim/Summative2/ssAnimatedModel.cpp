@@ -100,47 +100,7 @@ ssAnimatedModel::~ssAnimatedModel(){
 	Clear();
 }
 
-void ssAnimatedModel::ShadowPass(ShadowMap* _shadowMap)
-{
-	glUseProgram(this->program);
 
-	//if(bIsTextureSet)
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, mtexture);
-	glUniform1i(glGetUniformLocation(program, "tex"), 0);
-
-
-	glm::mat4 model;
-
-	rotation.y += currentRotationSpeed * .016f;
-
-	float distance = currentPlayerSpeed * .016f;
-
-	//printf("speed %f, \n", currentRotationSpeed);
-
-	//float dx = (float)(distance * sin(glm::radians(rotation.y)));
-	//float dz = (float)(distance * cos(glm::radians(rotation.y)));
-
-	//this->position.x += dx;
-	//this->position.z += dz;
-
-	//this->position.y  = terrain->get_height(this->position) +  scale.y * 33.0f;
-
-	glm::mat4 t = glm::translate(glm::mat4(), this->position);
-	glm::mat4 r = glm::rotate(glm::mat4(), glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-	glm::mat4 s = glm::scale(glm::mat4(), this->scale);
-
-	model = t * r * s;
-
-	glm::mat4 vp = camera->get_projection() * camera->get_view();
-	GLint vpLoc = glGetUniformLocation(program, "vp");
-	glUniformMatrix4fv(vpLoc, 1, GL_FALSE, glm::value_ptr(vp));
-
-	GLint modelLoc = glGetUniformLocation(program, "model");
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-
-	_shadowMap->ShadowMapPass(model, camera, indices.size(), m_VAO);
-}
 
 bool ssAnimatedModel::loadMesh(std::string fileName){
 	
@@ -390,7 +350,75 @@ void ssAnimatedModel::rotate(float rotDirection) {
 
 	currentRotationSpeed = playerRotSpeed *  rotDirection;
 }
+void ssAnimatedModel::ShadowPass(ShadowMap* _shadowMap, float dt, Terrain* terrain)
+{
+	glUseProgram(_shadowMap->GetProgram());
 
+
+	glm::mat4 model;
+
+	glm::mat4 t = glm::translate(glm::mat4(), this->position);
+	glm::mat4 r = glm::rotate(glm::mat4(), glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 s = glm::scale(glm::mat4(), this->scale);
+
+	model = t * r * s;
+
+	glm::mat4 vp = camera->get_projection() * _shadowMap->GetLightViewMatrix();
+
+	GLint vpLoc = glGetUniformLocation(_shadowMap->GetProgram(), "vp");
+	glUniformMatrix4fv(vpLoc, 1, GL_FALSE, glm::value_ptr(vp));
+
+	GLint modelLoc = glGetUniformLocation(_shadowMap->GetProgram(), "model");
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+
+	// get uniform location for transforms
+	for (unsigned int i = 0; i < ARRAY_SIZE(m_boneLocation); i++) {
+		char name[128];
+		memset(name, 0, sizeof(name));
+		sprintf_s(name, "jointTransforms[%d]", i);
+		m_boneLocation[i] = glGetUniformLocation(program, name);
+	}
+
+	std::vector<Matrix4f> transforms; // = getJointTransforms();
+
+	boneTransforms(dt, transforms);
+
+	for (int i = 0; i < transforms.size(); i++) {
+		Matrix4f Transform = transforms[i];
+		glUniformMatrix4fv(m_boneLocation[i], 1, GL_TRUE, (const GLfloat*)(Transform));
+	}
+	glBindVertexArray(m_VAO);
+
+	for (GLuint i = 0; i < m_Entries.size(); i++) {
+
+		GLuint MaterialIndex = m_Entries[i].MaterialIndex;
+
+		assert(MaterialIndex < m_Textures.size());
+
+		if (m_Textures[MaterialIndex]) {
+			//m_Textures[MaterialIndex]->Bind(GL_TEXTURE0);
+			//glBindTexture(GL_TEXTURE_2D, m_Textures[MaterialIndex]);
+
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, m_Textures[MaterialIndex]);
+			//glUniform1i(glGetUniformLocation(program, "Texture"), MaterialIndex);
+		}
+
+		/*glDrawElementsBaseVertex(GL_TRIANGLES,
+								m_Entries[i].NumIndices,
+								GL_UNSIGNED_INT,
+								(void*)(sizeof(GLuint) * m_Entries[i].BaseIndex),
+								m_Entries[i].BaseVertex);*/
+
+		glDrawElements(GL_TRIANGLES, m_Entries[i].NumIndices, GL_UNSIGNED_INT, 0);
+
+	}
+
+	// Make sure the VAO is not changed from the outside    
+	glBindVertexArray(0);
+
+}
 
 void ssAnimatedModel::setShaderEffectVariables(float dt, Terrain* terrain){
 	
