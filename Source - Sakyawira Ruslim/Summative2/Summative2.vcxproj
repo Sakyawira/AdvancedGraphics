@@ -155,6 +155,7 @@
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
+    <ClCompile Include="ShadowMap.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="ssAnimatedModel.cpp" />
     <ClCompile Include="Terrain.cpp" />
@@ -181,6 +182,7 @@
     <ClInclude Include="PerlinNoise.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderLoader.h" />
+    <ClInclude Include="ShadowMap.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="ssAnimatedModel.h" />
     <ClInclude Include="Terrain.h" />
