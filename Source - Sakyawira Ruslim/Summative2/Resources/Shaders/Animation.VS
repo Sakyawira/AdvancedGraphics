@@ -12,6 +12,7 @@ const int MAX_WEIGHTS = 4;//max number of joints that can affect a vertex
 out vec3 fragPos;
 out vec3 fragNormal;
 out vec2 fragTexCoord;
+out vec4 FragPosLightSpace;
 
 uniform mat4 translation;
 uniform mat4 rotation;
@@ -20,6 +21,7 @@ uniform mat4 scale;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 proj;
+uniform mat4 lightVPMatrix;
 
 uniform mat4 vp;
 
@@ -43,4 +45,5 @@ void main ()
 	fragPos = vec3(model * vec4(position, 1.0f));
 	fragNormal =  mat3(transpose(inverse(model))) * normal;
 	fragTexCoord = texCoord;
+	FragPosLightSpace = lightVPMatrix * vec4(fragPos, 1.0f);
 }

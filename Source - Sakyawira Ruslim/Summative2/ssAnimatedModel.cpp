@@ -420,7 +420,7 @@ void ssAnimatedModel::ShadowPass(ShadowMap* _shadowMap, float dt, Terrain* terra
 
 }
 
-void ssAnimatedModel::setShaderEffectVariables(float dt, Terrain* terrain){
+void ssAnimatedModel::setShaderEffectVariables(ShadowMap* _shadowMap,float dt, Terrain* terrain){
 	
 	glUseProgram(this->program);
 
@@ -484,6 +484,12 @@ void ssAnimatedModel::setShaderEffectVariables(float dt, Terrain* terrain){
 	GLuint ambientStrengthLoc = glGetUniformLocation(program, "ambientStrength");
 	glUniform1f(ambientStrengthLoc, 0.5f);
 
+	glActiveTexture(GL_TEXTURE1);
+	glBindTexture(GL_TEXTURE_2D, _shadowMap->GetTexture());
+	glUniform1i(glGetUniformLocation(_shadowMap->GetProgram(), "shadowMap"), 1);
+
+	glm::mat4 lightMvp = camera->get_projection() * _shadowMap->GetLightViewMatrix()* model;
+	glUniformMatrix4fv(glGetUniformLocation(_shadowMap->GetProgram(), "lightVPMatrix"), 1, GL_FALSE, glm::value_ptr(lightMvp));
 
 	// get uniform location for transforms
 	for (unsigned int i = 0; i < ARRAY_SIZE(m_boneLocation); i++) {
@@ -504,9 +510,11 @@ void ssAnimatedModel::setShaderEffectVariables(float dt, Terrain* terrain){
 }
 
 
-void ssAnimatedModel::render(float dt, Terrain* terrain){
+void ssAnimatedModel::render(ShadowMap* _shadowMap, float dt, Terrain* terrain){
 	
-	setShaderEffectVariables(dt*100000, terrain);
+	setShaderEffectVariables(_shadowMap,dt*100000, terrain);
+
+	
 
 	glBindVertexArray(m_VAO);
 

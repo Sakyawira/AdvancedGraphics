@@ -255,7 +255,7 @@ public:
 	};
 
 	bool loadMesh(std::string fileName);
-	void render(float dt, Terrain* terrain);
+	void render(ShadowMap* _shadowMap, float dt, Terrain* terrain);
 	void ShadowPass(ShadowMap* _shadowMap, float dt, Terrain* terrain);
 	//GLuint numBones() {
 	//	return mNumBones;
@@ -305,7 +305,7 @@ private:
 	void loadPerVertexBoneData(int meshIndex, const aiMesh* pMesh, std::vector<PerVertexBoneData>& bones);
 	bool initMaterials(const aiScene* pScene, const std::string filename);
 	GLuint loadTexture(std::string  texFileName);
-	void setShaderEffectVariables(float dt, Terrain* terrain);
+	void setShaderEffectVariables(ShadowMap* _shadowMap,float dt, Terrain* terrain);
 	void Clear();
 
 	void setBufferandAttributes();
