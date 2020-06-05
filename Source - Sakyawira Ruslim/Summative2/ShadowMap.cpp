@@ -13,8 +13,8 @@ void ShadowMap::init()
 	glBindTexture(GL_TEXTURE_2D, depthMapTexture);
 	glTexImage2D(GL_TEXTURE_2D, 0, //mipmap level 
 				 GL_DEPTH_COMPONENT, //internal format 
-				 1280, //screen width 
-				 720, //screen height 
+				 800, //screen width 
+				 800, //screen height 
 				 0, //border
 				 GL_DEPTH_COMPONENT, //color format 
 				 GL_FLOAT, //data type 

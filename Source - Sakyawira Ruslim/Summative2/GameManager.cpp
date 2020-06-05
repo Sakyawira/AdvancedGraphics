@@ -102,7 +102,7 @@ GameManager::GameManager()
 	//stencilCube2 = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_blue, 0.0f, 0.0f, 0.0f, m_v_cubes);
 	//stencilCube2->Scale(5.5f);
 	//stencilCube2->Rotate(0.0f);
-	stencilCube = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_red, 0.0f, 30.0f, 0.0f, m_v_cubes);
+	stencilCube = new GameObject(m_sh_phong_diffuse_, m_mesh_cube, v_red, 0.0f, -130.0f, 0.0f, m_v_cubes);
 	stencilCube->Scale(15.0f);
 	//stencilCube->Rotate(0.0f);
 
