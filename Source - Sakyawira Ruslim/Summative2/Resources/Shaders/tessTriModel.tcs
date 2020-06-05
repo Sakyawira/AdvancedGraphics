@@ -10,10 +10,12 @@ uniform vec3 camPos;
 in vec3 fragPos[];
 in vec3 fragNormal[];
 in vec2 fragTexCoord[];
+in vec4 FragPosLightSpace[];
 
 out vec3 tesfragPos[];
 out vec3 tesfragNormal[];
 out vec2 tesfragTexCoord[];
+out vec4 tesFragPosLightSpace[];
 
 void main() 
 { 
@@ -51,4 +53,5 @@ void main()
 	tesfragPos[gl_InvocationID] = fragPos[gl_InvocationID];
 	tesfragNormal[gl_InvocationID] = fragNormal[gl_InvocationID];
 	tesfragTexCoord[gl_InvocationID] = fragTexCoord[gl_InvocationID];
+	tesFragPosLightSpace[gl_InvocationID] = FragPosLightSpace[gl_InvocationID];
 }

@@ -5,10 +5,12 @@ uniform mat4  MVP;
 in vec3 tesfragPos[];
 in vec3 tesfragNormal[];
 in vec2 tesfragTexCoord[];
+in vec4 tesFragPosLightSpace[];
 
 out vec3 fragPos;
 out vec3 fragNormal;
 out vec2 fragTexCoord;
+out vec4 FragPosLightSpace;
 
 layout (triangles, equal_spacing, cw) in;
 
@@ -29,7 +31,11 @@ void main(void)
 		gl_TessCoord.y * tesfragNormal[1] +
 		gl_TessCoord.z * tesfragNormal[2]);
 
-	//fragPos = (fragPos[0] + fragPos[1] + fragPos[2]);
+	FragPosLightSpace= (
+		gl_TessCoord.x * tesFragPosLightSpace[0] +
+		gl_TessCoord.y * tesFragPosLightSpace[1] +
+		gl_TessCoord.z * tesFragPosLightSpace[2]);
+
 
 	gl_Position= MVP * 
 	(gl_TessCoord.x * gl_in[0].gl_Position + gl_TessCoord.y * gl_in[1].gl_Position + gl_TessCoord.z * gl_in[2].gl_Position );
