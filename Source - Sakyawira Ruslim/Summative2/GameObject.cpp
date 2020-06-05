@@ -83,7 +83,7 @@ void GameObject::Draw(Camera& _camera, const GLchar* s_currentTime, GLfloat f_cu
 	}
 }
 
-void GameObject::Draw(Camera & _camera, const GLchar * s_currentTime, GLfloat f_currentTime, const GLchar * s_frameTime, GLint i_frameTime, float deltaTime)
+void GameObject::Draw(ShadowMap* _shadowMap, Camera & _camera, const GLchar * s_currentTime, GLfloat f_currentTime, const GLchar * s_frameTime, GLint i_frameTime, float deltaTime)
 {
 	if (m_bool_enable)
 	{
@@ -102,6 +102,13 @@ void GameObject::Draw(Camera & _camera, const GLchar * s_currentTime, GLfloat f_
 
 		// Using camera on the program
 		_camera.use_camera(m_shader->GetProgram());
+
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, _shadowMap->GetTexture());
+		glUniform1i(glGetUniformLocation(m_shader->GetProgram(), "shadowMap"), 1);
+
+		glm::mat4 lightMvp = _camera.get_projection() * _shadowMap->GetLightViewMatrix() * m_modelMatrix;
+		glUniformMatrix4fv(glGetUniformLocation(m_shader->GetProgram(), "lightVPMatrix"), 1, GL_FALSE, glm::value_ptr(lightMvp));
 
 		// Hexagon 1
 		m_mesh->Bind();

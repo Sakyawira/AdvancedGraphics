@@ -70,7 +70,7 @@ class GameObject
 		void Draw(Camera& _camera, const GLchar* s_currentTime, GLfloat f_currentTime, float deltaTime);
 	
 		// Overload that takes two uniforms
-		void Draw(Camera& _camera, const GLchar* s_currentTime, GLfloat f_currentTime, const GLchar* s_frameTime, GLint i_frameTime, float deltaTime);
+		void Draw(ShadowMap* _shadowMap, Camera& _camera, const GLchar* s_currentTime, GLfloat f_currentTime, const GLchar* s_frameTime, GLint i_frameTime, float deltaTime);
 
 		// Overload for drawing button_up maps
 		void Draw(Camera& _camera, float deltaTime);
