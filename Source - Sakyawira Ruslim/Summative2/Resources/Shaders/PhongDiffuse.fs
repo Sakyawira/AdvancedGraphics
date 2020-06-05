@@ -26,9 +26,9 @@ float ShadowCalculation(vec4 fragPosLightSpace)
     // Convert to Tex Coord Space [0,1] 
     vec3 texCoordSpace =  0.5f * ndcSpace + 0.5f;
     float currentDepth = texCoordSpace.z ;
-    Float closestDepth = texture(shadowMap, texCoordSpace.xy).r;
+    float closestDepth = texture(shadowMap, texCoordSpace.xy).r;
     float shadow = closestDepth > currentDepth ? 0.0 : 1.0;
-    return shadow 
+    return shadow;
 }
 
 void main ()

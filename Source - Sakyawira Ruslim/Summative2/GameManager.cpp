@@ -235,13 +235,13 @@ void GameManager::render()
 		}
 		m_tr_cube_map->Render(m_sh_cube_map_, m_mesh_cube_map, camera);
 
-		starModel->render(glm::vec3(-10.0f, 5.0f, 0.0f), m_tr_down);
-		tessModel->render(glm::vec3(10.0f, 5.0f, 0.0f));
-		lod_tessModel->render(glm::vec3(0.0f, 10.0f, 0.0f));
+		//starModel->render(glm::vec3(-10.0f, 5.0f, 0.0f), m_tr_down);
+		//tessModel->render(glm::vec3(10.0f, 5.0f, 0.0f));
+		//lod_tessModel->render(glm::vec3(0.0f, 10.0f, 0.0f));
 	
 
-		button_up->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
-		button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
+		//button_up->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
+		//button_down->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		//terrain->Draw(camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		m_mesh_terrain->render(glm::vec3(0.0f, -50.0f, 0.0f), m_shadowMap);
 

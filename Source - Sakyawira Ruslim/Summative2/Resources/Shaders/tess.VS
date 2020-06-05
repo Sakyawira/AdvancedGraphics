@@ -41,4 +41,5 @@ void main ()
 	fragPos = vec3(model * vec4(position, 1.0f));
 	fragNormal =  mat3(transpose(inverse(model))) * normal;
 	fragTexCoord = texCoord;
+	FragPosLightSpace = lightVPMatrix * vec4(fragPos, 1.0f);
 }
