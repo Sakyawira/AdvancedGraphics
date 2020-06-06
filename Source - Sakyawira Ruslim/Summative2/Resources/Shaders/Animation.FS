@@ -10,7 +10,7 @@ out vec4 color;
 uniform float currentTime;
 uniform sampler2D tex;
 
-uniform float ambientStr = 0.05f;
+//uniform float ambientStr = 0.05f;
 uniform vec3 ambientColor = vec3(1.0f, 1.0f, 1.0f);
 
 out vec4 finalColor;
@@ -67,9 +67,20 @@ void main ()
     vec4 objectPos = model * vec4(1.0f);
     vec3 lightDir = objectPos.xyz - lightPos;
     	
-    	float intensity;
-    	float toonStrength;
-    	intensity = dot(lightDir,normalize(fragNormal));
+    float intensity;
+    float toonStrength;
+    intensity = dot(lightDir,normalize(fragNormal));
+
+    // Ambient
+    vec3 ambient = ambientStrength * ambientColor;
+
+    // Light Direction
+    vec3 norm = normalize(fragNormal);
+    //vec3 lightDir = normalize(fragPos - lightPos);
+
+    // Diffuse Coloring
+    float diffuseStr = max(dot(norm, -lightDir), 0.0f);
+    vec3 diffuse = diffuseStr * lightColor;
     
     if (intensity > 0.95)
     {
@@ -90,6 +101,7 @@ void main ()
     		
     
     float shadow = ShadowCalculation(FragPosLightSpace);
+    vec3 objectColor = ambient + ((shadow) * (diffuse));
     
     gl_FragColor = texture(tex, fragTexCoord) * vec4(objectColor, 1.0f);// * toonStrength;// * shadow;
 }
