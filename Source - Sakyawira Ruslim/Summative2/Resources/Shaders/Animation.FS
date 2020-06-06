@@ -64,40 +64,27 @@ void main ()
 
     //color =  (texture(tex, fragTexCoord));// * vec4(ambient + diffuse, 1.0f);
 
-    vec4 objectPos = model * vec4(1.0f);
-    vec3 lightDir = objectPos.xyz - lightPos;
+   
     	
-    float intensity;
-    float toonStrength;
-    intensity = dot(lightDir,normalize(fragNormal));
+    //float intensity;
+    //float toonStrength;
+    //intensity = dot(lightDir,normalize(fragNormal));
+
+    vec4 objectPos = model * vec4(1.0f);
+    vec3 lightDir = normalize(fragPos - lightPos);
+    // vec3 lightDir = objectPos.xyz - lightPos;
 
     // Ambient
     vec3 ambient = ambientStrength * ambientColor;
 
     // Light Direction
     vec3 norm = normalize(fragNormal);
-    //vec3 lightDir = normalize(fragPos - lightPos);
+   
 
     // Diffuse Coloring
     float diffuseStr = max(dot(norm, -lightDir), 0.0f);
     vec3 diffuse = diffuseStr * lightColor;
-    
-    if (intensity > 0.95)
-    {
-        toonStrength = 1.0f;
-    }	
-    else if (intensity > 0.5)
-    {
-        toonStrength = 0.8f;
-    }
-    else if (intensity > 0.25)
-    {
-        toonStrength = 0.5f;
-    }
-    else
-    {
-        toonStrength = 0.2f;
-    }
+   
     		
     
     float shadow = ShadowCalculation(FragPosLightSpace);
