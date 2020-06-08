@@ -61,9 +61,10 @@ float Noise(float x, float y)
 
 float TotalNoisePerPoint(int x, int y)
 {
-	int octaves = 2;
-	float zoom = 30.0f;
-	float persistance = 0.9f;
+	//4, 10.0f, 0.5f
+	int octaves = 4;
+	float zoom = 10.0f;
+	float persistance = 0.5f;
 
 	float total = 0.0f;
 
@@ -100,18 +101,15 @@ void main(void)
 		gl_TessCoord.y * tesFragPosLightSpace[1] +
 		gl_TessCoord.z * tesFragPosLightSpace[2]);
 
-	
 
-	//vec4 position0 = gl_TessCoord.x * vec4(gl_in[0].gl_Position.x, gl_in[0].gl_Position.y, gl_in[0].gl_Position.z, gl_in[0].gl_Position.w);
-	//vec4 position1 = gl_TessCoord.y * vec4(gl_in[1].gl_Position.x, gl_in[0].gl_Position.y, gl_in[1].gl_Position.z, gl_in[1].gl_Position.w);
-	//vec4 position2 = gl_TessCoord.z * vec4(gl_in[2].gl_Position.x, gl_in[0].gl_Position.y, gl_in[2].gl_Position.z, gl_in[2].gl_Position.w);
-
-	// Apply level of detail on the height
+	// Generate WorldPos
 	vec4 worldPos = (gl_TessCoord.x * gl_in[0].gl_Position + gl_TessCoord.y * gl_in[1].gl_Position + gl_TessCoord.z * gl_in[2].gl_Position );
 
-	//tse_out.worldPosition = worldPos.xyz;
+	// Generate new height for different lods
 	float tesHeight = TotalNoisePerPoint(int(worldPos.x), int(worldPos.y)) * 55.0f;
 	worldPos.y = worldPos.y + tesHeight;
+
+	//fragTexCoord.y = fragTexCoord.y + tesHeight;
 	gl_Position = MVP * worldPos;
 
 	//gl_Position= MVP * 
