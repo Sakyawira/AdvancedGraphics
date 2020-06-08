@@ -225,7 +225,7 @@ void GameManager::render()
 		m_mesh_terrain->ShadowPass(glm::vec3(0.0f, -50.0f, 0.0f), m_shadowMap);
 		//m_mesh_terrain->render(glm::vec3(0.0f, -50.0f, 0.0f), m_shadowMap);
 		//m_skModel->ShadowPass(m_shadowMap,m_clock_->GetDeltaTick(), m_mesh_terrain);
-		//stencilCube->DrawShadow(m_shadowMap,camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
+		stencilCube->DrawShadow(m_shadowMap,camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		m_shadowMap->end();
 	//	m_frameBuffer->PrepareRender();
 		
