@@ -26,5 +26,5 @@ class ShadowMap
 		GLuint shadowMapProgram;
 
 		glm::mat4 lightViewMatrix = {};
-		glm::vec3 lightPosition = { -70.0f, 70.0f, 70.0f };
+		glm::vec3 lightPosition = { 0.0f, 0.0f, 260.0f };
 };
