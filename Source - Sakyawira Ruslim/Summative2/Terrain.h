@@ -51,7 +51,7 @@ public:
 	float get_height(glm::vec3 _position)const;
 	std::vector<TerrainAttribute>* get_vertices();
 
-	static Array3D<float, PERLIN_HEIGHT, PERLIN_WIDTH, 3> m_imagePerlin;
+	//static Array3D<float, PERLIN_HEIGHT, PERLIN_WIDTH, 3> m_imagePerlin;
 
 private:
 

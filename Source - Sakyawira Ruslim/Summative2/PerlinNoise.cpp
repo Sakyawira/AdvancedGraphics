@@ -1,19 +1,19 @@
 #include "PerlinNoise.h"
 
-void Perlin::perlin_noise(Array3D<float, PERLIN_HEIGHT, PERLIN_WIDTH, 3>& _r3DImage, int _iOctaves, float _fZoom, float _fPersistance, int _iXoffset, int _iYoffset, int _seed)
-{
-	for (size_t i = 0; i < 250; ++i)
-	{
-		for (size_t j = 0; j < 250; ++j)
-		{
-			float fPerlinValue = total_noise_perpoint(i + _iXoffset, j + _iYoffset, _iOctaves, _fZoom, _fPersistance, _seed);
-			fPerlinValue = (fPerlinValue + 1) / 2;
-			_r3DImage[i][j][0] = fPerlinValue;		//R
-			_r3DImage[i][j][1] = fPerlinValue;		//G
-			_r3DImage[i][j][2] = fPerlinValue;		//B
-		}
-	}
-}
+//void Perlin::perlin_noise(Array3D<float, PERLIN_HEIGHT, PERLIN_WIDTH, 3>& _r3DImage, int _iOctaves, float _fZoom, float _fPersistance, int _iXoffset, int _iYoffset, int _seed)
+//{
+//	for (size_t i = 0; i < 250; ++i)
+//	{
+//		for (size_t j = 0; j < 250; ++j)
+//		{
+//			float fPerlinValue = total_noise_perpoint(i + _iXoffset, j + _iYoffset, _iOctaves, _fZoom, _fPersistance, _seed);
+//			fPerlinValue = (fPerlinValue + 1) / 2;
+//			_r3DImage[i][j][0] = fPerlinValue;		//R
+//			_r3DImage[i][j][1] = fPerlinValue;		//G
+//			_r3DImage[i][j][2] = fPerlinValue;		//B
+//		}
+//	}
+//}
 
 //  A noise function is essentially a seeded number generator.
 float Perlin::random(int x, int y, int _seed)
