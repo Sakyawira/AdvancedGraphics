@@ -17,7 +17,7 @@
 #include <time.h>       /* time */
 
 #include "Terrain.h"
-//Array3D<float, PERLIN_HEIGHT, PERLIN_WIDTH, 3> Terrain::m_imagePerlin = { {{}} };
+
 /***********************
 * Constructor	: Setup the Terrain Mesh by loading the info and then push it to a meshVector
 * @parameter	: _info -> Terrain settings that needs to be adjusted based on the Heightmap, meshVector -> vector of meshes used to handle in GameManager

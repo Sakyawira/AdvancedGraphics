@@ -396,7 +396,7 @@ void GameManager::cube_follow_terrain()
 	if (!isnan(y) && y != -99999 + m_skModel->scale.y * 30)
 	{
 		m_cube_previous_y = y;
-		m_skModel->setPosition(glm::vec3(x, y + 25.0f, z));
+		m_skModel->setPosition(glm::vec3(x, y + 25.5f, z));
 	}
 	else
 	{
