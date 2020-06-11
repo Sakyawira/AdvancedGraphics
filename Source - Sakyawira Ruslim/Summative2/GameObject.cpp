@@ -107,7 +107,7 @@ void GameObject::Draw(ShadowMap* _shadowMap, Camera & _camera, const GLchar * s_
 		glBindTexture(GL_TEXTURE_2D, _shadowMap->GetTexture());
 		glUniform1i(glGetUniformLocation(m_shader->GetProgram(), "shadowMap"), 1);
 
-		glm::mat4 lightMvp = _camera.get_projection() * _shadowMap->GetLightViewMatrix() * m_modelMatrix;
+		glm::mat4 lightMvp = _camera.get_projection() * _shadowMap->GetLightViewMatrix();
 		glUniformMatrix4fv(glGetUniformLocation(m_shader->GetProgram(), "lightVPMatrix"), 1, GL_FALSE, glm::value_ptr(lightMvp));
 
 		// Hexagon 1

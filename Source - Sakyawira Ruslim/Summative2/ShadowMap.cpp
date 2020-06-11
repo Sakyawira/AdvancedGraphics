@@ -13,8 +13,8 @@ void ShadowMap::init()
 	glBindTexture(GL_TEXTURE_2D, depthMapTexture);
 	glTexImage2D(GL_TEXTURE_2D, 0, //mipmap level 
 				 GL_DEPTH_COMPONENT, //internal format 
-				 800, //screen width 
-				 800, //screen height 
+				 4096, //screen width -> Larger to make higher texture quality
+				 4096, //screen height -> Larger to make higher texture quality
 				 0, //border
 				 GL_DEPTH_COMPONENT, //color format 
 				 GL_FLOAT, //data type 
@@ -43,6 +43,8 @@ void ShadowMap::start()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO); 
 	glClear(GL_DEPTH_BUFFER_BIT);
+	// Improve shadow quality
+	glViewport(0, 0, 4096, 4096);
 }
 
 void ShadowMap::end()
@@ -50,6 +52,8 @@ void ShadowMap::end()
 	glFlush();
 	glFinish();
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glViewport(0, 0, 800, 800);
 }
 
 void ShadowMap::ShadowMapPass(glm::mat4 modelMatrix, Camera* camera, GLuint indices_size, GLuint vao)

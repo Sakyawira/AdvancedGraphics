@@ -26,11 +26,13 @@ float ShadowCalculation(vec4 fragPosLightSpace)
    	// Convert to Tex CoordSpace [0,1]
    	vec3 texCoordSpace = 0.5f * ndcSpace + 0.5f;
    
+   // To Counter Shadow Acne
    	float bias = 0.000004f;
    	float currentDepth = texCoordSpace.z - bias;
   
    
    	float shadow;
+   // Improve shadow quality
    	vec2 texelSize = 1.0 / textureSize(shadowMap, 0); 
    	for (int x = -1; x <= 1; ++x) { 
    		for (int y = -1; y <= 1; ++y) { 
