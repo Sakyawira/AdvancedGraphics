@@ -147,6 +147,7 @@ private:
 	Shader* m_sh_compute_;
 	Shader* m_sh_skeletal_;
 	Shader* m_sh_shadow_;
+	Shader* m_sh_animated_shadow_;
 
 	FrameBuffer* m_frameBuffer;
 	ShadowMap* m_shadowMap;

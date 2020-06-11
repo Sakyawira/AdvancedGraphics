@@ -38,7 +38,7 @@ GameManager::GameManager()
 	m_sh_particles_ = new Shader("Resources/Shaders/ParticleComputed.VS", "Resources/Shaders/ParticleComputed.FS", m_v_sh);
 	m_sh_compute_ = new Shader("Resources/Shaders/Particle.CS", m_v_sh);
 	m_sh_shadow_ = new Shader("Resources/Shaders/ShadowMap.VS", "Resources/Shaders/ShadowMap.FS",m_v_sh);
-	
+	m_sh_animated_shadow_ = new Shader("Resources/Shaders/AnimationShadow.VS", "Resources/Shaders/ShadowMap.FS", m_v_sh);
 
 	// Create Mesh
 	m_mesh_static = new Mesh(animation_indices, static_vertices, m_v_mesh);
@@ -66,7 +66,7 @@ GameManager::GameManager()
 	//starModel = new GeometryModel(m_sh_star_geo_->GetProgram(), &camera);
 	//tessModel = new TessModel(m_sh_tess_shadow_->GetProgram(), &camera);
 	//lod_tessModel = new TessModel(m_sh_lod_->GetProgram(), &camera);
-	m_skModel = new ssAnimatedModel("Resources/Models/theDude.DAE", "Resources/Textures/theDude.png", &camera, m_sh_skeletal_->GetProgram());
+	m_skModel = new ssAnimatedModel("Resources/Models/theDude.DAE", "Resources/Textures/theDude.png", &camera, m_sh_skeletal_->GetProgram(), m_sh_animated_shadow_->GetProgram());
 
 	// Text
 	std::string m_string_menu = "Sakyawira's Burnt Out";
@@ -225,7 +225,7 @@ void GameManager::render()
 		stencilCube->DrawShadow(m_shadowMap, camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		m_mesh_terrain->ShadowPass(glm::vec3(0.0f, -50.0f, 0.0f), m_shadowMap);
 		//m_mesh_terrain->render(glm::vec3(0.0f, -50.0f, 0.0f), m_shadowMap);
-		//m_skModel->ShadowPass(m_shadowMap,m_clock_->GetDeltaTick(), m_mesh_terrain);
+		m_skModel->ShadowPass(m_shadowMap,m_clock_->GetDeltaTick(), m_mesh_terrain);
 		
 		m_shadowMap->end();
 	//	m_frameBuffer->PrepareRender();

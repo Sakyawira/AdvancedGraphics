@@ -20,10 +20,10 @@
 //	//assert(0); //more bones than we have space for
 //}
 
-ssAnimatedModel::ssAnimatedModel(std::string modelFilname, std::string texFilename, Camera *_camera, GLuint _program/*, Light * _light*/){
+ssAnimatedModel::ssAnimatedModel(std::string modelFilname, std::string texFilename, Camera *_camera, GLuint _program, GLuint _shadowProgram){
 
 	camera = _camera;
-	//light = _light;
+	shadow_program = _shadowProgram;
 
 	program = _program;
 
@@ -352,7 +352,7 @@ void ssAnimatedModel::rotate(float rotDirection) {
 }
 void ssAnimatedModel::ShadowPass(ShadowMap* _shadowMap, float dt, Terrain* terrain)
 {
-	glUseProgram(_shadowMap->GetProgram());
+	glUseProgram(shadow_program);
 
 
 	glm::mat4 model;
