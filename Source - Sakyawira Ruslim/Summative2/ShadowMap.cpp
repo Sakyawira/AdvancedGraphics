@@ -55,7 +55,7 @@ void ShadowMap::end()
 void ShadowMap::ShadowMapPass(glm::mat4 modelMatrix, Camera* camera, GLuint indices_size, GLuint vao)
 {
 	glUseProgram(this->shadowMapProgram);
-	glm::mat4 lightViewMatrix = glm::lookAt(lightPosition, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+	//glm::mat4 lightViewMatrix = glm::lookAt(lightPosition, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 	glm::mat4 lightVPMatrix = camera->get_projection() * lightViewMatrix;
 
 	GLint vpLoc = glGetUniformLocation(shadowMapProgram, "lightVPMatrix");
