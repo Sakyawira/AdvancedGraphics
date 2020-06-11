@@ -48,9 +48,10 @@ void Camera::update(bool isGameStarted, float deltaTime, glm::vec3 _center)
 	}
 	else
 	{
-		camPos.x = 0.0f;
-		camPos.y = 1.5f;
-		camPos.z = 26.0f;
+		//camPos.x = 0.0f;
+		//camPos.y = 52.f;
+		//camPos.z = 26.0f;
+		camPos = _center + glm::vec3(0.0f, 52.f, -26.0f);
 		// View
 		view = glm::lookAt(camPos, glm::vec3(_center), camUpDir);
 	}
