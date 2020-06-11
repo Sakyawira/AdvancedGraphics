@@ -221,14 +221,13 @@ void GameManager::render()
 
 		frame_counts_ += 1.0f * m_clock_->GetDeltaTick() * 120.0f;
 
+		glCullFace(GL_FRONT);
 		m_shadowMap->start();
 		m_skModel->ShadowPass(m_shadowMap, m_clock_->GetDeltaTick(), m_mesh_terrain);
 		stencilCube->DrawShadow(m_shadowMap, camera, "currentTime", current_time_, "frameCounts", static_cast<int>(frame_counts_), m_clock_->GetDeltaTick());
 		m_mesh_terrain->ShadowPass(glm::vec3(0.0f, -50.0f, 0.0f), m_shadowMap);
-		//m_mesh_terrain->render(glm::vec3(0.0f, -50.0f, 0.0f), m_shadowMap);
-	
-		
 		m_shadowMap->end();
+		glCullFace(GL_BACK);
 	//	m_frameBuffer->PrepareRender();
 		
 		glEnable(GL_BLEND);
@@ -397,7 +396,7 @@ void GameManager::cube_follow_terrain()
 	if (!isnan(y) && y != -99999 + m_skModel->scale.y * 30)
 	{
 		m_cube_previous_y = y;
-		m_skModel->setPosition(glm::vec3(x, y, z));
+		m_skModel->setPosition(glm::vec3(x, y + 25.0f, z));
 	}
 	else
 	{
