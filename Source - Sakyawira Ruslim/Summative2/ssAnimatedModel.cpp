@@ -488,7 +488,7 @@ void ssAnimatedModel::setShaderEffectVariables(ShadowMap* _shadowMap,float dt, T
 	glBindTexture(GL_TEXTURE_2D, _shadowMap->GetTexture());
 	glUniform1i(glGetUniformLocation(_shadowMap->GetProgram(), "shadowMap"), 1);
 
-	glm::mat4 lightMvp = camera->get_projection() * _shadowMap->GetLightViewMatrix()* model;
+	glm::mat4 lightMvp = camera->get_projection() * _shadowMap->GetLightViewMatrix();
 	glUniformMatrix4fv(glGetUniformLocation(_shadowMap->GetProgram(), "lightVPMatrix"), 1, GL_FALSE, glm::value_ptr(lightMvp));
 
 	// get uniform location for transforms
