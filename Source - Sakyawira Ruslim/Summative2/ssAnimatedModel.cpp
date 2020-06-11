@@ -365,10 +365,10 @@ void ssAnimatedModel::ShadowPass(ShadowMap* _shadowMap, float dt, Terrain* terra
 
 	glm::mat4 vp = camera->get_projection() * _shadowMap->GetLightViewMatrix();
 
-	GLint vpLoc = glGetUniformLocation(_shadowMap->GetProgram(), "vp");
+	GLint vpLoc = glGetUniformLocation(shadow_program, "vp");
 	glUniformMatrix4fv(vpLoc, 1, GL_FALSE, glm::value_ptr(vp));
 
-	GLint modelLoc = glGetUniformLocation(_shadowMap->GetProgram(), "model");
+	GLint modelLoc = glGetUniformLocation(shadow_program, "model");
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 
 
