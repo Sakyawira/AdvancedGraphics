@@ -151,7 +151,7 @@ void Terrain::render(glm::vec3 _position, ShadowMap* _shadowMap)
 	glBindVertexArray(VAO);
 
 	// Light MVP for shadow
-	glm::mat4 lightMvp = camera->get_projection() * _shadowMap->GetLightViewMatrix() * model;
+	glm::mat4 lightMvp = camera->get_projection() * _shadowMap->GetLightViewMatrix();
 	glUniformMatrix4fv(glGetUniformLocation(program, "lightVPMatrix"), 1, GL_FALSE, glm::value_ptr(lightMvp));
 
 	glPatchParameteri(GL_PATCH_VERTICES, /*m_indicesSize*/3);
