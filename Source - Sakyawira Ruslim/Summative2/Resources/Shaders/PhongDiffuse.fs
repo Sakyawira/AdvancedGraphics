@@ -16,7 +16,7 @@ uniform float ambientStr = 0.15f;
 uniform vec3 ambientColor = vec3(1.0f, 1.0f, 1.0f);
 
 uniform vec3 lightColor = vec3(1.0f, 1.0f, 1.0f);
-uniform vec3 lightPos = vec3(0.0f, 0.0f, 260.0f);
+uniform vec3 lightPos = vec3(-560.0f, 300.0f, -8.0f);
 
 float ShadowCalculation(vec4 fragPosLightSpace)
 {
