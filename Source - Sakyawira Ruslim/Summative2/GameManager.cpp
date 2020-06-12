@@ -239,7 +239,7 @@ void GameManager::render()
 		{
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
-		//m_tr_cube_map->Render(m_sh_cube_map_, m_mesh_cube_map, camera);
+		m_tr_cube_map->Render(m_sh_cube_map_, m_mesh_cube_map, camera);
 
 		//starModel->render(glm::vec3(-10.0f, 5.0f, 0.0f), m_tr_down);
 		//tessModel->render(glm::vec3(10.0f, 5.0f, 0.0f));
