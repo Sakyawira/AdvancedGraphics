@@ -193,12 +193,12 @@ void GameManager::process_game(Audio& audio)
 		if (m_b_start_)
 		{
 			// Update Texts
-			m_string_score_ = m_string_score_ = to_string(camera.get_position().x) + ", " + to_string(camera.get_position().y) + ", " + to_string(camera.get_position().z);//"Press 'R' to reset";
+			m_string_score_ = "Press 'R' to control character!";
 			m_text_instruction_->SetText(m_string_score_);
 		}
 		else
 		{
-			m_string_score_ = "Press 'R' to use free moving camera! WASD to move Red Box.";
+			m_string_score_ = "Press 'R' to use free moving camera! WASD to move Character.";
 			m_text_instruction_->SetText(m_string_score_);
 		}
 		m_text_collision_->SetText("Hit 'Space' to change polygon mode.");
