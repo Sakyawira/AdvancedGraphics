@@ -11,19 +11,17 @@ class ParticleSystem
 {
 	public: 
 		ParticleSystem(glm::vec3 origin, Camera* _camera, Texture* _texture, Shader* _shaderRender, Shader* _shaderCompute);
-		 ~ParticleSystem();
+		 ~ParticleSystem() = default;
 		 void init();
 		 void render(float dt, glm::vec3 _position);
 		 std::vector<Particle> particles; 
 		 std::vector<glm::vec3> vPosition;
 	private: 
 		Camera* camera;  
-		GLuint vao, vbo, texture, renderProgram; 
+		GLuint vao, vbo, texture, renderProgram, computeProgram;
 		float nParticles;
 
 		std::vector<glm::vec4> initialposition;
 		std::vector<glm::vec4> initialvelocity;
 		GLuint posVbo, velVbo, initPosVbo, initVelVbo, particleVao;
-		GLuint computeProgram;
-
 };
