@@ -1,7 +1,7 @@
 Features:
 1. Animated Model with Sync Movement.
 2. LODed Terrain.
-![Alt Text](https://media.giphy.com/media/vFKqnCdLPNOKc/lod.gif)
+![Alt Text](https://github.com/Sakyawira/AdvancedGraphics/tree/master/gif/lod.gif)
 3. Seeded Perlin Noise Terrain.
 4. GPGPU Snow Particle.
 5. Shadowmap for all objects without Acne, Peter Panning and with Larger Texture.
