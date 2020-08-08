@@ -5,7 +5,7 @@ Features:
 <img src="https://github.com/Sakyawira/AdvancedGraphics/blob/master/gif/lod.gif?raw=true" width="200" height="200" />
 
 3. Seeded Perlin Noise Terrain.
-
+<img src="https://github.com/Sakyawira/AdvancedGraphics/blob/master/gif/shadowmap.gif?raw=true" width="200" height="200" />
 4. GPGPU Snow Particle.
 
 5. Shadowmap for all objects without Acne, Peter Panning and with Larger Texture.
