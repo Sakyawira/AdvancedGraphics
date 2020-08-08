@@ -7,6 +7,7 @@ Features:
 3. Seeded Perlin Noise Terrain.
 
 4. GPGPU Snow Particle.
+<img src="https://github.com/Sakyawira/AdvancedGraphics/blob/master/gif/particle.gif?raw=true" width="200" height="200" />
 
 5. Shadowmap for all objects without Acne, Peter Panning and with Larger Texture.
 <img src="https://github.com/Sakyawira/AdvancedGraphics/blob/master/gif/shadowmap.gif?raw=true" width="200" height="200" />
