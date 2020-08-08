@@ -1,5 +1,6 @@
 Features:
 1. Animated Model with Sync Movement.
+<img src="https://github.com/Sakyawira/AdvancedGraphics/blob/master/gif/animation.gif?raw=true" width="200" height="200" />
 
 2. LODed Terrain.
 <img src="https://github.com/Sakyawira/AdvancedGraphics/blob/master/gif/lod.gif?raw=true" width="200" height="200" />
