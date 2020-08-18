@@ -90,9 +90,6 @@ int main(int argc, char **argv)
 	Game = new GameManager();
 	
 	//Register callbacks
-	glutDisplayFunc(Render);
-	glutIdleFunc(Update);
-
 	glutKeyboardFunc(KeyboardDOWN);
 	glutKeyboardUpFunc(KeyboardUP);
 
@@ -102,6 +99,9 @@ int main(int argc, char **argv)
 	glutMouseFunc(MouseClick);
 	glutMotionFunc(MouseMove);
 	glutPassiveMotionFunc(MousePassiveMove);
+
+	glutIdleFunc(Update);
+	glutDisplayFunc(Render);
 
 	// Not used so we can delete singletons
 	//glutCloseFunc(ShutDown);
