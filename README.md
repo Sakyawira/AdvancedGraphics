@@ -16,4 +16,6 @@ Features:
 Controls:
 1. Use WASD to move the character around.
 2. Click 'R' once to go into free moving camera mode. The red cube will now follow the camera.
-3. Click 'Space' to change polygon view mode. 
+3. Click 'Space' to change polygon view mode.
+
+## IMPORTANT: Please build the project in x86. Some of the libraries in this project won't work in x64.
