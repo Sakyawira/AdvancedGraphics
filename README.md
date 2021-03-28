@@ -1,4 +1,4 @@
-# Advance Graphic Technique in OpenGL and C++
+# Advanced Graphical Technique in OpenGL and C++
 
 ## Animated Model with Sync Movement.
 <img src="https://github.com/Sakyawira/AdvancedGraphics/blob/master/gif/animation.gif?raw=true" width="350" height="350" />
