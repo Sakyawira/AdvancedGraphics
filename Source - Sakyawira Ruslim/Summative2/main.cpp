@@ -8,7 +8,7 @@ void Update()
 	audio.Update();
 
 	// Process Game
-	Game->process_game(audio);
+	Game->Update(audio);
 	
 	// Process Input
 	input.process_input(Game, audio);
@@ -119,7 +119,7 @@ void Render()
 	
 	if (Game != nullptr)
 	{
-		Game->render();
+		Game->Render();
 	}
 
 	glutSwapBuffers();

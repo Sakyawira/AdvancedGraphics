@@ -24,7 +24,6 @@ class ShadowMap
 		GLuint depthMapTexture;
 		GLuint depthMapFBO; // global variable 
 		GLuint shadowMapProgram;
-
 		glm::mat4 lightViewMatrix = {};
 		glm::vec3 lightPosition = { -560.0f, 300.0f, -8.0f };
 };

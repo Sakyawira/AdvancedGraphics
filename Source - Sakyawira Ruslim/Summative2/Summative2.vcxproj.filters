@@ -55,13 +55,21 @@
     <ClCompile Include="TessModel.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Particle.cpp" />
-    <ClCompile Include="ParticleSystem.cpp" />
-    <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="ssAnimatedModel.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="ShadowMap.cpp" />
+    <ClCompile Include="Particle.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PerlinNoise.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ShadowMap.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">

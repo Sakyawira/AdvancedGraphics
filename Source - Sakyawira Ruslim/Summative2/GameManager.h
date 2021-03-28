@@ -50,39 +50,26 @@ public:
 	GameManager();
 	~GameManager();
 
-	void initialize();
-	
-	void process_game(Audio& audio);
-
-	void render();
-
-	bool is_started() const;
-
-	void start_game(bool _isStart);
-
-	CClock* get_clock() const;
-
-	GameObject* update_mouse_picking();
-
-	Camera camera;
-
-	void set_mouse_pos(glm::vec2 mousePos_);
-
-	void set_click(bool newState);
-
-	void cube_follow_terrain();
-
-	void all_mouse_pick(float delta_t);
-
+	void Initialise();
+	void Update(Audio& audio);
+	void Render();
+	bool IsStarted() const;
+	void StartGame(bool _isStart);
+	CClock* GetClock() const;
+	GameObject* UpdateMousePicking();
+	void SetMousePos(glm::vec2 mousePos_);
+	void SetClick(bool newState);
+	void CubeFollowTerrain();
+	void AllMousePick(float delta_t);
 	GameObject* stencilCube;
-
 	// Control polygon mode
 	bool m_b_wireframe = false;
-
 	// Skeletal Model
 	ssAnimatedModel* m_skModel;
+	Camera camera;
 	
 private:
+	float m_cube_previous_y = 0.0f;
 
 	// Particle  System
 	ParticleSystem* m_particles;
@@ -131,44 +118,38 @@ private:
 	GLfloat current_time_;
 	float frame_counts_ = 0;
 
-	Shader* m_sh_fogBox;
-	Shader* m_sh_lod_;
-	Shader* m_sh_fog_;
-	Shader* m_sh_phong_diffuse_;
-	Shader* m_sh_phong_specular_;
-	Shader* m_sh_phong_rim_;
-	Shader* m_sh_cube_map_;
-	Shader* m_sh_reflective_;
-	Shader* m_sh_geometry_;
-	Shader* m_sh_star_geo_;
-	Shader* m_sh_tess_shadow_;
-	Shader* m_sh_chromatical_;
-	Shader* m_sh_particles_;
-	Shader* m_sh_compute_;
-	Shader* m_sh_skeletal_;
-	Shader* m_sh_shadow_;
-	Shader* m_sh_animated_shadow_;
+	Shader* fogBox;
+	Shader* lod;
+	Shader* fog;
+	Shader* phongDiffuse;
+	Shader* phongSpecular;
+	Shader* phongRim;
+	Shader* cubeMap;
+	Shader* reflective;
+	Shader* geometry;
+	Shader* tessShadow;
+	Shader* particles;
+	Shader* compute;
+	Shader* skeletal;
+	Shader* shadow;
+	Shader* animatedShadow;
+	Shader* chromatical;
 
 	FrameBuffer* m_frameBuffer;
 	ShadowMap* m_shadowMap;
 
-	Texture* m_tr_down;
-	Texture* m_tr_plain;
-	Texture* m_tr_up;
-	Texture* m_tr_water;
-	Texture* m_tr_grass;
-	CubeMap* m_tr_cube_map;
+	Texture* down;
+	Texture* plain;
+	Texture* up;
+	Texture* water;
+	Texture* grass;
+	CubeMap* cube_map;
 
-	Mesh* m_mesh_animate;
-	Mesh* m_mesh_frameBuffer;
-	Mesh* m_mesh_scroll;
-	Mesh* m_mesh_player;
-	Mesh* m_mesh_static;
-	Mesh* m_mesh_pyramid;
-	Mesh* m_mesh_cube;
-	Mesh* m_mesh_cube_map;
-	Sphere* m_mesh_sphere;
-	Terrain* m_mesh_terrain;
+	Mesh* animateMesh;
+	Mesh* frameBufferMesh;
+	Mesh* cubeMesh;
+	Mesh* cubeMapMesh;
+	Terrain* terrainMesh;
 
 	Model* m_mdl_tank;
 	Model* m_mdl_cat;
@@ -178,18 +159,13 @@ private:
 	TessModel* lod_tessModel;
 
 	GameObject* tank;
-
 	GameObject* m_coin;
-
 	GameObject* button_down;
 	GameObject* button_up;
 	GameObject* sphere;
 	GameObject* sky_box;
-
 	GameObject* stencilCube2;
-
 	GameObject* transparentCube;
-
 	GameObject* terrain;
 	
 	// Vectors
@@ -209,24 +185,6 @@ private:
 		 1.0f, -1.0f, 0.0f,		0.0f, 1.0f, 0.0f,	1.0f, 1.0f,			// Bottom-Right
 	};
 
-	std::vector<GLfloat> player_animation_vertices =
-	{
-		// Position				// Color			// Texture Coords
-		-0.5f,  0.5f, 0.0f,		0.0f, 1.0f,	1.0f,	0.0f, 0.001f,		// Top-Left
-		 0.5f,  0.5f, 0.0f,		0.0f, 0.0f,	1.0f,	0.125f, 0.001f,		// Top-Right
-		-0.5f, -0.5f, 0.0f,		1.0f, 0.0f, 0.0f,	0.0f, 0.2f,			// Bottom-Left
-		 0.5f, -0.5f, 0.0f,		0.0f, 1.0f, 0.0f,	0.125f, 0.2f,		// Bottom-Right
-	};
-
-	std::vector<GLfloat> enemy2_vertices =
-	{
-		// Position				// Color			// Texture Coords
-		-0.5f,  0.5f, 0.0f,		0.0f, 1.0f,	1.0f,	0.0f, 0.2f,			// Top-Left
-		 0.5f,  0.5f, 0.0f,		0.0f, 0.0f,	1.0f,	0.125f, 0.2f,		// Top-Right
-		-0.5f, -0.5f, 0.0f,		1.0f, 0.0f, 0.0f,	0.0f, 0.4f,			// Bottom-Left
-		 0.5f, -0.5f, 0.0f,		0.0f, 1.0f, 0.0f,	0.125f, 0.4f,		// Bottom-Right
-	};
-
 	// Animation has 4 textures in one image
 	std::vector<GLfloat> animation_vertices =
 	{
@@ -235,44 +193,6 @@ private:
 		 0.5f,  0.5f, 0.0f,		0.0f, 0.0f,	1.0f,	0.125f, 0.4f,		// Top-Right
 		-0.5f, -0.5f, 0.0f,		1.0f, 0.0f, 0.0f,	0.0f, 0.6f,			// Bottom-Left
 		 0.5f, -0.5f, 0.0f,		0.0f, 1.0f, 0.0f,	0.125f, 0.6f,		// Bottom-Right
-	};
-
-	std::vector<GLfloat> water_scrolling_vertices =
-	{
-		// Position				// Color			// Texture Coords
-		-0.5f,  0.5f, 0.0f,		0.0f, 1.0f,	1.0f,	0.0f, 0.4f,			// Top-Left
-		 0.5f,  0.5f, 0.0f,		0.0f, 0.0f,	1.0f,	1.0f, 0.4f,			// Top-Right
-		-0.5f, -0.5f, 0.0f,		1.0f, 0.0f, 0.0f,	0.0f, 0.6f,			// Bottom-Left
-		 0.5f, -0.5f, 0.0f,		0.0f, 1.0f, 0.0f,	1.0f, 0.6f,			// Bottom-Right
-	};
-
-	// Pyramid
-	std::vector<GLfloat> pyramid_vertices =
-	{
-		// Position				// Color			// Texture Coords
-		-0.5f,  0.0f, -0.5f,	0.0f, 1.0f,	0.0f,	0.0f, 1.0f,			// Top-Left
-		-0.5f,  0.0f,  0.5f,	0.0f, 1.0f,	0.0f,	0.0f, 0.0f,			// Top-Right
-		 0.5f,  0.0f,  0.5f,	0.0f, 1.0f, 0.0f,	1.0f, 0.0f,			// Bottom-Left
-		 0.5f,  0.0f, -0.5f,	0.0f, 1.0f, 0.0f,	1.0f, 0.0f,			// Bottom-Right
-
-		 // Side 1
-		-0.5f, 0.0f, -0.5f,		0.0f, 1.0f, 0.0f,	1.0f, 1.0f,			// Middle-Top
-		 0.5f, 0.0f, -0.5f,		0.0f, 1.0f, 0.0f,	0.0f, 1.0f,
-
-		 // Side 2
-		 0.5f, 0.0f, -0.5f,		0.0f, 1.0f, 0.0f,	1.0f, 1.0f,
-		 0.5f, 0.0f,  0.5f,		0.0f, 1.0f, 0.0f,	0.0f, 1.0f,
-
-		 // Side 3
-		 0.5f, 0.0f,  0.5f,		0.0f, 1.0f, 0.0f,	1.0f, 1.0f,
-		-0.5f, 0.0f,  0.5f,		0.0f, 1.0f, 0.0f,	0.0f, 1.0f,
-
-		// Side 4
-		-0.5f, 0.0f,  0.5f,		0.0f, 1.0f, 0.0f,	1.0f, 1.0f,
-		-0.5f, 0.0f, -0.5f,		0.0f, 1.0f, 0.0f,	0.0f, 1.0f,
-
-		// Top
-		0.0f, 0.5f,  0.0f,		0.0f, 1.0f, 1.0f,	0.5f, 0.0f,
 	};
 
 	// Cube Vertices
@@ -376,34 +296,10 @@ private:
 		7, 5, 4,
 	};
 
-	// Pyramid Indices
-	std::vector<GLuint> pyramid_indices =
-	{
-		1, 0, 3,	// Base Triangle 1
-		1, 3, 2,	// Base Triangle 2
-		
-		4, 12, 5,	// Side 1
-		6, 12, 7,	// Side 2
-
-		8, 12, 9,	// Side 3
-		10, 12, 11,	// Side 4
-	};
-	
-	// indices reuses the four unique values to create shapes
-	std::vector<GLuint> indicesVector =
-	{
-		0, 4, 3,
-		0, 1, 2, // First Triangle
-		2, 3, 0, // Second Triangle
-		1, 5, 2,
-	};
-
 	std::vector<GLuint> animation_indices =
 	{
 		1, 2, 3, // First Triangle
 		1, 0, 2, // Second Triangle
 	};
-
-	float m_cube_previous_y = 0.0f;
 };
 

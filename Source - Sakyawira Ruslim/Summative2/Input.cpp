@@ -28,53 +28,53 @@ void Input::process_input(GameManager* Game, Audio& audio)
 
 	if (key_state_['w'] == INPUT_DOWN)
 	{
-		if (!Game->is_started())
+		if (!Game->IsStarted())
 		{
 			//Game->stencilCube->Move(MOVE_FRONT, 12.0f * Game->get_clock()->GetDeltaTick());
-			Game->m_skModel->position.z += 12.0f * Game->get_clock()->GetDeltaTick();
+			Game->m_skModel->position.z += 12.0f * Game->GetClock()->GetDeltaTick();
 		}
 		else
 		{
-			Game->camera.move_pos_z(15.0f, Game->get_clock()->GetDeltaTick());
+			Game->camera.move_pos_z(15.0f, Game->GetClock()->GetDeltaTick());
 		}
 		//Game->m_skModel->setRun();
 	}
 	if (key_state_['s'] == INPUT_DOWN)
 	{
-		if (!Game->is_started())
+		if (!Game->IsStarted())
 		{
 			//Game->stencilCube->Move(MOVE_BACK, 12.0f * Game->get_clock()->GetDeltaTick());
-			Game->m_skModel->position.z -= 12.0f * Game->get_clock()->GetDeltaTick();
+			Game->m_skModel->position.z -= 12.0f * Game->GetClock()->GetDeltaTick();
 		}
 		else
 		{
-			Game->camera.move_pos_z(-15.0f, Game->get_clock()->GetDeltaTick());
+			Game->camera.move_pos_z(-15.0f, Game->GetClock()->GetDeltaTick());
 		}
 		//Game->m_skModel->setRun();
 	}
 	if (key_state_['d'] == INPUT_DOWN)
 	{
-		if (!Game->is_started())
+		if (!Game->IsStarted())
 		{
 			//Game->stencilCube->Move(MOVE_RIGHT, 12.0f * Game->get_clock()->GetDeltaTick());
-			Game->m_skModel->position.x -= 12.0f * Game->get_clock()->GetDeltaTick();
+			Game->m_skModel->position.x -= 12.0f * Game->GetClock()->GetDeltaTick();
 		}
 		else
 		{
-			Game->camera.move_pos_x(-15.0f, Game->get_clock()->GetDeltaTick());
+			Game->camera.move_pos_x(-15.0f, Game->GetClock()->GetDeltaTick());
 		}
 		//Game->m_skModel->setRun();
 	}
 	if (key_state_['a'] == INPUT_DOWN)
 	{
-		if (!Game->is_started())
+		if (!Game->IsStarted())
 		{
 			//Game->stencilCube->Move(MOVE_LEFT, 12.0f * Game->get_clock()->GetDeltaTick());
-			Game->m_skModel->position.x += 12.0f * Game->get_clock()->GetDeltaTick();
+			Game->m_skModel->position.x += 12.0f * Game->GetClock()->GetDeltaTick();
 		}
 		else
 		{
-			Game->camera.move_pos_x(15.0f, Game->get_clock()->GetDeltaTick());
+			Game->camera.move_pos_x(15.0f, Game->GetClock()->GetDeltaTick());
 		}
 		//Game->m_skModel->setRun();
 	}
@@ -84,15 +84,15 @@ void Input::process_input(GameManager* Game, Audio& audio)
 	}
 	if (key_state_['r'] == INPUT_DOWN_FIRST)
 	{
-		if (!Game->is_started() /*&& !Game->IsEnded()*/)
+		if (!Game->IsStarted() /*&& !Game->IsEnded()*/)
 		{
-			Game->start_game(true);
+			Game->StartGame(true);
 		}
 		else
 		{
 			// Start working on initializing the game on restart instead of making a new one
-			Game->start_game(false);
-			Game->initialize();
+			Game->StartGame(false);
+			Game->Initialise();
 		}
 		key_state_['r'] = INPUT_DOWN;
 	}
@@ -131,11 +131,11 @@ void Input::process_input(GameManager* Game, Audio& audio)
 	//}
 	if (mouse_state_[0] == INPUT_DOWN)
 	{
-		Game->set_click(true);
+		Game->SetClick(true);
 	}
 	else
 	{
-		Game->set_click(false);
+		Game->SetClick(false);
 	}
 	
 }
@@ -156,7 +156,7 @@ void Input::mouse_passive_move(int x, int y, GameManager * Game)
 	/*For Mouse Picking*/
 	const float currentMX = (2.0f * x) / static_cast<float>(800) - 1.0f;
 	const float currentMY = 1.0f - (2.0f * y) / static_cast<float>(800);
-	Game->set_mouse_pos(glm::vec2(currentMX, currentMY));
+	Game->SetMousePos(glm::vec2(currentMX, currentMY));
 
 	/*For Free Moving Camera*/
 	//Convert current screen width and height mouse co-ords to 
@@ -166,7 +166,7 @@ void Input::mouse_passive_move(int x, int y, GameManager * Game)
 	//Invert y axis
 	y *= -1;
 
-	if (Game->is_started())
+	if (Game->IsStarted())
 	{
 		Game->camera.update_look_dir(x, y);
 	}
@@ -177,7 +177,7 @@ void Input::mouse_move(int x, int y, GameManager * Game)
 	/*For Mouse Picking*/
 	const float currentMX = (2.0f * x) / static_cast<float>(800) - 1.0f;
 	const float currentMY = 1.0f - (2.0f * y) / static_cast<float>(800);
-	Game->set_mouse_pos(glm::vec2(currentMX, currentMY));
+	Game->SetMousePos(glm::vec2(currentMX, currentMY));
 
 	/*For Free Moving Camera*/
 	//Convert current screen width and height mouse co-ords to 
@@ -187,7 +187,7 @@ void Input::mouse_move(int x, int y, GameManager * Game)
 	//Invert y axis
 	y *= -1;
 
-	if (Game->is_started())
+	if (Game->IsStarted())
 	{
 		Game->camera.update_look_dir(x, y);
 	}
